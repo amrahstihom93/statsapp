@@ -101,52 +101,41 @@ def calculateAnalytics(request):
 		g = collection.find({selecteddatacol:{"$exists": True}})
 		c = collection.find({selectedgroup: {"$exists": True}})
 
-		for doc in g and doc in c:
+		'''for doc in g and doc in c:
 			print("Printing DOC")
-			print(doc in g and doc in c)
-		print(list(g,c))
-		data = pd.DataFrame(list(collection.find({selecteddatacol: {"$exists": True}})))
+			print(doc in g and soc in c)'''
+		#print(list(g,c))
+		data_c = pd.DataFrame(list(collection.find({selecteddatacol: {"$exists": True}})))
+		data_g = pd.DataFrame(list(collection.find({selectedgroup: {"$exists": True}})))
 		
-		print(data)
-		print("########", type(data))
-		oo = list(data.loc[:,'selectedgroup','selecteddatacol'])
+		print(data_g)
+		print("########", type(data_g))
+		print(data_c)
+		print("########", type(data_c))
+		og = list(data_g.loc[:,selectedgroup])
+		oc = list(data_c.loc[:,selecteddatacol])
 		#print('####selectedgroup', dg)
 		#print('Project',type(dg))
-		xx = pd.DataFrame(oo)
-		print('xx datatype',type(xx))
+		xg = pd.DataFrame(og)
+		xc = pd.DataFrame(oc)
+		print('xg datatype',type(xg))
+		print('xc datatype',type(xc))
 		
-		#print('####selecteddatacol', dc)
-		#print('Project',type(dc))
-		#yy = pd.DataFrame(dc)
-		#print('yy datatype',type(yy))
-		#for doc in data:
-		#	print(doc)
-            #default_items.append(doc[y])
-		#print(data)
-		#print(type(data))
-		# s = data.loc['selectedfield']
-		# print(s)
-		csv = pd.DataFrame.to_csv(xx)
-		sd = pd.read_csv(StringIO(csv))
-		print('type of data1',type(sd))
-		ls = sd.describe()
+		csv_g = pd.DataFrame.to_csv(xg)
+		sd_g = pd.read_csv(StringIO(csv_g))
+		print('type of data1',type(sd_g))
+		ls_g = sd_g.describe()
+		
+		csv_c = pd.DataFrame.to_csv(xc)
+		sd_c = pd.read_csv(StringIO(csv_c))
+		print('type of data2',type(sd_c))
+		
+		ls_c = sd_c.describe()
 		# print('location',ls.loc[1])
-		print('The final result',type(ls))
-	#	plot = plt.hist(ls)
-		# plt.savefig('abs.png')
-	#	plt.show()
-		# plt.close()
-		# if request.POST['selectedmethod'] == 'median':
-		# 	med = sd.median()
-		# 	med1 = med.to_frame()
-		# 	#print('####### med1', med1.loc["0",:])
-		# 	print('#### new med1', med1.iloc[1][0])
-		# 	finalMedian = med1.iloc[1][0]
-		# 	#lmed1 = med1.to_json()
-		# 	print('calculated value of median',med)
-		# 	print('Median Type',type(med))
-		# 	print('Median value',med1)
-		# 	print('type of data frame',type(med1))
+		
+		print('The final result group',type(ls_g))
+		print('The final result datacol',type(ls_c))
+	
 		if request.POST['selectedmethod'] == 'mode':
 			mod = sd.mode()
 			print('Mode Value', mod)
@@ -203,18 +192,7 @@ def calculateAnalytics(request):
 			describeDict['max'] = ls.loc["max","0"]
 			responseData['summary']=  describeDicts
 			
-		if request.POST['selectedmethod'] == 'mode':
-			responseData['summary'] = lmod1
-		# print('response', responseData)
-		# print('##EEE',ls.loc[:,"0"])
-		# print('ls json', ls.loc[:,"0"].to_json())
-		# print(type(ls))
-		# #print(type(data))
-		# responseData = {
-  #          	'summary':result,
-		# 	'fieldData':csv,
-		# 	'selectedfield': request.POST['selectedfield']
-  #       }
+		
 		return JsonResponse(responseData)
 	
 	
