@@ -136,25 +136,14 @@ def calculateAnalytics(request):
 		print('The final result group',type(ls_g))
 		print('The final result datacol',type(ls_c))
 	
-		if request.POST['selectedmethod'] == 'mode':
-			mod = sd.mode()
-			print('Mode Value', mod)
-			mod1 = mod.to_frame()
-			# print('##### new mode',mod1)
-			lmod1 = mod1.to_json()
-
-		# mod = sd.mode(
-		# print(mod)
-		# print(ls)
-		# print(med)
-		# print('Meidan',type(med))
 		responseData = {
            	'summary':result,
-			'fieldData':oo,
+			'fieldData':og,
 			'selectedfield': request.POST['selectedfield']
         }
 		#l = pd.DataFrame.to_csv(ls)
-		l = pd.DataFrame.to_json(ls)
+		lg = pd.DataFrame.to_json(ls_g)
+		lc = pd.DataFrame.to_json(ls_c)
 		#print("###only median",med)
 		#print(ls.loc["mean","0"])
 		#responseData['summary'] = 100
@@ -173,7 +162,7 @@ def calculateAnalytics(request):
 		}
 		print(request.POST['selectedfield'])
 		if request.POST['selectedmethod'] == 'anova':
-			med = sd.median()
+			'''med = sd.median()
 			med1 = med.to_frame()
 			ske = sd.skew()
 			ske1 = ske.to_frame()
@@ -189,7 +178,9 @@ def calculateAnalytics(request):
 			describeDict['25'] = ls.loc["25%","0"]
 			describeDict['50'] = ls.loc["50%","0"]
 			describeDict['75'] = ls.loc["75%","0"]
-			describeDict['max'] = ls.loc["max","0"]
+			describeDict['max'] = ls.loc["max","0"]'''
+			grps = pd.unique(data_g.values)
+			d_data= {grp:}
 			responseData['summary']=  describeDicts
 			
 		
