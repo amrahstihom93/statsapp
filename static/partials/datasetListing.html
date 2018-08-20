@@ -1,0 +1,50 @@
+<div class="container">
+<div ng-hide="(viewClicked||editClicked)">
+<nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page">Dataset List</li>
+  </ol>
+</nav>
+
+  <table id="datasetList" class="table table-bordered table-striped my-4">
+    <thead>
+      <tr ng-hide="true">
+        <th>Dataset</th>
+		<!--<th>Created By</th>-->
+        <th>View</th>
+        <th>Edit</th>
+		<th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in datasetArr">
+        <td>[[x.dataset_name]]</td>
+		<!--<td>[[x.user_id]]</td>-->
+        <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a></td>
+        <td><a href="" class="btn btn-info"  ng-disabled="true">Edit</a></td>
+		<td><a href="" class="btn btn-danger" ng-click="delDataset(x.dataset_name)">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="viewModalLabel">Uploaded Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="viewModalBody">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <div id="datasetView">
+  </div>
+ </div>
+ </div>

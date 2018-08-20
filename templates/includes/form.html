@@ -1,0 +1,146 @@
+{% load form_tags widget_tweaks %}
+{% load static %}
+
+
+<script type="text/javascript" src="{% static 'js/SignupPage.js' %}"></script>
+
+{% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {% for error in form.non_field_errors %}
+            <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% for field in form %}
+    <div class="form-group">
+        {% if 'Firm:' in field.label_tag %}
+            {% for radio in form.firm %}
+                <label class="radio-inline" for= {{radio.id_for_label}} >
+                    {{ radio.choice_label }}
+                    <span class="radio">{{ radio.tag }}</span>
+                </label>
+            {% endfor %}
+
+        {% elif 'Company:' in field.label_tag %}
+            <div id="company_radio" style="display:none">
+                {% for radio in form.company %}
+                    <label class="radio-inline" for = {{ radio.id_for_label }}  >
+                        {#                        {{ radio.id_for_label }}#}
+                        {{ radio.choice_label }}
+                        <span class="radio">{{ radio.tag }}</span>
+                    </label>
+                {% endfor %}
+                       {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">
+                        {{ field.help_text|safe }}
+                    </small>
+
+                {% endif %}
+            </div>
+
+        {% elif 'Company name:' in field.label_tag %}
+            <div id="company_name" style="display:none">
+                <label  id="company_name_label" ></label>
+                {% render_field field class=field|input_class %}
+                {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">
+                        {{ field.help_text|safe }}
+                    </small>
+
+                {% endif %}
+            </div>
+            {#        {% elif 'Company code:' in field.label_tag %}#}
+            {#            <div id="company_code" style="display:none">#}
+            {#                {{ field.label_tag }}#}
+            {#                {% render_field field class=field|input_class %}#}
+            {#                <div class="invalid-feedback">#}
+            {#                    {{ error }}#}
+            {#                </div>#}
+            {#                {% if field.help_text %}#}
+            {#                    <small class="form-text text-muted">#}
+            {#                        {{ field.help_text|safe }}#}
+            {#                    </small>#}
+            {##}
+            {#                {% endif %}#}
+            {#            </div>#}
+
+        {% else %}
+            {{ field.label_tag }}
+            {% render_field field class=field|input_class %}
+
+            {% for error in field.errors %}
+                <div class="invalid-feedback">
+                    {{ error }}
+                </div>
+            {% endfor %}
+            {% if field.help_text %}
+                <small class="form-text text-muted">
+                    {{ field.help_text|safe }}
+                </small>
+            {% endif %}
+            </div>
+        {% endif %}
+    {#    {% if 'Company:' in field.label_tag %}#}
+    {#        <div id="IsCompany" style="display:none">#}
+    {#            <label class="radio-inline">#}
+    {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="newcompany"  value="newcompany" />    New Company#}
+    {#            </label>#}
+    {#            <label class="radio-inline">#}
+    {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="oldcompany" value="oldcompany" />    Existing Company#}
+    {#            </label>#}
+    {#            <br>#}
+    {#        </div>#}
+    {#    {% endif %}#}
+
+    {% if 'Phone number:' in field.label_tag %}
+        {##}
+        {#            <div class="form-group">#}
+        {#                <label class="radio-inline">#}
+        {#                    <input type="radio" onclick="FirmType()" name="firm" id="company"  value="company" required/>  Company#}
+        {#                </label>#}
+        {#                <label class="radio-inline">#}
+        {#                    <input type="radio" onclick="FirmType()" name="firm" id="individual" value="individual" required/>   Individual#}
+        {#                </label>#}
+        {#            </div>#}
+
+        {#        <div id="IsCompany" style="display:none">#}
+        {#            <label class="radio-inline">#}
+        {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="newcompany"  value="newcompany" />    New Company#}
+        {#            </label>#}
+        {#            <label class="radio-inline">#}
+        {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="oldcompany" value="oldcompany" />    Existing Company#}
+        {#            </label>#}
+        {#            <br>#}
+        {#        </div>#}
+        {#            <div id="CompanyInput" style="display:none">#}
+        {#                <label  id="company_name_label"></label>#}
+        {#                <input type='text' id='company_name' name='CompanyName' style="display:none" >#}
+        {#                <input type='text' id='company_code' name='CompanyCode' style="display:none" >#}
+        {#            </div>#}
+    {% endif %}
+{% endfor %}
+{% block additional_script %}
+    <script>
+        console.log(" hey from additional script",document.getElementById('newcompany').checked);
+
+        if (document.getElementsByName('firm').checked) {
+            document.getElementById('IsCompany').style.display = 'inline-block';
+            console.log(" hey from additional script inside 1");
+            if (document.getElementsByName('companytype').checked) {
+                document.getElementById('CompanyInput').style.display = 'inline-block';
+                console.log(" hey from additional script inside 2");
+            }
+        }
+    </script>
+{% endblock %}

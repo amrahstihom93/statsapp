@@ -1,0 +1,55 @@
+.navbar-brand {
+	font-weight:600;
+}
+.mt-2em{
+	margin-top: 2em !important;
+}
+.mt-4em{
+	margin-top: 4em !important;
+}
+.mt-6em{
+	margin-top: 6em !important;
+}
+.mt-8em{
+	margin-top: 8em !important;
+}
+.preview-grid{
+	max-height:450px;
+	overflow-x:auto;
+	overflow-y:auto;
+}
+.pull-right{
+	float: right !important;
+}
+.pull-left{
+	float: left !important;
+}
+.head-color{
+	background-color:#A3C1AD;
+}
+.onePerLMargin{
+	margin-left:1%;
+}
+.none {
+  cursor: not-allowed;
+}
+.preview-table{
+	max-width:450px;
+}
+#drop{
+	border:2px dashed #bbb;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding:25px;
+	text-align:center;
+	font:20pt bold,"Vollkorn";color:#bbb
+}
+.pointer {
+	cursor: pointer;
+	color: rgb(0, 119, 179) !important;
+}
+
+#viewModalBody{
+	overflow-x:scroll;
+}

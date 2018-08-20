@@ -1,0 +1,48 @@
+<div class="container">
+<div ng-hide="isFileUploaded">
+	<form id="upForm" name="uploadForm" class="my-4 form-inline" method="post" >
+		Dataset Name:
+		<input type="text"  ng-model="datasetName" name="datasetName" class="form-control onePerLMargin" required /><br>
+
+		<input type="file" id="files"  name="myfile" class="form-control my-4 onePerLMargin" accept="all" required />
+	<!--	<button type="submit" id="submit-file" class="btn btn-primary onePerLMargin" ng-click="submit()">Upload File</button>
+-->		<button id="1stStepUpload" class="btn btn-success pull-right my-4" ng-click="submit()">Upload</button>
+
+</form>
+	<div id="drop">Drop a spreadsheet file here to see sheet data</div>
+</div>
+<div ng-hide="true">
+Use Web Workers: (when available) <input type="checkbox" name="useworker">
+Use readAsBinaryString: (when available) <input type="checkbox" name="userabs">
+</div>
+	<div class="col-md-12 preview-grid my-4" ng-hide="isFileUploaded">
+		<div class="row" id="parsed_csv_list">
+		</div>
+	</div>
+	
+	<div class="col-md-12 preview-grid my-4" ng-hide="!isFileUploaded||datasetSaved">
+		<h3 class='my-4 text-center'>Change Default Column Header datatype(if required):</h3>
+		<div class="col-md-12" id="changeDataTypeDiv">
+			
+		</div>
+<!--<h1>Welcome</h1>
+<p>Welcome to my home.</p>
+	-->	
+		
+	</div>
+	
+	<button id="2ndStepUpload" class="btn btn-success pull-right my-4" ng-hide="!isFileUploaded||datasetSaved" ng-click="submitHeaderType()">submit</button>
+	
+	<div class="card text-center mt-2em smokeBackground" ng-show="datasetSaved">
+	<div class="card-header text-success">
+		Dataset Saved !!!!
+	</div>
+  <div class="card-body">
+    <p class="card-text">Dataset Saved Successfully.</p>
+	<p class="card-text">Go to visualization tab to make visualization from that dataset.</p>
+	
+    
+  </div>
+	</div>
+
+</div>

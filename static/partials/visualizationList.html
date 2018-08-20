@@ -1,0 +1,116 @@
+<div class="container">
+<div ng-hide="">
+<nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page">Visualization List</li>
+  </ol>
+</nav>
+
+  <table id="visualizationList" class="table table-bordered table-striped my-4">
+    <thead>
+      <tr ng-hide="true">
+        <th>Visualization</th>
+		<!--<th>Created By</th>-->
+        <th>View</th>
+		<th>Edit</th>
+		<th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in visualizationArr">
+        <td>[[x.visualization_name]]</td>
+		<!--<td>[[x.user_id]]</td>-->
+        <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewVisualization(x)">View</a></td>
+		<td><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editVisualization(x)">Edit</a></td>
+		<td><a href="" class="btn btn-danger" ng-click="delVisualization(x.id)">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="viewModalLabel">Visualization</h5>
+
+
+
+           <div class="btn-group">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Export
+    </button>
+    <div class="dropdown-menu">
+      <button class="dropdown-item" id="create_pdf">Export as PDF</button>
+      <button class="dropdown-item" ng-click="createIm()">Export as Image</button>
+    </div>
+  </div>
+</div>
+      </div>
+      <div class="modal-body specific" id="viewModalBody">
+	  
+	  	<div class="my-4">
+			<canvas id="chartView" width="500" height="250"></canvas>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="editor"></div>
+
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="viewModalLabel">Visualization</h5>
+        <button type="button" class="close" data-dismiss="modal" ng-click="refreshList()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="viewModalBody">
+		<div class="row">
+	<div class="col-md-4">
+	<label class="my-4" for="visuaName">Visualization Name</label>
+	<input type="text" ng-model="visualName" class="form-control onePerLMargin" id="visualizationName" placeholder="Enter Visualization Name">
+
+	<h4 class="my-4">Select fields from drop to make visualization:</h4>
+	<div class="col-md-12">
+	Select X-axis :
+			<select id="x_val" name="x_axis_value" class="custom-select btn-info">
+				<option selected>Select field</option>
+				<option ng-repeat="k in parametersArr" value="[[k]]">[[k]]</option>
+			</select>
+	</div>
+	<div class="col-md-12 my-4">
+	Select Y-axis :
+			<select id="y_val" name="y_axis_value" class="custom-select btn-info">
+				<option selected>Select field</option>
+				<option ng-repeat="k in parametersArr" value="[[k]]">[[k]]</option>
+			</select>
+	</div>
+        [[x.visualization_name]]
+	<button type="submit" class="btn btn-info" ng-click="createGraph()">Create Graph</button>
+	<button class="btn btn-primary" ng-click="updateVisualization()">Update</button>
+	</div>
+	<div class="col-md-8">
+	<div class="my-4">
+		<canvas id="chartEdit" width="200" height="150"></canvas>
+	</div>
+	</div>
+
+	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="refreshList()" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  
+  <div id="datasetView">
+  </div>
+ </div>
+ </div>

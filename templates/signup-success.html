@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card text-center mt-2em smokeBackground">
+	<div class="card-header text-success">
+		Account Creation Message !!!!
+	</div>
+  <div class="card-body">
+    <p class="card-text">{{ success_msg }}</p>
+	{% if success_msg %}
+    <a href="{% url 'login' %}" class="btn btn-primary">Click to Login</a>
+	{% endif %}
+  </div>
+</div>
+{% endblock %}

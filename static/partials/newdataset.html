@@ -1,0 +1,125 @@
+<div ng-hide="datasetSaved">
+    <nav class="breadcrumb my-4">
+        <span class="breadcrumb-item active">Dataset</span>
+    </nav>
+    <div class="row">
+        <div class="col">
+            <p> Want to create new dataset ? </p>
+            Select File Type
+
+            <select required ng-model="fileType" class="custom-select btn btn-primary">
+                <option value="csv">.CSV</option>
+                <option value="xls">.XLS</option>
+                <option value="mysql">MySQL DB</option>
+            </select>
+            <a href="" ng-click="submitFileType()" class="btn btn-primary">Submit</a>
+        </div>
+
+    </div>
+    <hr/>
+</div>
+
+<!-- my SQL popup -->
+<div class="modal fade" id="mysqlPopup" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">My SQL connector</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="my-4">
+                    <p>DB URL: <input type="text" value="127.0.0.1" name="dbUrl" ng-model="dbUrl" class="form-control onePerLMargin" required></p>
+                    <p>User Name: <input type="text" value="root" name="userName" ng-model="userName" class="form-control onePerLMargin" required></p>
+                    <p>Password: <input type="password" name="password" ng-model="password" class="form-control onePerLMargin"></p>
+                    <p>Port: <input type="text" name="port" value="3306" ng-model="port" class="form-control onePerLMargin" required></p>
+                    <p>Database Name: <input type="text" value="test" name="dbName" ng-model="dbName" class="form-control onePerLMargin" required></p>
+                    <p>Table Name: <input type="text" value="book1" name="tbName" ng-model="tbName" class="form-control onePerLMargin" required></p>
+                    <input type="submit" value="Submit" class="btn btn-primary" ng-click="submitsqlconnection()">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- uploadManually.html-->
+
+<div class="container" ng-show="fileSelected">
+    <div>
+        <div class="row">
+            <div class="col-md-4 col-6">
+                <p>Select Process to be associated with dataset</p>
+                Select Process:
+                <select required ng-model="selectedProcess" class="custom-select btn btn-primary">
+                    <!--	<option value="PIDroot00000000000000">root</option>-->
+                    <option ng-repeat="x in processList" value="[[x.process_id]]">
+                        [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
+                    </option>
+                </select>
+            </div>
+        </div>
+        <form id="upForm" name="uploadForm" class="my-4 form-inline" method="post">
+            Dataset Name:
+            <input type="text" ng-model="datasetName" name="datasetName" class="form-control onePerLMargin"
+                   required/><br>
+
+           <input ng-hide="fileType==='mysql'" type="file" id="files" name="myfile" class="form-control my-4 onePerLMargin"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            required />
+            <!--	<button type="submit" id="submit-file" class="btn btn-primary onePerLMargin" ng-click="submit()">Upload File</button>
+        -->
+
+            <button id="2ndStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="isFileUploaded"
+                    ng-click="submitHeaderType()">submit
+            </button>
+            <button id="1stStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="!isFileUploaded"
+                    ng-click="submit()">Upload
+            </button>
+        </form>
+
+        <div id="drop">Drop a spreadsheet file here to see sheet data</div>
+
+    </div>
+    <div ng-hide="true">
+        Use Web Workers: (when available) <input type="checkbox" name="useworker">
+        Use readAsBinaryString: (when available) <input type="checkbox" name="userabs">
+    </div>
+    <div class="col-md-12 preview-grid my-4" ng-hide="isFileUploaded">
+        <div class="row" id="parsed_csv_list">
+        </div>
+    </div>
+
+    <div class="col-md-12 preview-grid my-4" ng-hide="!isFileUploaded||datasetSaved">
+        <h3 class='my-4 text-center'>Change Default Column Header datatype(if required):</h3>
+        <div class="col-md-12" id="changeDataTypeDiv">
+
+        </div>
+        <!--<h1>Welcome</h1>
+        <p>Welcome to my home.</p>
+            -->
+
+    </div>
+
+
+</div>
+
+<div class="card text-center mt-2em smokeBackground" ng-show="datasetSaved">
+    <div class="card-header text-success">
+        Dataset Saved !!!!
+    </div>
+    <div class="card-body">
+        <p class="card-text">Dataset Saved Successfully.</p>
+        <p class="card-text">Go to visualization tab to make visualization from that dataset or Create new dataset by
+            clicking below.</p>
+        <a href="#/createVisual" class="btn btn-primary">Visualization</a>
+        <a href="" class="btn btn-success" ng-click="newDataset()">New Dataset</a>
+
+    </div>
+</div>

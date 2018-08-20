@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<nav class="breadcrumb my-4">
+ <span class="breadcrumb-item active">Upload File</span>
+</nav>
+  <form class="my-4 "method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+	<input type="text" name="filename" placeholder="Enter FileName"><br>
+    <input class="my-4" type="file" name="myfile">
+    <button type="submit">Upload</button>
+  </form>
+
+  {% if uploaded_file_url %}
+    <p>File uploaded at: <a id="uploaded_file" href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</p></a></p>
+  {% endif %}
+
+  <p><a href="/dataset/#createDataset">Return to workspace</a></p>
+{% endblock %}

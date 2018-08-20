@@ -1,0 +1,98 @@
+<div class="container">
+	<nav id="process_nav" class="breadcrumb my-4">
+		<span class="breadcrumb-item active pointer" id="PIDroot00000000000000" ng-click="rootProcess()">root</span>
+	</nav>
+	<h3 class="my-4">Parent Process : [[currentSelectedProcess]]</h3>
+	<h4 class="my-4">Create New Process</h4>
+	<div ng-hide="createSuccess">
+	<form id="createProcessForm" class="form-inline my-4" method="post">
+
+		<label class="" for="processname">Process Name</label>
+		<input type="text" ng-model="processName" class="form-control onePerLMargin" id="processname" placeholder="Enter Process Name">
+		<select required ng-model="parentProcessName" class="ml-5 custom-select btn btn-primary">
+		<option value="" disabled selected> Select Parent Process</option>
+	<!--	<option value="root">root</option>-->
+		<option ng-repeat="x in processAr" value="[[x.process_id]]">[[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]</option>
+	</select>
+		<button type="submit" ng-click="createProcess()" class="btn btn-primary onePerLMargin">Submit</button>
+
+	</form>
+	</div>
+	<div ng-show="createSuccess">
+		<div class="card text-center mt-2em smokeBackground">
+			<div class="card-header text-success">
+				Success !!!!
+			</div>
+		<div class="card-body">
+			<p class="card-text">Process Created Successfully</p>
+			<p>or</p>
+			<p>Create another process using below link.</p>
+
+			<button class="btn btn-primary" ng-click="createAnother()">Create Process</button>
+			<button class="btn btn-primary" ng-click="createAnother()">Close</button>
+		</div>
+		</div>
+	</div>
+<hr />
+<!--<a href="" ng-click="selProcess()">dgdfg</a>
+--></div>
+
+<div class="container">
+	<div class="" ng-show="onlyProcess">
+		<nav class="breadcrumb my-4">
+			<span class="breadcrumb-item active">Process List</span>
+		</nav>
+
+		<table id="" class="table table-bordered table-striped my-4">
+			<thead>
+				<tr ng-hide="true">
+					<th>Process</th>
+				<!--	<th>Created By</th>-->
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in pArr">
+					<td>[[x.process_name]]</a></td>
+				<!--	<td>[[x.user_id]]</td>-->
+					<td><a href="" class="btn btn-primary" ng-click="selProcess(x)">Select</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<div class="" ng-show="bothProcessDataset">
+		<nav class="breadcrumb my-4">
+			<span class="breadcrumb-item active">Dataset List</span>
+		</nav>
+		<table id="" class="table table-bordered table-striped my-4">
+			<thead>
+				<tr ng-hide="true">
+					<th>Dataset</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="d in dArr">
+					<td>[[d.dataset_name]]</a></td>
+				<!--	<td>[[d.user_id]]</td>-->
+					<td><a href="#/createDataset" class="btn btn-primary">Action</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<div class="" ng-show="emptyProcess">
+
+		<div class="card text-center mt-2em smokeBackground">
+			<div class="card-header text-success">
+				Empty !!!!
+			</div>
+		<div class="card-body">
+			<p class="card-text">Neither any process nor any dataset associated with this process.</p>
+			<p class="card-text">You can create new process inside in this process from above.</p>
+
+		</div>
+		</div>
+	</div>
+</div>

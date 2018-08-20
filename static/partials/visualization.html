@@ -1,0 +1,158 @@
+<div class="container">
+
+<div ng-show="(!showGraph)&&(!showGraphList)">
+<nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
+	<li class="breadcrumb-item" aria-current="page">Choose Dataset</li>
+  </ol>
+</nav>
+  <h3>Choose dataset to make visualization:</h3>
+  <table class="table table-bordered table-striped my-4">
+    <thead>
+      <tr>
+        <th>Dataset</th>
+	<!--	<th>Created By</th>-->
+        <th>Make Visualization</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in datasetArr">
+        <td>[[x.dataset_name]]</td>
+		<!--<td>[[x.user_id]]</td>-->
+        <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
+      </tr>
+    </tbody>
+  </table>
+ </div>
+ 
+ <!-- Graph Types List-->
+ 	<div class="container" ng-show="showGraphList">
+    <nav aria-label="breadcrumb" class="my-4">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
+			<li class="breadcrumb-item" aria-current="page">Choose Graph Type</li>
+		</ol>
+	</nav>
+	<h2 class="text-center">Choose Chart Type</h2>
+	<div class="card-deck mt-4em">
+      <div class="card">
+		<img class="card-img-top" src="../static/img/p1.png" alt="Image of Pie Chart">
+        <div class="card-body">
+          <h3 class="card-title">Pie Chart</h3>
+			<div class="card-content">
+			<p>Create Pie Chart.</p>
+			</div>
+            <button class="btn btn-primary" ng-click="setGraphType('pie')">Pie Chart</button>
+        </div>
+      </div>
+	  <div class="card">
+		<img class="card-img-top" src="../static/img/bar.png" alt="Image of Bar Chart">
+        <div class="card-body">
+          <h3 class="card-title">Bar Chart</h3>
+			<div class="card-content">
+			<p>Create Bar Chart.</p>
+			</div>
+			<button class="mx-auto btn btn-primary" ng-click="setGraphType('bar')">Bar Chart</button>
+		</div>
+      </div>
+	  <div class="card">
+		<img class="card-img-top" src="../static/img/area.png" alt="Image of Area Chart">
+        <div class="card-body">
+          <h3 class="card-title">Area Chart</h3>
+			<div class="card-content">
+			<p>Create Area chart.</p>
+			</div>
+			<button class="mx-auto btn btn-primary" ng-click="setGraphType('line')">Area Chart</button>
+        </div>
+      </div>
+	  
+	  
+	</div>
+	<!--<div class="card-deck mt-4em">
+		<div class="card">
+		<img class="card-img-top" src="../static/img/line.png" alt="Card image cap">
+        <div class="card-body">
+          <h3 class="card-title">Line Chart</h3>
+			<div class="card-content">
+			<p>Create Line chart.</p>
+			</div>
+			<a class="mx-auto btn btn-primary" href="">Line Chart</a>
+        </div>
+      </div>-->
+	</div>
+ 
+ 
+ 
+ 
+ <!-- Actual graph-->
+ <div ng-show="showGraph">
+	<nav aria-label="breadcrumb" class="my-4">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
+		<li class="breadcrumb-item" aria-current="page">Select Fields</li>
+	</ol>
+	</nav>
+	<div class="row">
+	<div class="col-md-4">
+	<h3>Dataset Name : [[selectedDataset]]</h3>
+	<label class="my-4" for="visuaName">Visualization Name</label>
+	<input type="text" ng-model="vName" class="form-control onePerLMargin" id="visuaName" placeholder="Enter Visualization Name">
+
+	<h4 class="my-4">Select fields from drop down to make visualization:</h4>
+	<div class="col-md-12">
+	Select X-axis :
+			<select id="x_value" name="x_axis_value" class="custom-select btn-info">
+				<option selected>Select field</option>
+				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+			</select>
+	</div>
+	<div class="col-md-12 my-4">
+	Select Y-axis :
+			<select id="y_value" name="y_axis_value" class="custom-select btn-info">
+				<option selected>Select field</option>
+				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+			</select>
+	</div>		
+	<button type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
+	<button class="btn btn-primary" ng-click="paramterSave()">Save</button>
+	</div>
+	<div class="col-md-8">
+	<div class="my-4 pull-left">
+		<canvas id="myChart2" width="500" height="400"></canvas>
+	</div>
+	</div>
+	
+	</div>
+	</div>
+   
+   <!--success modal-->
+   <div class="modal fade" id="successModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Success</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Visualization is saved successfully. 
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+	
+</div>
+ 
+
+ 
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>AngularJS Routes example</title>
+	<script src="{% static 'angular/angular1.2.5.js' %}"></script>
+	<script src="{% static 'angular/angular-route1.2.5.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</head>
+
+<body ng-app="statsApp">
+
+<a href="#/route1">Route 1</a><br/>
+<a href="#/route2">Route 2</a><br/>
+
+
+<div ng-view></div>
+{{STATIC_URL}}
+<script>
+var static_url = '{{STATIC_URL}}'
+</script>
+</body>
+</html>

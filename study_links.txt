@@ -1,0 +1,7 @@
+1. https://techtalkontv.wordpress.com/2015/08/26/django-and-angularjs-tutorial/
+2. http://onecreativeblog.com/post/59051248/django-login-required-middleware----- login authentication
+3. https://simpleisbetterthancomplex.com/packages/2016/08/11/django-import-export.html ---- import & export
+4. https://thinkster.io/django-angularjs-tutorial ---- angular & django
+5. https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure ---- angular style guide
+6. https://www.youtube.com/watch?v=B4Vmm3yZPgc&feature=youtu.be --- django + chartJS
+7. https://try.github.io/levels/1/challenges/1 ----- learning git

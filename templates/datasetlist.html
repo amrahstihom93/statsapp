@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dataset List - Sigma Statistics{% endblock %}
+	{% block stylesheet %}
+	    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js">
+	{% endblock %}
+	{% block breadcrumb %}
+		<h3>Dataset</h3>
+	{% endblock %}
+    {% block sidebar %}
+		    <div class="wrapper the-icons">    
+            <!-- Sidebar Holder -->
+			<nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Statistics App</h3>
+                </div>
+                <ul class="list-unstyled components">
+                    <p>Navigation</p>
+                    <li>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Dashboard</a>
+                        <ul class="collapse show list-unstyled" id="homeSubmenu">
+                            <li><a href="#/dashboard">Create Dashboard</a></li>
+                            <li><a href="#">Edit Dashboard</a></li>
+							<li><a href="#">Dashboard List</a></li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="#processSubmenu" data-toggle="collapse" aria-expanded="false">Process</a>
+                        <ul class="collapse show list-unstyled" id="processSubmenu">
+                            <li><a href="#/createProcess">Create New Process</a></li>
+                          <!--  <li><a href="#">Process List</a></li>-->
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#datasetSubmenu" data-toggle="collapse" aria-expanded="true">Dataset</a>
+                        <ul class="collapse show list-unstyled" id="datasetSubmenu">
+                            <li><a href="#/createDataset">Create Dataset</a></li>
+                            <li class=""><a href="#/datasetList">Dataset List</a></li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false">Visualization</a>
+                        <ul class="collapse show list-unstyled" id="visualizationSubmenu">
+                            <li><a href="#/createVisual">Create visualization</a></li>
+                        <!--    <li><a href="#">Edit visualization</a></li>-->
+							<li><a href="#/visualList">Visualization List</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#analysisSubmenu" data-toggle="collapse" aria-expanded="false">Analysis</a>
+                        <ul class="collapse show list-unstyled" id="analysisSubmenu">
+                            <li><a href="#/statistical">Statistical Summary</a></li>
+                            <li><a href="#/statisticalList">Statistical List</a></li>
+                            <li><a href="#/analytical">Analytical Summary</a></li>
+                            <li><a href="#/analyticalList">Analytical List</a></li>
+                        </ul>
+                    </li>
+				</ul>
+            </nav>
+    {% endblock %}
+	{% block content %}
+		
+		{% verbatim %}
+		<div ng-view>
+			<div id="content">
+			
+			
+			</div>
+        </div>
+	
+		{% endverbatim %}
+			
+        </div>
+
+
+	
+	{% endblock %}
+
+	{% block additional_script %}
+		<script>
+		var static_url = '{{STATIC_URL}}'
+		</script>
+		<script type="text/javascript">
+             $(document).ready(function () {
+                 $('#sidebarCollapse').on('click', function () {
+                     $('#sidebar').toggleClass('active');
+                 });
+             });
+        </script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/MrRio/jsPDF/master/dist/jspdf.min.js">
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js">
+    </script>
+    <script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
+	{% endblock %}

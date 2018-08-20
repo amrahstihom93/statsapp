@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<nav class="breadcrumb my-4">
+ <span class="breadcrumb-item active">Upload File</span>
+</nav>
+
+
+  {% if uploaded_file_url %}
+    <p>File uploaded at: <a id="uploaded_file" href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</p></a></p>
+  {% endif %}
+
+  <p><a href="/dataset/#createDataset">Return to workspace</a></p>
+  <form class="my-4 form-inline" method="post" action="/chart/{{ datasetname }}/">  
+  <p>Want to make visualization ? 
+  {% csrf_token %}
+  <a href="{% url 'chart' %}" class="btn btn-success">Click here</a>
+  <button type="submit" id="makeChart" class="btn btn-primary">Click Here</button>
+  </p>
+  </form>
+  
+  {{ fileData }}
+{% endblock %}
+{% block additional_script %}
+	<script type="text/javascript">
+		console.log("test csv");
+	//	console.log(uploaded_file_url);
+	</script>
+
+{% endblock %}
