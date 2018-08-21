@@ -112,6 +112,13 @@ def calculateAnalytics(request):
 		xx = pd.DataFrame(oc, og)
 		#print('xx datatype',type(xx))
 		print(xx)
+		
+		csv = pd.DataFrame.to_csv(xx)
+		print(csv)
+		sd = pd.read_csv(StringIO(csv))
+		print(sd)
+		k = len(pd.unique(sd.selectedgroup))
+		print(ls)
 		#sc = collection.find({selectedgroup: {"$exists": True}})
 		#print(ogl)
 		'''for doc in g and doc in c:
@@ -173,23 +180,7 @@ def calculateAnalytics(request):
 		}
 		print(request.POST['selectedgroup'])
 		if request.POST['selectedmethod'] == 'anova':
-			'''med = sd.median()
-			med1 = med.to_frame()
-			ske = sd.skew()
-			ske1 = ske.to_frame()
-			kurt = sd.kurtosis()
-			kurt1 = kurt.to_frame()
-			describeDict['count'] = ls.loc["count","0"]
-			describeDict['mean'] = ls.loc["mean","0"]
-			describeDict['std'] = ls.loc["std","0"]
-			describeDict['min'] = ls.loc["min","0"]
-			describeDict['median'] = med1.iloc[1][0]
-			describeDict['skewness'] = ske1.iloc[1][0]
-			describeDict['kurtosis'] = kurt1.iloc[1][0]
-			describeDict['25'] = ls.loc["25%","0"]
-			describeDict['50'] = ls.loc["50%","0"]
-			describeDict['75'] = ls.loc["75%","0"]
-			describeDict['max'] = ls.loc["max","0"]'''
+			#k=len(pd.unique(data))
 			#grps = pd.unique(data_g.values)
 			#d_data= {grp:}
 			responseData['summary']=  describeDict
