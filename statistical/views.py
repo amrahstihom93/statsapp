@@ -82,6 +82,7 @@ def calculateAnalytics(request):
 		print("In Post Method")
 		fieldsArr = []
 		print(fieldsArr)
+		selectedgroupname = request.POST['selectedgroup']
 		selectedgroup = request.POST['selectedgroup']
 		selecteddatacol = request.POST['selecteddatacol']		
 		print("Group = ",request.POST['selectedgroup'])
@@ -93,52 +94,32 @@ def calculateAnalytics(request):
 		client = MongoClient()
 		db = client.datasetDatadb
 		collection = db[request.POST['dataset_id']]
-		data = collection.find( { } )
-		#print(str(data))
-	#dataFromMongo = collection.find({y: {"$exists": True}})
-        #for doc in dataFromMongo:
-            #default_items.append(doc[y])
-		t = collection.find({selectedgroup: {"$exists": True}})
+		datav = collection.find( { } )
+		pd.set_option('display.max_columns', None)
 		datag = pd.DataFrame(list(collection.find({selectedgroup:{"$exists":True}})))
 		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
-		#print('Jasnoor',data)
-		#print("########", type(data))
+		
+		print(datag)
+		
+		
 		og = list(datag.loc[:,selectedgroup])
 		oc = list(datac.loc[:,selecteddatacol])
 		
-		#print(og)
-		#print(datag)
-		#print('Group',type(og))
-		xx = pd.DataFrame(oc, og)
+		xx = pd.DataFrame(og,oc)
 		#print('xx datatype',type(xx))
 		print(xx)
 		
 		csv = pd.DataFrame.to_csv(xx)
-		print(csv)
+		#print(csv)
 		sd = pd.read_csv(StringIO(csv))
-		print(sd)
-		k = len(pd.unique(sd.selectedgroup))
-		print(ls)
-		#sc = collection.find({selectedgroup: {"$exists": True}})
-		#print(ogl)
-		'''for doc in g and doc in c:
-			print("Printing DOC")
-			print(doc in g and soc in c)'''
-		#print(list(g,c))
-		#data_c = pd.DataFrame(list(data))
-		#data_g = pd.DataFrame(list(collection.find({selectedgroup: {"$exists": True}})))
-		#print(data_c)
-		#print(data_g)
-		#print("########", type(data_g))
-		#print(data_c)
-		#print("########", type(data_c))
-		#og = list(data_c.loc[:,selectedgroup])
-		#oc = list(data_c.loc[:,selecteddatacol])
-		#print('####selectedgroup', dg)
-		#print('Project',type(sc))
-		#xg = pd.DataFrame(sc)
-		#xc = pd.DataFrame(oc)
-		#print(xg)
+		#print(sd)
+		#print(selectedgroup)
+		c = xx.columns
+		print(c)
+		
+		#k = len(pd.unique(datag.selectedgroupname))
+		#print(ls)
+		
 		#csv_g = pd.DataFrame.to_csv(xg)
 		#sd_g = pd.read_csv(StringIO(csv_g))
 		#print('type of data1',type(sd_g))
@@ -157,7 +138,7 @@ def calculateAnalytics(request):
 		responseData = {
            	'summary':result,
 			'fieldData':og,
-			'selectedgroup': request.POST['selectedgroup']
+			#'selectedgroup': request.POST['selectedgroup']
         }
 		#l = pd.DataFrame.to_csv(ls)
 		#lg = pd.DataFrame.to_json(ls_g)
@@ -166,19 +147,13 @@ def calculateAnalytics(request):
 		#print(ls.loc["mean","0"])
 		#responseData['summary'] = 100
 		describeDict = {
-			"count" : "",
-			"mean" : "",
-			"std" : "",
-			"median": "",
-			"skewness": "",
-			"kurtosis":"",
-			"min" :"",
-			"25" : "",
-			"50" : "",
-			"75" : "",
-			"max" : ""
+			"f" : "",
+			"p" : "",
+			"eta_square" : "",
+			"omega_square": "",
+			
 		}
-		print(request.POST['selectedgroup'])
+		#print(request.POST['selectedgroup'])
 		if request.POST['selectedmethod'] == 'anova':
 			#k=len(pd.unique(data))
 			#grps = pd.unique(data_g.values)
