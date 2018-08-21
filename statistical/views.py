@@ -84,66 +84,77 @@ def calculateAnalytics(request):
 		print(fieldsArr)
 		selectedgroup = request.POST['selectedgroup']
 		selecteddatacol = request.POST['selecteddatacol']		
-		print(request.POST['selectedgroup'])
-		print(request.POST['selecteddatacol'])
-		print(request.POST['selectedmethod'])
-		print(request.POST['dataset_id'])
+		print("Group = ",request.POST['selectedgroup'])
+		print("Data = ", request.POST['selecteddatacol'])
+		print("Test Method =", request.POST['selectedmethod'])
+		print("Dataset ID =", request.POST['dataset_id'])
 		
 		susr = str(request.user)
 		client = MongoClient()
 		db = client.datasetDatadb
 		collection = db[request.POST['dataset_id']]
-		#data = collection.find( { } )
+		data = collection.find( { } )
 		#print(str(data))
 	#dataFromMongo = collection.find({y: {"$exists": True}})
-    #    for doc in dataFromMongo:
-    #        default_items.append(doc[y])
-		g = collection.find({selecteddatacol:{"$exists": True}})
-		c = collection.find({selectedgroup: {"$exists": True}})
-
+        #for doc in dataFromMongo:
+            #default_items.append(doc[y])
+		t = collection.find({selectedgroup: {"$exists": True}})
+		datag = pd.DataFrame(list(collection.find({selectedgroup:{"$exists":True}})))
+		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
+		#print('Jasnoor',data)
+		#print("########", type(data))
+		og = list(datag.loc[:,selectedgroup])
+		oc = list(datac.loc[:,selecteddatacol])
+		
+		#print(og)
+		#print(datag)
+		#print('Group',type(og))
+		xx = pd.DataFrame(oc, og)
+		#print('xx datatype',type(xx))
+		print(xx)
+		#sc = collection.find({selectedgroup: {"$exists": True}})
+		#print(ogl)
 		'''for doc in g and doc in c:
 			print("Printing DOC")
 			print(doc in g and soc in c)'''
 		#print(list(g,c))
-		data_c = pd.DataFrame(list(collection.find({selecteddatacol: {"$exists": True}})))
-		data_g = pd.DataFrame(list(collection.find({selectedgroup: {"$exists": True}})))
-		
-		print(data_g)
-		print("########", type(data_g))
-		print(data_c)
-		print("########", type(data_c))
-		og = list(data_g.loc[:,selectedgroup])
-		oc = list(data_c.loc[:,selecteddatacol])
+		#data_c = pd.DataFrame(list(data))
+		#data_g = pd.DataFrame(list(collection.find({selectedgroup: {"$exists": True}})))
+		#print(data_c)
+		#print(data_g)
+		#print("########", type(data_g))
+		#print(data_c)
+		#print("########", type(data_c))
+		#og = list(data_c.loc[:,selectedgroup])
+		#oc = list(data_c.loc[:,selecteddatacol])
 		#print('####selectedgroup', dg)
-		#print('Project',type(dg))
-		xg = pd.DataFrame(og)
-		xc = pd.DataFrame(oc)
-		print('xg datatype',type(xg))
-		print('xc datatype',type(xc))
+		#print('Project',type(sc))
+		#xg = pd.DataFrame(sc)
+		#xc = pd.DataFrame(oc)
+		#print(xg)
+		#csv_g = pd.DataFrame.to_csv(xg)
+		#sd_g = pd.read_csv(StringIO(csv_g))
+		#print('type of data1',type(sd_g))
+		#ls_g = sd_g.describe()
 		
-		csv_g = pd.DataFrame.to_csv(xg)
-		sd_g = pd.read_csv(StringIO(csv_g))
-		print('type of data1',type(sd_g))
-		ls_g = sd_g.describe()
+		#csv_c = pd.DataFrame.to_csv(xc)
+		#sd_c = pd.read_csv(StringIO(csv_c))
+		#print('type of data2',type(sd_c))
 		
-		csv_c = pd.DataFrame.to_csv(xc)
-		sd_c = pd.read_csv(StringIO(csv_c))
-		print('type of data2',type(sd_c))
-		
-		ls_c = sd_c.describe()
+		#ls_c = sd_c.describe()
 		# print('location',ls.loc[1])
 		
-		print('The final result group',type(ls_g))
-		print('The final result datacol',type(ls_c))
+		#print('The final result group',type(ls_g))
+		#print('The final result datacol',type(ls_c))
 	
 		responseData = {
            	'summary':result,
 			'fieldData':og,
-			'selectedfield': request.POST['selectedfield']
+			'selectedgroup': request.POST['selectedgroup']
         }
 		#l = pd.DataFrame.to_csv(ls)
-		lg = pd.DataFrame.to_json(ls_g)
-		lc = pd.DataFrame.to_json(ls_c)
+		#lg = pd.DataFrame.to_json(ls_g)
+		#lc = pd.DataFrame.to_json(ls_c)
 		#print("###only median",med)
 		#print(ls.loc["mean","0"])
 		#responseData['summary'] = 100
@@ -160,7 +171,7 @@ def calculateAnalytics(request):
 			"75" : "",
 			"max" : ""
 		}
-		print(request.POST['selectedfield'])
+		print(request.POST['selectedgroup'])
 		if request.POST['selectedmethod'] == 'anova':
 			'''med = sd.median()
 			med1 = med.to_frame()
@@ -179,9 +190,9 @@ def calculateAnalytics(request):
 			describeDict['50'] = ls.loc["50%","0"]
 			describeDict['75'] = ls.loc["75%","0"]
 			describeDict['max'] = ls.loc["max","0"]'''
-			grps = pd.unique(data_g.values)
-			d_data= {grp:}
-			responseData['summary']=  describeDicts
+			#grps = pd.unique(data_g.values)
+			#d_data= {grp:}
+			responseData['summary']=  describeDict
 			
 		
 		return JsonResponse(responseData)
