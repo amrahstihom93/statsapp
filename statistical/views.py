@@ -100,15 +100,37 @@ def calculateAnalytics(request):
 		datag = pd.DataFrame(list(collection.find({selectedgroup:{"$exists":True}})))
 		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
 		
-		print(selectedgroup)
+		g=datag[selectedgroup]
+		c=datac[selecteddatacol]
 		#print(sm)
 		#print(datag[:,'sm'])
 		#print(pd.unique(sm))
-		print(datag[selectedgroup])
-		k=len(pd.unique(datag[selectedgroup]))
-#print(len(pd.unique(datag.Region)))
+		print(g)
+		print(c)
+		k=len(pd.unique(g))
+		N=len(datag.values)
+		n=datag.groupby(g).size()[0]
+		#print(len(pd.unique(datag.Region)))
 		print(k)
-		#print(datag.Region)
+		print(N)
+		print(n)
+		
+		df_between = k-1
+		df_within = N-1
+		df_total = N-1
+		
+		print('Group=>',selectedgroup)
+		tl= datac[selecteddatacol].tolist()
+		print(tl)
+		
+		m= datag.groupby(datac)
+		print(m)
+		#sum_y_squared = sum([value**2 for value in [tl].values])
+		#print(sum_y_squared)
+		#ss_between = (sum(datag.groupby[selectedgroup].sum()[tl]**2)/n)
+		#print(ss_between)
+		
+		
 		og = list(datag.loc[:,selectedgroup])
 		oc = list(datac.loc[:,selecteddatacol])
 		
