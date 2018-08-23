@@ -85,6 +85,7 @@ def calculateAnalytics(request):
 		selectedgroupname = request.POST['selectedgroup']
 		selectedgroup = request.POST['selectedgroup']
 		selecteddatacol = request.POST['selecteddatacol']		
+		
 		print("Group = ",request.POST['selectedgroup'])
 		print("Data = ", request.POST['selecteddatacol'])
 		print("Test Method =", request.POST['selectedmethod'])
@@ -99,15 +100,21 @@ def calculateAnalytics(request):
 		datag = pd.DataFrame(list(collection.find({selectedgroup:{"$exists":True}})))
 		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
 		
-		print(datag)
-		
-		
+		print(selectedgroup)
+		#print(sm)
+		#print(datag[:,'sm'])
+		#print(pd.unique(sm))
+		print(datag[selectedgroup])
+		k=len(pd.unique(datag[selectedgroup]))
+#print(len(pd.unique(datag.Region)))
+		print(k)
+		#print(datag.Region)
 		og = list(datag.loc[:,selectedgroup])
 		oc = list(datac.loc[:,selecteddatacol])
 		
 		xx = pd.DataFrame(og,oc)
 		#print('xx datatype',type(xx))
-		print(xx)
+		#print(xx)
 		
 		csv = pd.DataFrame.to_csv(xx)
 		#print(csv)
@@ -115,7 +122,7 @@ def calculateAnalytics(request):
 		#print(sd)
 		#print(selectedgroup)
 		c = xx.columns
-		print(c)
+		#print(c)
 		
 		#k = len(pd.unique(datag.selectedgroupname))
 		#print(ls)
