@@ -97,6 +97,8 @@ def calculateAnalytics(request):
 		collection = db[request.POST['dataset_id']]
 		datav = collection.find( { } )
 		pd.set_option('display.max_columns', None)
+		
+		#########Anova Calcs Starts from here########
 		datag = pd.DataFrame(list(collection.find({selectedgroup:{"$exists":True}})))
 		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
 		
@@ -105,8 +107,8 @@ def calculateAnalytics(request):
 		#print(sm)
 		#print(datag[:,'sm'])
 		#print(pd.unique(sm))
-		print(g)
-		print(c)
+		#print(g)
+		#print(c)
 		k=len(pd.unique(g))
 		N=len(datag.values)
 		n=datag.groupby(g).size()[0]
@@ -115,20 +117,40 @@ def calculateAnalytics(request):
 		print(N)
 		print(n)
 		
+		#degrees of freedom
 		df_between = k-1
 		df_within = N-1
 		df_total = N-1
 		
 		print('Group=>',selectedgroup)
-		tl= datac[selecteddatacol].tolist()
-		print(tl)
+		c_data= c.convert_objects(convert_numeric=True)
 		
-		m= datag.groupby(datac)
-		print(m)
-		#sum_y_squared = sum([value**2 for value in [tl].values])
-		#print(sum_y_squared)
-		#ss_between = (sum(datag.groupby[selectedgroup].sum()[tl]**2)/n)
+		ss_between = (sum(c_data.groupby(g).sum()**2)/n) - (c_data.sum()**2)/N
 		#print(ss_between)
+		
+		sum_y_squared = sum([value**2 for value in c_data.values])
+		#print(sum_y_squared)
+		
+		ss_within = sum_y_squared - sum(c_data.groupby(g).sum()**2)/n
+		print(ss_within)
+		
+		ss_total = sum_y_squared - (c_data.sum()**2)/N
+		print(ss_total)
+		
+		
+		#mean square
+		ms_between = ss_between/df_between
+		ms_within = ss_within/df_within
+		
+		#calculating the f-ration
+		f = ms_between/ms_within
+		
+		#calculating p-value
+		p=stats.f.sf(f, df_between, df_within)
+		
+		#effect sizes
+		eta_squared = ss_between/ss_total
+		omega_squared = (ss_between - (df_between * ms_within))/(ss_total + ms_within)
 		
 		
 		og = list(datag.loc[:,selectedgroup])
