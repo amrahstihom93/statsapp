@@ -165,9 +165,9 @@ def calculateAnalytics(request):
 		sd = pd.read_csv(StringIO(csv))
 		#print(sd)
 		#print(selectedgroup)
-		c = xx.columns
+		#cc = xx.columns
 		#print(c)
-		
+		#ls=sd.describe()
 		#k = len(pd.unique(datag.selectedgroupname))
 		#print(ls)
 		
@@ -209,6 +209,11 @@ def calculateAnalytics(request):
 			#k=len(pd.unique(data))
 			#grps = pd.unique(data_g.values)
 			#d_data= {grp:}
+			describeDict['f'] = f
+			#describeDict['f'] = ls.loc["count","0"]
+			#describeDict['p'] = ls.loc["mean","0"]
+			#describeDict['eta_square'] = ls.loc["std","0"]
+			#describeDict['omega_square'] = ls.loc["min","0"]
 			responseData['summary']=  describeDict
 			
 		
