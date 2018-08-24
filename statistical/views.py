@@ -168,6 +168,8 @@ def calculateAnalytics(request):
 		#cc = xx.columns
 		#print(c)
 		#ls=sd.describe()
+		
+		#print(ls)
 		#k = len(pd.unique(datag.selectedgroupname))
 		#print(ls)
 		
@@ -189,7 +191,7 @@ def calculateAnalytics(request):
 		responseData = {
            	'summary':result,
 			'fieldData':og,
-			#'selectedgroup': request.POST['selectedgroup']
+			'selectedgroup': request.POST['selectedgroup']
         }
 		#l = pd.DataFrame.to_csv(ls)
 		#lg = pd.DataFrame.to_json(ls_g)
@@ -210,10 +212,9 @@ def calculateAnalytics(request):
 			#grps = pd.unique(data_g.values)
 			#d_data= {grp:}
 			describeDict['f'] = f
-			#describeDict['f'] = ls.loc["count","0"]
-			#describeDict['p'] = ls.loc["mean","0"]
-			#describeDict['eta_square'] = ls.loc["std","0"]
-			#describeDict['omega_square'] = ls.loc["min","0"]
+			describeDict['p'] = p
+			describeDict['eta_square'] = eta_squared
+			describeDict['omega_square'] = omega_squared
 			responseData['summary']=  describeDict
 			
 		
