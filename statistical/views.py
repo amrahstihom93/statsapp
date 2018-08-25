@@ -168,7 +168,13 @@ def calculateAnalytics(request):
 		#cc = xx.columns
 		#print(c)
 		#ls=sd.describe()
-		
+		#ndf=pd.DataFrame({'':[f, p, eta_squared, omega_squared]}, index='f p eta_squared omega_squared'.split())
+		ndf = pd.DataFrame([{'f':f, 'p':p, 'eta_squared':eta_squared, 'omega_squared':omega_squared}])
+		#df = pd.DataFrame([{'pi':pi, 'e':e, 'phi':phi}])
+		csvn=pd.DataFrame.to_csv(ndf)
+		nndf=pd.read_csv(StringIO(csvn))
+		nndf_data= nndf.convert_objects(convert_numeric=True)
+		print(nndf_data)
 		#print(ls)
 		#k = len(pd.unique(datag.selectedgroupname))
 		#print(ls)
@@ -211,10 +217,10 @@ def calculateAnalytics(request):
 			#k=len(pd.unique(data))
 			#grps = pd.unique(data_g.values)
 			#d_data= {grp:}
-			describeDict['f'] = f
-			describeDict['p'] = p
-			describeDict['eta_square'] = eta_squared
-			describeDict['omega_square'] = omega_squared
+			#describeDict['f'] = ndf.loc["0","f"]
+			#describeDict['p'] = ndf.loc[['0'],["p"]]
+			#describeDict['eta_square'] = ndf.loc[['0'],["3"]]
+			#describeDict['omega_square'] = ndf.loc[['0'],["4"]]
 			responseData['summary']=  describeDict
 			
 		
