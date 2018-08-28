@@ -104,15 +104,11 @@ def calculateAnalytics(request):
 		
 		g=datag[selectedgroup]
 		c=datac[selecteddatacol]
-		#print(sm)
-		#print(datag[:,'sm'])
-		#print(pd.unique(sm))
-		#print(g)
-		#print(c)
+		
 		k=len(pd.unique(g))
 		N=len(datag.values)
 		n=datag.groupby(g).size()[0]
-		#print(len(pd.unique(datag.Region)))
+		
 		print(k)
 		print(N)
 		print(n)
@@ -144,7 +140,6 @@ def calculateAnalytics(request):
 		
 		#calculating the f-ration
 		f = ms_between/ms_within
-		
 		#calculating p-value
 		p=stats.f.sf(f, df_between, df_within)
 		
@@ -157,9 +152,7 @@ def calculateAnalytics(request):
 		oc = list(datac.loc[:,selecteddatacol])
 		
 		xx = pd.DataFrame(og,oc)
-		#print('xx datatype',type(xx))
-		#print(xx)
-		
+		print("omegasquare==>>", omega_squared)
 		csv = pd.DataFrame.to_csv(xx)
 		#print(csv)
 		sd = pd.read_csv(StringIO(csv))
@@ -169,12 +162,23 @@ def calculateAnalytics(request):
 		#print(c)
 		#ls=sd.describe()
 		#ndf=pd.DataFrame({'':[f, p, eta_squared, omega_squared]}, index='f p eta_squared omega_squared'.split())
-		ndf = pd.DataFrame([{'f':f, 'p':p, 'eta_squared':eta_squared, 'omega_squared':omega_squared}])
+		ndf = pd.DataFrame({'f':f, 'p':p, 'eta_squared':eta_squared, 'omega_squared':omega_squared}, index=[0])
+		#n_ndf = ndf.to_frame()
 		#df = pd.DataFrame([{'pi':pi, 'e':e, 'phi':phi}])
+		#print("NDF",ndf )
+		#print("NDF Class===>>>",type(ndf) )
 		csvn=pd.DataFrame.to_csv(ndf)
+		
 		nndf=pd.read_csv(StringIO(csvn))
-		nndf_data= nndf.convert_objects(convert_numeric=True)
-		print(nndf_data)
+		
+		nndf_t = nndf/len(nndf)
+
+		#nndf_data= nndf.convert_objects(convert_numeric=True)
+		print("####ndf type", type(ndf.loc['0':,"omega_squared"]))
+		print("####nndf type", type(nndf.loc['0':,"omega_squared"]))
+		
+		print("####nndf_t type", type(nndf_t))
+		#print("nndf_Data class==>", type(nndf_data))
 		#print(ls)
 		#k = len(pd.unique(datag.selectedgroupname))
 		#print(ls)
@@ -209,18 +213,15 @@ def calculateAnalytics(request):
 			"f" : "",
 			"p" : "",
 			"eta_square" : "",
-			"omega_square": "",
-			
+			"omega_square":"",
 		}
 		#print(request.POST['selectedgroup'])
 		if request.POST['selectedmethod'] == 'anova':
-			#k=len(pd.unique(data))
-			#grps = pd.unique(data_g.values)
-			#d_data= {grp:}
-			#describeDict['f'] = ndf.loc["0","f"]
-			#describeDict['p'] = ndf.loc[['0'],["p"]]
-			#describeDict['eta_square'] = ndf.loc[['0'],["3"]]
-			#describeDict['omega_square'] = ndf.loc[['0'],["4"]]
+			
+			describeDict['f'] = nndf_t.iloc[0]['f']
+			describeDict['p'] = nndf_t.iloc[0]['p']
+			describeDict['eta_square'] = nndf_t.iloc[0]['eta_squared']
+			describeDict['omega_square'] = nndf_t.iloc[0]['omega_squared']
 			responseData['summary']=  describeDict
 			
 		

@@ -53,6 +53,7 @@
         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
       </select>
   </div> 
+  <br>
   <div class="col-md-12">
   Select Data :
       <select id="datacol" name="datacol_name" ng-model="selecteddatacol" class="custom-select btn-info">
@@ -72,10 +73,10 @@
               [[selectedmethod]] : [[calculatedSummary]]
           </h3>
           <ul ng-show="selectedmethod=='anova' && calculationDone">
-            <li>f :[[calculatedSummary.count]]</li>
-            <li>p :[[calculatedSummary.mean]]</li> 
-            <li>eta_square :[[calculatedSummary.std]]</li>
-            <li>omega_square : [[calculatedSummary.median]]</li>
+            <li>f :[[calculatedSummary.f]]</li>
+            <li>p :[[calculatedSummary.p]]</li> 
+            <li>eta_square :[[calculatedSummary.eta_square]]</li>
+            <li>omega_square : [[calculatedSummary.omega_square]]</li>
           </ul>
 
 

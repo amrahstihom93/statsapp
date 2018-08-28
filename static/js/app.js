@@ -207,6 +207,7 @@ module.controller("statisticalCtrl", function($scope,$http) {
 						Plotly.newPlot('histoDiv', data);
 
              		}
+				
         }).error(function(data,status,headers,config){
             console.log("Something went wrong");
         });
@@ -326,8 +327,9 @@ module.controller("analyticalCtrl", function($scope,$http) {
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity
         }).success(function(data,status,headers,config){
-         //   $scope.fieldsAr = data;
+          console.log("response from calcula",data);
             console.log("response from calculateAnalytics",data);
+			 console.log("response calculateAnalytics");
 
 
              if($scope.selectedmethod == 'mode'){
@@ -340,17 +342,13 @@ module.controller("analyticalCtrl", function($scope,$http) {
              else if($scope.selectedmethod == 'anova'){
                      $scope.calculatedSummary =  data.summary;
                      $scope.calculationDone = true;
-                     fieldDataForoGraph = data.fieldData;
-                     fieldDataToSave = fieldDataForoGraph.toString();
-                     var trace = {
-    					x: fieldDataForoGraph,
-    					type: 'histogram',
-  						};
-						var data = [trace];
-						Plotly.newPlot('histoDiv', data);
-
-             		}
-        }).error(function(data,status,headers,config){
+                 //    fieldDataForoGraph = data.fieldData;
+                   //  fieldDataToSave = fieldDataForoGraph.toString();
+				     console.log("In else calculateAnalytics",data);
+					   console.log("calculatedSummary calculateAnalytics",$scope.calculatedSummary);
+                     
+				}
+		}).error(function(data,status,headers,config){
             console.log("Something went wrong");
         });
 
