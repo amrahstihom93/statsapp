@@ -1,0 +1,161 @@
+<div class="container" ng-hide="showGraph1">
+<nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+    <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+	<li class="breadcrumb-item" aria-current="page">Choose Dataset</li>
+  </ol>
+</nav>
+<!-- <a href="/dataset">dataset</a> -->
+  <h3>Choose dataset to make analytical summary:</h3>
+  <table class="table table-bordered table-striped my-4">
+    <thead>
+      <tr>
+        <th>Dataset</th>
+	<!--	<th>Created By</th>-->
+       <th>Select Dataset</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in datasetArr">
+        <td>[[x.dataset_name]]</td>
+		<!--<td>[[x.user_id]]</td>-->
+        <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container" ng-show="showGraph1">
+ 
+  <nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Analytical</a></li>
+    <li class="breadcrumb-item" aria-current="page">Select Fields</li>
+  </ol>
+  </nav>
+  <div class="row">
+  <div class="col-md-4">
+	<h3>Dataset Name : [[selectedDataset]]</h3>
+	<label class="my-4" for="visuaName">Analytical Name</label>
+	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="statsName" placeholder="Enter Analytical Name">
+	
+	<h4 class="my-4">Select fields from drop down:</h4>
+	<div class="col-md-12 my-4">
+	Select method :
+		<select id="method" name="method" ng-model="selectedmethod" ng-change="initCalculate()" class="custom-select btn-info">
+			<option selected>Select field</option>
+			<option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
+		</select>
+	</div> 
+	<div class="col-md-12 my-4">
+	Select Group :
+		<select id="group" name="group_name" ng-model="selectedgroup" class="custom-select btn-info">
+			<option selected>Select group</option>
+			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+		</select>
+	</div> 
+	
+	<div class="col-md-12 my=4">
+	Select Data :
+		<select id="datacol" name="datacol_name" ng-model="selecteddatacol" class="custom-select btn-info">
+			<option selected>Select data</option>
+			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+		</select>
+	</div> 
+	<button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
+	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+  </div>
+  <div class="col-md-8">
+			<table class = "table table-striped">
+				<thead class="bg-primary" style="color:white;">
+					<tr>
+						<th scope="col" >Factor</th>
+						<th scope="col" >Values</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope= "row" >F</th>
+						<td ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</td>
+						<td ng-show="selectedmethod=='anova' && calculationDone">
+							[[calculatedSummary.f]]
+						</td>
+					</tr>
+					<tr>
+						<th scope= "row">P</th>
+						<td ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</td>
+						<td ng-show="selectedmethod=='anova' && calculationDone">
+							[[calculatedSummary.p]]
+						</td>
+					</tr>
+					<tr>
+						<th scope= "row">Omega_sq</th>
+						<td ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</td>
+						<td ng-show="selectedmethod=='anova' && calculationDone">
+							[[calculatedSummary.f]]
+						</td>
+					</tr>
+					<tr>
+						<th scope= "row">ETA_sq</th>
+						<td ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</td>
+						<td ng-show="selectedmethod=='anova' && calculationDone">
+							[[calculatedSummary.f]]
+						</td>
+					</tr>
+					</tr>
+				</tbody>
+		<!--<div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
+			<h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+			</h2>
+			<h3 ng-show="calculationDone && selectedmethod!='anova'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
+				[[selectedmethod]] : [[calculatedSummary]]
+			</h3>
+			<ul ng-show="selectedmethod=='anova' && calculationDone">
+			<li>f :[[calculatedSummary.f]]</li>
+			<li>p :[[calculatedSummary.p]]</li> 
+			<li>eta_square :[[calculatedSummary.eta_square]]</li>
+			<li>omega_square : [[calculatedSummary.omega_square]]</li>
+			</ul>
+			</div>-->
+			</table>
+		</div>
+  </div>
+
+  <div id="histoDiv"></div>
+  </div>
+
+    <div class="modal fade" id="successModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Success</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          [[sName]]Analytical is saved successfully. 
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+  
+  </div>
+  </div>
