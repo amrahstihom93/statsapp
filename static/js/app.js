@@ -235,6 +235,10 @@ module.controller("statisticalCtrl", function($scope,$http) {
         dt.append("selectedmethod",$scope.selectedmethod);
         dt.append("fieldData",fieldDataToSave);
         dt.append("statistical_calculated_value",$scope.calculatedSummary);
+		
+        console.log("Hi from statistical");
+        console.log("$$$$$$$",typeof($scope.calculatedSummary));
+		
         console.log("val to save",$scope.calculatedSummary);
         // dt.append("graphType", graphType);
         // console.log('graphy', graphData);
@@ -376,6 +380,8 @@ module.controller("analyticalCtrl", function($scope,$http) {
         dt.append("selectedmethod",$scope.selectedmethod);
         dt.append("fieldData",fieldDataToSave);
         dt.append("analytical_calculated_value",$scope.calculatedSummary);
+		console.log("HI from analytic");
+		console.log("&&&&&&&", typeof($scope.calculatedSummary));
         console.log("val to save",$scope.calculatedSummary);
         // dt.append("graphType", graphType);
         // console.log('graphy', graphData);

@@ -35,8 +35,7 @@ def saveAnalytics(request):
 	    vForm.analytical_method = request.POST['selectedmethod'] 
 	    print('hi from save to all')
 	    vForm.analytical_calculated_value = request.POST['analytical_calculated_value']
-	#    data = request.POST['fieldData']
-	#    json_data = json.loads(data)
+	    print("$$$$$", type(vForm.analytical_calculated_value))
 	    vForm.parameters = request.POST['fieldData']
 	    vForm.save()
 	    msg = 'saved successfully'
@@ -61,6 +60,7 @@ def saveStatistics(request):
 	    vForm.statistical_method = request.POST['selectedmethod'] 
 	    print('hi from save to all')
 	    vForm.statistical_calculated_value = request.POST['statistical_calculated_value']
+	    print("$$$$$", type(vForm.statistical_calculated_value))
 	#    data = request.POST['fieldData']
 	#    json_data = json.loads(data)
 	    vForm.parameters = request.POST['fieldData']
@@ -69,6 +69,7 @@ def saveStatistics(request):
 	    return HttpResponse(msg)
 	msg = 'error while saving statistical summary'
 	return HttpResponse(msg)
+
 	
 	
 
