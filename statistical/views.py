@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from django.views.decorators.csrf import csrf_exempt
 from upload.models import Dataset
 from .models import statistical
+from .models import analytical
 from django.contrib.auth.models import User
 import json, datetime
 import pandas as pd 

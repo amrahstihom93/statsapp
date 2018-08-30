@@ -36,7 +36,7 @@
   <div class="col-md-4">
   <h3>Dataset Name : [[selectedDataset]]</h3>
   <label class="my-4" for="visuaName">Analytical Name</label>
-  <input type="text" ng-model="sName" class="form-control onePerLMargin" id="statsName" placeholder="Enter Analytical Name">
+  <input type="text" ng-model="aName" class="form-control onePerLMargin" id="statsName" placeholder="Enter Analytical Name">
 
   <h4 class="my-4">Select fields from drop down:</h4>
   <div class="col-md-12 my-4">
@@ -46,15 +46,15 @@
         <option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
       </select>
   </div> 
-  <div class="col-md-12">
+  <div class="col-md-12 my-4">
   Select Group :
       <select id="group" name="group_name" ng-model="selectedgroup" class="custom-select btn-info">
         <option selected>Select group</option>
         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
       </select>
   </div> 
-  <br>
-  <div class="col-md-12">
+
+  <div class="col-md-12 my=4">
   Select Data :
       <select id="datacol" name="datacol_name" ng-model="selecteddatacol" class="custom-select btn-info">
         <option selected>Select data</option>
@@ -62,7 +62,7 @@
       </select>
   </div> 
   <button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
-  <button class="btn btn-primary" ng-click="paramterSave1()">Save</button>
+  <button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
   </div>
   <div class="col-md-8">
   <div class="my-4">

@@ -119,6 +119,8 @@ module.controller("statisticalListCtrl",function($scope,$http){
     $scope.test ="This is working statisticalList";
 
 });
+
+
 module.controller("statisticalCtrl", function($scope,$http) {
     $scope.test ="This is working statistical";
     $scope.calculationDone = false;
@@ -285,7 +287,7 @@ module.controller("analyticalCtrl", function($scope,$http) {
     $scope.chooseDataset = function (dataset) {
         selDatasetId = dataset.dataset_id;
         $scope.selectedDataset = dataset.dataset_name;
-        $scope.sName = '';
+        $scope.aName = '';
         let data = new FormData();
         let url = '/getGraphFields/';
         data.append("dName", dataset.dataset_name);
@@ -358,7 +360,7 @@ module.controller("analyticalCtrl", function($scope,$http) {
         $scope.calculationDone = false;
     }
 
-    $scope.paramterSave1 = function () {
+    $scope.paramterSave2 = function () {
         console.log("Hiiiiiiiii");
         // let graphData = {
         //     "labels": labels,
@@ -366,7 +368,7 @@ module.controller("analyticalCtrl", function($scope,$http) {
         // };
         let url = '/saveAnalytics/';
         let dt = new FormData();
-        dt.append("statistical_name", $scope.sName);
+        dt.append("analytical_name", $scope.aName);
         // dt.append("data", JSON.stringify(graphData));
         dt.append("dataset_id", selDatasetId);
         dt.append("selectedgroup",$scope.selectedgroup);
