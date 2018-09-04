@@ -49,8 +49,82 @@ module.config(['$routeProvider',
         }).when('/analytical', {
             templateUrl: static_url + 'partials/analytical.html',
             controller: 'analyticalCtrl'
+        }).when('/analyticalList', {
+            templateUrl: static_url + 'partials/analyticalList.html',
+            controller: 'analyticalListCtrl'
         });
     }]);
+
+	
+//AnalyticalList controller
+module.controller("analyticalListCtrl",function($scope,$http){
+     $scope.analyticalArr = [];
+    $scope.analyticalName = '';
+    let url = '/getAnalytical/';
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.analyticalArr = response.data;
+
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+
+    $scope.refreshList = function () {
+        $http.get(url)
+            .then(function (response) {
+                //First function handles success
+                console.log("get response", response);
+                $scope.analyticalArr = response.data;
+
+            }, function (response) {
+                //Second function handles error
+                console.log("Something went wrong");
+            });
+    }
+
+    $scope.viewAnalytical = function (statistical) {
+		$scope.selMethod = statistical.analytical_method;
+        console.log("in view",statistical);
+        console.log("selectedfield",statistical.analytical_method);
+        console.log("selectedmethod",$scope.selMethod);
+        console.log("json summary", statistical.analytical_calculated_value);
+        $scope.calSummary = JSON.parse(statistical.analytical_calculated_value);
+        $scope.selMethod = statistical.analytical_method;
+		
+        // console.log("vParams", visualization.parameters.labels);
+        // console.log("vParams1", visualization.parameters.defaultData);
+        // xdata = visualization.parameters.labels;
+        // ydata = visualization.parameters.defaultData;
+        // gType = visualization.type;
+        // divId = document.getElementById("chartView");
+        // console.log("divId", divId.id);
+        // viewChart(xdata, ydata, divId.id);
+    }
+
+    $scope.delAnalytical = function (analyticalId) {
+        let url = '/delAnalytical/' + analyticalId + '/';
+        $http.delete(url)
+            .success(function (data, status, headers) {
+                console.log("in delete analytical http", data);
+                if (data === 'delete successful') {
+                    location.reload();
+                }
+                else {
+                    alert("Analytical Summary is not deleted successfully");
+                }
+
+            })
+            .error(function (data, status, header, config) {
+                console.log("something went wrong");
+            });
+
+    }
+    $scope.test ="This is working analyticalList";
+
+});
 
 
 module.controller("statisticalListCtrl",function($scope,$http){
@@ -82,12 +156,14 @@ module.controller("statisticalListCtrl",function($scope,$http){
     }
 
     $scope.viewStatistical = function (statistical) {
+		$scope.selMethod = statistical.statistical_method;
         console.log("in view",statistical);
         console.log("selectedfield",statistical.statistical_method);
-        console.log("selectedmethod",$scope.selectedmethod);
-        console.log("json summary", JSON.parse(statistical.statistical_calculated_value));
+        console.log("selectedmethod",$scope.selMethod);
+        console.log("json summary", statistical.statistical_calculated_value);
         $scope.calSummary = JSON.parse(statistical.statistical_calculated_value);
         $scope.selMethod = statistical.statistical_method;
+		
         // console.log("vParams", visualization.parameters.labels);
         // console.log("vParams1", visualization.parameters.defaultData);
         // xdata = visualization.parameters.labels;
@@ -234,7 +310,9 @@ module.controller("statisticalCtrl", function($scope,$http) {
         dt.append("selectedfield",$scope.selectedfield);
         dt.append("selectedmethod",$scope.selectedmethod);
         dt.append("fieldData",fieldDataToSave);
-        dt.append("statistical_calculated_value",$scope.calculatedSummary);
+        dt.append("statistical_calculated_value",JSON.stringify($scope.calculatedSummary));
+		console.log("JDATA======>",JSON.stringify($scope.calculatedSummary));
+		
 		
         console.log("Hi from statistical");
         console.log("$$$$$$$",typeof($scope.calculatedSummary));
@@ -379,7 +457,8 @@ module.controller("analyticalCtrl", function($scope,$http) {
         dt.append("selecteddatacol",$scope.selecteddatacol);
         dt.append("selectedmethod",$scope.selectedmethod);
         dt.append("fieldData",fieldDataToSave);
-        dt.append("analytical_calculated_value",$scope.calculatedSummary);
+		console.log("JDATA======>",JSON.stringify($scope.calculatedSummary));
+        dt.append("analytical_calculated_value",JSON.stringify($scope.calculatedSummary));
 		console.log("HI from analytic");
 		console.log("&&&&&&&", typeof($scope.calculatedSummary));
         console.log("val to save",$scope.calculatedSummary);

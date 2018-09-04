@@ -47,13 +47,39 @@
 							<li><a href="#/visualList">Visualization List</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#analysisSubmenu" data-toggle="collapse" aria-expanded="false">Analysis</a>
                         <ul class="collapse show list-unstyled" id="analysisSubmenu">
                             <li><a href="#/statistical">Statistical Summary</a></li>
                             <li><a href="#/statisticalList">Statistical List</a></li>
                             <li><a href="#/analytical">Analytical Summary</a></li>
                             <li><a href="#/analyticalList">Analytical List</a></li>
+                        </ul>
+                    </li>-->
+					<li>
+                        <a href="#analyticsSubmenu" data-toggle="collapse" aria-expanded="false">Analytics</a>
+                        <ul class="collapse show list-unstyled" id="analyticsSubmenu">
+                            <li>
+								<a href = "#statisticsSubmenu" data-toggle = "collapse" aria-expanded="false">Statistics</a>
+								<ul class="collapse show list-unstyled" id="statisticsSubmenu">
+									<li><a href="#/statistical" >Statistical Summary</a></li>
+									<li><a href="#" >Sampling</a></li>
+									<li>
+										<a href="#hypotestingSubmenu" data-toggle="collapse" aria-expanded="false">Hypothesis Testing</a>
+										<ul class="collapse show list-unstyled" id="hypotestingSubmenu">
+											<li><a href="#">Test</a></li>
+											<li><a href="#/analytical">Analytical Summary</a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="#savestatSubmenu" data-toggle="collapse" aria-expanded="false">Saved Statistics</a>
+										<ul class="collapse show list-unstyled" id="savestatSubmenu">
+											<li><a href="#/analyticalList">Analytical List</a></li>
+											<li><a href="#/statisticalList">Statistical List</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
                         </ul>
                     </li>
 				</ul>

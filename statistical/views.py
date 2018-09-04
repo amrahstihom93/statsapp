@@ -51,22 +51,22 @@ def saveStatistics(request):
 	json_data = {}
 	data = {}
 	if request.method == 'POST':
-	    vForm.statistical_name = request.POST['statistical_name']
-	    dataset_obj = Dataset.objects.get(dataset_id=request.POST['dataset_id'])
-	    user_obj = User.objects.get(pk=request.user.id)
-	    vForm.user_id = user_obj
-	    vForm.dataset_id = dataset_obj
-	    vForm.statistical_id = 'sid' + request.POST['statistical_name'] + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-	    vForm.statistical_method = request.POST['selectedmethod'] 
-	    print('hi from save to all')
-	    vForm.statistical_calculated_value = request.POST['statistical_calculated_value']
-	    print("$$$$$", type(vForm.statistical_calculated_value))
-	#    data = request.POST['fieldData']
-	#    json_data = json.loads(data)
-	    vForm.parameters = request.POST['fieldData']
-	    vForm.save()
-	    msg = 'saved successfully'
-	    return HttpResponse(msg)
+		vForm.statistical_name = request.POST['statistical_name']
+		dataset_obj = Dataset.objects.get(dataset_id=request.POST['dataset_id'])
+		user_obj = User.objects.get(pk=request.user.id)
+		vForm.user_id = user_obj
+		vForm.dataset_id = dataset_obj
+		vForm.statistical_id = 'sid' + request.POST['statistical_name'] + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+		vForm.statistical_method = request.POST['selectedmethod'] 
+		print('hi from save to all')
+		
+		vForm.statistical_calculated_value = request.POST['statistical_calculated_value']
+		#data = request.POST['fieldData']
+		#json_data = json.loads(data)
+		vForm.parameters = request.POST['fieldData']
+		vForm.save()
+		msg = 'saved successfully'
+		return HttpResponse(msg)
 	msg = 'error while saving statistical summary'
 	return HttpResponse(msg)
 
@@ -146,15 +146,15 @@ def calculateAnalytics(request):
 		p=stats.f.sf(f, df_between, df_within)
 		
 		#effect sizes
-		eta_squared = ss_between/ss_total
-		omega_squared = (ss_between - (df_between * ms_within))/(ss_total + ms_within)
+		eta_square = ss_between/ss_total
+		omega_square = (ss_between - (df_between * ms_within))/(ss_total + ms_within)
 		
 		
 		og = list(datag.loc[:,selectedgroup])
 		oc = list(datac.loc[:,selecteddatacol])
 		
 		xx = pd.DataFrame(og,oc)
-		print("omegasquare==>>", omega_squared)
+		print("omegasquare==>>", omega_square)
 		csv = pd.DataFrame.to_csv(xx)
 		#print(csv)
 		sd = pd.read_csv(StringIO(csv))
@@ -164,7 +164,7 @@ def calculateAnalytics(request):
 		#print(c)
 		#ls=sd.describe()
 		#ndf=pd.DataFrame({'':[f, p, eta_squared, omega_squared]}, index='f p eta_squared omega_squared'.split())
-		ndf = pd.DataFrame({'f':f, 'p':p, 'eta_squared':eta_squared, 'omega_squared':omega_squared}, index=[0])
+		ndf = pd.DataFrame({'f':f, 'p':p, 'eta_square':eta_square, 'omega_square':omega_square}, index=[0])
 		#n_ndf = ndf.to_frame()
 		#df = pd.DataFrame([{'pi':pi, 'e':e, 'phi':phi}])
 		#print("NDF",ndf )
@@ -176,29 +176,11 @@ def calculateAnalytics(request):
 		nndf_t = nndf/len(nndf)
 
 		#nndf_data= nndf.convert_objects(convert_numeric=True)
-		print("####ndf type", type(ndf.loc['0':,"omega_squared"]))
-		print("####nndf type", type(nndf.loc['0':,"omega_squared"]))
+		print("####ndf type", type(ndf.loc['0':,"omega_square"]))
+		print("####nndf type", type(nndf.loc['0':,"omega_square"]))
 		
 		print("####nndf_t type", type(nndf_t))
-		#print("nndf_Data class==>", type(nndf_data))
-		#print(ls)
-		#k = len(pd.unique(datag.selectedgroupname))
-		#print(ls)
 		
-		#csv_g = pd.DataFrame.to_csv(xg)
-		#sd_g = pd.read_csv(StringIO(csv_g))
-		#print('type of data1',type(sd_g))
-		#ls_g = sd_g.describe()
-		
-		#csv_c = pd.DataFrame.to_csv(xc)
-		#sd_c = pd.read_csv(StringIO(csv_c))
-		#print('type of data2',type(sd_c))
-		
-		#ls_c = sd_c.describe()
-		# print('location',ls.loc[1])
-		
-		#print('The final result group',type(ls_g))
-		#print('The final result datacol',type(ls_c))
 	
 		responseData = {
            	'summary':result,
@@ -222,8 +204,8 @@ def calculateAnalytics(request):
 			
 			describeDict['f'] = nndf_t.iloc[0]['f']
 			describeDict['p'] = nndf_t.iloc[0]['p']
-			describeDict['eta_square'] = nndf_t.iloc[0]['eta_squared']
-			describeDict['omega_square'] = nndf_t.iloc[0]['omega_squared']
+			describeDict['eta_square'] = nndf_t.iloc[0]['eta_square']
+			describeDict['omega_square'] = nndf_t.iloc[0]['omega_square']
 			responseData['summary']=  describeDict
 			
 		

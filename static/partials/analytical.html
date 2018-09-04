@@ -36,7 +36,7 @@
   <div class="col-md-4">
 	<h3>Dataset Name : [[selectedDataset]]</h3>
 	<label class="my-4" for="visuaName">Analytical Name</label>
-	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="statsName" placeholder="Enter Analytical Name">
+	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="aName" placeholder="Enter Analytical Name">
 	
 	<h4 class="my-4">Select fields from drop down:</h4>
 	<div class="col-md-12 my-4">
@@ -97,7 +97,7 @@
 							[[selectedmethod]] : [[calculatedSummary]]
 						</td>
 						<td ng-show="selectedmethod=='anova' && calculationDone">
-							[[calculatedSummary.f]]
+							[[calculatedSummary.omega_square]]
 						</td>
 					</tr>
 					<tr>
@@ -106,7 +106,7 @@
 							[[selectedmethod]] : [[calculatedSummary]]
 						</td>
 						<td ng-show="selectedmethod=='anova' && calculationDone">
-							[[calculatedSummary.f]]
+							[[calculatedSummary.eta_square]]
 						</td>
 					</tr>
 					</tr>
