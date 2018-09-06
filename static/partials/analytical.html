@@ -68,13 +68,19 @@
 			<table class = "table table-striped">
 				<thead class="bg-primary" style="color:white;">
 					<tr>
-						<th scope="col" >Factor</th>
-						<th scope="col" >Values</th>
+						<th ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</th>
+						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row"  scope="col" >Factor</th>
+						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row"  scope="col" >Values</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<th scope= "row" >F</th>
+						<th ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</th>
+						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row" >F</th>
 						<td ng-show="calculationDone && selectedmethod!='anova'">
 							[[selectedmethod]] : [[calculatedSummary]]
 						</td>
@@ -83,7 +89,10 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope= "row">P</th>
+						<th ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</th>
+						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row" >P</th>
 						<td ng-show="calculationDone && selectedmethod!='anova'">
 							[[selectedmethod]] : [[calculatedSummary]]
 						</td>
@@ -92,7 +101,10 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope= "row">Omega_sq</th>
+						<th ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</th>
+						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row" >Omega_square</th>
 						<td ng-show="calculationDone && selectedmethod!='anova'">
 							[[selectedmethod]] : [[calculatedSummary]]
 						</td>
@@ -101,7 +113,10 @@
 						</td>
 					</tr>
 					<tr>
-						<th scope= "row">ETA_sq</th>
+						<th ng-show="calculationDone && selectedmethod!='anova'">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</th>
+						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row" >ETA_square</th>
 						<td ng-show="calculationDone && selectedmethod!='anova'">
 							[[selectedmethod]] : [[calculatedSummary]]
 						</td>

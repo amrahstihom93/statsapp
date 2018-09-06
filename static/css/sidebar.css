@@ -78,7 +78,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul li a {
-    padding: 50px;
+    padding: 10px;
     font-size: 1.1em;
     display: block;
 }
