@@ -103,13 +103,19 @@ def calculateAnalytics(request):
 		#########Anova Calcs Starts from here########
 		datag = pd.DataFrame(list(collection.find({selectedgroup:{"$exists":True}})))
 		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
-		print ("DATAG==>",datag)
-		print ("DATAC==>",datac)
+		#print ("DATAG==>")
+		#print(datag)
+		#print ("DATAC==>")
+		#print(datac)
+		print("type datag###", type(datag))
 		
 		g=datag[selectedgroup]
+		
 		c=datac[selecteddatacol]
-		print("G====>",g)
-		print("C====>",c)
+		print("Grouped data col====>")
+		print(g)
+		print("Val data col====>")
+		print(c)
 		
 		k=len(pd.unique(g))
 		print("unique groups==>",pd.unique(g))
