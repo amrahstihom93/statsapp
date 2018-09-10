@@ -368,12 +368,13 @@ module.controller("analyticalCtrl", function($scope,$http) {
         }); 
     $scope.chooseDataset = function (dataset) {
         selDatasetId = dataset.dataset_id;
+		
+		console.log("#####", selDatasetId);
         $scope.selectedDataset = dataset.dataset_name;
         $scope.aName = '';
         let data = new FormData();
         let url = '/getGraphFields/';
         data.append("dName", dataset.dataset_name);
-
         $http.post(url, data, {
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity
