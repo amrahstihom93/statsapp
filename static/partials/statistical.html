@@ -24,7 +24,33 @@
     </tbody>
   </table>
 </div>
+
+
+
 <div class="container" ng-show="showGraph1">
+ <nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+    <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+	<li class="breadcrumb-item" aria-current="page">Change Selected Dataset</li>
+  </ol>
+</nav>
+  <div class="table-wrapper-scroll-y">
+  <table class="table table-bordered table-striped my-4">
+	<thead>
+      <tr>
+        <th>Dataset</th>
+       <th>Select Dataset</th> 
+      </tr>
+    </thead>
+	
+    <tbody>
+      <tr ng-repeat="x in datasetArr">
+        <td>[[x.dataset_name]]</td>
+        <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
  
   <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">

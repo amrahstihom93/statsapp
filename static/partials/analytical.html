@@ -1,48 +1,32 @@
 <div class="container" ng-hide="showGraph1">
-<nav aria-label="breadcrumb" class="my-4">
-  <ol class="breadcrumb">
-    <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
-	<li class="breadcrumb-item" aria-current="page">Choose Dataset</li>
-  </ol>
-</nav>
-<!-- <a href="/dataset">dataset</a> -->
-  <h3>Choose dataset to make analytical summary:</h3>
-  <!--<table class="table table-bordered table-striped my-4">
-    <thead>
-      <tr>
-        <th>Dataset</th>
-       <th>Select Dataset</th> 
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="x in datasetArr">
-        <td>[[x.dataset_name]]</td>
-        <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
-      </tr>
-    </tbody>
-  </table>-->
-  <table class="table table-bordered table-striped my-4">
-	<thead>
-      <tr>
-        <th>Dataset</th>
-       <th>Select Dataset</th> 
-      </tr>
-    </thead>
-	
-    <tbody>
-      <tr ng-repeat="x in datasetArr">
-        <td>[[x.dataset_name]]</td>
-        <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
+    <nav aria-label="breadcrumb" class="my-4">
+        <ol class="breadcrumb">
+            <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+            <li class="breadcrumb-item" aria-current="page">Choose Dataset</li>
+        </ol>
+    </nav>
+    <!-- <a href="/dataset">dataset</a> -->
+    <h3>Choose dataset to make analytical summary:</h3>
+    <table class="table table-bordered table-striped my-4">
+        <thead>
+            <tr>
+                <th>Dataset</th>
+                <th>Select Dataset</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in datasetArr">
+                <td>[[x.dataset_name]]</td>
+                <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 
 <div class="container" ng-show="showGraph1">
 
+<!-- Reveal dataset list in main page-->
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
     <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
@@ -54,10 +38,10 @@
 	<thead>
       <tr>
         <th>Dataset</th>
-       <th>Select Dataset</th> 
+       <th>Select Dataset</th>
       </tr>
     </thead>
-	
+
     <tbody>
       <tr ng-repeat="x in datasetArr">
         <td>[[x.dataset_name]]</td>
@@ -66,6 +50,7 @@
     </tbody>
   </table>
   </div>
+
   <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Analytical</a></li>
@@ -77,7 +62,7 @@
 	<h3>Dataset Name : [[selectedDataset]]</h3>
 	<label class="my-4" for="visuaName">Analytical Name</label>
 	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="aName" placeholder="Enter Analytical Name">
-	
+
 	<h4 class="my-4">Select fields from drop down:</h4>
 	<div class="col-md-12 my-4">
 	Select method :
@@ -85,22 +70,22 @@
 			<option selected>Select field</option>
 			<option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
 		</select>
-	</div> 
+	</div>
 	<div class="col-md-12 my-4">
 	Select Group :
 		<select id="group" name="group_name" ng-model="selectedgroup" class="custom-select btn-info">
 			<option selected>Select group</option>
 			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 		</select>
-	</div> 
-	
+	</div>
+
 	<div class="col-md-12 my=4">
 	Select Data :
 		<select id="datacol" name="datacol_name" ng-model="selecteddatacol" class="custom-select btn-info">
 			<option selected>Select data</option>
 			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 		</select>
-	</div> 
+	</div>
 	<button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
 	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
   </div>
@@ -174,7 +159,7 @@
 			</h3>
 			<ul ng-show="selectedmethod=='anova' && calculationDone">
 			<li>f :[[calculatedSummary.f]]</li>
-			<li>p :[[calculatedSummary.p]]</li> 
+			<li>p :[[calculatedSummary.p]]</li>
 			<li>eta_square :[[calculatedSummary.eta_square]]</li>
 			<li>omega_square : [[calculatedSummary.omega_square]]</li>
 			</ul>
@@ -189,28 +174,28 @@
     <div class="modal fade" id="successModal">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Success</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
-          [[sName]]Analytical is saved successfully. 
+          [[sName]]Analytical is saved successfully.
         </div>
-        
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         </div>
-        
+
       </div>
     </div>
   </div>
-  
+
 </div>
-  
+
   </div>
   </div>
