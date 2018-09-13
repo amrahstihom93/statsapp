@@ -55,7 +55,7 @@ module.config(['$routeProvider',
         });
     }]);
 
-	
+
 //AnalyticalList controller
 module.controller("analyticalListCtrl",function($scope,$http){
      $scope.analyticalArr = [];
@@ -93,7 +93,7 @@ module.controller("analyticalListCtrl",function($scope,$http){
         console.log("json summary", statistical.analytical_calculated_value);
         $scope.calSummary = JSON.parse(statistical.analytical_calculated_value);
         $scope.selMethod = statistical.analytical_method;
-		
+
         // console.log("vParams", visualization.parameters.labels);
         // console.log("vParams1", visualization.parameters.defaultData);
         // xdata = visualization.parameters.labels;
@@ -163,7 +163,7 @@ module.controller("statisticalListCtrl",function($scope,$http){
         console.log("json summary", statistical.statistical_calculated_value);
         $scope.calSummary = JSON.parse(statistical.statistical_calculated_value);
         $scope.selMethod = statistical.statistical_method;
-		
+
         // console.log("vParams", visualization.parameters.labels);
         // console.log("vParams1", visualization.parameters.defaultData);
         // xdata = visualization.parameters.labels;
@@ -216,8 +216,17 @@ module.controller("statisticalCtrl", function($scope,$http) {
         }, function (response) {
             //Second function handles error
             console.log("Something went wrong");
-        }); 
+        });
+
+    $scope.choiceDataset =function(x){
+        console.log("data==>",$scope.datasetArr);
+        let dashall  = _.find($scope.datasetArr, function(o) { return o.dataset_name ===x; });
+        console.log("DATASNAME", dashall);
+
+
+    }
     $scope.chooseDataset = function (dataset) {
+        console.log("datasetselection",dataset);
         selDatasetId = dataset.dataset_id;
         $scope.selectedDataset = dataset.dataset_name;
         $scope.sName = '';
@@ -243,8 +252,8 @@ module.controller("statisticalCtrl", function($scope,$http) {
 
     }
 
-   
-    
+
+
 
     $scope.calculateStatistical = function () {
      //   console.log('####selectedfield',$scope.selectedfield);
@@ -285,13 +294,13 @@ module.controller("statisticalCtrl", function($scope,$http) {
 						Plotly.newPlot('histoDiv', data);
 
              		}
-				
+
         }).error(function(data,status,headers,config){
             console.log("Something went wrong");
         });
 
-    }    
-    
+    }
+
     $scope.initCalculate = function(){
         $scope.calculationDone = false;
     }
@@ -312,11 +321,11 @@ module.controller("statisticalCtrl", function($scope,$http) {
         dt.append("fieldData",fieldDataToSave);
         dt.append("statistical_calculated_value",JSON.stringify($scope.calculatedSummary));
 		console.log("JDATA======>",JSON.stringify($scope.calculatedSummary));
-		
-		
+
+
         console.log("Hi from statistical");
         console.log("$$$$$$$",typeof($scope.calculatedSummary));
-		
+
         console.log("val to save",$scope.calculatedSummary);
         // dt.append("graphType", graphType);
         // console.log('graphy', graphData);
@@ -365,10 +374,10 @@ module.controller("analyticalCtrl", function($scope,$http) {
         }, function (response) {
             //Second function handles error
             console.log("Something went wrong");
-        }); 
+        });
     $scope.chooseDataset = function (dataset) {
         selDatasetId = dataset.dataset_id;
-		
+
 		console.log("#####", selDatasetId);
         $scope.selectedDataset = dataset.dataset_name;
         $scope.aName = '';
@@ -393,8 +402,8 @@ module.controller("analyticalCtrl", function($scope,$http) {
 
     }
 
-   
-    
+
+
 
     $scope.calculateAnalytical = function () {
      //   console.log('####selectedfield',$scope.selectedfield);
@@ -431,14 +440,14 @@ module.controller("analyticalCtrl", function($scope,$http) {
                    //  fieldDataToSave = fieldDataForoGraph.toString();
 				     console.log("In else calculateAnalytics",data);
 					   console.log("calculatedSummary calculateAnalytics",$scope.calculatedSummary);
-                     
+
 				}
 		}).error(function(data,status,headers,config){
             console.log("Something went wrong");
         });
 
-    }    
-    
+    }
+
     $scope.initCalculate = function(){
         $scope.calculationDone = false;
     }
@@ -530,7 +539,7 @@ module.controller("dashboardCtrl", function ($scope,$http) {
         let div = document.createElement("div");
         let testdiv = document.getElementById("testdiv");
         div.className = "col-md-12 my-4";
-        visualizationInDashId = "vId" + id; 
+        visualizationInDashId = "vId" + id;
         canvas.id = visualizationInDashId;
         canvas.width = 1000;
         canvas.height = 300;
@@ -607,7 +616,7 @@ module.controller("dashboardCtrl", function ($scope,$http) {
         textArea.type = "text";
         textArea.className = "form-control my-4";
         textArea.id = v.visualization_id + "h2";
-        
+
         textArea.setAttribute("ng-model", $scope.test);
         parentDiv.appendChild(textArea);
 
@@ -1829,13 +1838,13 @@ module.controller("createNewDataset", function ($scope, $http) {
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity
         }).success(function (data, status, headers, config) {
-           
+
             console.log("this is repsonse wala data", data);
-            
+
             if (data.isDuplicate===true) {
                 //data = 'Duplicate Dataset';
                 confirm('Duplicate Dataset')
-                location.reload();  
+                location.reload();
                 //alert("Change Dataset Name - A dataset name with same and process has already been created.");
 
             }

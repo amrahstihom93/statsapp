@@ -12,7 +12,7 @@
       <tr>
         <th>Dataset</th>
 	<!--	<th>Created By</th>-->
-       <th>Select Dataset</th> 
+       <th>Select Dataset</th>
       </tr>
     </thead>
     <tbody>
@@ -23,9 +23,19 @@
       </tr>
     </tbody>
   </table>
+  <!--Dropdown Menu-->
+  <div class="col-md-12 my-4">
+      <select  ng-click="choiceDataset(x.dataset_name)"id="dset""name="dset" class="custom-select btn-info">
+          <option selected="selected">Select field</option>
+
+          <option  ng-repeat="x in datasetArr" value = "[[x.dataset_name]]">[[x.dataset_name]]</option>
+      </select>
+
+
+      <a href="" class="btn btn-primary" ng-click="choiceDataset(datasetArr)">Select</a>
+  </div>
+
 </div>
-
-
 
 <div class="container" ng-show="showGraph1">
  <nav aria-label="breadcrumb" class="my-4">
@@ -39,10 +49,10 @@
 	<thead>
       <tr>
         <th>Dataset</th>
-       <th>Select Dataset</th> 
+       <th>Select Dataset</th>
       </tr>
     </thead>
-	
+
     <tbody>
       <tr ng-repeat="x in datasetArr">
         <td>[[x.dataset_name]]</td>
@@ -51,7 +61,7 @@
     </tbody>
   </table>
   </div>
- 
+
   <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Statistical</a></li>
@@ -71,14 +81,14 @@
         <option selected>Select field</option>
         <option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
       </select>
-  </div> 
+  </div>
   <div class="col-md-12">
   Select Column :
       <select id="x_value" name="x_axis_value" ng-model="selectedfield" class="custom-select btn-info">
         <option selected>Select field</option>
         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
       </select>
-  </div>   
+  </div>
   <button type="submit" class="btn btn-info" ng-click="calculateStatistical()">Calculate</button>
   <button class="btn btn-primary" ng-click="paramterSave1()">Save</button>
   </div>
@@ -92,7 +102,7 @@
           </h3>
           <ul ng-show="selectedmethod=='describe' && calculationDone">
             <li>Count :[[calculatedSummary.count]]</li>
-            <li>Mean :[[calculatedSummary.mean]]</li> 
+            <li>Mean :[[calculatedSummary.mean]]</li>
             <li>Standard Deviation :[[calculatedSummary.std]]</li>
             <li>Median : [[calculatedSummary.median]]</li>
             <li>Skewness : [[calculatedSummary.skewness]]</li>
@@ -114,28 +124,28 @@
     <div class="modal fade" id="successModal">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Success</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
-          [[sName]]Statistical is saved successfully. 
+          [[sName]]Statistical is saved successfully.
         </div>
-        
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         </div>
-        
+
       </div>
     </div>
   </div>
-  
+
 </div>
-  
+
   </div>
   </div>
