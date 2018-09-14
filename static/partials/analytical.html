@@ -7,6 +7,15 @@
     </nav>
     <!-- <a href="/dataset">dataset</a> -->
     <h3>Choose dataset to make analytical summary:</h3>
+    <!--DropdownSelector-->
+  <div class="table table-bordered table-striped my-4 dropdown">
+      <button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
+
+      </button>
+      <ul class="dropdown-menu scrollable-menu">
+          <li ng-repeat="x in datasetArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+      </ul>
+  </div>
     <table class="table table-bordered table-striped my-4">
         <thead>
             <tr>
@@ -33,22 +42,13 @@
             <li class="breadcrumb-item" aria-current="page">Change Selected Dataset</li>
         </ol>
     </nav>
-    <div class="table-wrapper-scroll-y">
-        <table class="table table-bordered table-striped my-4">
-	<thead>
-      <tr>
-        <th>Dataset</th>
-       <th>Select Dataset</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr ng-repeat="x in datasetArr">
-        <td>[[x.dataset_name]]</td>
-        <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
-      </tr>
-    </tbody>
-    </table>
+    <!--DropdownSelector summarypage-->
+    <div class="table table-bordered table-striped my-4 dropdown">
+        <button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
+        </button>
+        <ul class="dropdown-menu scrollable-menu">
+            <li ng-repeat="x in datasetArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+        </ul>
     </div>
 
   <nav aria-label="breadcrumb" class="my-4">

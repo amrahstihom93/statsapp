@@ -2,6 +2,32 @@
     DEMO STYLE
 */
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+.scrollable-menu {
+        width:100%;
+	    height: auto;
+	    max-height: 200px;
+	    overflow-x: hidden;
+	}
+    .block {
+        display: block;
+        width: 100%;
+        border: none;
+        border-radius: 0px;
+        background-color: #007bffd4;
+        font-size:1.5em;
+        padding:1%;
+        /*background-color: #4CAF50;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;*/
+    }
+
+.blockdrp{
+    display: block;
+    width: 100%;
+    border-radius: 0px;
+}
 
 
 body {
@@ -164,4 +190,3 @@ a.article, a.article:hover {
         display: none;
     }
 }
-

@@ -219,12 +219,12 @@ module.controller("statisticalCtrl", function($scope,$http) {
         });
 
     $scope.choiceDataset =function(x){
-        console.log("data==>",$scope.datasetArr);
-        let dashall  = _.find($scope.datasetArr, function(o) { return o.dataset_name ===x; });
+        dataset = $scope.datasetArr;
+        console.log("dataset==>", dataset);
+        let dashall  = _.find(dataset, function(o) { return o.dataset === x; });
         console.log("DATASNAME", dashall);
 
-
-    }
+        }
     $scope.chooseDataset = function (dataset) {
         console.log("datasetselection",dataset);
         selDatasetId = dataset.dataset_id;

@@ -59,3 +59,9 @@
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
