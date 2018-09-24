@@ -423,3 +423,5 @@ def delStatistical(request, id):
 	except:
 	    res = 'delete unsuccessful'
 	return HttpResponse(res)
+
+	

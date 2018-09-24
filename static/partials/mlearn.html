@@ -1,0 +1,36 @@
+<div class="container" ng-shown="showGraph1">
+	<nav aria-label="breadcrumb" class="my-4">
+		<ol class="breadcrumb">
+			<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+			<li class="breadcrumb-item" aria-current="page">Select Dataset</li>
+		</ol>
+	</nav>
+	<div class="table table-bordered table-striped my-4 dropdown">
+      <button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
+
+      </button>
+      <ul class="dropdown-menu scrollable-menu">
+          <li ng-repeat="x in mlearnArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+      </ul>
+  </div>
+	<div class="container text-center">
+		<h1 class="text-center">Salary Predictor</h1>
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Select Database</h3>
+				<select id="source" name="source">
+					<option ng-repeat="x in mlearnArr">[[x.dataset_name]]</option>
+				</select>
+			</div>
+			<div class="col-md-6">
+				<h3>Select Algorithm</h3>
+				<select id="status" name="status">
+					<option>Simple Linear Regression</option>
+				</select>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center row">
+				<a href="test"><button type="button" class="btn btn-primary" id = "slct-btn">Proceed</button></a>
+		</div>
+	</div>
+</div>

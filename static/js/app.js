@@ -52,13 +52,35 @@ module.config(['$routeProvider',
         }).when('/analyticalList', {
             templateUrl: static_url + 'partials/analyticalList.html',
             controller: 'analyticalListCtrl'
+        }).when('/mlearn', {
+            templateUrl: static_url + 'partials/mlearn.html',
+            controller: 'mlearnCtrl'
         });
     }]);
 
 
+module.controller("mlearnCtrl",function($scope,$http){
+	$scope.mlearnArr = [];
+	$scope.mlearnName = '';
+	console.log("gggg==>>", $scope.mlearnArr);
+	$scope.test ="This is working mlearn";
+	console.log("Inside mLearn");
+	let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.mlearnArr = response.data;
+			console.log("SCOPE.DATSETARR", $scope.mlearnArr);
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+	
+	});	
+	
 //AnalyticalList controller
 module.controller("analyticalListCtrl",function($scope,$http){
-     $scope.analyticalArr = [];
+    $scope.analyticalArr = [];
     $scope.analyticalName = '';
     let url = '/getAnalytical/';
     $http.get(url)

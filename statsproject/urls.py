@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from statsapp import views
+
+from mlearn import views as ml_views
+
 #from statsapp.views import MyPDFView
 from accounts import views as accounts_views
 from upload import views as dataset_upload_views
@@ -74,7 +77,8 @@ urlpatterns = [
 	url(r'^calculateAnalytics/$',statistical_views.calculateAnalytics,name='calculateAnalytics'),
 	url(r'^getAnalytical/$', statistical_views.getAnalyticalList,name='getAnalytical'),	
 	url(r'^delAnalytical/(?P<id>\d+)/$', statistical_views.delAnalytical,name='delete-analytical'),
-		
+	
+	url(r'^mlearn/$', ml_views.mlearn, name="mlearn"),
 
 ]
 if settings.DEBUG:
