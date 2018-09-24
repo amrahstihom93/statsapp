@@ -71,10 +71,27 @@ module.controller("mlearnCtrl",function($scope,$http){
             //First function handles success
             $scope.mlearnArr = response.data;
 			console.log("SCOPE.DATSETARR", $scope.mlearnArr);
+			console.log("SCOPE.DATSETARR", );
+			$('select[name="source"]').change(function(){
+				var e1 = document.getElementById("source");
+				console.log("EL++????>>>>>", e1);
+				var value1 = e1.options[e1.selectedIndex].value;
+				
+			});
+			
+			console.log("");
         }, function (response) {
             //Second function handles error
             console.log("Something went wrong");
         });
+		
+	$scope.testc =function(dataset){
+        dataset = $scope.mlearnArr;
+        console.log("dataset==>", dataset);
+        let dashall  = _.find(dataset, function(o) { return o.dataset === x; });
+        console.log("DATASNAME", dashall);
+
+        }
 	
 	});	
 	
