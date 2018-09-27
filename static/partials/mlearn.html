@@ -4,37 +4,38 @@
 	<nav aria-label="breadcrumb" class="my-4">
 		<ol class="breadcrumb">
 			<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
-			<li class="breadcrumb-item" aria-current="page">Select Dataset</li>
+			<li class="breadcrumb-item" aria-current="page">Create ML Model</li>
 		</ol>
 	</nav>
-	<div class="table table-bordered table-striped my-4 dropdown">
+	<!--<div class="table table-bordered table-striped my-4 dropdown">
       <button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
 
       </button>
       <ul class="dropdown-menu scrollable-menu">
           <li ng-repeat="x in mlearnArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
       </ul>
-  </div>
+  </div>-->
 	<div class="container text-center">
-		<h1 class="text-center">Salary Predictor</h1>
+		<h1 class="text-center">Create a Model</h1>
 		<div class="row">
 			<div class="col-md-6">
 				<h3>Select Database</h3>
-				<select id="source" name="source">
+				<select id="dataset" name="dataset" ng-model="selectedDataset">
 					<option ng-repeat="x in mlearnArr">[[x.dataset_name]]</option>
 				</select>
 				<br>
-				
+
 			</div>
 			<div class="col-md-6">
 				<h3>Select Algorithm</h3>
-				<select id="status" name="status">
+				<select id="algo" name="algo" ng-model:"selectedmodel">
+					<option>Select Algo</option>
 					<option>Simple Linear Regression</option>
 				</select>
 			</div>
 		</div>
 		<div class="d-flex justify-content-center row">
-				<a href="#"><button type="button" class="btn btn-primary" id = "slct-btn" >Proceed</button></a>
+				<a href="#"><button type="button" class="btn btn-primary" id = "slct-btn" ng-click="chooseDataset()">Proceed</button></a>
 		</div>
 	</div>
 </div>

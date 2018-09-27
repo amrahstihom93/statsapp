@@ -59,42 +59,8 @@ module.config(['$routeProvider',
     }]);
 
 
-module.controller("mlearnCtrl",function($scope,$http){
-	$scope.mlearnArr = [];
-	$scope.mlearnName = '';
-	console.log("gggg==>>", $scope.mlearnArr);
-	$scope.test ="This is working mlearn";
-	console.log("Inside mLearn");
-	let url = '/getDataset/'
-    $http.get(url)
-        .then(function (response) {
-            //First function handles success
-            $scope.mlearnArr = response.data;
-			console.log("SCOPE.DATSETARR", $scope.mlearnArr);
-			console.log("SCOPE.DATSETARR", );
-			$('select[name="source"]').change(function(){
-				var e1 = document.getElementById("source");
-				console.log("EL++????>>>>>", e1);
-				var value1 = e1.options[e1.selectedIndex].value;
-				
-			});
-			
-			console.log("");
-        }, function (response) {
-            //Second function handles error
-            console.log("Something went wrong");
-        });
-		
-	$scope.testc =function(dataset){
-        dataset = $scope.mlearnArr;
-        console.log("dataset==>", dataset);
-        let dashall  = _.find(dataset, function(o) { return o.dataset === x; });
-        console.log("DATASNAME", dashall);
 
-        }
-	
-	});	
-	
+
 //AnalyticalList controller
 module.controller("analyticalListCtrl",function($scope,$http){
     $scope.analyticalArr = [];
@@ -246,7 +212,7 @@ module.controller("statisticalCtrl", function($scope,$http) {
     let fieldDataToSave = '';
 
     $scope.showGraph1 = false;
-//console.log('sdsdfgsdfgfdg');
+    //console.log('sdsdfgsdfgfdg');
     let url = '/getDataset/'
     $http.get(url)
         .then(function (response) {
@@ -391,7 +357,92 @@ module.controller("statisticalCtrl", function($scope,$http) {
     }
 });
 
+module.controller("mlearnCtrl",function($scope,$http){
+	$scope.mlearnArr = [];
+	$scope.mlearnName = '';
+	$scope.test ="This is working mlearn";
+    $scope.selectdata = [$scope.mlearnArr];
+	console.log("Inside mLearn");
+	let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.mlearnArr = response.data;
+            var value1;
+			console.log("SCOPE.DATSETARR", $scope.mlearnArr);
+			$('select[name="dataset"]').change(function(){
+				var e1 = document.getElementById("dataset");
+				value1 = e1.options[e1.selectedIndex].value;
+                var e2 = document.getElementById("algo");
+				value2 = e2.options[e2.selectedIndex].value;
 
+
+                console.log("VALUE",value1);
+                console.log("VALUE2",value2);
+
+                let x;
+                let dashall = _.findIndex(response.data, function(o) { return o.dataset_name === value1; });
+
+                console.log("DATASETINDEX", dashall);
+                dset = response.data[dashall];
+
+                console.log("selected dataset",dset);
+			});
+            $('select[name="algo"]').change(function(){
+                var e2 = document.getElementById("algo");
+				value2 = e2.options[e2.selectedIndex].value;
+
+
+                console.log("VALUE2",value2);
+
+			});
+
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function () {
+            selDatasetId = dset.dataset_id;
+            selAlgoId = value2;
+            console.log("ALGOOOOO", selAlgoId);
+    		console.log("#####", selDatasetId);
+            $scope.selectedDataset = dset.dataset_name;
+            console.log("selectedDataset", $scope.selectedDataset);
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dset.dataset_name);
+            console.log(dset.dataset_name);
+            console.log("data", data);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+
+	$scope.testc =function(dataset){
+        dataset = $scope.mlearnArr;
+        console.log("dataset==>", dataset);
+        let dashall  = _.find(dataset, function(o) { return o.dataset === x; });
+        console.log("DATASNAME", dashall);
+
+
+        }
+
+	});
 
 module.controller("analyticalCtrl", function($scope,$http) {
     $scope.test ="This is working analytical";
@@ -404,7 +455,7 @@ module.controller("analyticalCtrl", function($scope,$http) {
     let fieldDataToSave = '';
 
     $scope.showGraph1 = false;
-//console.log('sdsdfgsdfgfdg');
+    //console.log('sdsdfgsdfgfdg');
     let url = '/getDataset/'
     $http.get(url)
         .then(function (response) {
@@ -454,6 +505,7 @@ module.controller("analyticalCtrl", function($scope,$http) {
     //    console.log('dataset_id',selDatasetId);
         dt.append("selecteddatacol", $scope.selecteddatacol);
         dt.append("selectedgroup", $scope.selectedgroup);
+        console.log("dfbdfjd nfdnbf", $scope.selectedgroup);
         dt.append("selectedmethod",$scope.selectedmethod);
 
         $http.post(url,dt,{
