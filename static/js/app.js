@@ -362,8 +362,12 @@ module.controller("mlearnCtrl",function($scope,$http){
 	$scope.mlearnName = '';
 	$scope.test ="This is working mlearn";
     $scope.selectdata = [$scope.mlearnArr];
+
+    $scope.selecteddataset = '';
+
 	console.log("Inside mLearn");
 	let url = '/getDataset/'
+    $scope.eminem = false;
     $http.get(url)
         .then(function (response) {
             //First function handles success
@@ -397,6 +401,7 @@ module.controller("mlearnCtrl",function($scope,$http){
 
 			});
 
+
         }, function (response) {
             //Second function handles error
             console.log("Something went wrong");
@@ -419,8 +424,20 @@ module.controller("mlearnCtrl",function($scope,$http){
                 transformRequest: angular.identity
             }).success(function (data, status, headers, config) {
                 $scope.fieldsAr = data;
-                console.log("fieldsAr", $scope.fieldsAr);
-                $scope.showGraph1 = true;
+
+                $scope.eminem = true;
+                $('select[name="idvar"]').change(function(){
+                    var idvar = document.getElementById("idvar");
+    				idvar = idvar.options[idvar.selectedIndex].value;
+
+                    console.log("IDVAR_VAL", idvar);
+                });
+                $('select[name="dvar"]').change(function(){
+                    var dvar = document.getElementById("dvar");
+    				dvar = dvar.options[dvar.selectedIndex].value;
+
+                    console.log("DVAR_VAL", dvar);
+                });
                 // this callback will be called asynchronously
                 // when the response is available
             }).error(function (data, status, headers, config) {
