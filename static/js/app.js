@@ -429,14 +429,33 @@ module.controller("mlearnCtrl",function($scope,$http){
                 $('select[name="idvar"]').change(function(){
                     var idvar = document.getElementById("idvar");
     				idvar = idvar.options[idvar.selectedIndex].value;
-
-                    console.log("IDVAR_VAL", idvar);
-                });
-                $('select[name="dvar"]').change(function(){
                     var dvar = document.getElementById("dvar");
     				dvar = dvar.options[dvar.selectedIndex].value;
+                    var but = document.getElementById("slct-btn2");
+                    if(idvar == dvar){
+                        but.disabled = true;
+                    }
+                    else{
+                        but.disabled = false;
+                    }
 
+
+
+                });
+                $('select[name="dvar"]').change(function(){
+                    var idvar = document.getElementById("idvar");
+    				idvar = idvar.options[idvar.selectedIndex].value;
+                    var dvar = document.getElementById("dvar");
+    				dvar = dvar.options[dvar.selectedIndex].value;
+                    var but = document.getElementById("slct-btn2");
+                    if(idvar == dvar){
+                        but.disabled = true;
+                    }
+                    else{
+                        but.disabled = false;
+                    }
                     console.log("DVAR_VAL", dvar);
+                    console.log("IDVAR_VAL", idvar);
                 });
                 // this callback will be called asynchronously
                 // when the response is available
@@ -446,6 +465,10 @@ module.controller("mlearnCtrl",function($scope,$http){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
+
+        }
+
+        $scope.chooseVariables = function(){
 
         }
 
@@ -1255,13 +1278,11 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("data is ", data);
             $scope.fieldsAr = data;
             console.log("fieldsAr", $scope.fieldsAr);
-
             $scope.showGraphList = true;
             // this callback will be called asynchronously
             // when the response is available
         }).error(function (data, status, headers, config) {
             console.log("something went wrong");
-
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });

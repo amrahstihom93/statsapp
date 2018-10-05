@@ -25,7 +25,7 @@
     </tbody>
   </table>
  </div>
- 
+
  <!-- Graph Types List-->
  	<div class="container" ng-show="showGraphList">
     <nav aria-label="breadcrumb" class="my-4">
@@ -66,8 +66,27 @@
 			<button class="mx-auto btn btn-primary" ng-click="setGraphType('line')">Area Chart</button>
         </div>
       </div>
-	  
-	  
+      <div class="card">
+		<img class="card-img-top" src="../static/img/radar.png" alt="Image of Radar Chart">
+        <div class="card-body">
+          <h3 class="card-title">Radar Chart</h3>
+			<div class="card-content">
+			<p>Create Radar chart.</p>
+			</div>
+			<button class="mx-auto btn btn-primary" ng-click="setGraphType('radar')">Radar Chart</button>
+        </div>
+      </div>
+      <div class="card">
+		<img class="card-img-top" src="../static/img/line.png" alt="Image of polar Chart">
+        <div class="card-body">
+          <h3 class="card-title">Polar Chart</h3>
+			<div class="card-content">
+			<p>Create Radar chart.</p>
+			</div>
+			<button class="mx-auto btn btn-primary" ng-click="setGraphType('polarArea')">Polar Chart</button>
+        </div>
+      </div>
+
 	</div>
 	<!--<div class="card-deck mt-4em">
 		<div class="card">
@@ -81,10 +100,10 @@
         </div>
       </div>-->
 	</div>
- 
- 
- 
- 
+
+
+
+
  <!-- Actual graph-->
  <div ng-show="showGraph">
 	<nav aria-label="breadcrumb" class="my-4">
@@ -113,7 +132,7 @@
 				<option selected>Select field</option>
 				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			</select>
-	</div>		
+	</div>
 	<button type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
 	<button class="btn btn-primary" ng-click="paramterSave()">Save</button>
 	</div>
@@ -122,37 +141,33 @@
 		<canvas id="myChart2" width="500" height="400"></canvas>
 	</div>
 	</div>
-	
+
 	</div>
 	</div>
-   
+
    <!--success modal-->
    <div class="modal fade" id="successModal">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Success</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
-          Visualization is saved successfully. 
+          Visualization is saved successfully.
         </div>
-        
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         </div>
-        
+
       </div>
     </div>
   </div>
-	
+
 </div>
- 
-
- 
-
