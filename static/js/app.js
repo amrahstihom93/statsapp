@@ -428,16 +428,32 @@ module.controller("mlearnCtrl",function($scope,$http){
                 $scope.eminem = true;
                 $('select[name="idvar"]').change(function(){
                     var idvar = document.getElementById("idvar");
-    				idvar = idvar.options[idvar.selectedIndex].value;
+                    idvar = idvar.options[idvar.selectedIndex].value;
 
                     console.log("IDVAR_VAL", idvar);
                 });
                 $('select[name="dvar"]').change(function(){
                     var dvar = document.getElementById("dvar");
-    				dvar = dvar.options[dvar.selectedIndex].value;
+                    var idvar = document.getElementById("idvar");
+                    dvar = dvar.options[dvar.selectedIndex].value;
+                    idvar = idvar.options[idvar.selectedIndex].value;
 
                     console.log("DVAR_VAL", dvar);
+                    var but = document.getElementById("slct-btn2");
+                    if(dvar == idvar){
+                      console.log("HUHUHAHAHAHA you selected same elements");
+                      but.classList.toggle("disabled");
+                      but.disabled =true;
+                    }
+                    else{
+                      console.log("HUHUHAHAHAHA you selected diff elements");
+                      but.classList.remove("disabled");
+                      but.disabled =false;
+                    }
+
                 });
+                console.log("huhuhuhuhuhuh",idvar);
+                  console.log("huhuhuhahahahaha",dvar);
                 // this callback will be called asynchronously
                 // when the response is available
             }).error(function (data, status, headers, config) {
