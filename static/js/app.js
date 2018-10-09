@@ -428,12 +428,29 @@ module.controller("mlearnCtrl",function($scope,$http){
                 $scope.eminem = true;
                 $('select[name="idvar"]').change(function(){
                     var idvar = document.getElementById("idvar");
+<<<<<<< HEAD
                     idvar = idvar.options[idvar.selectedIndex].value;
+=======
+    				idvar = idvar.options[idvar.selectedIndex].value;
+                    var dvar = document.getElementById("dvar");
+    				dvar = dvar.options[dvar.selectedIndex].value;
+                    var but = document.getElementById("slct-btn2");
+                    if(idvar == dvar){
+                        but.disabled = true;
+                    }
+                    else{
+                        but.disabled = false;
+                    }
 
-                    console.log("IDVAR_VAL", idvar);
+
+>>>>>>> 525d349194772a588d388ea8a1f1b20c1e369538
+
                 });
                 $('select[name="dvar"]').change(function(){
+                    var idvar = document.getElementById("idvar");
+    				idvar = idvar.options[idvar.selectedIndex].value;
                     var dvar = document.getElementById("dvar");
+<<<<<<< HEAD
                     var idvar = document.getElementById("idvar");
                     dvar = dvar.options[dvar.selectedIndex].value;
                     idvar = idvar.options[idvar.selectedIndex].value;
@@ -451,6 +468,18 @@ module.controller("mlearnCtrl",function($scope,$http){
                       but.disabled =false;
                     }
 
+=======
+    				dvar = dvar.options[dvar.selectedIndex].value;
+                    var but = document.getElementById("slct-btn2");
+                    if(idvar == dvar){
+                        but.disabled = true;
+                    }
+                    else{
+                        but.disabled = false;
+                    }
+                    console.log("DVAR_VAL", dvar);
+                    console.log("IDVAR_VAL", idvar);
+>>>>>>> 525d349194772a588d388ea8a1f1b20c1e369538
                 });
                 console.log("huhuhuhuhuhuh",idvar);
                   console.log("huhuhuhahahahaha",dvar);
@@ -462,6 +491,10 @@ module.controller("mlearnCtrl",function($scope,$http){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
+
+        }
+
+        $scope.chooseVariables = function(){
 
         }
 
@@ -1271,13 +1304,11 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("data is ", data);
             $scope.fieldsAr = data;
             console.log("fieldsAr", $scope.fieldsAr);
-
             $scope.showGraphList = true;
             // this callback will be called asynchronously
             // when the response is available
         }).error(function (data, status, headers, config) {
             console.log("something went wrong");
-
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });

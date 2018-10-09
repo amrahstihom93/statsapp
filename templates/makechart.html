@@ -113,7 +113,7 @@ function setChart(){
     <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
         <h1>Visualization</h1>
 		<h1>{{ dataset_name }}</h1>
-        
+
 		<div id="header_fields">
 			<form method="POST" action="/api/chart/{{ dataset_name }}/">
 			{% csrf_token %}
@@ -124,7 +124,7 @@ function setChart(){
 				<option value='{{ header }}'>{{ header }}</option>
 				{% endfor %}
 			</select>
-			
+
 			Select Y-axis :
 			<select id="header" name="y_axis_value" class="custom-select btn-info">
 				<option selected>Select field</option>
@@ -135,7 +135,7 @@ function setChart(){
 			<button type="submit" class="btn btn-info">Submit</button>
 			</form>
 		</div>
-		
+
 		<div class='col-sm-6'>
             <canvas id="myChart2" width="500" height="400"></canvas>
         </div>
