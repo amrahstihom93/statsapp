@@ -25,6 +25,8 @@ from scipy import stats
 
 def mlearn(request):
 	print('Hiiiiii')
-
 	return render(request, 'mlearn.html')
 
+def calcsregression(request):
+	print('We are in calcsregression')
+	return HttpResponse(request)

@@ -368,6 +368,7 @@ module.controller("mlearnCtrl",function($scope,$http){
 	console.log("Inside mLearn");
 	let url = '/getDataset/'
     $scope.eminem = false;
+    $scope.venom = false;
     $http.get(url)
         .then(function (response) {
             //First function handles success
@@ -469,7 +470,16 @@ module.controller("mlearnCtrl",function($scope,$http){
         }
 
         $scope.chooseVariables = function(){
-
+            let url = '/calcsregression/';
+            console.log("insidechoosevar");
+            $http.get(url)
+                .then(function (response) {
+                    //First function handles success
+                    $scope.venom = true;
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong");
+                });
         }
 
 

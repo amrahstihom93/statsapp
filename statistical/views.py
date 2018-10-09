@@ -70,14 +70,12 @@ def saveStatistics(request):
 	msg = 'error while saving statistical summary'
 	return HttpResponse(msg)
 
-	
+
 
 
 
 def calculateAnalytics(request):
 	print('Hiiiiiiiiii')
-
-
 	if request.method == 'POST':
 		result = 0
 		res = 0
@@ -423,5 +421,3 @@ def delStatistical(request, id):
 	except:
 	    res = 'delete unsuccessful'
 	return HttpResponse(res)
-
-	

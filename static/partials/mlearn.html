@@ -1,5 +1,5 @@
 
-
+<div class = "container" ng-hide = "venom">
 <div class="container" ng-hide="eminem">
 	<nav aria-label="breadcrumb" class="my-4">
 		<ol class="breadcrumb">
@@ -41,7 +41,7 @@
 
 
 </div>
-<div class="container"ng-show="eminem">
+<div class="container"ng-show="eminem" >
 	<nav aria-label="breadcrumb" class="my-4">
 		<ol class="breadcrumb">
 			<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
@@ -68,7 +68,12 @@
 		</div>
 
 		<div class="d-flex justify-content-center row">
-				<a href=""><button type="button" class="btn btn-primary" id = "slct-btn2" ng-click="chooseDataset()">Proceed</button></a>
+				<button type="button" class="btn btn-primary" id = "slct-btn2" ng-click="chooseVariables()">Proceed</button>
 		</div>
 	</div>
+</div>
+</div>
+
+<div ng-show="venom">
+	hi
 </div>
