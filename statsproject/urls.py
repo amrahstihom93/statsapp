@@ -65,20 +65,21 @@ urlpatterns = [
 	url(r'^account_activation_sent/$', accounts_views.account_activation_sent, name='account_activation_sent'),
 	url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
 		accounts_views.activate, name='activate'),
-	#url(r'^pdf/$', PDFTemplateView.as_view(template_name='pdftest.html',filename='mypdf.pdf'), name='pdf'),	
+	#url(r'^pdf/$', PDFTemplateView.as_view(template_name='pdftest.html',filename='mypdf.pdf'), name='pdf'),
 	#url(r'^pdfresponse/$',MyPDFView.as_view(), name='pdfresponse'),
 	url(r'^mysqlconnect/$', dataset_upload_views.mysqlconnect, name='mySqlConnector'),
 	url(r'^saveStatistics/$',statistical_views.saveStatistics,name='saveStatistics'),
 	url(r'^calculateStatistics/$',statistical_views.calculateStatistics,name='calculateStatistics'),
-	url(r'^getStatistical/$', statistical_views.getStatisticalList,name='getStatistical'),	
+	url(r'^getStatistical/$', statistical_views.getStatisticalList,name='getStatistical'),
 	url(r'^delStatistical/(?P<id>\d+)/$', statistical_views.delStatistical,name='delete-statistical'),
-	
+
 	url(r'^saveAnalytics/$',statistical_views.saveAnalytics,name='saveAnalytics'),
 	url(r'^calculateAnalytics/$',statistical_views.calculateAnalytics,name='calculateAnalytics'),
-	url(r'^getAnalytical/$', statistical_views.getAnalyticalList,name='getAnalytical'),	
+	url(r'^getAnalytical/$', statistical_views.getAnalyticalList,name='getAnalytical'),
 	url(r'^delAnalytical/(?P<id>\d+)/$', statistical_views.delAnalytical,name='delete-analytical'),
-	
+
 	url(r'^mlearn/$', ml_views.mlearn, name="mlearn"),
+    url(r'^calcsregression/$', ml_views.calcsregression, name='calcsregression'),
 
 ]
 if settings.DEBUG:

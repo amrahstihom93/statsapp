@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 import pymongo
+import mongoengine,json, pymongo, pandas, pickle,  numpy as np, pandas as pd,matplotlib.pyplot as plt
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from pymongo import MongoClient
@@ -25,6 +26,13 @@ from scipy import stats
 
 def mlearn(request):
 	print('Hiiiiii')
-
 	return render(request, 'mlearn.html')
 
+def calcsregression(request):
+	print('We are in calcsregression')
+	if request.method == 'POST':
+		print("in calc POSTMEHTOD")
+		print(request.POST['training_size'])
+		print(request.POST['random_state'])
+		print(request.POST['fit_intercept'])
+	return HttpResponse(request)

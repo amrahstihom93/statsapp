@@ -1,74 +1,109 @@
 
+<div class = "container" ng-hide = "venom">
+	<div class="container" ng-hide="eminem">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+				<li class="breadcrumb-item" aria-current="page">Create ML Model</li>
+			</ol>
+		</nav>
+		<!--<div class="table table-bordered table-striped my-4 dropdown">
+      	<button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
 
-<div class="container" ng-hide="eminem">
-	<nav aria-label="breadcrumb" class="my-4">
-		<ol class="breadcrumb">
-			<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
-			<li class="breadcrumb-item" aria-current="page">Create ML Model</li>
-		</ol>
-	</nav>
-	<!--<div class="table table-bordered table-striped my-4 dropdown">
-      <button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
+      	</button>
+      	<ul class="dropdown-menu scrollable-menu">
+          	<li ng-repeat="x in mlearnArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+      	</ul>
+  	</div>-->
+		<div class="container text-center">
+			<h1 class="text-center">Create a Model</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Select Database</h3>
+					<select id="dataset" name="dataset" ng-model="selectedDataset" class="custom-select btn-info">
+						<option ng-repeat="x in mlearnArr">[[x.dataset_name]]</option>
+					</select>
+					<br>
 
-      </button>
-      <ul class="dropdown-menu scrollable-menu">
-          <li ng-repeat="x in mlearnArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
-      </ul>
-  </div>-->
-	<div class="container text-center">
-		<h1 class="text-center">Create a Model</h1>
-		<div class="row">
-			<div class="col-md-6">
-				<h3>Select Database</h3>
-				<select id="dataset" name="dataset" ng-model="selectedDataset" class="custom-select btn-info">
-					<option ng-repeat="x in mlearnArr">[[x.dataset_name]]</option>
-				</select>
-				<br>
-
+				</div>
+				<div class="col-md-6">
+					<h3>Select Algorithm</h3>
+					<select id="algo" name="algo" ng-model:"selectedmodel" class="custom-select btn-info">
+						<option>Select Algo</option>
+						<option>Simple Linear Regression</option>
+					</select>
+				</div>
 			</div>
-			<div class="col-md-6">
-				<h3>Select Algorithm</h3>
-				<select id="algo" name="algo" ng-model:"selectedmodel" class="custom-select btn-info">
-					<option>Select Algo</option>
-					<option>Simple Linear Regression</option>
-				</select>
+			<div class="d-flex justify-content-center row">
+					<a href=""><button type="button" class="btn btn-primary" id = "slct-btn" ng-click="chooseDataset()">Proceed</button></a>
+				</div>
+			</div>
+
+
+		</div>
+	<div class="container"ng-show="eminem" >
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+				<li class="breadcrumb-item" aria-current="page">Select Variables</li>
+			</ol>
+		</nav>
+		<div class="container text-center">
+			<h1 class="text-center">Select Variables</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Select Independent variable</h3>
+					<select id="idvar" name="idvar" ng-model="selecteddataset" class="custom-select btn-info">
+						<option>Select Independent Variable</option>
+						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<h3>Select Dependent variable</h3>
+					<select id="dvar" name="dvar" ng-model:"selectedmodel" class="custom-select btn-info">
+						<option>Select Algo</option>
+						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-center row">
+					<button type="button" class="btn btn-primary" id = "slct-btn2" ng-click="chooseVariables()">Proceed</button>
+				</div>
 			</div>
 		</div>
-		<div class="d-flex justify-content-center row">
-				<a href=""><button type="button" class="btn btn-primary" id = "slct-btn" ng-click="chooseDataset()">Proceed</button></a>
-		</div>
-	</div>
-
-
 </div>
-<div class="container"ng-show="eminem">
-	<nav aria-label="breadcrumb" class="my-4">
-		<ol class="breadcrumb">
-			<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
-			<li class="breadcrumb-item" aria-current="page">Select Variables</li>
-		</ol>
-	</nav>
-	<div class="container text-center">
-		<h1 class="text-center">Select Variables</h1>
-		<div class="row">
-			<div class="col-md-6">
-				<h3>Select Independent variable</h3>
-				<select id="idvar" name="idvar" ng-model="selecteddataset" class="custom-select btn-info">
-					<option>Select Independent Variable</option>
-					<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-				</select>
-			</div>
-			<div class="col-md-6">
-				<h3>Select Dependent variable</h3>
-				<select id="dvar" name="dvar" ng-model:"selectedmodel" class="custom-select btn-info">
-					<option>Select Algo</option>
-					<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-				</select>
-			</div>
-		</div>
 
-		<div class="d-flex justify-content-center row">
-				<a href=""><button type="button" class="btn btn-primary" id = "slct-btn2" ng-click="chooseDataset()">Proceed</button></a>
-		</div>
+<div class="container" ng-show="venom">
+	<div class="container text-center">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+				<li class="breadcrumb-item" aria-current="page">Select parameters</li>
+			</ol>
+		</nav>
+	<h1 class="text-center">Select Parameters</h1>
+	<!--<form  method="POST">-->
+        <div class="row">
+            <div class="col-md-4" ng-model="training_size"name="training_size" >
+                <h3>Select Training Set Size</h3>
+                <input type="number" id ="training_size" min=50 max=100 value="0">
+            </div>
+            <div class="col-md-4"ng-model="random_state"name="random_state" >
+                <h3>Random State</h3>
+                <input type="number" id="random_state" min=0>
+            </div>
+            <div class="col-md-4">
+                <h3>Fit Intercept</h3>
+                <select name="fit_intercept"ng-model="fit_intercept" id="fit_intercept" >
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center row" style="margin-top: 20px;">
+                <button type="button" class="btn btn-primary" name = "slct-btn3" id = "slct-btn3" ng-click="selectparm()">Proceed</button>
+        </div>
+        <!--</form>-->
 	</div>
 </div>
