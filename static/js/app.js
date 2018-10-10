@@ -482,6 +482,68 @@ module.controller("mlearnCtrl",function($scope,$http){
                 });
         }
 
+        $scope.selectparm = function(){
+            $scope.training_size='';
+            $scope.random_state='';
+            $scope.fit_intercept='';
+            selDatasetId = dset;
+            console.log("selectparm");
+            selDatasetId = dset.dataset_id;
+            selAlgoId = value2;
+            $scope.selectedDataset = dset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            let url2='/calcsregression/';
+            let dt = new FormData();
+            data.append("dName", dset.dataset_name);
+            data.append("training_size",training_size);
+            data.append("random_state", random_state);
+            data.append("fit_intercept", fit_intercept);
+            $http.post(url2,data,{
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data,status,headers,config) {
+                    //First function handles success
+                    let sara = new FormData();
+                    var t_size = document.getElementById("training_size").value;
+                    sara.append("training_size",t_size);
+                    console.log("DT====>",sara);
+                    console.log("insidecalcregression");
+                }). error(function (data,status,headers,config) {
+                    //Second function handles error
+                    console.log("Something went wrong");
+                });
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("lalala");
+                $(function(){
+                    var t_size = document.getElementById("training_size").value;
+                    var r_state = document.getElementById("random_state").value;
+                    var f_intercept = document.getElementById("fit_intercept").value;
+                    console.log("training_size",t_size);
+                    $scope.training_size = t_size;
+                    dt = new FormData();
+                    var a =dt.append("training_size",t_size);
+
+                    console.log("random_state",r_state);
+                    console.log("fit_intercept",f_intercept);
+
+                });
+
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
 
 	$scope.testc =function(dataset){
         dataset = $scope.mlearnArr;
