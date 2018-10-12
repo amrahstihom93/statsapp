@@ -364,11 +364,13 @@ module.controller("mlearnCtrl",function($scope,$http){
     $scope.selectdata = [$scope.mlearnArr];
 
     $scope.selecteddataset = '';
-
+    let selDatasetId = '';
+    let fieldDataToSave = '';
 	console.log("Inside mLearn");
 	let url = '/getDataset/'
     $scope.eminem = false;
     $scope.venom = false;
+
     $http.get(url)
         .then(function (response) {
             //First function handles success
@@ -464,7 +466,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                       but.disabled =false;
                     }
 
-/*
+                    /*
     				dvar = dvar.options[dvar.selectedIndex].value;
                     var but = document.getElementById("slct-btn2");
                     if(idvar == dvar){
@@ -507,9 +509,11 @@ module.controller("mlearnCtrl",function($scope,$http){
             $scope.training_size='';
             $scope.random_state='';
             $scope.fit_intercept='';
-            selDatasetId = dset;
             console.log("selectparm");
             selDatasetId = dset.dataset_id;
+            selDatasetName = dset.dataset_name;
+            console.log("seldatasetName--->>",selDatasetName);
+            console.log("seldatasetid===>",selDatasetId);
             selAlgoId = value2;
             $scope.selectedDataset = dset.dataset_name;
             $scope.aName = '';
@@ -526,19 +530,21 @@ module.controller("mlearnCtrl",function($scope,$http){
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity
             }).success(function (data, status, headers, config) {
-                $scope.fieldsAr = data;
-                console.log("lalala");
+                $scope.calculatedsummary=data.summary;
+                console.log("lalala selected dataset", data);
                 $(function(){
+
                     var t_size = document.getElementById("training_size").value;
                     var r_state = document.getElementById("random_state").value;
                     var f_intercept = document.getElementById("fit_intercept").value;
-                    console.log("training_size",t_size);
+                    console.log("datasummary--->",$scope.calculatedsummary);
+
+                    console.log("training_size---->",t_size);
+
+                    console.log("random_state--->",r_state);
+                    console.log("fit_intercept--->>",f_intercept);
                     $scope.training_size = t_size;
                     dt = new FormData();
-                    var a =dt.append("training_size",t_size);
-
-                    console.log("random_state",r_state);
-                    console.log("fit_intercept--->>",f_intercept);
 
                 });
 
@@ -555,10 +561,9 @@ module.controller("mlearnCtrl",function($scope,$http){
                 transformRequest: angular.identity
             }).success(function (data,status,headers,config) {
                     //First function handles success
-                    let sara = new FormData();
                     var t_size = document.getElementById("training_size").value;
-                    sara.append("training_size",t_size);
-                    console.log("DT====>",dt);
+
+                    console.log("DT====>",data);
                     console.log("insidecalcregression");
 
                 }). error(function (data,status,headers,config) {
@@ -756,6 +761,232 @@ module.controller("dashboardCtrl", function ($scope,$http) {
         $scope.isNameSaved = false;
     }
 
+    let doc = new jsPDF();
+    let specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+
+    $scope.testExport = function(){
+      //   var doc = new jsPDF();
+      //   doc.text(10, 10, 'This is a test');
+      // //  doc.autoPrint();
+      //   doc.addPage();
+      //   doc.setPage(2);
+      //   doc.text(10, 10, 'This is a test2');
+      //   doc.save('autoprint.pdf');
+
+      var pdf = new jsPDF('p', 'pt', 'a4');
+      var options = {
+            pagesplit: true
+        };
+
+        pdf.addHTML($("#visualizationContainer")[0], options, function(){
+            pdf.save("test.pdf");
+        });
+
+
+    //    var pdf = new jsPDF('p', 'pt', 'letter');
+    // // source can be HTML-formatted string, or a reference
+    // // to an actual DOM element from which the text will be scraped.
+    // source = $('#visualizationContainer').html();
+
+    // // we support special element handlers. Register them with jQuery-style
+    // // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+    // // There is no support for any other type of selectors
+    // // (class, of compound) at this time.
+    // specialElementHandlers = {
+    //     // element with id of "bypass" - jQuery style selector
+    //     '#bypassme': function (element, renderer) {
+    //         // true = "handled elsewhere, bypass text extraction"
+    //         return true
+    //     }
+    // };
+    // margins = {
+    //     top: 80,
+    //     bottom: 60,
+    //     left: 40,
+    //     width: 522
+    // };
+    // // all coords and widths are in jsPDF instance's declared units
+    // // 'inches' in this case
+    // pdf.fromHTML(
+    // source, // HTML string or DOM elem ref.
+    // margins.left, // x coord
+    // margins.top, { // y coord
+    //     'width': margins.width, // max width of content on PDF
+    //     'elementHandlers': specialElementHandlers
+    // },
+
+    // function (dispose) {
+    //     // dispose: object with X, Y of the last line add to the PDF
+    //     //          this allow the insertion of new lines after html
+    //     pdf.save('Test.pdf');
+    // }, margins);
+    }
+
+    $scope.exportDash = function() {
+
+
+// $(function () {
+
+
+            var doc = new jsPDF();
+            doc.addHTML($('#visualizationContainer')[0], 15, 13, {
+                'background': '#fff',
+                'pagesplit': true
+            }, function () {
+                countGraphs = document.getElementById("visualizationContainer").children.length;
+                // doc.addHTML($('#visualizationContainer')[0]);
+                // doc.addPage();
+                // doc.setPage(2);
+                // doc.addHTML($('#visualizationContainer')[0]);
+                // doc.text(10, 10, 'This is a test2');
+                // doc.addHTML($('#visualizationContainer')[0]);
+                doc.save('chart.pdf');
+            });
+
+    // });
+
+    // doc.fromHTML($('#vIdvisualization1').html(), 15, 15, {
+    //     'width': 170,
+    //         'elementHandlers': specialElementHandlers
+    // });
+    // doc.save('sample-file.pdf');
+
+    }
+
+    let page_section,HTML_Width,HTML_Height,top_left_margin,PDF_Width,PDF_Height,canvas_image_width,canvas_image_height;
+
+
+    function calculatePDF_height_width(selector,index){
+        page_section = $(selector).eq(index);
+        HTML_Width = page_section.width();
+        HTML_Height = page_section.height();
+        top_left_margin = 15;
+        PDF_Width = HTML_Width + (top_left_margin * 2);
+        PDF_Height = (PDF_Width) + (top_left_margin);
+        canvas_image_width = HTML_Width;
+        canvas_image_height = HTML_Height;
+    }
+
+
+    $scope.multipageExport = function(){
+    let sheetFmt = '';
+    let  pdf = "";
+    let vContainerId = document.getElementById("visualizationContainer");
+    let visualizationCountInDash = vContainerId.children.length;
+    if($scope.dashboardType === 'landscape')
+        sheetFmt = 'l';
+    else
+        sheetFmt = 'p';
+
+    html2canvas($(".visualizationx:eq(0)")[0], { allowTaint: true }).then(function(canvas) {
+
+        calculatePDF_height_width(".visualizationx",0);
+        var imgData = canvas.toDataURL("image/png", 1.0);
+        pdf = new jsPDF(sheetFmt, 'pt', [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
+
+
+    });
+
+    for(let i= 1; i< visualizationCountInDash-1; i++){
+
+         html2canvas($(".visualizationx:eq("+i+")")[0], { allowTaint: true }).then(function(canvas) {
+
+             calculatePDF_height_width(".visualizationx",i);
+
+             var imgData = canvas.toDataURL("image/png", 1.0);
+             pdf.addPage(PDF_Width, PDF_Height);
+             pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
+
+         });
+
+
+    }
+
+    let c = visualizationCountInDash-1;
+    html2canvas($(".visualizationx:eq("+c+")")[0], { allowTaint: true }).then(function(canvas) {
+
+        calculatePDF_height_width(".visualizationx",c);
+
+        var imgData = canvas.toDataURL("image/png", 1.0);
+        pdf.addPage(PDF_Width, PDF_Height);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
+
+        setTimeout(function(){
+                pdf.save("dashboard.pdf");
+                console.log("count of visualization in dashboard", visualizationCountInDash);
+        },0);
+    });
+
+
+    console.log("count of visualization in dashboard", visualizationCountInDash);
+        // html2canvas($(".visualizationx:eq(0)")[0], { allowTaint: true }).then(function(canvas) {
+
+        //     calculatePDF_height_width(".visualizationx",0);
+        //     var imgData = canvas.toDataURL("image/png", 1.0);
+        //     pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+        //     pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, HTML_Width, HTML_Height);
+
+        // });
+
+        // html2canvas($(".visualizationx:eq(1)")[0], { allowTaint: true }).then(function(canvas) {
+
+        //     calculatePDF_height_width(".visualizationx",1);
+
+        //     var imgData = canvas.toDataURL("image/png", 1.0);
+        //     pdf.addPage(PDF_Width, PDF_Height);
+        //     pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, HTML_Width, HTML_Height);
+
+        // });
+
+        // html2canvas($(".visualizationx:eq(2)")[0], { allowTaint: true }).then(function(canvas) {
+
+        //     calculatePDF_height_width(".visualizationx",2);
+
+        //     var imgData = canvas.toDataURL("image/png", 1.0);
+        //     pdf.addPage(PDF_Width, PDF_Height);
+        //     pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, HTML_Width, HTML_Height);
+
+
+
+        //         //console.log((page_section.length-1)+"==="+index);
+        //         setTimeout(function() {
+
+        //             //Save PDF Doc
+        //             pdf.save("HTML-Document.pdf");
+
+        //             //Generate BLOB object
+        //             // var blob = pdf.output("blob");
+
+        //             // //Getting URL of blob object
+        //             // var blobURL = URL.createObjectURL(blob);
+
+        //             // //Showing PDF generated in iFrame element
+        //             // var iframe = document.getElementById('sample-pdf');
+        //             // iframe.src = blobURL;
+
+        //             // //Setting download link
+        //             // var downloadLink = document.getElementById('pdf-download-link');
+        //             // downloadLink.href = blobURL;
+        //         //    $(".pdf-download-link").show();
+
+        //         //    $("#sample-pdf").slideDown();
+
+
+        //          //   $("#downloadbtn").show();
+        //          //   $("#genmsg").hide();
+        //         }, 0);
+        // });
+
+
+
+
+    }
     $scope.addVisual = function(btnId){
         console.log("button id", btnId.target.id);
         let id = btnId.target.parentNode.id;
@@ -778,11 +1009,73 @@ module.controller("dashboardCtrl", function ($scope,$http) {
 
     }
 
-    $scope.initDashboard = function(){
-        $scope.isDashboardVisible = true;
+	$scope.addNewVisualization = function(){
+        console.log("in new add");
+
+        let pDiv = document.getElementById("visualizationContainer");
+        let childCount = pDiv.children.length + 1;
+        console.log("this is chilscount", childCount);
+        if(childCount <= 1)
+            $scope.zeroVisualizations = true;
+        else
+            $scope.zeroVisualizations = false;
+        // console.log("pdiv" , pDiv.children);
+        // console.log("pdiv length" , pDiv.children.length);
+        let div = document.createElement("div");
+        div.className = "col-md-12 my-4";
+        visualizationInDashId = "vIdVisualization" + childCount;
+        let canvas = document.createElement("canvas");
+        canvas.id = visualizationInDashId;
+        canvas.width = 1000;
+        canvas.height = 300;
+        div.appendChild(canvas);
+
+        let outerCard = document.createElement("div");
+        outerCard.className = "card text-center mt-2em smokeBackground";
+        outerCard.id = "visualizationContainerId" + childCount;
+        let cardHeader = document.createElement("div");
+        cardHeader.className = "card-header";
+        outerCard.appendChild(cardHeader);
+        let addTextBtn = document.createElement("button");
+        addTextBtn.className = "btn btn-primary ml-2 float-right";
+        addTextBtn.innerText = "Add Subtitle";
+        addTextBtn.onclick = function($event){
+           // console.log("hi from button",$event.target.parentNode.parentNode.children[1].children[0]);
+            nodeToAddText = $event.target.parentNode.parentNode.children[1].children[0];
+            $scope.subtitleText = "";
+            $('#subtitleModal').modal();
+        }
+        cardHeader.appendChild(addTextBtn);
+        let addNarrBtn = document.createElement("button");
+        addNarrBtn.className = "btn btn-primary ml-5 float-right";
+        addNarrBtn.innerText = "Add Narration";
+        addNarrBtn.onclick = function($event){
+           // console.log("hi from button",$event.target.parentNode.parentNode.children[1].children[0]);
+           console.log("sdfsdfsdf narration",$event.target.parentNode.parentNode.children[1].children);
+            nodeToAddText = $event.target.parentNode.parentNode.children[1].children[1];
+            $scope.narrationText = "";
+            $('#narrationModal').modal();
+        }
+        cardHeader.appendChild(addNarrBtn);
+        let cardBody = document.createElement("div");
+        cardBody.className = "card-body  visualizationx";
+        cardBody.appendChild(div);
+        let cardFooter = document.createElement("div");
+        cardFooter.className = "card-footer";
+        cardBody.appendChild(cardFooter);
+        outerCard.appendChild(cardBody);
+
+        pDiv.appendChild(outerCard);
+       // pDiv.insertBefore(outerCard, pDiv.children[0]);
+
     }
 
-    function viewChart(x, y, id) {
+    $scope.initDashboard = function(){
+        $scope.isDashboardVisible = true;
+		console.log('dashboardType',$scope.dashboardType);
+    }
+
+    function viewChart(x, y, xLabel, yLabel,id) {
         var ctx2 = document.getElementById(id);
         xData = x;
         yData = y;
@@ -813,7 +1106,27 @@ module.controller("dashboardCtrl", function ($scope,$http) {
                 }]
             },
             options: {
-                events: ['click']
+                events: ['click'],
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: yLabel
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: xLabel
+                        }
+                    }]
+                }
             }
         });
     }
@@ -829,6 +1142,8 @@ module.controller("dashboardCtrl", function ($scope,$http) {
         console.log("vParams1", v.parameters.defaultData);
         xdata = v.parameters.labels;
         ydata = v.parameters.defaultData;
+        xLabel = v.parameters.xLabel;
+        yLabel = v.parameters.yLabel;
         gType = v.type;
         divId = document.getElementById(visualizationInDashId);
         console.log("divId", divId.id);
@@ -838,53 +1153,31 @@ module.controller("dashboardCtrl", function ($scope,$http) {
         let parentDiv = divId.parentNode;
         parentDiv.insertBefore(header, parentDiv.childNodes[0]);
 
-        let textArea = document.createElement("input");
-        textArea.type = "text";
-        textArea.className = "form-control my-4";
-        textArea.id = v.visualization_id + "h2";
-
-        textArea.setAttribute("ng-model", $scope.test);
-        parentDiv.appendChild(textArea);
-
-        let saveTextBtn = document.createElement("button");
-        saveTextBtn.className = "btn btn-primary";
-        saveTextBtn.innerText = "Save Sub Title";
-        saveTextBtn.setAttribute("ng-model", $scope.test);
-        saveTextBtn.onclick = function(){
-            console.log("hi from save header", $scope.test);
-            let k = document.getElementById(v.visualization_id+"h2").value;
-            console.log("conos", k);
-            let h2 = document.createElement("h4");
-            let h2Val = document.createTextNode(k);
-            h2.appendChild(h2Val);
-            //parentDiv.appendChild(h2);
-            parentDiv.insertBefore(h2, parentDiv.childNodes[2]);
-            console.log("this is ans", this.visualization_id);
-
-        }
-
-        let saveNarrationBtn = document.createElement("button");
-        saveNarrationBtn.className = "btn btn-primary ml-5";
-        saveNarrationBtn.innerText = "Save Narration";
-        saveNarrationBtn.setAttribute("ng-model", $scope.test);
-        saveNarrationBtn.onclick = function(){
-            console.log("hi from save header", $scope.test);
-            let k = document.getElementById(v.visualization_id+"h2").value;
-            console.log("conos", k);
-            let h2 = document.createElement("h4");
-            let h2Val = document.createTextNode(k);
-            h2.appendChild(h2Val);
-            //parentDiv.appendChild(h2);
-            console.log("parent ###", parentDiv.children.length);
-            parentDiv.insertBefore(h2, parentDiv.childNodes[parentDiv.children.length - 3]);
-            console.log("this is ans", this.visualization_id);
-
-        }
-        parentDiv.appendChild(saveTextBtn);
-        parentDiv.appendChild(saveNarrationBtn);
         $("#myModal").modal("hide");
      //   divId.parentNode.appendChild(header);
-        viewChart(xdata, ydata, divId.id);
+        viewChart(xdata, ydata, xLabel, yLabel,divId.id);
+    }
+
+
+
+    $scope.saveTextSubtitle = function(){
+        console.log("node to add text in", nodeToAddText);
+        console.log("subtitle text", $scope.subtitleText);
+        let nodeToAdd = nodeToAddText;              //refrence to node in which text is added
+        let sub = document.createElement("h4");
+        let subText = document.createTextNode($scope.subtitleText);
+        sub.appendChild(subText);
+        nodeToAdd.insertBefore(sub, nodeToAdd.children[2]);
+    }
+
+    $scope.saveTextNarration = function(){
+        let nodeRef = nodeToAddText;              //refrence to node in which text is added
+        let narr = document.createElement("h4");
+        narr.className = "mt-3";
+        let narrText = document.createTextNode($scope.narrationText);
+        narr.appendChild(narrText);
+        nodeRef.appendChild(narr);
+
     }
 
 });
@@ -917,6 +1210,8 @@ module.controller("RouteController2", function ($scope,$http) {
 module.controller("visualizationListCtrl", function ($scope, $http) {
     $scope.visualizationArr = [];
     $scope.visualName = '';
+    let xLabel = "";
+    let yLabel = "";
     let vurl = '/getVisualization/';
     let ydata = [];
     let xdata = [];
@@ -971,7 +1266,7 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
 		});
 	}
 
-    function viewChart(x, y, id) {
+    function viewChart(x, y, xLabel, yLabel, id) {
         var ctx2 = document.getElementById(id);
         xData = x;
         yData = y;
@@ -1002,7 +1297,27 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
                 }]
             },
             options: {
-                events: ['click']
+                // events: ['click'],
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: yLabel
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: xLabel
+                        }
+                    }]
+                }
             }
         });
     }
@@ -1010,25 +1325,32 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
     $scope.viewVisualization = function (visualization) {
         console.log("vParams", visualization.parameters.labels);
         console.log("vParams1", visualization.parameters.defaultData);
+        console.log("vParams1", visualization.parameters.xLabel);
+        console.log("vParams1", visualization.parameters.yLabel);
+        xLabel = visualization.parameters.xLabel;
+        yLabel = visualization.parameters.yLabel;
         xdata = visualization.parameters.labels;
         ydata = visualization.parameters.defaultData;
         gType = visualization.type;
         divId = document.getElementById("chartView");
         console.log("divId", divId.id);
-        viewChart(xdata, ydata, divId.id);
+        viewChart(xdata, ydata, xLabel, yLabel, divId.id);
     }
 
     $scope.editVisualization = function (chart) {
         console.log("in edit", chart);
         xdata = chart.parameters.labels;
         ydata = chart.parameters.defaultData;
+        xLabel = chart.parameters.xLabel;
+        yLabel = chart.parameters.yLabel;
         gType = chart.type;
         currChartid = chart.id;
         divId = document.getElementById("chartEdit");
-        viewChart(xdata, ydata, divId.id);
+        viewChart(xdata, ydata, xLabel, yLabel, divId.id);
         let durl = '/giveDatasetName/';
         let dform = new FormData();
         dform.append("dataset_id", chart.dataset_id_id);
+        //Request to get the datasetname
         $http.post(durl, dform, {
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity
@@ -1077,10 +1399,12 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
         let formd = new FormData();
         let val = document.getElementById('x_val');
         let v = val.options[val.selectedIndex].value;
+        xLabel = v;
         let graphDataUrl = '/getGraphData/';
         formd.append("x_value", v);
         val = document.getElementById('y_val');
         v = val.options[val.selectedIndex].value;
+        yLabel = v;
         formd.append("y_value", v);
         formd.append("dtName", datasetName);
 
@@ -1091,7 +1415,7 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
             xdata = data.labels;
             ydata = data.defaultData;
             divId = document.getElementById("chartEdit");
-            viewChart(xdata, ydata, divId.id);
+            viewChart(xdata, ydata, xLabel, yLabel, divId.id);
             // this callback will be called asynchronously
             // when the response is available
         }).error(function (data, status, headers, config) {
@@ -1125,6 +1449,8 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
         console.log("graph data x", xData);
         console.log("graph data y", yData);
         let graphData = {
+            "xLabel": xLabel,
+            "yLabel": yLabel,
             "labels": xData,
             "defaultData": yData
         };
@@ -1235,6 +1561,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let labels = [];
     let graphType = '';
     let selDatasetId = '';
+    let xLabel="";
+    let yLabel="";
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
     $http.get(url)
@@ -1283,7 +1611,28 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                     borderWidth: 1
                 }]
             },
-            options: {}
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: yLabel
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: xLabel
+                        }
+                    }]
+                }
+            }
         });
 
         /*   var myChart = new Chart(ctx, {
@@ -1331,9 +1680,13 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         let v = val.options[val.selectedIndex].value;
         let graphDataUrl = '/getGraphData/';
         formd.append("x_value", v);
+        xLabel = v;
+        console.log("xLabel",xLabel);
         val = document.getElementById('y_value');
         v = val.options[val.selectedIndex].value;
         formd.append("y_value", v);
+        yLabel = v;
+        console.log("yLabel",yLabel);
         formd.append("dtName", $scope.selectedDataset);
         console.log("data to send", formd);
 
@@ -1345,6 +1698,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("graph data :", data);
             labels = data.labels
             defaultData = data.defaultData;
+            console.log("x####", document.getElementById('x_value').options[document.getElementById('x_value').selectedIndex].value);
+            console.log("y###", document.getElementById('y_value').options[document.getElementById('y_value').selectedIndex].value);
             setChart();
             console.log("graphtype", graphType);
             // this callback will be called asynchronously
@@ -1373,11 +1728,13 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("data is ", data);
             $scope.fieldsAr = data;
             console.log("fieldsAr", $scope.fieldsAr);
+
             $scope.showGraphList = true;
             // this callback will be called asynchronously
             // when the response is available
         }).error(function (data, status, headers, config) {
             console.log("something went wrong");
+
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -1394,6 +1751,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
     $scope.paramterSave = function () {
         let graphData = {
+            "xLabel": xLabel,
+            "yLabel": yLabel,
             "labels": labels,
             "defaultData": defaultData
         };

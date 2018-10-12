@@ -89,9 +89,9 @@
                 <h3>Select Training Set Size</h3>
                 <input type="number" id ="training_size" min=50 max=100 value="0">
             </div>
-            <div class="col-md-4"name="random_state" >
+            <div class="col-md-4"name="random_state"ng-model="random_state" >
                 <h3>Random State</h3>
-                <input type="number" ng-model="random_state"id="random_state" min=0>
+                <input type="number" id="random_state" min=0>
             </div>
             <div class="col-md-4"ng-model="fit_intercept">
                 <h3>Fit Intercept</h3>

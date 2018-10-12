@@ -2,7 +2,6 @@
 
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
-  	<li class="breadcrumb-item pointer"  ng-click="resetDashboard()">Dashboard</li>
 	<li class="breadcrumb-item" aria-current="page">Create Dashboard</li>
   </ol>
 </nav>
@@ -22,9 +21,9 @@
     				</label>
     				<div class="col-sm-10">
       					<select class="custom-select mr-sm-2" id="selectDashboardType" ng-model="dashboardType">
-        					<option value="" disabled selected>Select Type</option>
-							<option value="landscape">Landscape</option>
-							<option value="portrait">Portrait</option>
+        					 <option value="" disabled selected>Select Type</option>
+							     <option value="landscape">Landscape</option>
+							     <option value="portrait">Portrait</option>
       					</select>
     				</div>
   				</div>
@@ -50,7 +49,7 @@
 
 	<div class="card text-center mt-2em smokeBackground" ng-show="isDashboardVisible">
 		<div class="card-header">
-			<form class="form-inline">
+			<form class="form-inline col-md-5">
 			  <div class="form-group mx-sm-3 mb-2">
     			<label for="dash" class="sr-only">Dashboard Name</label>
     			<div ng-show="isNameSaved" class="">
@@ -58,44 +57,35 @@
     			</div>
     			<input type="text" class="form-control" id="dash" ng-init="josof" ng-model = "dashboardName" ng-hide="isNameSaved"
     			placeholder="">
-  			  </div>
+  			</div>
   				<button type="submit" class="btn btn-primary mb-2" ng-hide="isNameSaved" ng-click="saveDashboardName()">Save</button>
   				<button type="submit" class="btn btn-primary mb-2 ml-2" ng-show="isNameSaved" ng-click="editDashboardName()">Edit
   				</button>
 		</form>
+          <button type="submit" ng-click="addNewVisualization()" data-toggle="modal" data-target="#myModal" class="btn btn-primary mb-2 ml-2 float-right">
+            Add New
+          </button>
+          <button type="submit" ng-click="multipageExport()" class="btn btn-primary float-right">
+            Export
+          </button>
 		</div>
-  		<div class="card-body" ng-show="isDashboardVisible">
+  		<div class="card-body" ng-show="isDashboardVisible" id="visualizationContainer">
 
-        <div class="card text-center mt-2em smokeBackground">
+        <div class="card  text-center mt-2em smokeBackground" ng-show="zeroVisualizations">
           <div class="card-header">
-            <h3></h3>
           </div>
-          <div class="card-body" id="visualizationOne">
+          <div class="card-body visualizationx" id="visualization1">
              
-  
-            <button id="addVisualization1" ng-click="addVisual($event)" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">    Add New Visualization
-            </button>
+            <div class="card-body">
+              <h3> Add <strong>New Visualization</strong> using top right corner button.</h3>
+            </div>
 
             <div class="my-4" id="testdiv">
               
             </div>
         </div>
-        </div>
-
-
-        <div class="card text-center mt-2em smokeBackground">
-          <div class="card-header">
-            <h3></h3>
-          </div>
-          <div class="card-body" id="visualizationTwo">
-              
-  
-            <button id="addVisualization2" ng-click="addVisual($event)" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Visualization
-            </button>
-  
-          </div>
-        </div>
-			
+        <div id="editor"></div>
+        </div>			
 	  
   		</div>
 	</div>
@@ -134,7 +124,63 @@
 
   	</div>
 	</div>
-	
+
+
+
+
+
+  <!-- Modal for adding subtitle text-->
+  <div id="subtitleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title">Add Subtitle</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="text-center">Write Subtitle for the visualization.</h2>
+            <input type="text" class="form-control my-4" ng-model="subtitleText" name="">
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveTextSubtitle()">
+            Ok</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+   <!-- Modal for adding text narration-->
+  <div id="narrationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title">Add Text</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="text-center">Write Text narration for the visualization.</h2>
+             <textarea class="form-control my-4" rows="5" ng-model="narrationText"></textarea>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveTextNarration()">
+            Ok</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
  
 
