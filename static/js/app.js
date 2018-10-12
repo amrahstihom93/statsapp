@@ -411,7 +411,7 @@ module.controller("mlearnCtrl",function($scope,$http){
             selDatasetId = dset.dataset_id;
             selAlgoId = value2;
             console.log("ALGOOOOO", selAlgoId);
-    		console.log("#####", selDatasetId);
+    		     console.log("#####", selDatasetId);
             $scope.selectedDataset = dset.dataset_name;
             console.log("selectedDataset", $scope.selectedDataset);
             $scope.aName = '';
@@ -429,9 +429,6 @@ module.controller("mlearnCtrl",function($scope,$http){
                 $scope.eminem = true;
                 $('select[name="idvar"]').change(function(){
                     var idvar = document.getElementById("idvar");
-<<<<<<< HEAD
-                    idvar = idvar.options[idvar.selectedIndex].value;
-=======
     				idvar = idvar.options[idvar.selectedIndex].value;
                     var dvar = document.getElementById("dvar");
     				dvar = dvar.options[dvar.selectedIndex].value;
@@ -444,14 +441,12 @@ module.controller("mlearnCtrl",function($scope,$http){
                     }
 
 
->>>>>>> 525d349194772a588d388ea8a1f1b20c1e369538
-
                 });
                 $('select[name="dvar"]').change(function(){
                     var idvar = document.getElementById("idvar");
-    				idvar = idvar.options[idvar.selectedIndex].value;
+    				        idvar = idvar.options[idvar.selectedIndex].value;
                     var dvar = document.getElementById("dvar");
-<<<<<<< HEAD
+
                     var idvar = document.getElementById("idvar");
                     dvar = dvar.options[dvar.selectedIndex].value;
                     idvar = idvar.options[idvar.selectedIndex].value;
@@ -469,7 +464,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                       but.disabled =false;
                     }
 
-=======
+/*
     				dvar = dvar.options[dvar.selectedIndex].value;
                     var but = document.getElementById("slct-btn2");
                     if(idvar == dvar){
@@ -477,10 +472,10 @@ module.controller("mlearnCtrl",function($scope,$http){
                     }
                     else{
                         but.disabled = false;
-                    }
+                    }*/
                     console.log("DVAR_VAL", dvar);
                     console.log("IDVAR_VAL", idvar);
->>>>>>> 525d349194772a588d388ea8a1f1b20c1e369538
+
                 });
                 console.log("huhuhuhuhuhuh",idvar);
                   console.log("huhuhuhahahahaha",dvar);
@@ -526,20 +521,7 @@ module.controller("mlearnCtrl",function($scope,$http){
             data.append("training_size",training_size);
             data.append("random_state", random_state);
             data.append("fit_intercept", fit_intercept);
-            $http.post(url2,data,{
-                headers: {'Content-Type': undefined},
-                transformRequest: angular.identity
-            }).success(function (data,status,headers,config) {
-                    //First function handles success
-                    let sara = new FormData();
-                    var t_size = document.getElementById("training_size").value;
-                    sara.append("training_size",t_size);
-                    console.log("DT====>",sara);
-                    console.log("insidecalcregression");
-                }). error(function (data,status,headers,config) {
-                    //Second function handles error
-                    console.log("Something went wrong");
-                });
+
             $http.post(url, data, {
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity
@@ -556,7 +538,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                     var a =dt.append("training_size",t_size);
 
                     console.log("random_state",r_state);
-                    console.log("fit_intercept",f_intercept);
+                    console.log("fit_intercept--->>",f_intercept);
 
                 });
 
@@ -568,6 +550,21 @@ module.controller("mlearnCtrl",function($scope,$http){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
+            $http.post(url2,data,{
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data,status,headers,config) {
+                    //First function handles success
+                    let sara = new FormData();
+                    var t_size = document.getElementById("training_size").value;
+                    sara.append("training_size",t_size);
+                    console.log("DT====>",dt);
+                    console.log("insidecalcregression");
+
+                }). error(function (data,status,headers,config) {
+                    //Second function handles error
+                    console.log("Something went wrong");
+                });
 
         }
 
