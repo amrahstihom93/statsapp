@@ -28,7 +28,7 @@
 				</div>
 				<div class="col-md-6">
 					<h3>Select Algorithm</h3>
-					<select id="algo" name="algo" ng-model:"selectedmodel" class="custom-select btn-info">
+					<select id="algo" name="algo" ng-model="selectedmodel" class="custom-select btn-info">
 						<option>Select Algo</option>
 						<option>Simple Linear Regression</option>
 					</select>
@@ -89,13 +89,13 @@
                 <h3>Select Training Set Size</h3>
                 <input type="number" id ="training_size" min=50 max=100 value="0">
             </div>
-            <div class="col-md-4"ng-model="random_state"name="random_state" >
+            <div class="col-md-4"name="random_state" >
                 <h3>Random State</h3>
-                <input type="number" id="random_state" min=0>
+                <input type="number" ng-model="random_state"id="random_state" min=0>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4"ng-model="fit_intercept">
                 <h3>Fit Intercept</h3>
-                <select name="fit_intercept"ng-model="fit_intercept" id="fit_intercept" >
+                <select name="fit_intercept" id="fit_intercept" >
                     <option value="true">True</option>
                     <option value="false">False</option>
                 </select>

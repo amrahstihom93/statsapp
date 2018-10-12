@@ -38,13 +38,4 @@ def calcsregression(request):
 		print(request.POST['random_state'])
 		print(request.POST['fit_intercept'])
 
-		print("Dataset ID =", request.POST['dataset_id'])
-
-		susr = str(request.user)
-		client = MongoClient()
-		db = client.datasetDatadb
-		collection = db[request.POST['dataset_id']]
-		datav = collection.find( { } )
-		pd.set_option('display.max_columns', None)
-		print (db)
 	return HttpResponse(request)
