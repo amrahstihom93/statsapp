@@ -90,7 +90,6 @@ def calculateAnalytics(request):
 		print("Data = ", request.POST['selecteddatacol'])
 		print("Test Method =", request.POST['selectedmethod'])
 		print("Dataset ID =", request.POST['dataset_id'])
-
 		susr = str(request.user)
 		client = MongoClient()
 		db = client.datasetDatadb

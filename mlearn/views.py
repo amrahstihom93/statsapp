@@ -30,12 +30,44 @@ def mlearn(request):
 
 def calcsregression(request):
 	print('We are in calcsregression')
+
 	if request.method == 'POST':
-		fieldsArr = []
-		print(fieldsArr)
-		print("in calc POSTMEHTOD")
-		print(request.POST['training_size'])
-		print(request.POST['random_state'])
-		print(request.POST['fit_intercept'])
+		training_size  = request.POST['training_size']
+		random_state = request.POST['random_state']
+		fit_intercept = request.POST['fit_intercept']
+		dataset_name = request.POST['dataset']
+		idvar = request.POST['idvar']
+		dvar = request.POST['dvar']
+		print("training_size--->",training_size)
+		print("random_state---->",random_state)
+		print("fit_intercept---->",type(fit_intercept))
+		print("selected Dataset--->",type(dataset_name))
+		print("idvar",idvar)
+		susr = str(request.user)
+		client = MongoClient()
+		db = client.datasetDatadb
+		collection = db[request.POST['dataset_id']]
+		print(db)
+		print(collection)
+		dvardat = pd.DataFrame(list(collection.find({dvar:{"$exists":True}})))
+		print("dvar######",dvardat)
+		idvardat = pd.DataFrame(list(collection.find({idvar:{"$exists":True}})))
+		print("idvar######",idvardat)
+
+		dar = [dvar]
+		idar = [idvar]
+
+		print("dar######", dar)
+		print("idar######", idar)
+
+		dataSet = dvardat.iloc[:,[1,0]].values #dataset
+		x = dvardat.iloc[:,dvardat.columns.get_loc(dvar)].values #dependent variale
+		y = idvardat.iloc[:,idvardat.columns.get_loc(idvar)].values #dependent variale
+		x = np.reshape(x, (-1, 1))
+		y = np.reshape(y, (-1, 1))
+		print(dataSet)
+		print(x)
+		print(y)
+
 
 	return HttpResponse(request)

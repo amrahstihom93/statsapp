@@ -362,11 +362,10 @@ module.controller("mlearnCtrl",function($scope,$http){
 	$scope.mlearnName = '';
 	$scope.test ="This is working mlearn";
     $scope.selectdata = [$scope.mlearnArr];
-
     $scope.selecteddataset = '';
     let selDatasetId = '';
     let fieldDataToSave = '';
-	console.log("Inside mLearn");
+	console.log($scope.test);
 	let url = '/getDataset/'
     $scope.eminem = false;
     $scope.venom = false;
@@ -380,12 +379,6 @@ module.controller("mlearnCtrl",function($scope,$http){
 			$('select[name="dataset"]').change(function(){
 				var e1 = document.getElementById("dataset");
 				value1 = e1.options[e1.selectedIndex].value;
-                var e2 = document.getElementById("algo");
-				value2 = e2.options[e2.selectedIndex].value;
-
-
-                console.log("VALUE",value1);
-                console.log("VALUE2",value2);
 
                 let x;
                 let dashall = _.findIndex(response.data, function(o) { return o.dataset_name === value1; });
@@ -393,11 +386,12 @@ module.controller("mlearnCtrl",function($scope,$http){
                 console.log("DATASETINDEX", dashall);
                 dset = response.data[dashall];
 
+
                 console.log("selected dataset",dset);
 			});
             $('select[name="algo"]').change(function(){
                 var e2 = document.getElementById("algo");
-				value2 = e2.options[e2.selectedIndex].value;
+				        value2 = e2.options[e2.selectedIndex].value;
 
 
                 console.log("VALUE2",value2);
@@ -416,7 +410,7 @@ module.controller("mlearnCtrl",function($scope,$http){
     		     console.log("#####", selDatasetId);
             $scope.selectedDataset = dset.dataset_name;
             console.log("selectedDataset", $scope.selectedDataset);
-            $scope.aName = '';
+
             let data = new FormData();
             let url = '/getGraphFields/';
             data.append("dName", dset.dataset_name);
@@ -506,45 +500,49 @@ module.controller("mlearnCtrl",function($scope,$http){
         }
 
         $scope.selectparm = function(){
+            $scope.idvar='';
+            $scope.dvar='';
             $scope.training_size='';
             $scope.random_state='';
             $scope.fit_intercept='';
-            console.log("selectparm");
+            let url2='/calcsregression/';
+
+
+            console.log("idvar--->",$scope.idvar);
             selDatasetId = dset.dataset_id;
             selDatasetName = dset.dataset_name;
             console.log("seldatasetName--->>",selDatasetName);
             console.log("seldatasetid===>",selDatasetId);
             selAlgoId = value2;
+
             $scope.selectedDataset = dset.dataset_name;
             $scope.aName = '';
             let data = new FormData();
             let url = '/getGraphFields/';
-            let url2='/calcsregression/';
             let dt = new FormData();
             data.append("dName", dset.dataset_name);
-            data.append("training_size",training_size);
-            data.append("random_state", random_state);
-            data.append("fit_intercept", fit_intercept);
+            data.append("training_size",$scope.training_size);
+            data.append("random_state", $scope.random_state);
+            data.append("fit_intercept", $scope.fit_intercept);
 
-            $http.post(url, data, {
+            /*$http.post(url, data, {
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity
             }).success(function (data, status, headers, config) {
-                $scope.calculatedsummary=data.summary;
+                $scope.calculatedsummary=data;
                 console.log("lalala selected dataset", data);
                 $(function(){
 
                     var t_size = document.getElementById("training_size").value;
                     var r_state = document.getElementById("random_state").value;
                     var f_intercept = document.getElementById("fit_intercept").value;
-                    console.log("datasummary--->",$scope.calculatedsummary);
+                    console.log("datasummary--->",$scope.calculatedsummary[1]);
 
                     console.log("training_size---->",t_size);
 
                     console.log("random_state--->",r_state);
                     console.log("fit_intercept--->>",f_intercept);
                     $scope.training_size = t_size;
-                    dt = new FormData();
 
                 });
 
@@ -555,16 +553,37 @@ module.controller("mlearnCtrl",function($scope,$http){
 
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-            });
-            $http.post(url2,data,{
+            });*/
+
+            let training_size = document.getElementById("training_size").value;
+            let random_state = document.getElementById("random_state").value;
+            let fit_intercept= document.getElementById("fit_intercept").value;
+            let datasetname =dset.dataset_name;
+            let idvar = document.getElementById("idvar").value;
+
+            let dvar = document.getElementById("dvar").value;
+            console.log("datasetname----->", datasetname);
+            console.log("ttttt",$scope.training_size);
+            dt.append("dataset_id", selDatasetId);
+            dt.append("dataset",$scope.selectedDataset);
+            console.log("$$$$$$$",typeof(training_size))
+            dt.append("training_size",JSON.stringify(training_size));
+            dt.append("random_state", JSON.stringify(random_state));
+            dt.append("fit_intercept", JSON.stringify(fit_intercept));
+            data.append("dName", dset.dataset_name);
+            dt.append("idvar",idvar);
+            dt.append("dvar",dvar);
+            $http.post(url2,dt,{
                 headers: {'Content-Type': undefined},
                 transformRequest: angular.identity
             }).success(function (data,status,headers,config) {
                     //First function handles success
-                    var t_size = document.getElementById("training_size").value;
-
-                    console.log("DT====>",data);
                     console.log("insidecalcregression");
+                    var t_size = document.getElementById("training_size").value;
+                    console.log("DT====>",dset);
+
+                    var training_size = t_size;
+
 
                 }). error(function (data,status,headers,config) {
                     //Second function handles error
@@ -608,7 +627,7 @@ module.controller("analyticalCtrl", function($scope,$http) {
     $scope.chooseDataset = function (dataset) {
         selDatasetId = dataset.dataset_id;
 
-		console.log("#####", selDatasetId);
+		    console.log("#####", selDatasetId);
         $scope.selectedDataset = dataset.dataset_name;
         $scope.aName = '';
         let data = new FormData();
@@ -644,8 +663,8 @@ module.controller("analyticalCtrl", function($scope,$http) {
         dt.append("dataset_id", selDatasetId);
     //    console.log('dataset_id',selDatasetId);
         dt.append("selecteddatacol", $scope.selecteddatacol);
+        console.log("$$$$$",$scope.selecteddatacol);
         dt.append("selectedgroup", $scope.selectedgroup);
-        console.log("dfbdfjd nfdnbf", $scope.selectedgroup);
         dt.append("selectedmethod",$scope.selectedmethod);
 
         $http.post(url,dt,{
