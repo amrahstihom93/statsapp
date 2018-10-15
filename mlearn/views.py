@@ -38,9 +38,13 @@ def calcsregression(request):
 		dataset_name = request.POST['dataset']
 		idvar = request.POST['idvar']
 		dvar = request.POST['dvar']
+
+
+		fit_intercept = fit_intercept.strip('"')
+
 		print("training_size--->",training_size)
 		print("random_state---->",random_state)
-		print("fit_intercept---->",type(fit_intercept))
+		print("fit_intercept---->",fit_intercept)
 		print("selected Dataset--->",type(dataset_name))
 		print("idvar",idvar)
 		susr = str(request.user)
@@ -59,12 +63,36 @@ def calcsregression(request):
 
 		print("dar######", dar)
 		print("idar######", idar)
-
+		training_size = str(training_size)
+		training_size = training_size.strip('"')
+		print("training_value*********",training_size)
 		dataSet = dvardat.iloc[:,[1,0]].values #dataset
 		x = dvardat.iloc[:,dvardat.columns.get_loc(dvar)].values #dependent variale
 		y = idvardat.iloc[:,idvardat.columns.get_loc(idvar)].values #dependent variale
 		x = np.reshape(x, (-1, 1))
 		y = np.reshape(y, (-1, 1))
+
+		random_state = str(random_state)
+		random_state = random_state.strip('"')
+		random_state = int(random_state)
+
+		print("random_state_valuee*********",random_state)
+		# Fitting Simple Linear Regression to the dataset
+		if random_state == 0:
+			from sklearn.cross_validation import train_test_split
+			x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = (1-(int(training_size)/100)))
+		else:
+			from sklearn.cross_validation import train_test_split
+			x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = (1-(int(training_size)/100)), random_state = int(random_state))
+
+		# Fitting Simple Linear Regression to the Training set
+		from sklearn.linear_model import LinearRegression
+		if fit_intercept == "True" or fit_intercept  == "true":
+			regressor = LinearRegression(fit_intercept=True)
+			print("Regressor--->", regressor)
+		else:
+			regressor = LinearRegression(fit_intercept=False)
+		regressor.fit(x_train, y_train)
 		print(dataSet)
 		print(x)
 		print(y)

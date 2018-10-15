@@ -563,7 +563,6 @@ module.controller("mlearnCtrl",function($scope,$http){
 
             let dvar = document.getElementById("dvar").value;
             console.log("datasetname----->", datasetname);
-            console.log("ttttt",$scope.training_size);
             dt.append("dataset_id", selDatasetId);
             dt.append("dataset",$scope.selectedDataset);
             console.log("$$$$$$$",typeof(training_size))
