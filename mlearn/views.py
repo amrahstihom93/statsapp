@@ -93,6 +93,13 @@ def calcsregression(request):
 		else:
 			regressor = LinearRegression(fit_intercept=False)
 		regressor.fit(x_train, y_train)
+
+		#Saving the model
+		list_pickle_path = 'static/linear_model.pkl'
+		list_pickle = open(list_pickle_path, 'wb')
+		pickle.dump(regressor, list_pickle)
+		list_pickle.close()
+
 		print(dataSet)
 		print(x)
 		print(y)

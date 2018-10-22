@@ -70,6 +70,17 @@
 	  {% if user.is_authenticated %}
 	<div class="container">
     <div class="card-deck mt-4em">
+
+  	  <div class="card">
+  		<img class="card-img-top" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+            <h3 class="card-title">Processes</h3>
+  			<div class="card-content">
+  			<p>Create new process.</p>
+  			</div>
+  			<a class="mx-auto btn btn-primary btn-block" href="dataset/#/createProcess">Create new process</a>
+  		</div>
+        </div>
       <div class="card">
 		<img class="card-img-top" src="{% static 'img/41.jpg' %}" alt="Card image cap">
         <div class="card-body">
@@ -79,16 +90,6 @@
 			</div>
             <a class="btn btn-primary btn-block" href="dataset/#/dashboard">Start</a>
         </div>
-      </div>
-	  <div class="card">
-		<img class="card-img-top" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap">
-        <div class="card-body">
-          <h3 class="card-title">Processes</h3>
-			<div class="card-content">
-			<p>Create new process.</p>
-			</div>
-			<a class="mx-auto btn btn-primary btn-block" href="dataset/#/createProcess">Create new process</a>
-		</div>
       </div>
 	  	  <div class="card">
 		<img class="card-img-top" src="{% static 'img/dd.jpg' %}" alt="Card image cap">
