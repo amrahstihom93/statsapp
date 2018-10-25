@@ -100,9 +100,39 @@ def calcsregression(request):
 		pickle.dump(regressor, list_pickle)
 		list_pickle.close()
 
-		print(dataSet)
-		print(x)
-		print(y)
+
+		# load the model from disk
+		loaded_model = pickle.load(open(list_pickle_path, 'rb'))
+		result_score = loaded_model.score(x_test, y_test)
+		#predicting test results
+		y_pred = regressor.predict(x_test)
+		print("Test score: {0:.2f} %".format(100 * result_score))
+		#print("Prediction--->",y_pred)
+		#plotting test results on an image
+		xarray = x_test
+		xar = []
+		x_test = np.array(x_test)
+		x_test = x_test.astype(np.float)
+		y_test = np.array(y_test)
+		y_test = y_test.astype(np.float)
+		x_train = np.array(x_train)
+		x_train = x_train.astype(np.float)
+		plt.scatter(x_test, y_test, color = 'red')
+		plt.plot(x_train, regressor.predict(x_train), color = 'blue')
+		plt.title("Salary vs Experience")
+		plt.xlabel(idvar)
+		plt.ylabel(dvar)
+		plt.savefig("static/test1.png")
+		plt.clf()
+		print(x_train)
+		print("X_TEST--->>>")
+		print(x_test)
+		print(type(x_test))
+		print("Y_TEST--->>>")
+		print(y_test)
+		print(type(y_test))
+		#print(x)
+		#print(y)
 
 
 	return HttpResponse(request)

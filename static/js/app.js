@@ -369,6 +369,7 @@ module.controller("mlearnCtrl",function($scope,$http){
 	let url = '/getDataset/'
     $scope.eminem = false;
     $scope.venom = false;
+    $scope.avengers = true;
 
     $http.get(url)
         .then(function (response) {
@@ -582,7 +583,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                     console.log("DT====>",dset);
 
                     var training_size = t_size;
-
+                    $scope.avengers = false;
 
                 }). error(function (data,status,headers,config) {
                     //Second function handles error
