@@ -1602,94 +1602,124 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
     function setChart() {
         //   var ctx = document.getElementById("myChart");
-        var ctx2 = document.getElementById("myChart2");
-        var myChart = new Chart(ctx2, {
-//		type: 'pie',
-            type: graphType,
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '',
-                    data: defaultData,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: yLabel
-                        }
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: xLabel
-                        }
-                    }]
-                }
-            }
-        });
 
-        /*   var myChart = new Chart(ctx, {
-         type: 'polarArea',
-         data: {
-         labels: labels,
-         datasets: [{
-         label: '# of Votes',
-         data: defaultData,
-         backgroundColor: [
-         'rgba(255, 99, 132, 0.2)',
-         'rgba(54, 162, 235, 0.2)',
-         'rgba(255, 206, 86, 0.2)',
-         'rgba(75, 192, 192, 0.2)',
-         'rgba(153, 102, 255, 0.2)',
-         'rgba(255, 159, 64, 0.2)'
-         ],
-         borderColor: [
-         'rgba(255,99,132,1)',
-         'rgba(54, 162, 235, 1)',
-         'rgba(255, 206, 86, 1)',
-         'rgba(75, 192, 192, 1)',
-         'rgba(153, 102, 255, 1)',
-         'rgba(255, 159, 64, 1)'
-         ],
-         borderWidth: 1
-         }]
-         },
-         options: {
-         scales: {
-         yAxes: [{
-         ticks: {
-         beginAtZero:true
-         }
-         }]
-         }
-         }
-         });*/
+
+        var ctx2 = document.getElementById("myChart2");
+        console.log("$$",graphType);
+
+        if(graphType == "line"){
+            var myChart = new Chart(ctx2, {
+    //		type: 'pie',
+
+                type: graphType,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '',
+                        data: defaultData,
+                        fill : 0,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: yLabel
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: xLabel
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        else {
+            var ctx2 = document.getElementById("myChart2");
+            var myChart = new Chart(ctx2, {
+    //		type: 'pie',
+                type: '',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '',
+                        data: defaultData,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            stacked : true,
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: yLabel
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: xLabel
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+        }
+
+
     }
 
     $scope.makeGraph = function () {

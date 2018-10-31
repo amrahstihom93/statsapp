@@ -117,6 +117,7 @@ def calcsregression(request):
 		y_test = y_test.astype(np.float)
 		x_train = np.array(x_train)
 		x_train = x_train.astype(np.float)
+		#plotting graph
 		plt.scatter(x_test, y_test, color = 'red')
 		plt.plot(x_train, regressor.predict(x_train), color = 'blue')
 		plt.title("Salary vs Experience")
@@ -124,6 +125,7 @@ def calcsregression(request):
 		plt.ylabel(dvar)
 		plt.savefig("static/test1.png")
 		plt.clf()
+
 		print(x_train)
 		print("X_TEST--->>>")
 		print(x_test)
