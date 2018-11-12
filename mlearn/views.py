@@ -7,7 +7,7 @@ from django.shortcuts import render
 from pymongo import MongoClient
 from django.views.decorators.csrf import csrf_exempt
 from upload.models import Dataset
-
+import joblib
 from django.contrib.auth.models import User
 import json, datetime
 import pandas as pd
@@ -30,6 +30,8 @@ def mlearn(request):
 
 def calcsregression(request):
 	print('We are in calcsregression')
+	responseData =''
+	result = ''
 
 	if request.method == 'POST':
 		training_size  = request.POST['training_size']
@@ -107,6 +109,8 @@ def calcsregression(request):
 		#predicting test results
 		y_pred = regressor.predict(x_test)
 		print("Test score: {0:.2f} %".format(100 * result_score))
+		result_score = ("Accuracy: {0:.2f} %".format(100 * result_score))
+		print(result_score)
 		#print("Prediction--->",y_pred)
 		#plotting test results on an image
 		xarray = x_test
@@ -117,15 +121,32 @@ def calcsregression(request):
 		y_test = y_test.astype(np.float)
 		x_train = np.array(x_train)
 		x_train = x_train.astype(np.float)
-		#plotting graph
+
+		from sklearn.metrics import r2_score
+		aa = r2_score(y_test, y_pred)
+		print(aa)
+
+		responseData = {
+           	'summary':result,
+        }
+
+
+		describeDict = {
+			"result_score" : "",
+		}
+
+		describeDict['result_score'] = result_score
+		responseData['summary']=  describeDict
+		print('rrrrrr',responseData)
 		plt.scatter(x_test, y_test, color = 'red')
+
 		plt.plot(x_train, regressor.predict(x_train), color = 'blue')
 		plt.title("Salary vs Experience")
 		plt.xlabel(idvar)
 		plt.ylabel(dvar)
+
 		plt.savefig("static/test1.png")
 		plt.clf()
-
 		print(x_train)
 		print("X_TEST--->>>")
 		print(x_test)
@@ -133,8 +154,12 @@ def calcsregression(request):
 		print("Y_TEST--->>>")
 		print(y_test)
 		print(type(y_test))
+
+
+
+
 		#print(x)
 		#print(y)
 
 
-	return HttpResponse(request)
+	return JsonResponse(responseData,safe=False)

@@ -223,6 +223,8 @@ def calculateAnalytics(request):
 			describeDict['omega_square'] = nndf_t.iloc[0]['omega_square']
 			responseData['summary']=  describeDict
 
+		print ('$$%$%$%$%',responseData)
+
 
 		return JsonResponse(responseData)
 

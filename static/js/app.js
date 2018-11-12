@@ -506,6 +506,7 @@ module.controller("mlearnCtrl",function($scope,$http){
             $scope.training_size='';
             $scope.random_state='';
             $scope.fit_intercept='';
+            $scope.calculatedscore=dset.summary;
             let url2='/calcsregression/';
 
 
@@ -560,8 +561,8 @@ module.controller("mlearnCtrl",function($scope,$http){
             let random_state = document.getElementById("random_state").value;
             let fit_intercept= document.getElementById("fit_intercept").value;
             let datasetname =dset.dataset_name;
+            let result_score = '';
             let idvar = document.getElementById("idvar").value;
-
             let dvar = document.getElementById("dvar").value;
             console.log("datasetname----->", datasetname);
             dt.append("dataset_id", selDatasetId);
@@ -581,7 +582,8 @@ module.controller("mlearnCtrl",function($scope,$http){
                     console.log("insidecalcregression");
                     var t_size = document.getElementById("training_size").value;
                     console.log("DT====>",dset);
-
+                    $scope.calculatedscore =  data.summary;
+                    console.log("calculatedscore",$scope.calculatedscore);
                     var training_size = t_size;
                     $scope.avengers = false;
 
