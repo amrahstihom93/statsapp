@@ -20,6 +20,8 @@ import scipy.stats.stats as stats
 from scipy.stats import kurtosis
 from scipy import stats
 
+import statsmodels.api as sm
+import os
 # Create your views here.
 
 
@@ -109,7 +111,7 @@ def calcsregression(request):
 		#predicting test results
 		y_pred = regressor.predict(x_test)
 		print("Test score: {0:.2f} %".format(100 * result_score))
-		result_score = ("Accuracy: {0:.2f} %".format(100 * result_score))
+		result_score = ("{0:.2f} %".format(100 * result_score))
 		print(result_score)
 		#print("Prediction--->",y_pred)
 		#plotting test results on an image
@@ -124,7 +126,31 @@ def calcsregression(request):
 
 		from sklearn.metrics import r2_score
 		aa = r2_score(y_test, y_pred)
+		model =sm.OLS(y_test, x_test).fit()
+
+
+		rs=model.rsquared
+		rs=("{0:0.5}".format(rs))
+		rad=model.rsquared_adj
+		rad=("{0:0.5}".format(rad))
+		smr = str(model.summary())
+		stderoe = model.bse
+		stderoe = float(stderoe)
+		stderoe = ("{0:0.5}".format(100*stderoe))
+		pvalue = float(model.pvalues)
+		tvalue = float(model.tvalues)
+		fvalue = model.fvalue
+		fvalue = ("{0:0.5}".format(fvalue))
+		pvalue = ("{0:0.5}".format(pvalue))
+		tvalue = ("{0:0.5}".format(tvalue))
 		print(aa)
+		print(model.summary())
+		print("rsquared", rs)
+		print("rad.", rad)
+		print(stderoe)
+		print("pvalue",pvalue)
+		print("tvalue",tvalue)
+		print("fvalue",fvalue)
 
 		responseData = {
            	'summary':result,
@@ -133,11 +159,22 @@ def calcsregression(request):
 
 		describeDict = {
 			"result_score" : "",
+			"rsquared" : "",
+			"radjective" : "",
+			"err_of_estimate" : "",
+			"fvalue" : "",
+			"pvalue" : "",
+			"tvalue" : "",
 		}
 
 		describeDict['result_score'] = result_score
+		describeDict['rsquared'] = rs
+		describeDict['radjective'] = rad
+		describeDict['err_of_estimate'] = stderoe
+		describeDict['fvalue'] = fvalue
+		describeDict['pvalue'] = pvalue
+		describeDict['tvalue'] = tvalue
 		responseData['summary']=  describeDict
-		print('rrrrrr',responseData)
 		plt.scatter(x_test, y_test, color = 'red')
 
 		plt.plot(x_train, regressor.predict(x_train), color = 'blue')
@@ -163,3 +200,20 @@ def calcsregression(request):
 
 
 	return JsonResponse(responseData,safe=False)
+
+def savemodel(request):
+	print('I am in save model function')
+	json_data = {}
+	data = {}
+	if request.method == 'POST':
+		filename = request.POST['filename']
+		file = 'static/linear_model.pkl'
+		print(filename)
+		print(os.listdir('static'))
+		print(filename+'.pkl')
+		os.rename(file, 'static/'+filename+'.pkl')
+
+		msg = 'saved successfully'
+		return HttpResponse(msg)
+	msg = 'error while saving statistical summary'
+	return HttpResponse(msg)

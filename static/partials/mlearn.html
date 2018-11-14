@@ -109,10 +109,97 @@
 		</div>
 	</div>
 	<div class="container" ng-hide="avengers">
-		<div style="text-align: center;">
-        <!--<h1>Test Set Result</h1>-->
-			<h3 ng-show="calculatedscore">[[calculatedscore.result_score]]</h3>
-            <img src="/static/test1.png">
-        </div>
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+				<li class="breadcrumb-item" aria-current="page">Training Results</li>
+			</ol>
+		</nav>
+		<div class="card-deck mt-4em" align-items-center text-center">
+
+			<div class="card text-center" style="width: auto;">
+				<h3>Training Scatter Plot</h3>
+  				<img class="card-img-top" src="/static/test1.png" alt="/static/test1.png">
+  				<div class="card-body">
+    				<h5 class="card-title text-center">Regression Plot</h5>
+
+  				</div>
+			</div>
+			<div class="card text-center" style="width: auto;">
+				<h3>Training Data Variables</h3>
+				<div class="col-sm">
+						<table class = "table table-striped">
+							<thead class="bg-primary" style="color:white;">
+								<tr>
+									<th ng-show="calculatedscore" scope= "row"  scope="col" >Factor</th>
+									<th ng-show="calculatedscore" scope= "row"  scope="col" >Values</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >Accuracy</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.result_score]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >R-Squared</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.rsquared]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >Adjective R-Squared</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.radjective]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >Std. Error of Estimate</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.err_of_estimate]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >F-value</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.fvalue]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >P-value</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.pvalue]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >T-value</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.tvalue]]
+									</td>
+								</tr>
+							</tbody>
+					<!--<div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
+						<h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+						</h2>
+						<h3 ng-show="calculationDone && selectedmethod!='anova'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</h3>
+						<ul ng-show="selectedmethod=='anova' && calculationDone">
+						<li>f :[[calculatedSummary.f]]</li>
+						<li>p :[[calculatedSummary.p]]</li>
+						<li>eta_square :[[calculatedSummary.eta_square]]</li>
+						<li>omega_square : [[calculatedSummary.omega_square]]</li>
+						</ul>
+						</div>-->
+						</table>
+					</div>
+			</div>
+		</div>
+		<h3>Save model :</h3><br>
+		<input type="text" name="filename"id="filename" placeholder="Enter FileName"><br>
+		<a href="" class="btn btn-primary" ng-click="savemodel()">Save</a>
+
+
 	</div>
 </div>

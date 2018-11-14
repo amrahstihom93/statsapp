@@ -603,7 +603,27 @@ module.controller("mlearnCtrl",function($scope,$http){
 
         }
 
+    $scope.savemodel = function(){
+        console.log("inside modelsave");
+        let url = '/savemodel/';
+        let filename = document.getElementById("filename").value;
+        data = new FormData();
+        data.append("filename",filename);
+        $http.post(url,data,{
+            headers: {'Content-Type': undefined},
+            transformRequest: angular.identity
+        }).success(function (data,status,headers,config) {
+                //First function handles success
+                console.log("tosavefilename",filename);
+
+            }). error(function (data,status,headers,config) {
+                //Second function handles error
+                console.log("Something went wrong");
+            });
+    }
+
 	});
+
 
 module.controller("analyticalCtrl", function($scope,$http) {
     $scope.test ="This is working analytical";
