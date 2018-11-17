@@ -99,7 +99,7 @@ def calcsregression(request):
 		regressor.fit(x_train, y_train)
 
 		#Saving the model
-		list_pickle_path = 'static/linear_model.pkl'
+		list_pickle_path = 'static/model/linear_model.pkl'
 		list_pickle = open(list_pickle_path, 'wb')
 		pickle.dump(regressor, list_pickle)
 		list_pickle.close()
@@ -207,11 +207,11 @@ def savemodel(request):
 	data = {}
 	if request.method == 'POST':
 		filename = request.POST['filename']
-		file = 'static/linear_model.pkl'
+		file = 'static/model/linear_model.pkl'
 		print(filename)
-		print(os.listdir('static'))
+		print(os.listdir('static/model'))
 		print(filename+'.pkl')
-		os.rename(file, 'static/'+filename+'.pkl')
+		os.rename(file, 'static/model/'+filename+'.pkl')
 
 		msg = 'saved successfully'
 		return HttpResponse(msg)
