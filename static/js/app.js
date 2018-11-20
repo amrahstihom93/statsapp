@@ -325,7 +325,7 @@ module.controller("statisticalCtrl", function($scope,$http) {
         dt.append("selectedmethod",$scope.selectedmethod);
         dt.append("fieldData",fieldDataToSave);
         dt.append("statistical_calculated_value",JSON.stringify($scope.calculatedSummary));
-		console.log("JDATA======>",JSON.stringify($scope.calculatedSummary));
+        console.log("JDATA======>",JSON.stringify($scope.calculatedSummary));
 
 
         console.log("Hi from statistical");
@@ -615,11 +615,17 @@ module.controller("mlearnCtrl",function($scope,$http){
         }).success(function (data,status,headers,config) {
                 //First function handles success
                 console.log("tosavefilename",filename);
+                if (data == "saved successfully") {
+                    $('#successModal').modal();
+                }
+                // this callback will be called asynchronously
+                // when the response is available
+                }).error(function (data, status, headers, config) {
+                console.log("something went wrong");
 
-            }). error(function (data,status,headers,config) {
-                //Second function handles error
-                console.log("Something went wrong");
-            });
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                });
     }
 
 	});
