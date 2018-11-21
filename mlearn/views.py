@@ -107,6 +107,7 @@ def calcsregression(request):
 
 		# load the model from disk
 		loaded_model = pickle.load(open(list_pickle_path, 'rb'))
+		print("LOADEDMODEL",loaded_model)
 		result_score = loaded_model.score(x_test, y_test)
 		#predicting test results
 		y_pred = regressor.predict(x_test)
@@ -216,4 +217,10 @@ def savemodel(request):
 		msg = 'saved successfully'
 		return HttpResponse(msg)
 	msg = 'error while saving statistical summary'
+	return HttpResponse(msg)
+
+def mlist(request):
+	if request.method =='POST':
+		filename = request.POST['FileName']
+
 	return HttpResponse(msg)

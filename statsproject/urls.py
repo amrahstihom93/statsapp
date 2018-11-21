@@ -82,6 +82,9 @@ urlpatterns = [
     url(r'^calcsregression/$', ml_views.calcsregression, name='calcsregression'),
     url(r'^savemodel/$', ml_views.savemodel, name='calcsregression'),
 
+    url(r'^mdep/$', ml_views.mlearn, name="mdep"),
+    url(r'^mlist/$', ml_views.mlist, name="mlist"),
+
 ]
 if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

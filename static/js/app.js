@@ -55,6 +55,9 @@ module.config(['$routeProvider',
         }).when('/mlearn', {
             templateUrl: static_url + 'partials/mlearn.html',
             controller: 'mlearnCtrl'
+        }).when('/mdep', {
+            templateUrl: static_url + 'partials/mdep.html',
+            controller: 'mlearnCtrl'
         });
     }]);
 
@@ -392,7 +395,7 @@ module.controller("mlearnCtrl",function($scope,$http){
 			});
             $('select[name="algo"]').change(function(){
                 var e2 = document.getElementById("algo");
-				        value2 = e2.options[e2.selectedIndex].value;
+				value2 = e2.options[e2.selectedIndex].value;
 
 
                 console.log("VALUE2",value2);
@@ -422,60 +425,66 @@ module.controller("mlearnCtrl",function($scope,$http){
                 transformRequest: angular.identity
             }).success(function (data, status, headers, config) {
                 $scope.fieldsAr = data;
-
+                var algor = document.getElementById("algo").value;
+                console.log(algor);
                 $scope.eminem = true;
-                $('select[name="idvar"]').change(function(){
-                    var idvar = document.getElementById("idvar");
-    				idvar = idvar.options[idvar.selectedIndex].value;
-                    var dvar = document.getElementById("dvar");
-    				dvar = dvar.options[dvar.selectedIndex].value;
-                    var but = document.getElementById("slct-btn2");
-                    if(idvar == dvar){
-                        but.disabled = true;
-                    }
-                    else{
-                        but.disabled = false;
-                    }
+                if(algor == "Simple Linear Regression"){
+                    $('select[name="idvar"]').change(function(){
+                        var idvar = document.getElementById("idvar");
+        				idvar = idvar.options[idvar.selectedIndex].value;
+                        var dvar = document.getElementById("dvar");
+        				dvar = dvar.options[dvar.selectedIndex].value;
+                        var but = document.getElementById("slct-btn2");
+                        if(idvar == dvar){
+                            but.disabled = true;
+                        }
+                        else{
+                            but.disabled = false;
+                        }
 
 
-                });
-                $('select[name="dvar"]').change(function(){
-                    var idvar = document.getElementById("idvar");
-    				        idvar = idvar.options[idvar.selectedIndex].value;
-                    var dvar = document.getElementById("dvar");
+                    });
+                    $('select[name="dvar"]').change(function(){
+                        var idvar = document.getElementById("idvar");
+        				        idvar = idvar.options[idvar.selectedIndex].value;
+                        var dvar = document.getElementById("dvar");
 
-                    var idvar = document.getElementById("idvar");
-                    dvar = dvar.options[dvar.selectedIndex].value;
-                    idvar = idvar.options[idvar.selectedIndex].value;
+                        var idvar = document.getElementById("idvar");
+                        dvar = dvar.options[dvar.selectedIndex].value;
+                        idvar = idvar.options[idvar.selectedIndex].value;
 
-                    console.log("DVAR_VAL", dvar);
-                    var but = document.getElementById("slct-btn2");
-                    if(dvar == idvar){
-                      console.log("HUHUHAHAHAHA you selected same elements");
-                      but.classList.toggle("disabled");
-                      but.disabled =true;
-                    }
-                    else{
-                      console.log("HUHUHAHAHAHA you selected diff elements");
-                      but.classList.remove("disabled");
-                      but.disabled =false;
-                    }
+                        console.log("DVAR_VAL", dvar);
+                        var but = document.getElementById("slct-btn2");
+                        if(dvar == idvar){
+                          console.log("HUHUHAHAHAHA you selected same elements");
+                          but.classList.toggle("disabled");
+                          but.disabled =true;
+                        }
+                        else{
+                          console.log("HUHUHAHAHAHA you selected diff elements");
+                          but.classList.remove("disabled");
+                          but.disabled =false;
+                        }
 
-                    /*
-    				dvar = dvar.options[dvar.selectedIndex].value;
-                    var but = document.getElementById("slct-btn2");
-                    if(idvar == dvar){
-                        but.disabled = true;
-                    }
-                    else{
-                        but.disabled = false;
-                    }*/
-                    console.log("DVAR_VAL", dvar);
-                    console.log("IDVAR_VAL", idvar);
+                        /*
+        				dvar = dvar.options[dvar.selectedIndex].value;
+                        var but = document.getElementById("slct-btn2");
+                        if(idvar == dvar){
+                            but.disabled = true;
+                        }
+                        else{
+                            but.disabled = false;
+                        }*/
+                        console.log("DVAR_VAL", dvar);
+                        console.log("IDVAR_VAL", idvar);
 
-                });
-                console.log("huhuhuhuhuhuh",idvar);
-                  console.log("huhuhuhahahahaha",dvar);
+                    });
+
+                }
+                else if(algor == "Logistic Regression"){
+                    console.log("wer are in logistic regression");
+                }
+
                 // this callback will be called asynchronously
                 // when the response is available
             }).error(function (data, status, headers, config) {
@@ -614,11 +623,16 @@ module.controller("mlearnCtrl",function($scope,$http){
             transformRequest: angular.identity
         }).success(function (data,status,headers,config) {
                 //First function handles success
-                console.log("tosavefilename",filename);
+                console.log("tosavefilename",filename);if (data == "saved successfully") {
+                    $('#successModal').modal();
+                }
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("something went wrong");
 
-            }). error(function (data,status,headers,config) {
-                //Second function handles error
-                console.log("Something went wrong");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
             });
     }
 
