@@ -328,7 +328,7 @@ module.controller("statisticalCtrl", function($scope,$http) {
         dt.append("selectedmethod",$scope.selectedmethod);
         dt.append("fieldData",fieldDataToSave);
         dt.append("statistical_calculated_value",JSON.stringify($scope.calculatedSummary));
-		console.log("JDATA======>",JSON.stringify($scope.calculatedSummary));
+        console.log("JDATA======>",JSON.stringify($scope.calculatedSummary));
 
 
         console.log("Hi from statistical");
@@ -481,8 +481,20 @@ module.controller("mlearnCtrl",function($scope,$http){
                     });
 
                 }
-                else if(algor == "Logistic Regression"){
-                    console.log("wer are in logistic regression");
+                else if(algor == "Multivar Linear Regression"){
+                    var cblist = document.getElementsByName('cblist');
+                    console.log("cblist2",cblist);
+                    $("#cblist").change(function(){
+                        console.log("changechange");
+                        var fav=[];
+                        $.each($("input[name='cblist']:checked"), function(){
+                            favorite.push($(this).val());
+                        });
+                        console.log("fav",favourite);
+                    });
+                    console.log("we are in multivar linear regression");
+                    var idd = document.getElementsByName("chk");
+                    console.log("idd",idd);
                 }
 
                 // this callback will be called asynchronously
@@ -623,17 +635,18 @@ module.controller("mlearnCtrl",function($scope,$http){
             transformRequest: angular.identity
         }).success(function (data,status,headers,config) {
                 //First function handles success
-                console.log("tosavefilename",filename);if (data == "saved successfully") {
+                console.log("tosavefilename",filename);
+                if (data == "saved successfully") {
                     $('#successModal').modal();
                 }
                 // this callback will be called asynchronously
                 // when the response is available
-            }).error(function (data, status, headers, config) {
+                }).error(function (data, status, headers, config) {
                 console.log("something went wrong");
 
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-            });
+                });
     }
 
 	});
