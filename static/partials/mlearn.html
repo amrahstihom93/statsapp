@@ -94,13 +94,40 @@
 				</div>
 				<div class="col-md-6">
 					<h3>Select Independent variable</h3>
-					<select id="idvar" name="idvar" ng-model="idvar" class="custom-select btn-info">
+					<!--<select id="idvar" name="idvar" ng-model="idvar" class="custom-select btn-info">
 						<option>Select Independent Variable</option>
 						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-					</select>
-						<div name = "cblist2"class="checkbox" ng-repeat="k in fieldsAr" data-show="????">
-							<label name="cblist" id ="[[$index]]"  ><input type="checkbox" value="[[k]]">[[k]]</label>
+					</select>-->
+
+					<div class= "optionBox">
+						<div class="blockt" ng-repeat="row in rows">
+							<select id="idvar" name="idvar" data-ng-model="row.selectedPeriod"class="custom-select btn-info">
+								<option>Select Independent Variable</option>
+								<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+
+							</select>
+
+							<div class="blockt">
+								<span class="add" ng-click="removeRow(rowIndex)">
+									Remove
+								</span>
+							</div>
 						</div>
+						<br>
+						<div class="blockt">
+							<span class="add" ng-click="showMeSelectedPeriods()">
+								Show
+							</span>
+						</div>
+
+						<div class="blockt">
+							<span class="add" ng-click="addRow()">
+								Add
+							</span>
+						</div>
+
+
+					</div>
 				</div>
 
 			</div>
@@ -257,33 +284,9 @@
 		<a href="" class="btn btn-primary" ng-click="savemodel()">Save</a>
 
 		<div class="modal fade" id="successModal">
-<<<<<<< HEAD
-	    <div class="modal-dialog">
-	      <div class="modal-content">
 
-	        <!-- Modal Header -->
-	        <div class="modal-header">
-	          <h4 class="modal-title">Success</h4>
-	          <button type="button" class="close" data-dismiss="modal">×</button>
-	        </div>
-
-	        <!-- Modal body -->
-	        <div class="modal-body">
-	         Model is saved successfully.
-	        </div>
-
-	        <!-- Modal footer -->
-	        <div class="modal-footer">
-	          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-	        </div>
-
-	      </div>
-	    </div>
-	  </div>
-=======
 		<div class="modal-dialog">
 			<div class="modal-content">
->>>>>>> d478c2d1159bb2da6523430dc12e068c99d1e507
 
 				<!-- Modal Header -->
 				<div class="modal-header">

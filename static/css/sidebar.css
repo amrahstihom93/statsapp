@@ -23,7 +23,7 @@
         text-align: center;*/
     }
 .listline{
-  line-height:0.5; 
+  line-height:0.5;
 }
 .boom{
   width:30%;
@@ -435,4 +435,18 @@ a.article, a.article:hover {
     #sidebarCollapse span {
         display: none;
     }
+}
+
+
+.blockt {
+    display: block;
+}
+select{
+    width: 50%;
+    display: inline-block;
+}
+span {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: underline;
 }

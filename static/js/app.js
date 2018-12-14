@@ -446,7 +446,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                     });
                     $('select[name="dvar"]').change(function(){
                         var idvar = document.getElementById("idvar");
-        				        idvar = idvar.options[idvar.selectedIndex].value;
+                        idvar = idvar.options[idvar.selectedIndex].value;
                         var dvar = document.getElementById("dvar");
 
                         var idvar = document.getElementById("idvar");
@@ -482,9 +482,39 @@ module.controller("mlearnCtrl",function($scope,$http){
 
                 }
                 else if(algor == "Multivar Linear Regression"){
-                    var cblist = document.getElementsByName('cblist');
-                    console.log("cblist2",cblist);
-                    $("#cblist").change(function(){
+                    var cblist = document.getElementsByName('cblist3');
+                    console.log("cblist",cblist);
+
+
+                    $scope.rows=[{
+                        'period':"Value"
+                    }];
+
+                    $scope.addRow = function () {
+                        var newRow = angular.copy($scope.rows[0]);
+                        newRow.selectedPeriod = null;
+                        $scope.rows.push(newRow);
+                        console.log("NR",newRow);
+                    };
+                    $scope.removeRow = function(){
+                        var newRow = angular.copy($scope.rows);
+                        $scope.rows.pop(newRow);
+                        console.log("NR",newRow);
+                    }
+
+
+                    $scope.periods=[
+                        $scope.fieldsAr,
+                    ];
+                    $scope.showMeSelectedPeriods = function () {
+                        $scope.rows.forEach(function (value, index) {
+                            console.log(index, value);
+                        });
+                    };
+                    console.log("pppppeeerrriiiodsss",$scope.periods);
+
+
+                    $('#cblist').click(function(){
                         console.log("changechange");
                         var fav=[];
                         $.each($("input[name='cblist']:checked"), function(){
@@ -492,8 +522,10 @@ module.controller("mlearnCtrl",function($scope,$http){
                         });
                         console.log("fav",favourite);
                     });
+
+
                     console.log("we are in multivar linear regression");
-                    var idd = document.getElementsByName("chk");
+                    var idd = document.getElementsByName("chk").value;
                     console.log("idd",idd);
                 }
 
