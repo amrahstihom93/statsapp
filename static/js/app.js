@@ -484,22 +484,26 @@ module.controller("mlearnCtrl",function($scope,$http){
                 else if(algor == "Multivar Linear Regression"){
                     var cblist = document.getElementsByName('cblist3');
                     console.log("cblist",cblist);
+                    $('select[name="dvar"]').change(function(){
+                        var dvar = document.getElementById("dvar");
+                        dvar = dvar.options[dvar.selectedIndex].value;
 
+                        console.log(dvar);
+                    });
 
                     $scope.rows=[{
                         'period':"Value"
                     }];
 
                     $scope.addRow = function () {
-                        var newRow = angular.copy($scope.rows[0]);
+                        var newRow = angular.copy($scope.rows);
                         newRow.selectedPeriod = null;
                         $scope.rows.push(newRow);
-                        console.log("NR",newRow);
                     };
                     $scope.removeRow = function(){
                         var newRow = angular.copy($scope.rows);
+                        newRow.selectedPeriod = null;
                         $scope.rows.pop(newRow);
-                        console.log("NR",newRow);
                     }
 
 
@@ -507,8 +511,9 @@ module.controller("mlearnCtrl",function($scope,$http){
                         $scope.fieldsAr,
                     ];
                     $scope.showMeSelectedPeriods = function () {
-                        $scope.rows.forEach(function (value, index) {
-                            console.log(index, value);
+                        $scope.rowWiseData=[];
+                        $scope.rows.forEach(function (selectedPeriod) {
+                            console.log(selectedPeriod);
                         });
                     };
                     console.log("pppppeeerrriiiodsss",$scope.periods);
@@ -1748,6 +1753,64 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
         else if (graphType =="area"){
             graphType = "line";
+            var ctx2 = document.getElementById("myChart2");
+            console.log("ctx2$$$$",ctx2);
+            var myChart = new Chart(ctx2, {
+    //		type: 'pie',
+                type: graphType,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '',
+                        data: defaultData,
+                        fill: 1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            stacked : true,
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: yLabel
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: xLabel
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        else if (graphType =="barhorz"){
+            graphType = "horizontalBar";
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
             var myChart = new Chart(ctx2, {
