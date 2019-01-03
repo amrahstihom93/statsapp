@@ -512,8 +512,41 @@ module.controller("mlearnCtrl",function($scope,$http){
                     ];
                     $scope.showMeSelectedPeriods = function () {
                         $scope.rowWiseData=[];
-                        $scope.rows.forEach(function (selectedPeriod) {
-                            console.log(selectedPeriod);
+                        var favourite=[];
+                        /*$scope.rows.forEach(function (selectedPeriod) {
+                            favourite.push($("option[name='idvar']").val());
+                            console.log(favourite);
+                        });*/
+                        var i=0;
+                        $('.mmm').each(function(){
+
+                            i++;
+                            var newID='menu'+i;
+                            console.log("<<<<<",newID);
+                            var u = $(this).attr('id',newID);
+                            console.log("UUUU",u);
+                            $(this).val(i);
+
+                            var favorite = document.getElementById(newID);
+                            console.log("fab",favorite);
+
+
+                            /*  $scope.rows.forEach(function (selectedPeriod) {
+                                console.log("LLLL",newID);
+                                var favorite = document.getElementById(newID);
+                                console.log("fav",favorite);
+                            });
+                            idselect= invar.options[invar.selectedIndex].value;
+                            console.log("IDVAR",idselect);*/
+                        });
+
+
+
+
+
+                        $.each($("select[name='idvar']:selected "), function(){
+                            favourite.push($(this).val());
+                            console.log($(this).value());
                         });
                     };
                     console.log("pppppeeerrriiiodsss",$scope.periods);
@@ -1663,6 +1696,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     $scope.fieldsAr = [];
     $scope.vName = '';
     let defaultData = [];
+
     let labels = [];
     let graphType = '';
     let selDatasetId = '';
@@ -1822,6 +1856,130 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                         label: '',
                         data: defaultData,
                         fill: 1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            stacked : true,
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: yLabel
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: xLabel
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+        else if (graphType =="scatter"){
+            graphType = "scatter";
+            var ctx2 = document.getElementById("myChart2");
+            console.log("ctx2$$$$",ctx2);
+            console.log("Default Data",defaultData);
+            console.log("LABELS",labels);
+            let coords = labels.map( (v,i) => ({ x: v, y: defaultData[i] }) );
+            console.log(coords);
+            var myChart = new Chart(ctx2, {
+                //		type: 'pie',
+                type: graphType,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '',
+                        data: coords,
+                        showLine: false,
+                        fill: 0,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            stacked : true,
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: yLabel
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: xLabel
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+        else if (graphType =="bubble"){
+            graphType = "bubble";
+            var ctx2 = document.getElementById("myChart2");
+            console.log("ctx2$$$$",ctx2);
+            console.log("Default Data",defaultData);
+            console.log("LABELS",labels);
+            let coords = labels.map( (v,i) => ({ x: v, y: defaultData[i] }) );
+            console.log(coords);
+            var myChart = new Chart(ctx2, {
+                //		type: 'pie',
+                type: graphType,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '',
+                        data: coords,
+                        showLine: false,
+                        fill: 0,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

@@ -99,8 +99,8 @@
 					</select>-->
 
 					<div class= "optionBox">
-						<div class="blockt" ng-repeat="row in rows">
-							<select id="idvar" name="idvar" data-ng-model="row.selectedPeriod"class="custom-select btn-info">
+						<div class="blocktM"  ng-repeat="row in rows">
+							<select class = "mmm" id="idvar"  name="idvar" data-ng-model="selectedPeriod"class="custom-select btn-info">
 								<option>Select Independent Variable</option>
 								<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 
