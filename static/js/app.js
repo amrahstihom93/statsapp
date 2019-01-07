@@ -518,6 +518,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                             console.log(favourite);
                         });*/
                         var i=0;
+                        var indpvar = [];
                         $('.mmm').each(function(){
 
                             i++;
@@ -525,11 +526,12 @@ module.controller("mlearnCtrl",function($scope,$http){
                             console.log("<<<<<",newID);
                             var u = $(this).attr('id',newID);
                             console.log("UUUU",u);
-                            $(this).val(i);
 
                             var favorite = document.getElementById(newID);
-                            console.log("fab",favorite);
-
+                            console.log("favorite",favorite);
+                            var mot =favorite.options[favorite.selectedIndex].value;
+                            console.log("mot",mot);
+                            indpvar.push(mot);
 
                             /*  $scope.rows.forEach(function (selectedPeriod) {
                                 console.log("LLLL",newID);
@@ -539,6 +541,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                             idselect= invar.options[invar.selectedIndex].value;
                             console.log("IDVAR",idselect);*/
                         });
+                        console.log(indpvar);
 
 
 
