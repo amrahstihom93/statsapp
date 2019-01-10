@@ -202,6 +202,24 @@ def calcsregression(request):
 
 	return JsonResponse(responseData,safe=False)
 
+def multiregression(request):
+	print('we are in multiregression algo')
+	responseData =''
+	result = ''
+	if request.method =='POST':
+		training_size  = request.POST['training_size']
+		random_state = request.POST['random_state']
+		fit_intercept = request.POST['fit_intercept']
+		dataset_name = request.POST['dataset']
+
+		print("tsize",training_size)
+		print("rstate",random_state)
+		print("fint",fit_intercept)
+
+
+
+	return JsonResponse(result,safe=False)
+
 def savemodel(request):
 	print('I am in save model function')
 	json_data = {}

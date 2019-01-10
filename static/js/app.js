@@ -580,111 +580,195 @@ module.controller("mlearnCtrl",function($scope,$http){
             });
 
         }
-
+        var indpvar = [];
         $scope.chooseVariables = function(){
-            let url = '/calcsregression/';
+
+            var algor = document.getElementById("algo").value;
+            console.log("dkfndjkfn",algor);
             console.log("insidechoosevar");
-            $http.get(url)
-                .then(function (response) {
-                    //First function handles success
-                    $scope.venom = true;
-                }, function (response) {
-                    //Second function handles error
-                    console.log("Something went wrong");
-                });
+            if(algor == "Multivar Linear Regression"){
+                let url = '/multiregression';
+                $http.get(url)
+                    .then(function (response) {
+                        //First function handles success
+                        $scope.venom = true;
+                        $scope.rowWiseData=[];
+                        var favourite=[];
+                        /*$scope.rows.forEach(function (selectedPeriod) {
+                            favourite.push($("option[name='idvar']").val());
+                            console.log(favourite);
+                        });*/
+                        var i=0;
+                        $('.mmm').each(function(){
+
+                            i++;
+                            var newID='menu'+i;
+                            console.log("<<<<<",newID);
+                            var u = $(this).attr('id',newID);
+                            console.log("UUUU",u);
+
+                            var favorite = document.getElementById(newID);
+                            console.log("favorite",favorite);
+                            var mot =favorite.options[favorite.selectedIndex].value;
+                            console.log("mot",mot);
+                            indpvar.push(mot);
+
+                            /*  $scope.rows.forEach(function (selectedPeriod) {
+                                console.log("LLLL",newID);
+                                var favorite = document.getElementById(newID);
+                                console.log("fav",favorite);
+                            });
+                            idselect= invar.options[invar.selectedIndex].value;
+                            console.log("IDVAR",idselect);*/
+                        });
+                        console.log(indpvar);
+                    }, function (response) {
+                        //Second function handles error
+                        console.log("Something went wrong");
+                    });
+            }
+                                                                                                                                                                                                                                                                                                                                                                                                                else if(algor == "Simple Linear Regression"){
+                let url = '/calcsregression/';
+                $http.get(url)
+                    .then(function (response) {
+                        //First function handles success
+                        $scope.venom = true;
+                    }, function (response) {
+                        //Second function handles error
+                        console.log("Something went wrong");
+                    });
+
+            }
+
         }
 
         $scope.selectparm = function(){
+            var algor = document.getElementById("algo").value;
+            console.log("select parm funcS",algor);
             $scope.idvar='';
             $scope.dvar='';
             $scope.training_size='';
             $scope.random_state='';
             $scope.fit_intercept='';
             $scope.calculatedscore=dset.summary;
-            let url2='/calcsregression/';
+
+            if(algor == "Simple Linear Regression"){
+                let url2='/calcsregression/';
 
 
-            console.log("idvar--->",$scope.idvar);
-            selDatasetId = dset.dataset_id;
-            selDatasetName = dset.dataset_name;
-            console.log("seldatasetName--->>",selDatasetName);
-            console.log("seldatasetid===>",selDatasetId);
-            selAlgoId = value2;
+                console.log("idvar--->",$scope.idvar);
+                selDatasetId = dset.dataset_id;
+                selDatasetName = dset.dataset_name;
+                console.log("seldatasetName--->>",selDatasetName);
+                console.log("seldatasetid===>",selDatasetId);
+                selAlgoId = value2;
 
-            $scope.selectedDataset = dset.dataset_name;
-            $scope.aName = '';
-            let data = new FormData();
-            let url = '/getGraphFields/';
-            let dt = new FormData();
-            data.append("dName", dset.dataset_name);
-            data.append("training_size",$scope.training_size);
-            data.append("random_state", $scope.random_state);
-            data.append("fit_intercept", $scope.fit_intercept);
+                $scope.selectedDataset = dset.dataset_name;
+                $scope.aName = '';
+                let data = new FormData();
+                let url = '/getGraphFields/';
+                let dt = new FormData();
+                data.append("dName", dset.dataset_name);
+                data.append("training_size",$scope.training_size);
+                data.append("random_state", $scope.random_state);
+                data.append("fit_intercept", $scope.fit_intercept);
 
-            /*$http.post(url, data, {
-                headers: {'Content-Type': undefined},
-                transformRequest: angular.identity
-            }).success(function (data, status, headers, config) {
-                $scope.calculatedsummary=data;
-                console.log("lalala selected dataset", data);
-                $(function(){
 
-                    var t_size = document.getElementById("training_size").value;
-                    var r_state = document.getElementById("random_state").value;
-                    var f_intercept = document.getElementById("fit_intercept").value;
-                    console.log("datasummary--->",$scope.calculatedsummary[1]);
 
-                    console.log("training_size---->",t_size);
+                let training_size = document.getElementById("training_size").value;
+                let random_state = document.getElementById("random_state").value;
+                let fit_intercept= document.getElementById("fit_intercept").value;
+                let datasetname =dset.dataset_name;
+                let result_score = '';
+                let idvar = document.getElementById("idvar").value;
+                let dvar = document.getElementById("dvar").value;
+                console.log("datasetname----->", datasetname);
+                dt.append("dataset_id", selDatasetId);
+                dt.append("dataset",$scope.selectedDataset);
+                console.log("$$$$$$$",typeof(training_size))
+                dt.append("training_size",JSON.stringify(training_size));
+                dt.append("random_state", JSON.stringify(random_state));
+                dt.append("fit_intercept", JSON.stringify(fit_intercept));
+                data.append("dName", dset.dataset_name);
+                dt.append("idvar",idvar);
+                dt.append("dvar",dvar);
+                $http.post(url2,dt,{
+                    headers: {'Content-Type': undefined},
+                    transformRequest: angular.identity
+                }).success(function (data,status,headers,config) {
+                        //First function handles success
+                        console.log("insidecalcregression");
+                        var t_size = document.getElementById("training_size").value;
+                        console.log("DT====>",dset);
+                        $scope.calculatedscore =  data.summary;
+                        console.log("calculatedscore",$scope.calculatedscore);
+                        var training_size = t_size;
+                        $scope.avengers = false;
 
-                    console.log("random_state--->",r_state);
-                    console.log("fit_intercept--->>",f_intercept);
-                    $scope.training_size = t_size;
+                    }). error(function (data,status,headers,config) {
+                        //Second function handles error
+                        console.log("Something went wrong");
+                    });
+            }
+            else if(algor == "Multivar Linear Regression"){
+                let url2='/multiregression/';
+                console.log("we are inside multi regression model");
 
-                });
+                console.log("idvar--->",$scope.idvar);
+                selDatasetId = dset.dataset_id;
+                selDatasetName = dset.dataset_name;
+                console.log("seldatasetName--->>",selDatasetName);
+                console.log("seldatasetid===>",selDatasetId);
+                selAlgoId = value2;
 
-                // this callback will be called asynchronously
-                // when the response is available
-            }).error(function (data, status, headers, config) {
-                console.log("somethingvName went wrong");
+                $scope.selectedDataset = dset.dataset_name;
+                $scope.aName = '';
+                let data = new FormData();
+                let url = '/getGraphFields/';
+                let dt = new FormData();
+                data.append("dName", dset.dataset_name);
+                data.append("training_size",$scope.training_size);
+                data.append("random_state", $scope.random_state);
+                data.append("fit_intercept", $scope.fit_intercept);
 
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });*/
 
-            let training_size = document.getElementById("training_size").value;
-            let random_state = document.getElementById("random_state").value;
-            let fit_intercept= document.getElementById("fit_intercept").value;
-            let datasetname =dset.dataset_name;
-            let result_score = '';
-            let idvar = document.getElementById("idvar").value;
-            let dvar = document.getElementById("dvar").value;
-            console.log("datasetname----->", datasetname);
-            dt.append("dataset_id", selDatasetId);
-            dt.append("dataset",$scope.selectedDataset);
-            console.log("$$$$$$$",typeof(training_size))
-            dt.append("training_size",JSON.stringify(training_size));
-            dt.append("random_state", JSON.stringify(random_state));
-            dt.append("fit_intercept", JSON.stringify(fit_intercept));
-            data.append("dName", dset.dataset_name);
-            dt.append("idvar",idvar);
-            dt.append("dvar",dvar);
-            $http.post(url2,dt,{
-                headers: {'Content-Type': undefined},
-                transformRequest: angular.identity
-            }).success(function (data,status,headers,config) {
-                    //First function handles success
-                    console.log("insidecalcregression");
-                    var t_size = document.getElementById("training_size").value;
-                    console.log("DT====>",dset);
-                    $scope.calculatedscore =  data.summary;
-                    console.log("calculatedscore",$scope.calculatedscore);
-                    var training_size = t_size;
-                    $scope.avengers = false;
+                let training_size = document.getElementById("training_size").value;
+                let random_state = document.getElementById("random_state").value;
+                let fit_intercept= document.getElementById("fit_intercept").value;
+                let datasetname =dset.dataset_name;
+                let result_score = '';
+                let dvar = document.getElementById("dvar").value;
+                console.log("datasetname----->", datasetname);
+                dt.append("dataset_id", selDatasetId);
+                dt.append("dataset",$scope.selectedDataset);
+                console.log("$$$$$$$",typeof(training_size))
+                dt.append("training_size",JSON.stringify(training_size));
+                dt.append("random_state", JSON.stringify(random_state));
+                dt.append("fit_intercept", JSON.stringify(fit_intercept));
+                data.append("dName", dset.dataset_name);
+                dt.append("dvar",dvar);
+                console.log(indpvar);
+                $http.post(url2,dt,{
+                    headers: {'Content-Type': undefined},
+                    transformRequest: angular.identity
+                }).success(function (data,status,headers,config) {
+                        //First function handles success
+                        console.log("insidemultiregression");
+                        var t_size = document.getElementById("training_size").value;
+                        console.log("DT====>",dset);
+                        $scope.calculatedscore =  data.summary;
+                        console.log("calculatedscore",$scope.calculatedscore);
+                        var training_size = t_size;
+                        $scope.avengers = false;
 
-                }). error(function (data,status,headers,config) {
-                    //Second function handles error
-                    console.log("Something went wrong");
-                });
+                    }). error(function (data,status,headers,config) {
+                        //Second function handles error
+                        console.log("Something went wrong");
+                    });
+
+
+            }
+
 
         }
 

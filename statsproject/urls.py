@@ -80,6 +80,7 @@ urlpatterns = [
 
 	url(r'^mlearn/$', ml_views.mlearn, name="mlearn"),
     url(r'^calcsregression/$', ml_views.calcsregression, name='calcsregression'),
+    url(r'^multiregression/$', ml_views.multiregression, name='multiregression'),
     url(r'^savemodel/$', ml_views.savemodel, name='calcsregression'),
 
     url(r'^mdep/$', ml_views.mlearn, name="mdep"),
