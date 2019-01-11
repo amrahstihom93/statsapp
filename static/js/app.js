@@ -621,7 +621,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                             idselect= invar.options[invar.selectedIndex].value;
                             console.log("IDVAR",idselect);*/
                         });
-                        console.log(indpvar);
+                        console.log("Indpedenent Vars",indpvar);
                     }, function (response) {
                         //Second function handles error
                         console.log("Something went wrong");
@@ -651,6 +651,7 @@ module.controller("mlearnCtrl",function($scope,$http){
             $scope.random_state='';
             $scope.fit_intercept='';
             $scope.calculatedscore=dset.summary;
+            console.log($scope.training_size);
 
             if(algor == "Simple Linear Regression"){
                 let url2='/calcsregression/';
