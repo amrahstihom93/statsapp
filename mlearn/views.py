@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import scipy.stats.stats as stats
 from scipy.stats import kurtosis
 from scipy import stats
+from sklearn import linear_model
 
 import statsmodels.api as sm
 import os
@@ -211,10 +212,34 @@ def multiregression(request):
 		random_state = request.POST['random_state']
 		fit_intercept = request.POST['fit_intercept']
 		dataset_name = request.POST['dataset']
+		dvar = request.POST['dvar']
+		idvar = request.POST['idvar']
 
 		print("tsize",training_size)
 		print("rstate",random_state)
 		print("fint",fit_intercept)
+		print("dvar",dvar)
+		print("idvar",idvar)
+
+
+		susr = str(request.user)
+		client = MongoClient()
+		db = client.datasetDatadb
+		collection = db[request.POST['dataset_id']]
+		print(db)
+		print(collection)
+		dvardat = pd.DataFrame(list(collection.find({dvar:{"$exists":True}})))
+		print("dvar######",dvardat)
+		dvar = dvar.split(',')
+		idvar = idvar.split(',')
+		print("dvar",dvar[0])
+		print("idvar", idvar[0])
+		reg = linear_model.LinearRegression()
+		reg.fit(dvardat[[idvar[0]]],dvardat[[dvar[0]]])
+		print(reg.coef_)
+		print(reg.intercept_)
+
+
 
 
 

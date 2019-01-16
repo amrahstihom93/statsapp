@@ -748,6 +748,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                 dt.append("fit_intercept", JSON.stringify(fit_intercept));
                 data.append("dName", dset.dataset_name);
                 dt.append("dvar",dvar);
+                dt.append("idvar",indpvar)
                 console.log(indpvar);
                 $http.post(url2,dt,{
                     headers: {'Content-Type': undefined},
