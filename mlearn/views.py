@@ -232,15 +232,17 @@ def multiregression(request):
 		print("dvar######",dvardat)
 		dvar = dvar.split(',')
 		idvar = idvar.split(',')
-		print("dvar",dvar[0])
+		for k in dvar:
+			print("dvar",k)
 		for i in idvar:
 			print("idvar",i)
 		reg = linear_model.LinearRegression()
-		for i in idvar:
-			reg.fit(dvardat[[i]],dvardat[[dvar[0]]])
+		reg.fit(dvardat[[i]],dvardat[[k]])
 		print(reg.coef_)
 		print(reg.intercept_)
 
+		pred=reg.predict([[0.21,0.08]])
+		print(pred)
 
 
 
