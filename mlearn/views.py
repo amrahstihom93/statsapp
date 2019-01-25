@@ -232,17 +232,39 @@ def multiregression(request):
 		print("dvar######",dvardat)
 		dvar = dvar.split(',')
 		idvar = idvar.split(',')
+		reg = linear_model.LinearRegression()
 		for k in dvar:
 			print("dvar",k)
 		for i in idvar:
-			print("idvar",i)
-		reg = linear_model.LinearRegression()
-		reg.fit(dvardat[[i]],dvardat[[k]])
-		print(reg.coef_)
-		print(reg.intercept_)
+			print("idvar", i)
 
+		m=dvardat[idvar]
+		print("m--->",type(m))
+
+		n=dvardat[[k]]
+		print("n--->",n)
+
+
+		reg.fit(dvardat[idvar],dvardat[[k]])
+		list_pickle_path='static/model/multi_linear_model.pkl'
+		list_pickle = open(list_pickle_path,'wb')
+		pickle.dump(reg, list_pickle)
+		list_pickle.close()
+
+		m = np.array(m)
+		n = np.array(n)
+
+		print("coefficient",reg.coef_)
+		print("intercept",reg.intercept_)
 		pred=reg.predict([[0.21,0.08]])
-		print(pred)
+		print("predicted Score",pred)
+
+		X=sm.add_constant(dvardat[idvar])
+		print(X)
+		model = sm.OLS(n.astype(float),X.astype(float)).fit()
+		predictions = model.predict(X.astype(float))
+		print_model = model.summary()
+		print(print_model)
 
 
 
