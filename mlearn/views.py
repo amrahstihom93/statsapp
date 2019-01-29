@@ -229,10 +229,20 @@ def multiregression(request):
 		print(db)
 		print(collection)
 		dvardat = pd.DataFrame(list(collection.find({dvar:{"$exists":True}})))
+		dataSet = dvardat.iloc[:,[1,0]].values
+		idvardat = pd.DataFrame(list(collection.find({idvar:{"exists":True}})))
+		print("dataset",dataSet)
+		x = dvardat.iloc[:,dvardat.columns.get_loc(dvar)].values
+		x = np.reshape(x,(-1,1))
+		print("X",x)
+
 		print("dvar######",dvardat)
 		dvar = dvar.split(',')
 		idvar = idvar.split(',')
+
 		reg = linear_model.LinearRegression()
+
+
 		for k in dvar:
 			print("dvar",k)
 		for i in idvar:
@@ -251,6 +261,9 @@ def multiregression(request):
 		pickle.dump(reg, list_pickle)
 		list_pickle.close()
 
+		loaded_model = pickle.load(open(list_pickle_path, 'rb'))
+		print("LOADEDMODEL",loaded_model)
+
 		m = np.array(m)
 		n = np.array(n)
 
@@ -264,12 +277,38 @@ def multiregression(request):
 		model = sm.OLS(n.astype(float),X.astype(float)).fit()
 		predictions = model.predict(X.astype(float))
 		print_model = model.summary()
+		print(predictions)
+		rs= model.rsquared
+		rs = ("{0:0.5}".format(rs))
+		print ("rsquared",rs)
+		rad = model.rsquared_adj
+		rad=("{0:0.5}".format(rad))
+		print("rsquared_adj",rad)
+		stderoe = model.bse
+		print("stderoe",stderoe)
+		fvalue = model.fvalue
+		print("fvalue",type(fvalue))
 		print(print_model)
+		print()
+		responseData ={
+			'summary':result,
+		}
+
+		describeDict={
+		"predicted_score":"",
+		"rsquared":"",
+		"radjective":"",
+		}
+
+		describeDict['predicted_score'] = pred
+		describeDict['rsquared'] = rs
+		describeDict['radjective'] = rad
+		responseData['summary']=  describeDict
+
+		print(describeDict);
 
 
-
-
-	return JsonResponse(result,safe=False)
+	return JsonResponse(responseData,safe=False)
 
 def savemodel(request):
 	print('I am in save model function')
