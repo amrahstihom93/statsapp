@@ -229,16 +229,34 @@ def multiregression(request):
 		print(db)
 		print(collection)
 		dvardat = pd.DataFrame(list(collection.find({dvar:{"$exists":True}})))
+		print("dvardat")
+		print(dvardat)
+		idvararr = []
+		idvararr = [idvar]
+
 		dataSet = dvardat.iloc[:,[1,0]].values
-		idvardat = pd.DataFrame(list(collection.find({idvar:{"exists":True}})))
+
+		###idvardat = pd.DataFrame(list(collection.find({idvar[0]:{"exists":True}})))
+		###print("idvardat")
+		###print(idvardat)
+
 		print("dataset",dataSet)
+		xt = dvardat[dvar]
+		print("XT09090909090",xt)
+
 		x = dvardat.iloc[:,dvardat.columns.get_loc(dvar)].values
+		print("X909000009009",x)
+		dvar = dvar.split()
+		print("ndvar",dvar)
+		idvar = idvar.split(',')
+		print("nidvar",idvar)
+		yt = dvardat[idvar]
+		print("YT900909090909",yt)
 		x = np.reshape(x,(-1,1))
 		print("X",x)
 
 		print("dvar######",dvardat)
-		dvar = dvar.split(',')
-		idvar = idvar.split(',')
+
 
 		reg = linear_model.LinearRegression()
 
@@ -249,7 +267,7 @@ def multiregression(request):
 			print("idvar", i)
 
 		m=dvardat[idvar]
-		print("m--->",type(m))
+		print("m--->",m)
 
 		n=dvardat[[k]]
 		print("n--->",n)
@@ -268,6 +286,7 @@ def multiregression(request):
 		n = np.array(n)
 
 		print("coefficient",reg.coef_)
+		coeff = reg.coef_
 		print("intercept",reg.intercept_)
 		pred=reg.predict([[0.21,0.08]])
 		print("predicted Score",pred)
@@ -287,22 +306,30 @@ def multiregression(request):
 		stderoe = model.bse
 		print("stderoe",stderoe)
 		fvalue = model.fvalue
-		print("fvalue",type(fvalue))
+		pvalue = model.pvalues
+		pvalue = (model.pvalues).to_json()
+		print("pvaltype",pvalue)
+		print("fvalue",fvalue)
 		print(print_model)
-		print()
+		coeff = np.array(coeff).tolist()
+
+		print("coefficients",coeff)
 		responseData ={
 			'summary':result,
 		}
 
 		describeDict={
-		"predicted_score":"",
 		"rsquared":"",
 		"radjective":"",
+		"coefficient":"",
+		"fvalue":"",
+		"pvalue":"",
 		}
-
-		describeDict['predicted_score'] = pred
+		describeDict['coefficients'] = coeff
 		describeDict['rsquared'] = rs
 		describeDict['radjective'] = rad
+		describeDict['fvalue'] = fvalue
+		describeDict['pvalue'] = pvalue
 		responseData['summary']=  describeDict
 
 		print(describeDict);
