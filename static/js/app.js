@@ -481,6 +481,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                     });
 
                 }
+                
                 else if(algor == "Multivar Linear Regression"){
                     var cblist = document.getElementsByName('cblist3');
                     console.log("cblist",cblist);
@@ -569,6 +570,8 @@ module.controller("mlearnCtrl",function($scope,$http){
                     var idd = document.getElementsByName("chk").value;
                     console.log("idd",idd);
                 }
+
+
 
                 // this callback will be called asynchronously
                 // when the response is available

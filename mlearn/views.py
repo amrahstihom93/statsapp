@@ -74,9 +74,13 @@ def calcsregression(request):
 		dataSet = dvardat.iloc[:,[1,0]].values #dataset
 		x = dvardat.iloc[:,dvardat.columns.get_loc(dvar)].values #dependent variale
 		y = idvardat.iloc[:,idvardat.columns.get_loc(idvar)].values #dependent variale
-		x = np.reshape(x, (-1, 1))
-		y = np.reshape(y, (-1, 1))
+		print("X",type(x))
+		print("Y",type(y))
 
+		x = np.reshape(x, (-1, 1))
+		print(x)
+		y = np.reshape(y, (-1, 1))
+		print(y)
 		random_state = str(random_state)
 		random_state = random_state.strip('"')
 		random_state = int(random_state)
@@ -226,36 +230,31 @@ def multiregression(request):
 		client = MongoClient()
 		db = client.datasetDatadb
 		collection = db[request.POST['dataset_id']]
-		print(db)
-		print(collection)
 		dvardat = pd.DataFrame(list(collection.find({dvar:{"$exists":True}})))
-		print("dvardat")
-		print(dvardat)
 		idvararr = []
 		idvararr = [idvar]
-
+		print(idvararr)
 		dataSet = dvardat.iloc[:,[1,0]].values
-
+		print("DATASET&&&",dataSet)
 		###idvardat = pd.DataFrame(list(collection.find({idvar[0]:{"exists":True}})))
 		###print("idvardat")
 		###print(idvardat)
-
-		print("dataset",dataSet)
 		xt = dvardat[dvar]
+		xt=xt.to_frame()
+		print("XT09090909090",type(xt))
 		print("XT09090909090",xt)
 
 		x = dvardat.iloc[:,dvardat.columns.get_loc(dvar)].values
-		print("X909000009009",x)
+		#print("X909000009009",x)
 		dvar = dvar.split()
 		print("ndvar",dvar)
 		idvar = idvar.split(',')
 		print("nidvar",idvar)
 		yt = dvardat[idvar]
+		print("YT900909090909",type(yt))
 		print("YT900909090909",yt)
 		x = np.reshape(x,(-1,1))
-		print("X",x)
-
-		print("dvar######",dvardat)
+		#print("X",x)
 
 
 		reg = linear_model.LinearRegression()
@@ -266,14 +265,15 @@ def multiregression(request):
 		for i in idvar:
 			print("idvar", i)
 
-		m=dvardat[idvar]
-		print("m--->",m)
+		m = dvardat[idvar]
+		m = m.values
 
-		n=dvardat[[k]]
-		print("n--->",n)
+		n = dvardat[[k]]
+		n = n.values
 
 
-		reg.fit(dvardat[idvar],dvardat[[k]])
+		#reg.fit(dvardat[idvar],dvardat[[k]])
+		reg.fit(yt,xt)
 		list_pickle_path='static/model/multi_linear_model.pkl'
 		list_pickle = open(list_pickle_path,'wb')
 		pickle.dump(reg, list_pickle)
@@ -285,7 +285,7 @@ def multiregression(request):
 		m = np.array(m)
 		n = np.array(n)
 
-		print("coefficient",reg.coef_)
+		print("coefficient",type(reg.coef_))
 		coeff = reg.coef_
 		print("intercept",reg.intercept_)
 		pred=reg.predict([[0.21,0.08]])
@@ -337,6 +337,15 @@ def multiregression(request):
 
 	return JsonResponse(responseData,safe=False)
 
+"""def logisticregression(request):
+	print('we are in logisticregression')
+	responseData = ''
+	result = ''
+	if request.method == 'POST':
+		training_size  = request.POST['training_size']
+		random_state = request.POST['random_state']
+		fit_intercept = request.POST['fit_intercept']
+"""
 def savemodel(request):
 	print('I am in save model function')
 	json_data = {}
