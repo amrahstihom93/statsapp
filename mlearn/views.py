@@ -74,13 +74,15 @@ def calcsregression(request):
 		dataSet = dvardat.iloc[:,[1,0]].values #dataset
 		x = dvardat.iloc[:,dvardat.columns.get_loc(dvar)].values #dependent variale
 		y = idvardat.iloc[:,idvardat.columns.get_loc(idvar)].values #dependent variale
-		print("X",type(x))
-		print("Y",type(y))
+		print(type(x))
+		print("X",x)
+		print(type(y))
+		print("Y",y)
 
 		x = np.reshape(x, (-1, 1))
-		print(x)
+		print("reshaped",x)
 		y = np.reshape(y, (-1, 1))
-		print(y)
+		print("reshaped",y)
 		random_state = str(random_state)
 		random_state = random_state.strip('"')
 		random_state = int(random_state)
@@ -252,14 +254,22 @@ def multiregression(request):
 		print("nidvar",idvar)
 		yt = dvardat[idvar]
 		print("YT900909090909",type(yt))
-		print("YT900909090909",yt)
-		x = np.reshape(x,(-1,1))
+		xt = np.reshape(xt,(-1,1))
+		print("XT900909090909",xt)
 		#print("X",x)
 
 
 		reg = linear_model.LinearRegression()
-
-
+		random_state = str(random_state)
+		random_state = random_state.strip('"')
+		random_state = int(random_state)
+		'''if random_state == 0:
+			from sklearn.cross_validation import train_test_split
+			x_train, x_test, y_train, y_test = train_test_split(xt, yt, test_size = (1-(int(training_size)/100)))
+		else:
+			from sklearn.cross_validation import train_test_split
+			x_train, x_test, y_train, y_test = train_test_split(xt, yt, test_size = (1-(int(training_size)/100)), random_state = int(random_state))
+		'''
 		for k in dvar:
 			print("dvar",k)
 		for i in idvar:
@@ -271,6 +281,10 @@ def multiregression(request):
 		n = dvardat[[k]]
 		n = n.values
 
+		print(type(yt))
+		print("YT VALUES",yt.values)
+		print(type(xt))
+		print("XT VALUES", xt.values)
 
 		#reg.fit(dvardat[idvar],dvardat[[k]])
 		reg.fit(yt,xt)
@@ -284,19 +298,27 @@ def multiregression(request):
 
 		m = np.array(m)
 		n = np.array(n)
-
+		score = loaded_model.score(yt,xt)
+		print("score",score)
 		print("coefficient",type(reg.coef_))
 		coeff = reg.coef_
 		print("intercept",reg.intercept_)
-		pred=reg.predict([[0.21,0.08]])
-		print("predicted Score",pred)
+		#pred=reg.predict([[0.21,0.08]])
+		#print("predicted Score",pred)
 
 		X=sm.add_constant(dvardat[idvar])
 		print(X)
+		xt = np.array(xt)
+		xt = xt.astype(np.float)
+		print("TYPE AFTER CASTING",type(xt))
+		yt = np.array(yt)
+		yt = yt.astype(np.float)
+		print("TYPE AFTER CASTING",type(yt))
+		model1 = sm.OLS(xt,yt).fit()
+		print(model1.summary())
 		model = sm.OLS(n.astype(float),X.astype(float)).fit()
 		predictions = model.predict(X.astype(float))
 		print_model = model.summary()
-		print(predictions)
 		rs= model.rsquared
 		rs = ("{0:0.5}".format(rs))
 		print ("rsquared",rs)
