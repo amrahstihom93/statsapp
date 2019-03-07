@@ -23,7 +23,7 @@
   <body ng-app="statsApp" class=" login-page sidebar-collapse">
     {% block body %}
 
-		<div class="bcgnd">
+		<div >
       {% if user.is_authenticated %}
       <nav class="navbar navbar-expand-lg bg-info fixed-top navbar-info " color-on-scroll="400">
         <div class="container full-width-bar">
@@ -93,7 +93,7 @@
         </div>
       </nav>
       {% else %}
-      <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
+      <nav class="navbar navbar-expand-lg bg-info fixed-top navbar-transparent " color-on-scroll="400">
       <div class="container full-width-bar">
         <div class="dropdown button-dropdown">
           <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
@@ -217,9 +217,9 @@
           <div class="card-body">
             <h3 class="card-title">Processes</h3>
   			<div class="card-content">
-  			<p>Create new process.</p>
+  			<p>Create a new process for analysis.</p>
   			</div>
-  			<a class="mx-auto btn btn-primary btn-block" href="dataset/#/createProcess">Create new process</a>
+  			<a class="mx-auto btn btn-info btn-block" href="dataset/#/createProcess">Create new process</a>
   		</div>
         </div>
       <div class="card">
@@ -229,7 +229,7 @@
 			<div class="card-content">
 			<p>Create Dashboard from visualization</p>
 			</div>
-            <a class="btn btn-primary btn-block" href="dataset/#/dashboard">Start</a>
+            <a class="btn btn-info btn-block" href="dataset/#/dashboard">Start</a>
         </div>
       </div>
 	  	  <div class="card">
@@ -239,7 +239,7 @@
 			<div class="card-content">
 			<p>Create and upload the data to make dataset.</p>
 			</div>
-			<a class="mx-auto btn btn-primary btn-block" href="dataset/#/createDataset">Start</a>
+			<a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Start</a>
         </div>
       </div>
       <div class="card">
@@ -249,7 +249,7 @@
     <div class="card-content">
     <p>Create and upload the data to make dataset.</p>
     </div>
-    <a class="mx-auto btn btn-primary btn-block" href="dataset/#/createDataset">Start</a>
+    <a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Start</a>
       </div>
     </div>
 	</div>
