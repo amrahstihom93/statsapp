@@ -17,36 +17,38 @@
     	</div>
     	<ul class="list-unstyled components">
       		<p>Navigation</p>
-      	<li>
-					<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Dashboard</a>
-					<ul class="collapse show list-unstyled" id="homeSubmenu">
-            		<li><a href="#/dashboard">Create Dashboard</a></li>
-            		<li><a href="#">Edit Dashboard</a></li>
-								<li><a href="#">Dashboard List</a></li>
-          </ul>
-      	</li>
-				<li>
-					<a href="#processSubmenu" data-toggle="collapse" aria-expanded="false">Process</a>
+
+		<li>
+			<a href="#processSubmenu" data-toggle="collapse" aria-expanded="false">Process</a>
         	<ul class="collapse show list-unstyled" id="processSubmenu">
-            <li><a href="#/createProcess">Create New Process</a></li>
-            		<!--  <li><a href="#">Process List</a></li>-->
-          </ul>
+            	<li><a href="#/createProcess">Create New Process</a></li>
+            	<!--  <li><a href="#">Process List</a></li>-->
+          	</ul>
       	</li>
+
       	<li>
         	<a href="#datasetSubmenu" data-toggle="collapse" aria-expanded="true">Dataset</a>
-        	<ul class="collapse show list-unstyled" id="datasetSubmenu">
-            <li><a href="#/createDataset">Create Dataset</a></li>
-            <li class=""><a href="#/datasetList">Dataset List</a></li>
+        	<ul class="collapse show list-unstyled " id="datasetSubmenu">
+            	<li><a href="#/createDataset">Create Dataset</a></li>
+            	<li class=""><a href="#/datasetList">Dataset List</a></li>
         	</ul>
       	</li>
-				<li>
-        		<a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false">Visualization</a>
-        		<ul class="collapse show list-unstyled" id="visualizationSubmenu">
-          			<li><a href="#/createVisual">Create visualization</a></li>
-            		<!--    <li><a href="#">Edit visualization</a></li>-->
-					<li><a href="#/visualList">Visualization List</a></li>
-        		</ul>
-      		</li>
+		<li>
+        	<a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false">Visualization</a>
+        	<ul class="collapse show list-unstyled" id="visualizationSubmenu">
+          		<li><a href="#/createVisual">Create visualization</a></li>
+            	<!--    <li><a href="#">Edit visualization</a></li>-->
+				<li><a href="#/visualList">Visualization List</a></li>
+        	</ul>
+      	</li>
+		<li>
+			<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Dashboard</a>
+			<ul class="collapse show list-unstyled" id="homeSubmenu">
+            	<li><a href="#/dashboard">Create Dashboard</a></li>
+            	<li><a href="#">Edit Dashboard</a></li>
+				<li><a href="#">Dashboard List</a></li>
+			</ul>
+      	</li>
         	<!-- <li>
             	<a href="#analysisSubmenu" data-toggle="collapse" aria-expanded="false">Analysis</a>
             	<ul class="collapse show list-unstyled" id="analysisSubmenu">
@@ -56,6 +58,9 @@
                 	<li><a href="#/analyticalList">Analytical List</a></li>
             	</ul>
         	</li>-->
+			<li>
+				<a href="#transformations" data-toggle="collapse" aria-expanded="false">Transformations</a>
+			</li>
 			<li>
         		<a href="#analyticsSubmenu" data-toggle="collapse" aria-expanded="false">Analytics</a>
         		<ul class="collapse show list-unstyled" id="analyticsSubmenu">
@@ -80,17 +85,26 @@
 							</li>
 						</ul>
 					</li>
-					<li>
-						<a href = "#machineLearning" data-toggle = "collapse" aria-expanded="false">Machine Learning</a>
-						<ul class="collapse show list-unstyled" id="machineLearning">
-							<li><a href="#/mlearn" >Create Model</a></li>
-							<li><a href="#/mlist" >List Model</a></li>
-							<li><a href="#/mdep" >Deploy Model</a></li>
-						</ul>
-
-					</li>
         		</ul>
       		</li>
+			<li>
+				<a href = "#machineLearning" data-toggle = "collapse" aria-expanded="false">Machine Learning</a>
+				<ul class="collapse show list-unstyled" id="machineLearning">
+					<li><a href="#/mlearn" >Create Model</a></li>
+					<li><a href="#/mlist" >List Model</a></li>
+					<li><a href="#/mdep" >Deploy Model</a></li>
+				</ul>
+
+			</li>
+			<li>
+				<a href="#projectManagement" data-toggle="collapse" aria-expanded="false">Project Management</a>
+			</li>
+			<li>
+				<a href="#qualityTools" data-toggle="collapse" aria-expanded="false">Quality Tools</a>
+			</li>
+			<li>
+				<a href="#simulations" data-toggle="collapse" aria-expanded="false">Simulations</a>
+			</li>
 		</ul>
     </nav>
 {% endblock %}
