@@ -299,6 +299,7 @@ a, a:hover, a:focus {
     border: none;
     border-radius: 0;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0px;
 }
 
 .navbar-btn {
@@ -317,17 +318,25 @@ a, a:hover, a:focus {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
+
+
+
 .wrapper {
     display: flex;
     align-items: stretch;
 }
 
 #sidebar {
-    min-width: 205px;
-    max-width: 205px;
-    background: #242A33;
-    color: white;
-    transition: all 0.3s;
+  min-width: 15%;
+  position: fixed;
+  max-width: 15%;
+  background: #242A33;
+  color: white;
+  z-index: 1;
+  height: -webkit-fill-available;
+  transition: all 0.3s;
+  display: inline-block;
+  overflow: hidden;
 }
 
 #sidebar.active {
@@ -341,7 +350,6 @@ a, a:hover, a:focus {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
@@ -366,27 +374,36 @@ a, a:hover, a:focus {
 }
 
 
+
+
 a[data-toggle="collapse"] {
     position: relative;
 }
 
+
+
 a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content: '\e259';
+    content: '\f061';
     display: block;
     position: absolute;
     right: 20px;
-    font-family: 'Glyphicons Halflings';
+    font-family: 'FontAwesome';
     font-size: 0.6em;
 }
 a[aria-expanded="true"]::before {
-    content: '\e260';
+    content: '\f063';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'FontAwesome';
+    font-size: 0.6em;
 }
 
 
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #242A33;
+    background: #404040;
 }
 
 ul.CTAs {
@@ -449,4 +466,22 @@ span {
     display: inline-block;
     cursor: pointer;
     text-decoration: underline;
+}
+
+.user_name{
+  color:white;
+}
+
+
+.full-cntnt {
+    width: 100%;
+    padding: 2%;
+    margin-left: 15%;
+    margin-top: 2%
+}
+.full-cntnt1 {
+    width: 100%;
+    padding: 2%;
+    margin-left: 0%;
+    margin-top: 2%
 }

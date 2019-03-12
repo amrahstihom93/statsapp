@@ -12,41 +12,43 @@
 <div class="wrapper the-icons">
 	<!-- Sidebar Holder -->
 	<nav id="sidebar">
-  		<div class="sidebar-header">
+  		<!--<div class="sidebar-header">
       		<h3>Statistics App</h3>
-    	</div>
+    	</div>-->
     	<ul class="list-unstyled components">
       		<p>Navigation</p>
-      	<li>
-					<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Dashboard</a>
-					<ul class="collapse show list-unstyled" id="homeSubmenu">
-            		<li><a href="#/dashboard">Create Dashboard</a></li>
-            		<li><a href="#">Edit Dashboard</a></li>
-								<li><a href="#">Dashboard List</a></li>
-          </ul>
+
+		<li>
+			<a href="#processSubmenu" data-toggle="collapse" aria-expanded="false">Process</a>
+        	<ul class="collapse list-unstyled" id="processSubmenu">
+            	<li><a href="#/createProcess"><i class="fa fa-arrow-right fa-fw"></i>Create New Process</a></li>
+            	<!--  <li><a href="#">Process List</a></li>-->
+          	</ul>
       	</li>
-				<li>
-					<a href="#processSubmenu" data-toggle="collapse" aria-expanded="false">Process</a>
-        	<ul class="collapse show list-unstyled" id="processSubmenu">
-            <li><a href="#/createProcess">Create New Process</a></li>
-            		<!--  <li><a href="#">Process List</a></li>-->
-          </ul>
-      	</li>
+
       	<li>
-        	<a href="#datasetSubmenu" data-toggle="collapse" aria-expanded="true">Dataset</a>
-        	<ul class="collapse show list-unstyled" id="datasetSubmenu">
-            <li><a href="#/createDataset">Create Dataset</a></li>
-            <li class=""><a href="#/datasetList">Dataset List</a></li>
+        	<a href="#datasetSubmenu" data-toggle="collapse" aria-expanded="false">Dataset</a>
+        	<ul class="collapse list-unstyled " id="datasetSubmenu">
+            	<li><a href="#/createDataset"><i class="fa fa-arrow-right fa-fw"></i>Create Dataset</a></li>
+            	<li class=""><a href="#/datasetList"><i class="fa fa-arrow-right fa-fw"></i>Dataset List</a></li>
         	</ul>
       	</li>
-				<li>
-        		<a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false">Visualization</a>
-        		<ul class="collapse show list-unstyled" id="visualizationSubmenu">
-          			<li><a href="#/createVisual">Create visualization</a></li>
-            		<!--    <li><a href="#">Edit visualization</a></li>-->
-					<li><a href="#/visualList">Visualization List</a></li>
-        		</ul>
-      		</li>
+		<li>
+        	<a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false">Visualization</a>
+        	<ul class="collapse list-unstyled" id="visualizationSubmenu">
+          		<li><a href="#/createVisual"><i class="fa fa-arrow-right fa-fw"></i>Create visualization</a></li>
+            	<!--    <li><a href="#">Edit visualization</a></li>-->
+				<li><a href="#/visualList"><i class="fa fa-arrow-right fa-fw"></i>Visualization List</a></li>
+        	</ul>
+      	</li>
+		<li>
+			<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Dashboard</a>
+			<ul class="collapse list-unstyled" id="homeSubmenu">
+        <li><a href="#/dashboard"><i class="fa fa-arrow-right fa-fw"></i>Create Dashboard</a></li>
+        <li><a href="#"><i class="fa fa-arrow-right fa-fw"></i>Edit Dashboard</a></li>
+				<li><a href="#"><i class="fa fa-arrow-right fa-fw"></i>Dashboard List</a></li>
+			</ul>
+      	</li>
         	<!-- <li>
             	<a href="#analysisSubmenu" data-toggle="collapse" aria-expanded="false">Analysis</a>
             	<ul class="collapse show list-unstyled" id="analysisSubmenu">
@@ -57,40 +59,52 @@
             	</ul>
         	</li>-->
 			<li>
+				<a href="#transformations" data-toggle="collapse" aria-expanded="false">Transformations</a>
+			</li>
+			<li>
         		<a href="#analyticsSubmenu" data-toggle="collapse" aria-expanded="false">Analytics</a>
-        		<ul class="collapse show list-unstyled" id="analyticsSubmenu">
+        		<ul class="collapse list-unstyled" id="analyticsSubmenu">
           			<li>
 						<a href = "#statisticsSubmenu" data-toggle = "collapse" aria-expanded="false">Statistics</a>
-						<ul class="collapse show list-unstyled" id="statisticsSubmenu">
+						<ul class="collapse  list-unstyled" id="statisticsSubmenu">
 							<li><a href="#/statistical" >Statistical Summary</a></li>
 							<li><a href="#" >Sampling</a></li>
 							<li>
 								<a href="#hypotestingSubmenu" data-toggle="collapse" aria-expanded="false">Hypothesis Testing</a>
-								<ul class="collapse show list-unstyled" id="hypotestingSubmenu">
+								<ul class="collapse  list-unstyled" id="hypotestingSubmenu">
 									<li><a href="#">Test</a></li>
 									<li><a href="#/analytical">Analytical Summary</a></li>
 								</ul>
 							</li>
 							<li>
 								<a href="#savestatSubmenu" data-toggle="collapse" aria-expanded="false">Saved Statistics</a>
-								<ul class="collapse show list-unstyled" id="savestatSubmenu">
+								<ul class="collapse  list-unstyled" id="savestatSubmenu">
 									<li><a href="#/analyticalList" >Analytical List</a></li>
 									<li><a href="#/statisticalList">Statistical List</a></li>
 								</ul>
 							</li>
 						</ul>
 					</li>
-					<li>
-						<a href = "#machineLearning" data-toggle = "collapse" aria-expanded="false">Machine Learning</a>
-						<ul class="collapse show list-unstyled" id="machineLearning">
-							<li><a href="#/mlearn" >Create Model</a></li>
-							<li><a href="#/mlist" >List Model</a></li>
-							<li><a href="#/mdep" >Deploy Model</a></li>
-						</ul>
-
-					</li>
         		</ul>
       		</li>
+			<li>
+				<a href = "#machineLearning" data-toggle = "collapse" aria-expanded="false">Machine Learning</a>
+				<ul class="collapse  list-unstyled" id="machineLearning">
+					<li><a href="#/mlearn" ><i class="fa fa-arrow-right fa-fw"></i>Create Model</a></li>
+					<li><a href="#/mlist" ><i class="fa fa-arrow-right fa-fw"></i>List Model</a></li>
+					<li><a href="#/mdep" ><i class="fa fa-arrow-right fa-fw"></i>Deploy Model</a></li>
+				</ul>
+
+			</li>
+			<li>
+				<a href="#projectManagement" data-toggle="collapse" aria-expanded="false">Project Management</a>
+			</li>
+			<li>
+				<a href="#qualityTools" data-toggle="collapse" aria-expanded="false">Quality Tools</a>
+			</li>
+			<li>
+				<a href="#simulations" data-toggle="collapse" aria-expanded="false">Simulations</a>
+			</li>
 		</ul>
     </nav>
 {% endblock %}

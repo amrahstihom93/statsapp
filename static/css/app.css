@@ -65,3 +65,12 @@
     max-height: 200px;
     overflow-x: hidden;
 }
+
+.home-crd{
+	margin-top: 20% !important;
+}
+
+.full-cntnt{
+	width: 100%;
+	padding: 2%;
+}

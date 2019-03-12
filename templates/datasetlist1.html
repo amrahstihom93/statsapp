@@ -8,12 +8,12 @@
 		<h3>Dataset</h3>
 	{% endblock %}
     {% block sidebar %}
-		    <div class="wrapper the-icons">    
+		    <div class="wrapper the-icons">
             <!-- Sidebar Holder -->
-			<nav id="sidebar">
-                <div class="sidebar-header">
+				<nav id="sidebar">
+                <!--<div class="sidebar-header">
                     <h3>Statistics App</h3>
-                </div>
+                </div>-->
                 <ul class="list-unstyled components">
                     <p>Navigation</p>
                     <li>
@@ -56,25 +56,25 @@
             </nav>
     {% endblock %}
 	{% block content %}
-		
+
 		{% verbatim %}
 		<div ng-view>
 			<div id="content">
-			
-			
+
+
 			</div>
         </div>
-	
+
 		{% endverbatim %}
-			
+
         </div>
 
 
-	
+
 	{% endblock %}
 
 	{% block additional_script %}
-		
+
 		<script type="text/javascript">
              $(document).ready(function () {
                  $('#sidebarCollapse').on('click', function () {
