@@ -5,14 +5,12 @@ $("#navbarDropdown").click(function(e) {
   var dd = clsname.getAttribute("class");
   console.log(clsname);
   console.log(dd);
-  if(dd=="full-cntnt"){
-    dd="full-cntnt1";
-    $("#cntnt").toggleClass("content").toggleClass("full-cntnt1");
-    console.log(dd);
+  if(dd == "content full-cntnt"){
+      clsname.classList.remove("full-cntnt");
+      clsname.classList.add("full-cntnt1");
   }
   else{
-      dd="content full-cntnt";
-      $("#cntnt").toggleClass("content").toggleClass("full-cntnt");
-      console.log(dd);
+      clsname.classList.remove("full-cntnt1");
+      clsname.classList.add("full-cntnt");
   }
 });

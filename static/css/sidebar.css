@@ -327,9 +327,9 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-  min-width: 15%;
+  min-width: 18%;
   position: fixed;
-  max-width: 15%;
+  max-width: 18%;
   background: #242A33;
   color: white;
   z-index: 1;
@@ -476,7 +476,7 @@ span {
 .full-cntnt {
     width: 100%;
     padding: 2%;
-    margin-left: 15%;
+    margin-left: 18%;
     margin-top: 2%
 }
 .full-cntnt1 {
@@ -484,4 +484,7 @@ span {
     padding: 2%;
     margin-left: 0%;
     margin-top: 2%
+}
+.iconhead{
+    padding-right: 5%;
 }
