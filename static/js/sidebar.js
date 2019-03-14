@@ -14,3 +14,10 @@ $("#navbarDropdown").click(function(e) {
       clsname.classList.add("full-cntnt");
   }
 });
+
+
+$('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('div').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+});

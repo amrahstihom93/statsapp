@@ -340,7 +340,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar.active {
-    margin-left: -250px;
+    margin-left: -18%;
 }
 
 #sidebar .sidebar-header {
@@ -379,6 +379,8 @@ a, a:hover, a:focus {
 a[data-toggle="collapse"] {
     position: relative;
 }
+
+
 
 
 
