@@ -25,7 +25,7 @@
 
 		<div >
       {% if user.is_authenticated %}
-      <nav class="navbar navbar-expand-lg bg-info fixed-top navbar-info " color-on-scroll="400">
+      <nav class="navbar navbar-expand-lg bg-sgmw fixed-top navbar-info " color-on-scroll="400">
         <div class="container full-width-bar">
           <div class="dropdown button-dropdown">
             <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
@@ -90,7 +90,7 @@
 
       </nav>
       {% else %}
-      <nav class="navbar navbar-expand-lg bg-info fixed-top navbar-transparent " color-on-scroll="400">
+      <nav class="navbar navbar-expand-lg bg-sgmw fixed-top navbar-transparent  " color-on-scroll="400">
       <div class="container full-width-bar">
         <div class="dropdown button-dropdown">
           <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
@@ -193,17 +193,50 @@
       </div>-->
 	  {% if user.is_authenticated %}
 	<div class="container">
-    <div class="card-deck home-crd">
+        <div class ="card-deck home-crd row text-center">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2">
+                <a href="dataset/#/createProcess">
+                    <img src="{% static 'img/4-150-01.jpg' %}" alt="Process Consulting" class="rounded-circle" border="0">
+                </a>
+                <h4>Process</h4>
+                <p>Craft a customized approach to process improvement. Optimize speed and impact
+                    <br>
+                    <a href="/our-services/business-process-consulting-company-usa-india.html">
+                        Read more →
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2">
+                <a href="dataset/#/dashboard">
+                    <img src="{% static 'img/41.jpg' %}" alt="Process Consulting" class="rounded-circle" border="0">
+                </a>
+                <h4>Dashboard</h4>
+                <p>Craft a customized approach to process improvement. Optimize speed and impact
+                    <br>
+                    <a href="/our-services/business-process-consulting-company-usa-india.html">
+                        Read more →
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2">
+                <a href="dataset/#/createProcess">
+                    <img src="{% static 'img/4-150-01.jpg' %}" alt="Process Consulting" class="rounded-circle" border="0">
+                </a>
+                <h4>Process</h4>
+                <p>Craft a customized approach to process improvement. Optimize speed and impact
+                    <br>
+                    <a href="/our-services/business-process-consulting-company-usa-india.html">
+                        Read more →
+                    </a>
+                </p>
+            </div>
+        </div>
+
+    <!--<div class="card-deck home-crd">
 
   	  <div class="card">
-  		<img class="card-img-top" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap">
-          <div class="card-body">
-            <h3 class="card-title">Processes</h3>
-  			<div class="card-content">
-  			<p>Create a new process for analysis.</p>
-  			</div>
-  			<a class="mx-auto btn btn-info btn-block" href="dataset/#/createProcess">Create new process</a>
-  		</div>
+  		<a href="#"><img class="card-img-top rounded-circle" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap"></a>
+
         </div>
       <div class="card">
 		<img class="card-img-top" src="{% static 'img/41.jpg' %}" alt="Card image cap">
@@ -215,8 +248,8 @@
             <a class="btn btn-info btn-block" href="dataset/#/dashboard">Start</a>
         </div>
       </div>
-	  	  <div class="card">
-		<img class="card-img-top" src="{% static 'img/dd.jpg' %}" alt="Card image cap">
+	  	  <div class="card rounded">
+		<img class="card-img-top rounded-circle" src="{% static 'img/dd.jpg' %}" alt="Card image cap">
         <div class="card-body">
           <h3 class="card-title">Dataset</h3>
 			<div class="card-content">
@@ -245,7 +278,7 @@
   <a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Start</a>
     </div>
   </div>
-	</div>
+</div>-->
 	</div>
 
 

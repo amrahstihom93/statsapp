@@ -490,3 +490,8 @@ span {
 .iconhead{
     padding-right: 5%;
 }
+
+
+.bg-info {
+    background-color: #001c47 !important;
+}
