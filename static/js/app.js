@@ -481,7 +481,7 @@ module.controller("mlearnCtrl",function($scope,$http){
                     });
 
                 }
-                
+
                 else if(algor == "Multivar Linear Regression"){
                     var cblist = document.getElementsByName('cblist3');
                     console.log("cblist",cblist);
