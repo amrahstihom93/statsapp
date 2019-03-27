@@ -339,6 +339,8 @@ a, a:hover, a:focus {
   overflow: hidden;
 }
 
+
+
 #sidebar.active {
     margin-left: -18%;
 }
@@ -374,7 +376,52 @@ a, a:hover, a:focus {
 }
 
 
+#sidebar2 {
+  min-width: 5%;
+  position: fixed;
+  max-width: 0%;
+  background: #242A33;
+  color: white;
+  z-index: 1;
+  height: -webkit-fill-available;
+  transition: all 0.3s;
+  display: none;
+  overflow: hidden;
+}
 
+#sidebar2.active {
+    margin-left: -18%;
+}
+
+#sidebar2 .sidebar-header {
+    padding: 20px;
+    background: #025AA5;
+}
+
+#sidebar2 ul.components {
+    padding: 20px 0;
+}
+
+#sidebar2 ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar2 ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar2 ul li a:hover {
+    color: #025AA5;
+    background: #fff;
+}
+
+#sidebar2 ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #007bff;
+}
 
 a[data-toggle="collapse"] {
     position: relative;
@@ -494,4 +541,9 @@ span {
 
 .bg-info {
     background-color: #001c47 !important;
+}
+
+
+select.rsz {
+  height:34px;
 }
