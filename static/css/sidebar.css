@@ -335,7 +335,7 @@ a, a:hover, a:focus {
   z-index: 1;
   height: -webkit-fill-available;
   transition: all 0.3s;
-  display: inline-block;
+  display: none;
   overflow: hidden;
 }
 
@@ -385,12 +385,12 @@ a, a:hover, a:focus {
   z-index: 1;
   height: -webkit-fill-available;
   transition: all 0.3s;
-  display: none;
+  display: inline-block;
   overflow: hidden;
 }
 
 #sidebar2.active {
-    margin-left: -18%;
+    margin-left: -5%;
 }
 
 #sidebar2 .sidebar-header {
@@ -427,6 +427,22 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
+a.mini[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: none;
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'FontAwesome';
+    font-size: 0.6em;
+}
+a.mini[aria-expanded="true"]::before {
+    content: none;
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'FontAwesome';
+    font-size: 0.6em;
+}
 
 
 
@@ -531,7 +547,7 @@ span {
 .full-cntnt1 {
     width: 100%;
     padding: 2%;
-    margin-left: 0%;
+    margin-left: 5%;
     margin-top: 2%
 }
 .iconhead{
@@ -546,4 +562,9 @@ span {
 
 select.rsz {
   height:34px;
+}
+
+
+.pltly-ht{
+    height:440px;
 }

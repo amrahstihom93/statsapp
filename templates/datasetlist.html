@@ -108,6 +108,25 @@
 		</ul>
   </nav>
 	<nav id="sidebar2">
+		<ul class="list-unstyled components">
+      		<p>Navigation</p>
+
+			<li>
+				<a class="mini" href="#processSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-industry fa-3x"></i></a>
+        		<ul class="collapse list-unstyled" id="processSubmenu">
+            		<li><a href="#/createProcess"><i class="fa fa-arrow-right fa-fw"></i>Create New Process</a></li>
+            		<!--  <li><a href="#">Process List</a></li>-->
+          		</ul>
+      		</li>
+
+      		<li>
+        		<a class="mini" href="#datasetSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-database fa-3x"></i></a>
+        		<ul class="collapse list-unstyled " id="datasetSubmenu">
+            		<li><a href="#/createDataset"><i class="fa fa-arrow-right fa-fw"></i>Create Dataset</a></li>
+            		<li class=""><a href="#/datasetList"><i class="fa fa-arrow-right fa-fw"></i>Dataset List</a></li>
+        		</ul>
+      		</li>
+		</ul>
 	</nav>
 {% endblock %}
 {% block content %}

@@ -229,6 +229,11 @@ def calculateAnalytics(request):
 		return JsonResponse(responseData)
 
 
+def truncate(n, decimals=0):
+    multiplier = 10 ** decimals
+    return int(n * multiplier) / multiplier
+
+
 
 def calculateStatistics(request):
 	print('Hiiiiiiiiii')
@@ -331,21 +336,47 @@ def calculateStatistics(request):
 			"75" : "",
 			"max" : ""
 		}
+		dec_p = 3
 		print(request.POST['selectedfield'])
 		if request.POST['selectedmethod'] == 'describe':
+
 			med = sd.median()
 			med1 = med.to_frame()
+			med1 = med1.iloc[1][0]
+			med1 = med1.tolist()
+			med1 = truncate(med1,dec_p)
+
 			ske = sd.skew()
 			ske1 = ske.to_frame()
+			ske1 = ske1.iloc[1][0]
+			ske1 = ske1.tolist()
+			tskew1 = truncate(ske1,dec_p)
+
+			ls = sd.describe()
+			print("LS",ls)
+			count = ls.loc["count","0"]
+
+			mean = ls.loc["mean","0"]
+			mean = mean.tolist()
+			mean = truncate(mean, dec_p)
+
+			std = ls.loc["std","0"]
+			std = std.tolist()
+			std = truncate(std, dec_p)
+
 			kurt = sd.kurtosis()
 			kurt1 = kurt.to_frame()
-			describeDict['count'] = ls.loc["count","0"]
-			describeDict['mean'] = ls.loc["mean","0"]
-			describeDict['std'] = ls.loc["std","0"]
+			kurt1 = kurt1.iloc[1][0]
+			kurt1 = kurt1.tolist()
+			kurt1 = truncate(kurt1,dec_p)
+
+			describeDict['count'] = count
+			describeDict['mean'] = mean
+			describeDict['std'] = std
 			describeDict['min'] = ls.loc["min","0"]
-			describeDict['median'] = med1.iloc[1][0]
-			describeDict['skewness'] = ske1.iloc[1][0]
-			describeDict['kurtosis'] = kurt1.iloc[1][0]
+			describeDict['median'] = med1
+			describeDict['skewness'] = tskew1
+			describeDict['kurtosis'] = kurt1
 			describeDict['25'] = ls.loc["25%","0"]
 			describeDict['50'] = ls.loc["50%","0"]
 			describeDict['75'] = ls.loc["75%","0"]
