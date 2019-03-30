@@ -615,3 +615,7 @@
 .form-color{
     color:black;
 }
+
+.rndcard{
+    border-radius: 6.1875rem;
+}

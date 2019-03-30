@@ -192,7 +192,7 @@
         {% endblock %}
       </div>-->
 	  {% if user.is_authenticated %}
-	<div class="container">
+	<!--<div class="container">
         <div class ="card-deck home-crd row text-center">
             <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2 ">
                 <div class="image">
@@ -246,56 +246,45 @@
                     </a>
                 </p>
             </div>
-        </div>
+        </div>-->
+<div class="container">
+    <div class="card-deck home-crd">
 
-    <!--<div class="card-deck home-crd">
-
-  	  <div class="card">
-  		<a href="#"><img class="card-img-top rounded-circle" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap"></a>
-
-        </div>
-      <div class="card">
-		<img class="card-img-top" src="{% static 'img/41.jpg' %}" alt="Card image cap">
+  	  <div class="card rndcard">
+  		<img class="card-img-top rounded-circle" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap">
         <div class="card-body">
-          <h3 class="card-title">Dashboard</h3>
-			<div class="card-content">
-			<p>Create Dashboard from visualization</p>
-			</div>
-            <a class="btn btn-info btn-block" href="dataset/#/dashboard">Start</a>
+            <a class="mx-auto btn btn-info btn-block" href="dataset/#/dashboard">Process</a>
         </div>
-      </div>
-	  	  <div class="card rounded">
+     </div>
+
+     <div class="card rndcard">
+         <img class="card-img-top rounded-circle" src="{% static 'img/41.jpg' %}" alt="Card image cap">
+         <div class="card-body">
+             <a class="mx-auto btn btn-info btn-block" href="dataset/#/dashboard">Dashboard</a>
+         </div>
+     </div>
+	 <div class="card rndcard">
 		<img class="card-img-top rounded-circle" src="{% static 'img/dd.jpg' %}" alt="Card image cap">
         <div class="card-body">
-          <h3 class="card-title">Dataset</h3>
-			<div class="card-content">
-			<p>Create and upload the data to make dataset.</p>
-			</div>
-			<a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Start</a>
+			<a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Dataset</a>
         </div>
+     </div>
+
+     <div class="card rndcard">
+         <img class="card-img-top rounded-circle" src="{% static 'img/vis.jpg' %}" alt="Card image cap">
+         <div class="card-body">
+             <a class="mx-auto btn btn-info btn-block" href="dataset/#/createVisual">Visualizaton</a>
+         </div>
+     </div>
+
+      <div class="card rndcard">
+          <img class="card-img-top rounded-circle" src="{% static 'img/vis.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+              <a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Analytics</a>
+          </div>
       </div>
-      <div class="card">
-  <img class="card-img-top" src="{% static 'img/vis.jpg' %}" alt="Card image cap">
-      <div class="card-body">
-        <h3 class="card-title">Visualization</h3>
-    <div class="card-content">
-    <p>Create and upload the data to make dataset.</p>
-    </div>
-    <a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Start</a>
-      </div>
-    </div>
-    <div class="card">
-<img class="card-img-top" src="{% static 'img/vis.jpg' %}" alt="Card image cap">
-    <div class="card-body">
-      <h3 class="card-title">Analytics</h3>
-  <div class="card-content">
-  <p>Create and do analytics over your data.</p>
   </div>
-  <a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Start</a>
-    </div>
-  </div>
-</div>-->
-	</div>
+</div>
 
 
 	  {% else %}
