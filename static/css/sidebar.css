@@ -327,15 +327,13 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-  min-width: 18%;
-  position: fixed;
-  max-width: 18%;
+  position: absolute;
   background: #242A33;
   color: white;
   z-index: 1;
   height: -webkit-fill-available;
   transition: all 0.3s;
-  display: none;
+  display: inline-block;
   overflow: hidden;
 }
 
@@ -385,7 +383,7 @@ a, a:hover, a:focus {
   z-index: 1;
   height: -webkit-fill-available;
   transition: all 0.3s;
-  display: inline-block;
+  display: none;
   overflow: hidden;
 }
 
@@ -551,7 +549,7 @@ span {
     margin-top: 2%
 }
 .iconhead{
-    padding-right: 5%;
+    padding-right: 10%;
 }
 
 
@@ -567,4 +565,24 @@ select.rsz {
 
 .pltly-ht{
     height:440px;
+}
+
+#sidebar {
+    width:3%;
+    transition: 1s;
+
+    transition-delay : 4s;
+}
+#sidebar:hover{
+    width:19%;
+    overflow: hidden;
+    transition: 0.5s;
+
+
+}
+
+#sidebar li {
+    position: relative;
+    display: block;
+    width: 240px;
 }

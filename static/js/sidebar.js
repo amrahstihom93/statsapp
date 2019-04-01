@@ -27,17 +27,30 @@ $('.dropdown-submenu a.test').on("click", function(e){
 
 
 
-$(document).ready(function() {
+/*$(document).ready(function() {
+    var timer;
+    var delay = 100;
     $(".y").mouseover(function () {
+        console.log("mouseover");
         var x = document.getElementById("sidebar");
         var y = document.getElementById("sidebar2");
-            x.style.display = "inline-block";
-            y.style.display = "none"
+        x.style.display = "inline-block";
+        y.style.display = "none"
     }),
     $(".x").mouseout(function () {
-        var x = document.getElementById("sidebar");
-        var y = document.getElementById("sidebar2");
-            x.style.display = "none";
-            y.style.display = "inline-block"
-    })
-});
+
+            console.log("mouseout");
+            'mouseover': function () {
+        timer = setTimeout(function () {
+            var x = document.getElementById("sidebar");
+            var y = document.getElementById("sidebar2");
+                x.style.display = "none";
+                y.style.display = "inline-block"
+        }, 1000);
+    },
+    'mouseout' : function () {
+        clearTimeout(timer);
+    }
+
+    });
+});*/

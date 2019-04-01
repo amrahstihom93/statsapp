@@ -13,58 +13,47 @@
 	<!-- Sidebar Holder -->
 	<div>
 	<nav id="sidebar" class="x" >
-  		<!--<div class="sidebar-header">
-      		<h3>Statistics App</h3>
-    	</div>-->
-    	<ul class="list-unstyled components">
+    	<ul class="list-unstyled components x">
       		<p>Navigation</p>
 
 		<li>
 			<a href="#processSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-industry"></i>Process</a>
         	<ul class="collapse list-unstyled" id="processSubmenu">
             	<li><a href="#/createProcess"><i class="fa fa-arrow-right fa-fw"></i>Create New Process</a></li>
-            	<!--  <li><a href="#">Process List</a></li>-->
+
           	</ul>
       	</li>
 
       	<li>
         	<a href="#datasetSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-database"></i>Dataset</a>
-        	<ul class="collapse list-unstyled " id="datasetSubmenu">
+        	<ul class="collapse list-unstyled x" id="datasetSubmenu">
             	<li><a href="#/createDataset"><i class="fa fa-arrow-right fa-fw"></i>Create Dataset</a></li>
             	<li class=""><a href="#/datasetList"><i class="fa fa-arrow-right fa-fw"></i>Dataset List</a></li>
         	</ul>
       	</li>
 		<li>
         	<a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-chart-pie"></i>Visualization</a>
-        	<ul class="collapse list-unstyled" id="visualizationSubmenu">
+        	<ul class="collapse list-unstyled x" id="visualizationSubmenu">
           		<li><a href="#/createVisual"><i class="fa fa-arrow-right fa-fw"></i>Create visualization</a></li>
-            	<!--    <li><a href="#">Edit visualization</a></li>-->
+
 				<li><a href="#/visualList"><i class="fa fa-arrow-right fa-fw"></i>Visualization List</a></li>
         	</ul>
       	</li>
 		<li>
 			<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-newspaper"></i>Dashboard</a>
-			<ul class="collapse list-unstyled" id="homeSubmenu">
+			<ul class="collapse list-unstyled x" id="homeSubmenu">
         <li><a href="#/dashboard"><i class="fa fa-arrow-right fa-fw"></i>Create Dashboard</a></li>
         <li><a href="#"><i class="fa fa-arrow-right fa-fw"></i>Edit Dashboard</a></li>
 				<li><a href="#"><i class="fa fa-arrow-right fa-fw"></i>Dashboard List</a></li>
 			</ul>
       	</li>
-        	<!-- <li>
-            	<a href="#analysisSubmenu" data-toggle="collapse" aria-expanded="false">Analysis</a>
-            	<ul class="collapse show list-unstyled" id="analysisSubmenu">
-                	<li><a href="#/statistical">Statistical Summary</a></li>
-                	<li><a href="#/statisticalList">Statistical List</a></li>
-                	<li><a href="#/analytical">Analytical Summary</a></li>
-                	<li><a href="#/analyticalList">Analytical List</a></li>
-            	</ul>
-        	</li>-->
+
 			<li>
 				<a href="#transformations" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-external-link-alt"></i>Transformations</a>
 			</li>
 			<li>
         		<a href="#analyticsSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-chart-line"></i>Analytics</a>
-        		<ul class="collapse list-unstyled" id="analyticsSubmenu">
+        		<ul class="collapse list-unstyled x" id="analyticsSubmenu">
           			<li>
 						<a href = "#statisticsSubmenu" data-toggle = "collapse" aria-expanded="false">Statistics</a>
 						<ul class="collapse  list-unstyled" id="statisticsSubmenu">
@@ -90,7 +79,7 @@
       		</li>
 			<li>
 				<a href = "#machineLearning" data-toggle = "collapse" aria-expanded="false"><i class="iconhead fa fa-cogs"></i>Machine Learning</a>
-				<ul class="collapse  list-unstyled" id="machineLearning">
+				<ul class="collapse  list-unstyled x" id="machineLearning">
 					<li><a href="#/mlearn" ><i class="fa fa-arrow-right fa-fw"></i>Create Model</a></li>
 					<li><a href="#/mlist" ><i class="fa fa-arrow-right fa-fw"></i>List Model</a></li>
 					<li><a href="#/mdep" ><i class="fa fa-arrow-right fa-fw"></i>Deploy Model</a></li>
@@ -118,7 +107,7 @@
 				<a class="mini" href="#processSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-industry fa-3x"></i></a>
         		<ul class="collapse list-unstyled" id="processSubmenu">
             		<li><a href="#/createProcess"><i class="fa fa-arrow-right fa-fw"></i>Create New Process</a></li>
-            		<!--  <li><a href="#">Process List</a></li>-->
+
           		</ul>
       		</li>
 
@@ -131,6 +120,97 @@
       		</li>
 		</ul>
 	</nav>
+	<!--<nav id="sidebar"class="main-menu">
+            <ul>
+                <li>
+                    <a href="http://justinfarrow.com">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                            Dashboard
+                        </span>
+                    </a>
+
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-laptop fa-2x"></i>
+                        <span class="nav-text">
+                            Stars Components
+                        </span>
+                    </a>
+
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                       <i class="fa fa-list fa-2x"></i>
+                        <span class="nav-text">
+                            Forms
+                        </span>
+                    </a>
+
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                       <i class="fa fa-folder-open fa-2x"></i>
+                        <span class="nav-text">
+                            Pages
+                        </span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-bar-chart-o fa-2x"></i>
+                        <span class="nav-text">
+                            Graphs and Statistics
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-font fa-2x"></i>
+                        <span class="nav-text">
+                           Quotes
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                       <i class="fa fa-table fa-2x"></i>
+                        <span class="nav-text">
+                            Tables
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                        <i class="fa fa-map-marker fa-2x"></i>
+                        <span class="nav-text">
+                            Maps
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                       <i class="fa fa-info fa-2x"></i>
+                        <span class="nav-text">
+                            Documentation
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="logout">
+                <li>
+                   <a href="#">
+                         <i class="fa fa-power-off fa-2x"></i>
+                        <span class="nav-text">
+                            Logout
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>-->
 	</div>
 {% endblock %}
 {% block content %}

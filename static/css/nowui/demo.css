@@ -617,5 +617,9 @@
 }
 
 .rndcard{
-    border-radius: 6.1875rem;
+    border-radius:20%;
+}
+.rnd-img{
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
 }
