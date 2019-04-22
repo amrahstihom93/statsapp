@@ -539,7 +539,7 @@ span {
 .full-cntnt {
     width: 100%;
     padding: 2%;
-    margin-left: 18%;
+    margin-left: 5%;
     margin-top: 2%
 }
 .full-cntnt1 {
@@ -568,13 +568,13 @@ select.rsz {
 }
 
 #sidebar {
-    width:3%;
+    width:40px;
     transition: 1s;
 
     transition-delay : 4s;
 }
 #sidebar:hover{
-    width:19%;
+    width:240px;
     overflow: hidden;
     transition: 0.5s;
 
@@ -585,4 +585,13 @@ select.rsz {
     position: relative;
     display: block;
     width: 240px;
+}
+
+.icon-pad{
+    margin-left:20px;
+}
+
+#sidebar ul li ul li{
+    margin-left: 20px;
+    width: 220px;
 }

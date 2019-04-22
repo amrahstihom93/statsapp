@@ -27,7 +27,7 @@ from upload import views as dataset_upload_views
 from charts import views as chart_views
 from process import views as process_views
 from statistical import views as statistical_views
-
+from processmap import views as processmap_views
 from django.contrib.auth import views as auth_views
 #from wkhtmltopdf.views import PDFTemplateView
 
@@ -85,6 +85,9 @@ urlpatterns = [
 
     url(r'^mdep/$', ml_views.mlearn, name="mdep"),
     url(r'^mlist/$', ml_views.mlist, name="mlist"),
+
+    url(r'^processmap/$', processmap_views.processmap, name="processmap"),
+
 
 ]
 if settings.DEBUG:

@@ -26,7 +26,6 @@ $('.dropdown-submenu a.test').on("click", function(e){
 });
 
 
-
 /*$(document).ready(function() {
     var timer;
     var delay = 100;
