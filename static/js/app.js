@@ -58,6 +58,9 @@ module.config(['$routeProvider',
         }).when('/mdep', {
             templateUrl: static_url + 'partials/mdep.html',
             controller: 'mlearnCtrl'
+        }).when('/processmap', {
+            templateUrl: static_url + 'partials/processmap.html',
+            controller: 'pmapCtrl'
         });
     }]);
 
