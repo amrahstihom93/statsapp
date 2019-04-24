@@ -58,14 +58,19 @@ module.config(['$routeProvider',
         }).when('/mdep', {
             templateUrl: static_url + 'partials/mdep.html',
             controller: 'mlearnCtrl'
-        }).when('/processmap', {
-            templateUrl: static_url + 'partials/processmap.html',
+        }).when('/processmap',{
+            templateUrl: static_url + 'partials/pmap.html',
             controller: 'pmapCtrl'
         });
     }]);
 
 
-
+//ProcessMapping RouteController1
+module.controller("pmapCtrl",function($scope,$http){
+    $http.get(url)
+    .then(function(response){
+    });
+});
 
 //AnalyticalList controller
 module.controller("analyticalListCtrl",function($scope,$http){
