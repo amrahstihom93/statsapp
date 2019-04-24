@@ -1,29 +1,28 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=5,IE=9" ><![endif]-->
-{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Graph Editor</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/grapheditor.css' %}">
+    <link rel="stylesheet" type="text/css" href="styles/grapheditor.css">
 	<script type="text/javascript">
 		// Public global variables
 		var MAX_REQUEST_SIZE = 10485760;
 		var MAX_WIDTH = 6000;
 		var MAX_HEIGHT = 6000;
-
+	
 		// URLs for save and export
 		var EXPORT_URL = '/export';
 		var SAVE_URL = '/save';
 		var OPEN_URL = '/open';
-		var RESOURCES_PATH = '/static/processMap/resources';
+		var RESOURCES_PATH = 'resources';
 		var RESOURCE_BASE = RESOURCES_PATH + '/grapheditor';
-		var STENCIL_PATH = '/static/processMap/stencils';
-		var IMAGE_PATH = '/static/processMap/images';
-		var STYLE_PATH = '/static/processMap/styles';
-		var CSS_PATH = '/static/processMap/styles';
-		var OPEN_FORM = '/static/processMap/open.html';
-
+		var STENCIL_PATH = 'stencils';
+		var IMAGE_PATH = 'images';
+		var STYLE_PATH = 'styles';
+		var CSS_PATH = 'styles';
+		var OPEN_FORM = 'open.html';
+	
 		// Specifies connection mode for touch devices (at least one should be true)
 		var tapAndHoldStartsConnection = true;
 		var showConnectorImg = true;
@@ -36,22 +35,22 @@
 		{
 			var result = new Object();
 			var idx = url.lastIndexOf('?');
-
+	
 			if (idx > 0)
 			{
 				var params = url.substring(idx + 1).split('&');
-
+				
 				for (var i = 0; i < params.length; i++)
 				{
 					idx = params[i].indexOf('=');
-
+					
 					if (idx > 0)
 					{
 						result[params[i].substring(0, idx)] = params[i].substring(idx + 1);
 					}
 				}
 			}
-
+			
 			return result;
 		})(window.location.href);
 
@@ -63,21 +62,21 @@
 		// save a GET request. This requires that all resources be present in
 		// each properties file since only one file is loaded.
 		mxLoadResources = false;
-		mxBasePath = '/static/processMap/src';
+		mxBasePath = '../../../src';
 		mxLanguage = urlParams['lang'];
 		mxLanguages = ['de'];
 	</script>
-	<script type="text/javascript" src="{% static 'processMap/src/js/mxClient.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Editor.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Graph.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Shapes.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/EditorUi.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Actions.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Menus.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Sidebar.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Toolbar.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Dialogs.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/jscolor/jscolor.js' %}"></script>
+	<script type="text/javascript" src="../../../src/js/mxClient.js"></script>
+	<script type="text/javascript" src="js/Editor.js"></script>
+	<script type="text/javascript" src="js/Graph.js"></script>
+	<script type="text/javascript" src="js/Shapes.js"></script>
+	<script type="text/javascript" src="js/EditorUi.js"></script>
+	<script type="text/javascript" src="js/Actions.js"></script>
+	<script type="text/javascript" src="js/Menus.js"></script>
+	<script type="text/javascript" src="js/Sidebar.js"></script>
+	<script type="text/javascript" src="js/Toolbar.js"></script>
+	<script type="text/javascript" src="js/Dialogs.js"></script>
+	<script type="text/javascript" src="jscolor/jscolor.js"></script>
 </head>
 <body class="geEditor">
 	<script type="text/javascript">
@@ -85,11 +84,11 @@
 		(function()
 		{
 			var editorUiInit = EditorUi.prototype.init;
-
+			
 			EditorUi.prototype.init = function()
 			{
 				editorUiInit.apply(this, arguments);
-				this.actions.get('export').setEnabled(false);
+				this.actions.get('export').setEnabled(enabled);
 
 				// Updates action states which require a backend
 				if (!useLocalStorage)
@@ -106,7 +105,7 @@
 				}
 			};
 		})();
-
+	
 		new EditorUi(new Editor());
 	</script>
 </body>
