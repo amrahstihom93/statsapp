@@ -1,37 +1,19 @@
+
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=5,IE=9" ><![endif]-->
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Graph Editor</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles/grapheditor.css' %}">
+    <title>Grapheditor</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'processMap/styles/grapheditor.css' %}">
 	<script type="text/javascript">
-		// Public global variables
-		var MAX_REQUEST_SIZE = 10485760;
-		var MAX_WIDTH = 6000;
-		var MAX_HEIGHT = 6000;
-
-		// URLs for save and export
-		var EXPORT_URL = '/export';
-		var SAVE_URL = '/save';
-		var OPEN_URL = '/open';
-		var RESOURCES_PATH = '/static/processMap/resources';
-		var RESOURCE_BASE = RESOURCES_PATH + '/grapheditor';
-		var STENCIL_PATH = '/static/processMap/stencils';
-		var IMAGE_PATH = '/static/processMap/images';
-		var STYLE_PATH = '/static/processMap/styles';
-		var CSS_PATH = '/static/processMap/styles';
-		var OPEN_FORM = '/static/processMap/open.html';
-
-		// Specifies connection mode for touch devices (at least one should be true)
-		var tapAndHoldStartsConnection = true;
-		var showConnectorImg = true;
-
 		// Parses URL parameters. Supported parameters are:
 		// - lang=xy: Specifies the language of the user interface.
 		// - touch=1: Enables a touch-style user interface.
 		// - storage=local: Enables HTML5 local storage.
+		// - chrome=0: Chromeless mode.
 		var urlParams = (function(url)
 		{
 			var result = new Object();
@@ -55,33 +37,29 @@
 			return result;
 		})(window.location.href);
 
-		// Sets the base path, the UI language via URL param and configures the
-		// supported languages to avoid 404s. The loading of all core language
-		// resources is disabled as all required resources are in grapheditor.
-		// properties. Note that in this example the loading of two resource
-		// files (the special bundle and the default bundle) is disabled to
-		// save a GET request. This requires that all resources be present in
-		// each properties file since only one file is loaded.
+		// Default resources are included in grapheditor resources
 		mxLoadResources = false;
-		mxBasePath = '/static/processMap/src';
-		mxLanguage = urlParams['lang'];
-		mxLanguages = ['de'];
 	</script>
-	<script type="text/javascript" src="{% static 'processMap/src/js/mxClient.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Editor.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Graph.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Shapes.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/EditorUi.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Actions.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Menus.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Sidebar.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Toolbar.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/Dialogs.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/processMap/jscolor/jscolor.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Init.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/deflate/pako.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/deflate/base64.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/jscolor/jscolor.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/sanitizer/sanitizer.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'pmapsrc/js/mxClient.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/EditorUi.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Editor.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Sidebar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Graph.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Format.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Shapes.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Actions.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Menus.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Toolbar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'processMap/js/Dialogs.js' %}"></script>
 </head>
 <body class="geEditor">
 	<script type="text/javascript">
-		// Extends EditorUi to update I/O action states
+		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
 		{
 			var editorUiInit = EditorUi.prototype.init;
@@ -92,22 +70,43 @@
 				this.actions.get('export').setEnabled(false);
 
 				// Updates action states which require a backend
-				if (!useLocalStorage)
+				if (!Editor.useLocalStorage)
 				{
 					mxUtils.post(OPEN_URL, '', mxUtils.bind(this, function(req)
 					{
 						var enabled = req.getStatus() != 404;
-						this.actions.get('open').setEnabled(enabled || fileSupport);
-						this.actions.get('import').setEnabled(enabled || fileSupport);
+						this.actions.get('open').setEnabled(enabled || Graph.fileSupport);
+						this.actions.get('import').setEnabled(enabled || Graph.fileSupport);
 						this.actions.get('save').setEnabled(enabled);
 						this.actions.get('saveAs').setEnabled(enabled);
 						this.actions.get('export').setEnabled(enabled);
 					}));
 				}
 			};
-		})();
 
-		new EditorUi(new Editor());
+			// Adds required resources (disables loading of fallback properties, this can only
+			// be used if we know that all keys are defined in the language specific file)
+			mxResources.loadDefaultBundle = false;
+			var bundle = mxResources.getDefaultBundle(RESOURCE_BASE, mxLanguage) ||
+				mxResources.getSpecialBundle(RESOURCE_BASE, mxLanguage);
+
+			// Fixes possible asynchronous requests
+			mxUtils.getAll([bundle, STYLE_PATH + '/default.xml'], function(xhr)
+			{
+				// Adds bundle text to resources
+				mxResources.parse(xhr[0].getText());
+
+				// Configures the default graph theme
+				var themes = new Object();
+				themes[Graph.prototype.defaultThemeName] = xhr[1].getDocumentElement();
+
+				// Main
+				new EditorUi(new Editor(urlParams['chrome'] == '0', themes));
+			}, function()
+			{
+				document.body.innerHTML = '<center style="margin-top:10%;">Error loading resource files. Please check browser console.</center>';
+			});
+		})();
 	</script>
 </body>
 </html>

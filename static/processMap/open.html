@@ -39,8 +39,8 @@
 		var form = window.openForm || document.getElementById('openForm');
 		
 		// Checks for support of the File API for local file access
-		// except for Visio files where the parse is on the server
-		if (window.parent.fileSupport && form.upfile.files.length > 0)
+		// except for files where the parse is on the server
+		if (window.parent.Graph.fileSupport && form.upfile.files.length > 0)
 		{
 			handleFiles(form.upfile.files);
 			
@@ -72,9 +72,9 @@
 	};
 	
 	// Hides this dialog
-	function hideWindow()
+	function hideWindow(cancel)
 	{
-		window.parent.openFile.cancel();
+		window.parent.openFile.cancel(cancel);
 	}
 	
 	function fileChanged()
@@ -94,7 +94,7 @@
 
 	function main()
 	{
-		if (window.parent.useLocalStorage)
+		if (window.parent.Editor.useLocalStorage)
 		{
 			document.body.innerHTML = '';
 			var div = document.createElement('div');
@@ -106,7 +106,6 @@
 			}
 			else
 			{
-				// TODO: Size is known
 				var keys = [];
 				
 				for (var i = 0; i < localStorage.length; i++)
@@ -115,7 +114,10 @@
 				}
 				
 				// Sorts the array by filename (key)
-				keys.sort();
+				keys.sort(function (a, b)
+				{
+				    return a.toLowerCase().localeCompare(b.toLowerCase());
+				});
 				
 				for (var i = 0; i < keys.length; i++)
 				{
@@ -128,7 +130,7 @@
 					div.appendChild(link);
 					
 					var img = document.createElement('span');
-					img.className = 'sprite sprite-delete';
+					img.className = 'geSprite geSprite-delete';
 					img.style.position = 'relative';
 					img.style.cursor = 'pointer';
 					img.style.display = 'inline-block';
@@ -169,10 +171,12 @@
 			window.parent.mxUtils.br(div);
 			window.parent.mxUtils.br(div);
 			
-			div.appendChild(window.parent.mxUtils.button(window.parent.mxResources.get('cancel'), function()
+			var cancelBtn = window.parent.mxUtils.button(window.parent.mxResources.get('cancel'), function()
 			{
-				hideWindow();
-			}));
+				hideWindow(true);
+			});
+			cancelBtn.className = 'geBtn';
+			div.appendChild(cancelBtn);
 			
 			document.body.appendChild(div);
 		}
@@ -186,8 +190,7 @@
 			var supportedText = document.getElementById('openSupported');
 			supportedText.innerHTML = window.parent.mxResources.get('openSupported');
 			var form = window.openForm || document.getElementById('openForm');
-			
-			// FIXME: Adds .html in IE
+
 			form.setAttribute('action', window.parent.OPEN_URL);
 		}
 	};
@@ -195,22 +198,22 @@
 <body onload="main();">
 <form method="POST" enctype="multipart/form-data" action="" name="openForm"
 	id="openForm" onsubmit="return handleSubmit();" accept-charset="UTF-8">
-<table>
+<table style="width:100%;">
 <tr>
 <td style="height:40px;vertical-align:top;" colspan="2">
 <input type="file" name="upfile" onchange="fileChanged()">
 </td>
 </tr>
 <tr>
-<td colspan="2" height="80px" id="openSupported" style="font-family:arial;color:grey;font-size:9pt;vertical-align:top;text-align:left;">
+<td colspan="2" height="120px" id="openSupported" style="font-family:arial;color:grey;font-size:9pt;vertical-align:top;text-align:left;">
 </td>
 </tr>
 <tr>
 <td>
 </td>
 <td style="vertical-align:middle;text-align:right;white-space:nowrap;">
-<input type="submit" id="openButton" value="Open" disabled="disabled">
-<input type="button" id="cancelButton" value="Cancel" onclick="hideWindow();">
+<input type="button" id="cancelButton" class="geBtn" value="Cancel" onclick="hideWindow(true);">
+<input type="submit" id="openButton" class="geBtn gePrimaryBtn" value="Open" disabled="disabled">
 </td>
 </tr>
 </table>

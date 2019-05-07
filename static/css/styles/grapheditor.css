@@ -9,7 +9,11 @@
 	-moz-box-shadow:0px 0px 3px 0px #d9d9d9;
   	box-shadow:0px 0px 3px 0px #d9d9d9;
 }
-.geSidebarContainer a, .geMenubar a, .geToolbar a {
+.geMenubar a{
+	color:white;
+	text-decoration:none;
+}
+.geSidebarContainer a, .geToolbar a {
 	color:black;
 	text-decoration:none;
 }
@@ -34,7 +38,7 @@
 	transition: all 0.1s ease-in-out;
 }
 .geMenubarContainer {
-	background-color:#ffffff;
+	background-color:#001c47;
 }
 .geMenubar {
 	padding:2px;
@@ -45,7 +49,7 @@
 	cursor:default;
 }
 .geMenubar .geItem:hover {
-	background:#eeeeee;
+	background:#39a08d;
 }
 .geMenubar a.geStatus {
 	color:gray;
