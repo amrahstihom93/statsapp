@@ -78,7 +78,7 @@ def signup(request):
             print(type(emailid))
             print(emailid)
             print(type(client.email_id))
-            send_mail(subject, message, 'jasnoorkaur3@gmail.com', emailid)
+            send_mail(subject, message, 'mohitsigmaway123@gmail.com', emailid)
             msg = 'Account is created successfully and activation link is sent on your email-id'
             result=createRootProcess(user, client)
             print(result)

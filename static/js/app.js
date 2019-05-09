@@ -1124,9 +1124,9 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     html2canvas($(".visualizationx:eq(0)")[0], { allowTaint: true }).then(function(canvas) {
 
         calculatePDF_height_width(".visualizationx",0);
-        var imgData = canvas.toDataURL("image/png", 1.0);
+        var imgData = canvas.toDataURL("image/png", 0.90);
         pdf = new jsPDF(sheetFmt, 'pt', [PDF_Width, PDF_Height]);
-        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
+        pdf.addImage(imgData, 'JPEG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
 
 
     });
@@ -1137,9 +1137,9 @@ module.controller("dashboardCtrl", function ($scope,$http) {
 
              calculatePDF_height_width(".visualizationx",i);
 
-             var imgData = canvas.toDataURL("image/png", 1.0);
+             var imgData = canvas.toDataURL("image/png", 0.90);
              pdf.addPage(PDF_Width, PDF_Height);
-             pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
+             pdf.addImage(imgData, 'JPEG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
 
          });
 
@@ -1151,9 +1151,9 @@ module.controller("dashboardCtrl", function ($scope,$http) {
 
         calculatePDF_height_width(".visualizationx",c);
 
-        var imgData = canvas.toDataURL("image/png", 1.0);
+        var imgData = canvas.toDataURL("image/png", 0.90);
         pdf.addPage(PDF_Width, PDF_Height);
-        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
+        pdf.addImage(imgData, 'JPEG', top_left_margin, top_left_margin*8, HTML_Width, HTML_Height);
 
         setTimeout(function(){
                 pdf.save("dashboard.pdf");

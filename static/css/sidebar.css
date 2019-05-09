@@ -571,7 +571,7 @@ select.rsz {
     width:40px;
     transition: 1s;
 
-    transition-delay : 4s;
+    transition-delay : 2s;
 }
 #sidebar:hover{
     width:240px;
