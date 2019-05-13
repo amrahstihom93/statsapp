@@ -1796,7 +1796,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     $scope.fieldsAr = [];
     $scope.vName = '';
     let defaultData = [];
-
     let labels = [];
     let graphType = '';
     let selDatasetId = '';
@@ -1804,9 +1803,11 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let yLabel="";
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
+
     $http.get(url)
         .then(function (response) {
             //First function handles success
+
             console.log("get response", response);
             $scope.datasetArr = response.data;
         }, function (response) {
@@ -1829,7 +1830,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("$$",graphType);
 
         if(graphType == "line"){
-
             var myChart = new Chart(ctx2, {
 
                 type: graphType,
@@ -1947,7 +1947,17 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             graphType = "horizontalBar";
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
-            var myChart = new Chart(ctx2, {
+            console.log("%%DEFAULTDATA%%",defaultData );
+            console.log("%%XLABEL%%",xLabel);
+
+            Plotly.plot(myChart2,[{
+                y: defaultData,
+                x: labels,
+                type:'scatter',
+                showline: true,
+            }],
+            {margin:{t: 0}});
+            /*var myChart = new Chart(ctx2, {
     //		type: 'pie',
                 type: graphType,
                 data: {
@@ -1998,7 +2008,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                         }]
                     }
                 }
-            });
+            });*/
         }
         else if (graphType =="scatter"){
             graphType = "scatter";
