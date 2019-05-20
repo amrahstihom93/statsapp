@@ -1830,7 +1830,15 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("$$",graphType);
 
         if(graphType == "line"){
-            var myChart = new Chart(ctx2, {
+
+            Plotly.newPlot(myChart2,[{
+                y: defaultData,
+                x: labels,
+                type:'scatter',
+                showline: true,
+            }],
+            {margin:{t: 0}});
+            /*var myChart = new Chart(ctx2, {
 
                 type: graphType,
                 data: {
@@ -1881,15 +1889,24 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                         }]
                     }
                 }
-            });
+            });*/
         }
 
 
         else if (graphType =="area"){
-            graphType = "line";
+
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
-            var myChart = new Chart(ctx2, {
+
+            Plotly.newPlot(myChart2,[{
+                y: defaultData,
+                x: labels,
+                fill:'tonexty',
+                type:'scatter',
+                showline: true,
+            }],
+            {margin:{t: 0}});
+            /*var myChart = new Chart(ctx2, {
     //		type: 'pie',
                 type: graphType,
                 data: {
@@ -1940,23 +1957,44 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                         }]
                     }
                 }
-            });
+            });*/
+        }
+        else if(graphType == "bar" ){
+            var ctx2 = document.getElementById("myChart2");
+            Plotly.newPlot(myChart2,[{
+                y: defaultData,
+                x: labels,
+                type:'bar',
+                showline: true,
+            }],
+            {margin:{t: 0}});
+        }
+        else if(graphType == "pie"){
+            console.log("graphtype-->",graphType);
+            var ctx2 = document.getElementById("myChart2");
+            Plotly.newPlot(myChart2,[{
+                x: defaultData,
+                y: labels,
+                type:'pie',
+            }],
+            );
         }
 
-        else if (graphType =="barhorz"){
+        else if (graphType =="horizontalBar"){
             graphType = "horizontalBar";
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
             console.log("%%DEFAULTDATA%%",defaultData );
             console.log("%%XLABEL%%",xLabel);
 
-            Plotly.plot(myChart2,[{
-                y: defaultData,
-                x: labels,
-                type:'scatter',
-                showline: true,
-            }],
-            {margin:{t: 0}});
+                Plotly.newPlot(myChart2,[{
+                    y: defaultData,
+                    x: labels,
+                    type:'bar',
+                    orientation:'h',
+                }],
+                {margin:{t: 0}});
+            
             /*var myChart = new Chart(ctx2, {
     //		type: 'pie',
                 type: graphType,
