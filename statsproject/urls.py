@@ -28,6 +28,7 @@ from charts import views as chart_views
 from process import views as process_views
 from statistical import views as statistical_views
 from processmap import views as processmap_views
+from qtools import views as qualitytools_views
 from django.contrib.auth import views as auth_views
 #from wkhtmltopdf.views import PDFTemplateView
 
@@ -87,6 +88,7 @@ urlpatterns = [
     url(r'^mlist/$', ml_views.mlist, name="mlist"),
 
     url(r'^processmap/$', processmap_views.processmap, name="processmap"),
+    url(r'^qualityTools/$', qualitytools_views.qtools, name="qualitytools"),
 
 
 ]

@@ -61,9 +61,16 @@ module.config(['$routeProvider',
         }).when('/processmap',{
             templateUrl: static_url + 'partials/pmap.html',
             controller: 'pmapCtrl'
+        }).when('/qualityTools',{
+            templateUrl: static_url + 'partials/qtools.html',
+            controller: 'qTools'
         });
     }]);
 
+//QualityTools RouteController1
+module.controller("qTools",function($scope, $http){
+    console.log("QualityTools");
+});
 
 //ProcessMapping RouteController1
 module.controller("pmapCtrl",function($scope,$http){
@@ -1994,7 +2001,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                     orientation:'h',
                 }],
                 {margin:{t: 0}});
-            
+
             /*var myChart = new Chart(ctx2, {
     //		type: 'pie',
                 type: graphType,
