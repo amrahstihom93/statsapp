@@ -1,21 +1,23 @@
-<html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<div id="fmea" class="table-responsive">
+  <table class="table table-striped table-bordered table-highlight table-responsive-md">
+    <thead class="thead-dark">
+      <tr>
+        <th>Process Function(Step)</th>
+        <th>Potential Failure Modes "Errors"</th>
+        <th>Potential Failure Effects "Deffects" "Ys"</th>
+        <th>SEV</th>
+        <th>Potential Causes of Failure "Inputs" "Xs"</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" class="form-control" value="Some Long Name Here" /></td>
+        <td><input type="text" class="form-control" value="Some Long Name Here" /></td>
+        <td><input type="text" class="form-control" value="Some Long Name Here" /></td>
+        <td><input type="text" class="form-control" value="Some Long Name Here" /></td>
+        <td><input type="text" class="form-control" value="Some Long Name Here" /></td>
+      </tr>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
-
-<div id="my1"></div><br>
-<div id="my2"></div>
-
-<script>
-var data1 = $.fn.jexcel('helper', { action:'createEmptyData', cols:6, rows:10 });
-var data2 = $.fn.jexcel('helper', { action:'createEmptyData', cols:6, rows:10 });
-
-$('#my1').jexcel({
-    data:data1
-});
-$('#my2').jexcel({
-    data:data2
-});
-</script>
-</html>
+    </tbody>
+  </table>
+  </div>

@@ -61,9 +61,18 @@ module.config(['$routeProvider',
         }).when('/processmap',{
             templateUrl: static_url + 'partials/pmap.html',
             controller: 'pmapCtrl'
+        }).when('/qualityTools',{
+            templateUrl: static_url + 'partials/qtools.html',
+            controller: 'qTools'
         });
     }]);
 
+//QualityTools RouteController1
+module.controller("qTools",function($scope, $http){
+    console.log("QualityTools");
+    var e1 = document.getElementById("fmea");
+    
+});
 
 //ProcessMapping RouteController1
 module.controller("pmapCtrl",function($scope,$http){
