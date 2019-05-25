@@ -61,16 +61,9 @@ module.config(['$routeProvider',
         }).when('/processmap',{
             templateUrl: static_url + 'partials/pmap.html',
             controller: 'pmapCtrl'
-        }).when('/qualityTools',{
-            templateUrl: static_url + 'partials/qtools.html',
-            controller: 'qTools'
         });
     }]);
 
-//QualityTools RouteController1
-module.controller("qTools",function($scope, $http){
-    console.log("QualityTools");
-});
 
 //ProcessMapping RouteController1
 module.controller("pmapCtrl",function($scope,$http){
@@ -1831,20 +1824,19 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     function setChart() {
         //   var ctx = document.getElementById("myChart");
 
-
+        let i = 0;
         var ctx2 = document.getElementById("myChart2");
         var ctx3 = document.getElementById("area").value;
         console.log("$$",graphType);
 
         if(graphType == "line"){
-
-            Plotly.newPlot(myChart2,[{
-                y: defaultData,
-                x: labels,
-                type:'scatter',
-                showline: true,
-            }],
-            {margin:{t: 0}});
+        Plotly.newPlot(myChart2,[{
+            y: defaultData,
+            x: labels,
+            type:'scatter',
+            showline: true,
+        }],
+        {margin:{t: 0}});
             /*var myChart = new Chart(ctx2, {
 
                 type: graphType,
@@ -1901,16 +1893,14 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
         else if (graphType =="area"){
-
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
-
             Plotly.newPlot(myChart2,[{
                 y: defaultData,
                 x: labels,
-                fill:'tonexty',
                 type:'scatter',
-                showline: true,
+                fill: 'tonexty',
+                mode: 'none',
             }],
             {margin:{t: 0}});
             /*var myChart = new Chart(ctx2, {
@@ -1966,26 +1956,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 }
             });*/
         }
-        else if(graphType == "bar" ){
-            var ctx2 = document.getElementById("myChart2");
-            Plotly.newPlot(myChart2,[{
-                y: defaultData,
-                x: labels,
-                type:'bar',
-                showline: true,
-            }],
-            {margin:{t: 0}});
-        }
-        else if(graphType == "pie"){
-            console.log("graphtype-->",graphType);
-            var ctx2 = document.getElementById("myChart2");
-            Plotly.newPlot(myChart2,[{
-                x: defaultData,
-                y: labels,
-                type:'pie',
-            }],
-            );
-        }
 
         else if (graphType =="horizontalBar"){
             graphType = "horizontalBar";
@@ -1994,14 +1964,13 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("%%DEFAULTDATA%%",defaultData );
             console.log("%%XLABEL%%",xLabel);
 
-                Plotly.newPlot(myChart2,[{
-                    y: defaultData,
-                    x: labels,
-                    type:'bar',
-                    orientation:'h',
-                }],
-                {margin:{t: 0}});
-
+            Plotly.newPlot(myChart2,[{
+                y: defaultData,
+                x: labels,
+                type:'scatter',
+                showline: true,
+            }],
+            {margin:{t: 0}});
             /*var myChart = new Chart(ctx2, {
     //		type: 'pie',
                 type: graphType,
@@ -2179,6 +2148,51 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 }
             });
         }
+
+        else if (graphType == "histogram"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+
+          Plotly.newPlot(myChart2,[{
+              x: defaultData,
+              y: labels,
+              type:'histogram',
+              showline: true,
+          }],
+          {margin:{t: 0}}, {displaylogo:false});
+
+        }
+        else if (graphType == "boxplot"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+
+          Plotly.newPlot(myChart2,[{
+              y: defaultData,
+              x: labels,
+              type:'box',
+              showline: true,
+          }],
+          {margin:{t: 0}}, {displaylogo:false});
+
+        }
+        else if (graphType == "pie"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+
+          Plotly.newPlot(myChart2,[{
+              values: defaultData,
+              labels: labels,
+              type:'pie',
+          }],
+          {margin:{t: 40}}, {displaylogo:false});
+
+        }
         else {
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
@@ -2253,7 +2267,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("yLabel",yLabel);
         formd.append("dtName", $scope.selectedDataset);
         console.log("data to send", formd);
-
 
         $http.post(graphDataUrl, formd, {
             headers: {'Content-Type': undefined},
