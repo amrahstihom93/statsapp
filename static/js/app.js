@@ -70,11 +70,22 @@ module.config(['$routeProvider',
 //QualityTools RouteController1
 module.controller("qTools",function($scope, $http){
     console.log("QualityTools");
-
+    let url = '/getProcess/';
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.processList = response.data;
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
     var x =document.getElementById("add-new");
+    $scope.selectedProcess ='';
     $(document).ready(function(){
         console.log("letsstart");
-        $('[data-toggle="tooltip"]').tooltip();
+        //$('[data-toggle="tooltip"]').tooltip();
         var actions = $("table td:last-child").html();
 
 
@@ -89,11 +100,22 @@ module.controller("qTools",function($scope, $http){
             '<td><input type="text" class="form-control" name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
             '<td><input type="text" class="form-control" name="sev" id="sev"></td>' +
 			'<td><input type="text" class="form-control" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
+      '<td><input type="text" class="form-control" name="occ" id="occ"></td>' +
+      '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
+      '<td><input type="text" class="form-control" name="det" id="det"></td>' +
+      '<td><input type="text" class="form-control" name="rpn" id="rpn"></td>' +
+      '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
+      '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
+      '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
+      '<td><input type="text" class="form-control" name="sev" id="sev"></td>' +
+      '<td><input type="text" class="form-control" name="occ" id="occ"></td>' +
+      '<td><input type="text" class="form-control" name="det" id="det"></td>' +
+      '<td><input type="text" class="form-control" name="rpn" id="rpn"></td>' +
 			'<td>' + actions + '</td>' +
             '</tr>';
             $("table").append(row);
             $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-            $('[data-toggle="tooltip"]').tooltip();
+            //$('[data-toggle="tooltip"]').tooltip();
         });
 
         // Add row on add button click
@@ -1909,58 +1931,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             showline: true,
         }],
         {margin:{t: 0}});
-            /*var myChart = new Chart(ctx2, {
 
-                type: graphType,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '',
-                        data: defaultData,
-
-                        fill : 0,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: yLabel
-                            }
-                        }],
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: xLabel
-                            }
-                        }]
-                    }
-                }
-            });*/
         }
 
 
@@ -2104,7 +2075,15 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("LABELS",labels);
             let coords = labels.map( (v,i) => ({ x: v, y: defaultData[i] }) );
             console.log(coords);
-            var myChart = new Chart(ctx2, {
+
+            Plotly.newPlot(myChart2,[{
+                y: defaultData,
+                x: labels,
+                type:'scatter',
+                mode:'markers',
+            }],
+            {margin:{t: 0}}, {displaylogo:false});
+          /*  var myChart = new Chart(ctx2, {
                 //		type: 'pie',
                 type: graphType,
                 data: {
@@ -2156,7 +2135,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                         }]
                     }
                 }
-            });
+            });*/
         }
         else if (graphType =="bubble"){
             graphType = "bubble";
@@ -2228,7 +2207,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("%%XLABEL%%",xLabel);
 
           Plotly.newPlot(myChart2,[{
-              x: defaultData,
+              y: defaultData,
               y: labels,
               type:'histogram',
               showline: true,
@@ -2261,6 +2240,21 @@ module.controller("visualizationCtrl", function ($scope, $http) {
               values: defaultData,
               labels: labels,
               type:'pie',
+          }],
+          {margin:{t: 40}}, {displaylogo:false});
+
+        }
+        else if (graphType == "radar"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+
+          Plotly.newPlot(myChart2,[{
+              r: defaultData,
+              theta: labels,
+              type:'scatterpolar',
+              fill: 'none',
           }],
           {margin:{t: 40}}, {displaylogo:false});
 

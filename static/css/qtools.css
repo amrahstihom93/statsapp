@@ -1,6 +1,14 @@
-
+#fmea th {
+	width:130px;
+}
+#selectbox{
+	width: 500px;
+}
+.qtfmea {
+    overflow-y: auto;
+}
 	.table-wrapper {
-		width: 800px;
+		width: 80%;
 		margin: 30px auto;
         background: #fff;
         padding: 20px;
