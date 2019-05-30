@@ -1935,6 +1935,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         }
 
 
+
         else if (graphType =="area"){
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
@@ -2214,6 +2215,130 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           }],
           {margin:{t: 0}}, {displaylogo:false});
 
+        }
+        else if (graphType == "controlchart"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+
+          console.log(defaultData);
+          var y = defaultData.map(Number);
+          var x = labels.map(Number);
+          console.log(y);
+          function getSum(total, num) {
+            return total + num;
+          }
+          var xSum = x.reduce(getSum);
+          console.log(xSum);
+          var ySum = y.reduce(getSum);
+          console.log(ySum);
+          var ySlice = y.slice(0,15);
+          console.log(ySlice);
+          var xSlice = x.slice(0,15);
+          console.log(xSlice);
+
+          var pvalue = xSum/ySum;
+          console.log(pvalue);
+          var nvalue = (ySum/(y.length));
+          console.log(nvalue);
+          var qvalue  = 1-pvalue;
+          console.log(qvalue);
+
+          var ucl = pvalue + 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+          console.log("UCL",ucl);
+          var lcl = pvalue - 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+          console.log("LCL",lcl);
+
+          var propArr = [];
+          for(i = 0; i<x.length;i++){
+            propArr.push(x[i]/y[i]);
+          }
+          console.log("propotion",propArr);
+
+          var timeArr = [];
+          for( i=0; i<(x.length); i++){
+            var countg = i+1;
+            timeArr.push(countg);
+          }
+          console.log("Time",timeArr);
+
+          var lclArr = [];
+          for (i =0;i<(timeArr.length);i++){
+            lclArr.push(lcl);
+          }
+          console.log(lclArr);
+
+          var uclArr = [];
+          for (i =0;i<(timeArr.length);i++){
+            uclArr.push(ucl);
+          }
+          console.log(uclArr);
+
+          var pArr = [];
+          for (i =0;i<(timeArr.length);i++){
+            pArr.push(pvalue);
+          }
+          console.log(pArr);
+
+          var data ={
+            type: 'scatter',
+            x: timeArr,
+            y: propArr,
+            mode: 'lines+markers',
+            name: 'Data',
+            showlegend: true,
+            hoverinfo: 'all',
+            line:{
+              color: 'blue',
+              width: 2
+            },
+            marker:{
+              color: 'blue',
+              size: 8,
+              symbol: 'circle'
+            }
+          }
+          var lcl = {
+            type: 'scatter',
+            x: timeArr,
+            y: lclArr,
+            mode: 'lines',
+            name: 'LCL/UCL',
+            showlegend: true,
+            line: {
+              color: 'red',
+              width: 2,
+              dash: 'dash'
+            }
+          }
+          var ucl = {
+            type: 'scatter',
+            x: timeArr,
+            y: uclArr,
+            mode: 'lines',
+            name: 'LCL/UCL',
+            showlegend: true,
+            line: {
+              color: 'red',
+              width: 2,
+              dash: 'dash'
+            }
+          }
+          var centre = {
+            type: 'scatter',
+            x: timeArr,
+            y: pArr,
+            mode: 'lines',
+            name: 'Centre',
+            showlegend: true,
+            line: {
+              color: 'grey',
+              width: 2
+            }
+          }
+
+          Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
         }
         else if (graphType == "boxplot"){
           var ctx2 = document.getElementById("myChart2");
