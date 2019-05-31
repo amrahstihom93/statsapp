@@ -2281,6 +2281,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           }
           console.log(pArr);
 
+          const isLessThancl = propArr.filter(item => {
+            return (typeof item === "number") && item < lcl && item > ucl;
+          });
+
+          console.log(isLessThancl);
+
           var data ={
             type: 'scatter',
             x: timeArr,
@@ -2383,6 +2389,38 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           }],
           {margin:{t: 40}}, {displaylogo:false});
 
+        }
+        else if(graphType == "bar"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+
+          var colorarr=[];
+
+	          function getRandomColor() {
+              var letters = '0123456789ABCDEF';
+              var colour = '#';
+              for (var i = 0; i < 6; i++) {
+                colour += letters[Math.floor(Math.random() * 16)];
+              }
+              return colour;
+            }
+
+            function setRandomColor() {
+              for (var i=0;i<labels.length;i++){
+                colorarr.push(getRandomColor());
+              }
+              return colorarr;
+            }
+
+          Plotly.newPlot(myChart2,[{
+              x: labels,
+              y: defaultData,
+              type:'bar',
+              marker:{color:setRandomColor()},
+          }],
+          {margin:{t: 40}}, {displaylogo:false});
         }
         else {
             var ctx2 = document.getElementById("myChart2");
