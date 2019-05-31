@@ -58,7 +58,7 @@
             <div class="col-md-4 col-6">
                 <p>Select Process to be associated with dataset</p>
                 Select Process:
-                <select required ng-model="selectedProcess" class="custom-select btn btn-primary">
+                <select required ng-model="selectedProcess" class="custom-select">
                     <!--	<option value="PIDroot00000000000000">root</option>-->
                     <option ng-repeat="x in processList" value="[[x.process_id]]">
                         [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]

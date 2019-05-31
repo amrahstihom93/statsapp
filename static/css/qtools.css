@@ -47,7 +47,7 @@
         cursor: pointer;
     }
     table.table th:last-child {
-        width: 100px;
+        width: 15%;
     }
     table.table td a {
 		cursor: pointer;

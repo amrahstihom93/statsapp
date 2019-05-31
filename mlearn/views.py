@@ -149,7 +149,7 @@ def calcsregression(request):
 		tvalue = float(model.tvalues)
 		fvalue = model.fvalue
 		fvalue = ("{0:0.5}".format(fvalue))
-		pvalue = ("{0:0.5}".format(pvalue))
+		pvalue = ("{0:0.3f}".format(pvalue))
 		tvalue = ("{0:0.5}".format(tvalue))
 		print(aa)
 		print(model.summary())

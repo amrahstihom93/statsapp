@@ -1,7 +1,7 @@
 
 <div class="container">
 
-<div ng-show="(!showGraph)&&(!showGraphList)">
+<div ng-show="(!showGraph)&&(!showGraphList)&&(!showcchart)">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
@@ -121,9 +121,9 @@
           </div>
         </div>
         <div class="card">
-  		<img class="card-img-top" src="../static/img/comingsoon.png" alt="Image of polar Chart">
+  		<img class="card-img-top" src="../static/img/box.png" alt="Image of box plot">
           <div class="text-center card-body">
-            <h3 class="card-title">Coming Soon</h3>
+            <h3 class="card-title">Box Plot</h3>
   			<div class="card-content">
   			<p>Create chart.</p>
   			</div>
@@ -143,17 +143,17 @@
     </div>
     <div class ="card-deck mt-4em">
 
-    <div class="card">
-      <img class="card-img-top" src="../static/img/comingsoon.png" alt="Image of polar Chart">
-        <div class="text-center card-body">
-          <h3 class="card-title">Coming Soon</h3>
-          <div class="card-content">
-            <p>Create chart.</p>
-          </div>
-          <button class="mx-auto btn btn-primary" ng-click="setGraphType('controlchart')">Control Chart</button>
+        <div class="card">
+            <img class="card-img-top" src="../static/img/comingsoon.png" alt="Image of polar Chart">
+            <div class="text-center card-body">
+                <h3 class="card-title">Control Chart</h3>
+                <div class="card-content">
+                    <p>Create chart.</p>
+                </div>
+                <button class="mx-auto btn btn-primary" ng-click="setGraphType('controlchart')">Control Chart</button>
+            </div>
         </div>
-      </div>
-</div>
+    </div>
 	<!--<div class="card-deck mt-4em">
 		<div class="card">
 		<img class="card-img-top" src="../static/img/line.png" alt="Card image cap">
@@ -209,7 +209,8 @@
 	</div>
 
 	</div>
-	</div>
+</div>
+
 
    <!--success modal-->
    <div class="modal fade" id="successModal">

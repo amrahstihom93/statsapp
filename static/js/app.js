@@ -98,19 +98,19 @@ module.controller("qTools",function($scope, $http){
             '<td><input type="text" class="form-control" name="process function (step)" id="process function (step)"></td>' +
             '<td><input type="text" class="form-control" name="potential failure modes "errors"" id="potential failure modes "errors""></td>' +
             '<td><input type="text" class="form-control" name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
-            '<td><input type="text" class="form-control" name="sev" id="sev"></td>' +
+            '<td><input type="number" class="form-control" name="sev" id="sev"></td>' +
 			'<td><input type="text" class="form-control" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
-      '<td><input type="text" class="form-control" name="occ" id="occ"></td>' +
-      '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
-      '<td><input type="text" class="form-control" name="det" id="det"></td>' +
-      '<td><input type="text" class="form-control" name="rpn" id="rpn"></td>' +
-      '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
-      '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
-      '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
-      '<td><input type="text" class="form-control" name="sev" id="sev"></td>' +
-      '<td><input type="text" class="form-control" name="occ" id="occ"></td>' +
-      '<td><input type="text" class="form-control" name="det" id="det"></td>' +
-      '<td><input type="text" class="form-control" name="rpn" id="rpn"></td>' +
+            '<td><input type="number" class="form-control" name="occ" id="occ"></td>' +
+            '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
+            '<td><input type="number" class="form-control" name="det" id="det"></td>' +
+            '<td><input type="number" class="form-control" name="rpn" id="rpn"></td>' +
+            '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
+            '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
+            '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
+            '<td><input type="number" class="form-control" name="new sev" id="new sev"></td>' +
+            '<td><input type="number" class="form-control" name="new occ" id="new occ"></td>' +
+            '<td><input type="number" class="form-control" name="new det" id="new det"></td>' +
+            '<td><input type="number" class="form-control" name="new rpn" id="new rpn"></td>' +
 			'<td>' + actions + '</td>' +
             '</tr>';
             $("table").append(row);
@@ -401,7 +401,11 @@ module.controller("statisticalCtrl", function($scope,$http) {
     					type: 'histogram',
   						};
 						var data = [trace];
-						Plotly.newPlot('histoDiv', data);
+                        var layout = {
+                            bargap: 0.005,
+                            bargroupgap: 0.02,
+                        }
+						Plotly.newPlot('histoDiv', data, layout);
 
              		}
 
@@ -1924,16 +1928,15 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("$$",graphType);
 
         if(graphType == "line"){
-        Plotly.newPlot(myChart2,[{
-            y: defaultData,
-            x: labels,
-            type:'scatter',
-            showline: true,
-        }],
-        {margin:{t: 0}});
+            Plotly.newPlot(myChart2,[{
+                y: defaultData,
+                x: labels,
+                type:'scatter',
+                showline: true,
+            }],
+            {margin:{t: 0}});
 
         }
-
 
 
         else if (graphType =="area"){
@@ -1947,60 +1950,133 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 mode: 'none',
             }],
             {margin:{t: 0}});
-            /*var myChart = new Chart(ctx2, {
-    //		type: 'pie',
-                type: graphType,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '',
-                        data: defaultData,
-                        fill: 1,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            stacked : true,
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: yLabel
-                            }
-                        }],
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: xLabel
-                            }
-                        }]
-                    }
-                }
-            });*/
-        }
 
+        }
+        else if (graphType == "controlchart"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+
+          console.log(defaultData);
+          var y = defaultData.map(Number);
+          var x = labels.map(Number);
+          console.log(y);
+          function getSum(total, num) {
+            return total + num;
+          }
+          var xSum = x.reduce(getSum);
+          console.log(xSum);
+          var ySum = y.reduce(getSum);
+          console.log(ySum);
+          var ySlice = y.slice(0,15);
+          console.log(ySlice);
+          var xSlice = x.slice(0,15);
+          console.log(xSlice);
+
+          var pvalue = xSum/ySum;
+          console.log(pvalue);
+          var nvalue = (ySum/(y.length));
+          console.log(nvalue);
+          var qvalue  = 1-pvalue;
+          console.log(qvalue);
+
+          var ucl = pvalue + 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+          console.log("UCL",ucl);
+          var lcl = pvalue - 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+          console.log("LCL",lcl);
+
+          var propArr = [];
+          for(i = 0; i<x.length;i++){
+            propArr.push(x[i]/y[i]);
+          }
+          console.log("propotion",propArr);
+
+          var timeArr = [];
+          for( i=0; i<(x.length); i++){
+            var countg = i+1;
+            timeArr.push(countg);
+          }
+          console.log("Time",timeArr);
+
+          var lclArr = [];
+          for (i =0;i<(timeArr.length);i++){
+            lclArr.push(lcl);
+          }
+          console.log(lclArr);
+
+          var uclArr = [];
+          for (i =0;i<(timeArr.length);i++){
+            uclArr.push(ucl);
+          }
+          console.log(uclArr);
+
+          var pArr = [];
+          for (i =0;i<(timeArr.length);i++){
+            pArr.push(pvalue);
+          }
+          console.log(pArr);
+
+          var data ={
+            type: 'scatter',
+            x: timeArr,
+            y: propArr,
+            mode: 'lines+markers',
+            name: 'Data',
+            showlegend: true,
+            hoverinfo: 'all',
+            line:{
+              color: 'blue',
+              width: 2
+            },
+            marker:{
+              color: 'blue',
+              size: 8,
+              symbol: 'circle'
+            }
+          }
+          var lcl = {
+            type: 'scatter',
+            x: timeArr,
+            y: lclArr,
+            mode: 'lines',
+            name: 'LCL',
+            showlegend: true,
+            line: {
+              color: 'red',
+              width: 2,
+              dash: 'dash'
+            }
+          }
+          var ucl = {
+            type: 'scatter',
+            x: timeArr,
+            y: uclArr,
+            mode: 'lines',
+            name: 'UCL',
+            showlegend: true,
+            line: {
+              color: 'red',
+              width: 2,
+              dash: 'dash'
+            }
+          }
+          var centre = {
+            type: 'scatter',
+            x: timeArr,
+            y: pArr,
+            mode: 'lines',
+            name: 'Centre',
+            showlegend: true,
+            line: {
+              color: 'grey',
+              width: 2
+            }
+          }
+
+
+          Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
+        }
         else if (graphType =="horizontalBar"){
             graphType = "horizontalBar";
             var ctx2 = document.getElementById("myChart2");
@@ -2011,7 +2087,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             Plotly.newPlot(myChart2,[{
                 y: defaultData,
                 x: labels,
-                type:'scatter',
+                type:'bar',
+                orientation: 'h',
                 showline: true,
             }],
             {margin:{t: 0}});
@@ -2209,142 +2286,13 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
           Plotly.newPlot(myChart2,[{
               y: defaultData,
-              y: labels,
+              x: labels,
               type:'histogram',
               showline: true,
           }],
-          {margin:{t: 0}}, {displaylogo:false});
+          {margin:{t: 0}}, {displaylogo:false},{bargap: 0.005,
+          bargroupgap: 0.02});
 
-        }
-        else if (graphType == "controlchart"){
-          var ctx2 = document.getElementById("myChart2");
-          console.log("ctx2$$$$",ctx2);
-          console.log("%%DEFAULTDATA%%",defaultData );
-          console.log("%%XLABEL%%",xLabel);
-
-          console.log(defaultData);
-          var y = defaultData.map(Number);
-          var x = labels.map(Number);
-          console.log(y);
-          function getSum(total, num) {
-            return total + num;
-          }
-          var xSum = x.reduce(getSum);
-          console.log(xSum);
-          var ySum = y.reduce(getSum);
-          console.log(ySum);
-          var ySlice = y.slice(0,15);
-          console.log(ySlice);
-          var xSlice = x.slice(0,15);
-          console.log(xSlice);
-
-          var pvalue = xSum/ySum;
-          console.log(pvalue);
-          var nvalue = (ySum/(y.length));
-          console.log(nvalue);
-          var qvalue  = 1-pvalue;
-          console.log(qvalue);
-
-          var ucl = pvalue + 3*(Math.sqrt((pvalue*qvalue)/nvalue));
-          console.log("UCL",ucl);
-          var lcl = pvalue - 3*(Math.sqrt((pvalue*qvalue)/nvalue));
-          console.log("LCL",lcl);
-
-          var propArr = [];
-          for(i = 0; i<x.length;i++){
-            propArr.push(x[i]/y[i]);
-          }
-          console.log("propotion",propArr);
-
-          var timeArr = [];
-          for( i=0; i<(x.length); i++){
-            var countg = i+1;
-            timeArr.push(countg);
-          }
-          console.log("Time",timeArr);
-
-          var lclArr = [];
-          for (i =0;i<(timeArr.length);i++){
-            lclArr.push(lcl);
-          }
-          console.log(lclArr);
-
-          var uclArr = [];
-          for (i =0;i<(timeArr.length);i++){
-            uclArr.push(ucl);
-          }
-          console.log(uclArr);
-
-          var pArr = [];
-          for (i =0;i<(timeArr.length);i++){
-            pArr.push(pvalue);
-          }
-          console.log(pArr);
-
-          const isLessThancl = propArr.filter(item => {
-            return (typeof item === "number") && item < lcl && item > ucl;
-          });
-
-          console.log(isLessThancl);
-
-          var data ={
-            type: 'scatter',
-            x: timeArr,
-            y: propArr,
-            mode: 'lines+markers',
-            name: 'Data',
-            showlegend: true,
-            hoverinfo: 'all',
-            line:{
-              color: 'blue',
-              width: 2
-            },
-            marker:{
-              color: 'blue',
-              size: 8,
-              symbol: 'circle'
-            }
-          }
-          var lcl = {
-            type: 'scatter',
-            x: timeArr,
-            y: lclArr,
-            mode: 'lines',
-            name: 'LCL/UCL',
-            showlegend: true,
-            line: {
-              color: 'red',
-              width: 2,
-              dash: 'dash'
-            }
-          }
-          var ucl = {
-            type: 'scatter',
-            x: timeArr,
-            y: uclArr,
-            mode: 'lines',
-            name: 'LCL/UCL',
-            showlegend: true,
-            line: {
-              color: 'red',
-              width: 2,
-              dash: 'dash'
-            }
-          }
-          var centre = {
-            type: 'scatter',
-            x: timeArr,
-            y: pArr,
-            mode: 'lines',
-            name: 'Centre',
-            showlegend: true,
-            line: {
-              color: 'grey',
-              width: 2
-            }
-          }
-
-          Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
         }
         else if (graphType == "boxplot"){
           var ctx2 = document.getElementById("myChart2");
@@ -2390,37 +2338,21 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           {margin:{t: 40}}, {displaylogo:false});
 
         }
-        else if(graphType == "bar"){
+        else if (graphType == "polarArea"){
           var ctx2 = document.getElementById("myChart2");
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
 
-          var colorarr=[];
-
-	          function getRandomColor() {
-              var letters = '0123456789ABCDEF';
-              var colour = '#';
-              for (var i = 0; i < 6; i++) {
-                colour += letters[Math.floor(Math.random() * 16)];
-              }
-              return colour;
-            }
-
-            function setRandomColor() {
-              for (var i=0;i<labels.length;i++){
-                colorarr.push(getRandomColor());
-              }
-              return colorarr;
-            }
-
           Plotly.newPlot(myChart2,[{
-              x: labels,
-              y: defaultData,
-              type:'bar',
-              marker:{color:setRandomColor()},
+              r: defaultData,
+              theta: labels,
+              type:'scatterpolar',
+              mode: 'lines',
+              fill: 'none',
           }],
           {margin:{t: 40}}, {displaylogo:false});
+
         }
         else {
             var ctx2 = document.getElementById("myChart2");

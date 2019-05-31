@@ -359,6 +359,7 @@ def calculateStatistics(request):
 			mean = ls.loc["mean","0"]
 			mean = mean.tolist()
 			mean = truncate(mean, dec_p)
+			print(mean)
 
 			std = ls.loc["std","0"]
 			std = std.tolist()
