@@ -2284,14 +2284,27 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
 
-          Plotly.newPlot(myChart2,[{
+          var trace = {
+            y: defaultData,
+            x: labels,
+            type: 'histogram',
+            showline: true,
+          };
+          var data = [trace];
+             var layout = {
+                 bargap: 0.005,
+                 bargroupgap: 0.02,
+             }
+             Plotly.newPlot(myChart2 , data, layout);
+
+             /*Plotly.newPlot(myChart2,[{
               y: defaultData,
               x: labels,
               type:'histogram',
               showline: true,
           }],
           {margin:{t: 0}}, {displaylogo:false},{bargap: 0.005,
-          bargroupgap: 0.02});
+          bargroupgap: 0.02});*/
 
         }
         else if (graphType == "boxplot"){
