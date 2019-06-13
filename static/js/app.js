@@ -1556,6 +1556,7 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
     let xData = [];
     let yData = [];
     let currChartid = '';
+    console.log(currChartid);
     $http.get(vurl)
         .then(function (response) {
             //First function handles success
@@ -1668,9 +1669,38 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
         xdata = visualization.parameters.labels;
         ydata = visualization.parameters.defaultData;
         gType = visualization.type;
+        console.log(gType);
         divId = document.getElementById("chartView");
         console.log("divId", divId.id);
-        viewChart(xdata, ydata, xLabel, yLabel, divId.id);
+        if(gType == "pie"){
+        Plotly.newPlot(chartView,[{
+            values: ydata,
+            lables: xdata,
+            type:'pie',
+            showline: true,
+        }],
+        {margin:{t: 0}}, {displaylogo:false});
+      }
+      else if(gType == "boxplot"){
+        Plotly.newPlot(chartView,[{
+            y: ydata,
+            x: xdata,
+            type:'box',
+            showline: true,
+        }],
+        {margin:{t: 0}}, {displaylogo:false});
+      }
+      else if(gType == "line"){
+          Plotly.newPlot(chartView,[{
+              y: ydata,
+              x: xdata,
+              type:'scatter',
+              showline: true,
+          }],
+          {margin:{t: 0}});
+
+      }
+        //Plotly.newPlot( chartView, xdata, ydata);
     }
 
     $scope.editVisualization = function (chart) {
