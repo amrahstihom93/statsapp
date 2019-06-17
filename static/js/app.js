@@ -1958,13 +1958,52 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("$$",graphType);
 
         if(graphType == "line"){
-            Plotly.newPlot(myChart2,[{
-                y: defaultData,
-                x: labels,
-                type:'scatter',
-                showline: true,
-            }],
-            {margin:{t: 0}});
+            var updatemenus=[
+                {
+                    buttons: [
+                        {
+                            args: ['line.color', '#D38271'],
+                            label: 'Red',
+                            method: 'restyle'
+                        },
+                        {
+                            args: ['line.color', 'blue'],
+                            label:'Blue',
+                            method:'restyle'
+                        },
+                        {
+                            args: ['line.color', 'green'],
+                            label:'Green',
+                            method:'restyle'
+                        }
+                    ],
+                    direction: 'left',
+                    pad: {'r': 10, 't': 10},
+                    showactive: true,
+                    type: 'buttons',
+                    x: 0.1,
+                    xanchor: 'left',
+                    y: 1.1,
+                    yanchor: 'top'
+                }
+            ]
+
+            var trace = {
+              y: defaultData,
+              x: labels,
+              type: 'scatter',
+              showline: true,
+            };
+
+
+            var data = [trace];
+               var layout = {
+                   margin:{t:0},
+                   updatemenus:updatemenus,
+               }
+               Plotly.newPlot(myChart2 , data, layout);
+
+
 
         }
 
@@ -2313,6 +2352,11 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
+          var btid;
+
+
+
+
 
           var trace = {
             y: defaultData,
@@ -2320,12 +2364,33 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             type: 'histogram',
             showline: true,
           };
+
+
           var data = [trace];
              var layout = {
                  bargap: 0.005,
                  bargroupgap: 0.02,
+                 updatemenus:updatemenus,
              }
+
              Plotly.newPlot(myChart2 , data, layout);
+
+             $scope.bttest = function(event){
+                 console.log("insidebttest");
+                 btid=event.target.id;
+                 console.log(btid);
+                 var trace = {
+                     y: defaultData,
+                     x: labels,
+                     marker:{
+                        color: btid
+                     },
+                     type: 'histogram',
+                     showline: true,
+                 };
+                 var data =[trace];
+                 Plotly.newPlot(myChart2, data, layout);
+             }
 
              /*Plotly.newPlot(myChart2,[{
               y: defaultData,
