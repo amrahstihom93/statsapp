@@ -36,7 +36,8 @@
 		</ol>
 	</nav>
 	<h2 class="text-center">Choose Chart Type</h2>
-	<div class="card-deck mt-4em">
+    <div ng-model="selectedChart">
+        <div class="card-deck mt-4em">
       <div class="card">
 		<img class="card-img-top" src="../static/img/p1.png" alt="Image of Pie Chart">
         <div class="text-center card-body">
@@ -88,7 +89,7 @@
         </div>
       </div>
 
-	</div>
+        </div>
         <div class ="card-deck mt-4em">
             <div class="card">
       		<img class="card-img-top" src="../static/img/line.png" alt="Image of polar Chart">
@@ -140,8 +141,8 @@
   			<button class="mx-auto btn btn-primary" ng-click="setGraphType('histogram')">Histogram Chart</button>
           </div>
         </div>
-    </div>
-    <div class ="card-deck mt-4em">
+        </div>
+        <div class ="card-deck mt-4em">
 
         <div class="card">
             <img class="card-img-top" src="../static/img/comingsoon.png" alt="Image of polar Chart">
@@ -152,6 +153,7 @@
                 </div>
                 <button class="mx-auto btn btn-primary" ng-click="setGraphType('controlchart')">Control Chart</button>
             </div>
+        </div>
         </div>
     </div>
 	<!--<div class="card-deck mt-4em">
