@@ -45,7 +45,7 @@
 			<div class="card-content">
 			<p>Create Pie Chart.</p>
 			</div>
-            <button class="btn btn-primary" ng-click="setGraphType('pie')">Pie Chart</button>
+            <button class="btn btn-primary"ng-click="setGraphType('pie')">Pie Chart</button>
         </div>
       </div>
 	  <div class="card">
@@ -201,8 +201,8 @@
 				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			</select>
 	</div>
-	<button type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
-	<button class="btn btn-primary" ng-click="paramterSave()">Save</button>
+	<button ng-hide="huhu" type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
+	<button ng-hide="huhu" class="btn btn-primary" ng-click="paramterSave()">Save</button>
 	</div>
 	<div class="col-md-8">
 	<div class="my-4 pull-left">

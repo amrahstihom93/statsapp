@@ -1689,6 +1689,23 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
             showline: true,
         }],
         {margin:{t: 0}}, {displaylogo:false});
+
+        $scope.bttest = function(event){
+            console.log("insidebttest");
+            btid=event.target.id;
+            console.log(btid);
+            var trace = {
+                y: defaultData,
+                x: labels,
+                marker:{
+                   color: btid
+                },
+                type: 'histogram',
+                showline: true,
+            };
+            var data =[trace];
+            Plotly.newPlot(myChart2, data, layout);
+        }
       }
       else if(gType == "line"){
           Plotly.newPlot(chartView,[{
@@ -2416,12 +2433,34 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           }],
           {margin:{t: 0}}, {displaylogo:false});
 
+          $scope.bttest = function(event){
+              console.log("insidebttest");
+              btid=event.target.id;
+              console.log(btid);
+              var trace = {
+                  y: defaultData,
+                  x: labels,
+                  marker:{
+                     color: btid
+                  },
+                  type: 'box',
+                  showline: true,
+              };
+              var data =[trace];
+              Plotly.newPlot(myChart2, data, layout);
+          }
+
         }
         else if (graphType == "pie"){
           var ctx2 = document.getElementById("myChart2");
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
+          $scope.huhu=False;
+          var d = document.getElementById("pie");
+          value2 = d.options[d.selectedIndex].value;
+          console.log("selectedchart",value2);
+
 
           Plotly.newPlot(myChart2,[{
               values: defaultData,
