@@ -187,7 +187,9 @@
 	<input type="text" ng-model="vName" class="form-control onePerLMargin" id="visuaName" placeholder="Enter Visualization Name">
 
 	<h4 class="my-4">Select fields from drop down to make visualization:</h4>
-	<div class="col-md-12">
+
+    <div ng-hide="pieCtrl">
+    <div class="col-md-12">
 	Select X-axis :
 			<select id="x_value" name="x_axis_value" class="custom-select btn-info">
 				<option selected>Select field</option>
@@ -201,8 +203,27 @@
 				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			</select>
 	</div>
-	<button ng-hide="huhu" type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
-	<button ng-hide="huhu" class="btn btn-primary" ng-click="paramterSave()">Save</button>
+    </div>
+
+    <div ng-hide="ctrlChart">
+    <div class="col-md-12">
+	Select dependent value :
+			<select id="x_value" name="x_axis_value" class="custom-select btn-info">
+				<option selected>Select field</option>
+				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+			</select>
+	</div>
+	<div class="col-md-12 my-4">
+	Select sample size :
+			<select id="y_value" name="y_axis_value" class="custom-select btn-info">
+				<option selected>Select field</option>
+				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+			</select>
+	</div>
+    </div>
+
+    <button  type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
+	<button  class="btn btn-primary" ng-click="paramterSave()">Save</button>
 	</div>
 	<div class="col-md-8">
 	<div class="my-4 pull-left">

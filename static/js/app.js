@@ -1946,6 +1946,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let selDatasetId = '';
     let xLabel="";
     let yLabel="";
+    let rcolr ='';
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
 
@@ -2395,6 +2396,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
              $scope.bttest = function(event){
                  console.log("insidebttest");
                  btid=event.target.id;
+                 rcolr = btid;
                  console.log(btid);
                  var trace = {
                      y: defaultData,
@@ -2456,7 +2458,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
-          $scope.huhu=False;
           var d = document.getElementById("pie");
           value2 = d.options[d.selectedIndex].value;
           console.log("selectedchart",value2);
@@ -2632,17 +2633,37 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("grs1", graphType);
         $scope.showGraph = true;
         $scope.showGraphList = false;
+        $scope.pieCtrl=true;
+        $scope.ctrlChart=true;
+        if(graphType=="controlchart"){
+            $scope.ctrlChart=false;
+            $scope.pieCtrl=true;
+        }
+        else{
+            $scope.ctrlChart=true;
+            $scope.pieCtrl=false;
+        }
+
     }
 
     $scope.paramterSave = function () {
+        console.log("#########*******########");
+        console.log("xLabel",xLabel);
+        console.log("yLabel",yLabel);
+        console.log("label",labels);
+        console.log("defaultData",defaultData);
+        console.log("color",rcolr);
+        console.log("#########*******########");
         let graphData = {
             "xLabel": xLabel,
             "yLabel": yLabel,
             "labels": labels,
+            "color": rcolr,
             "defaultData": defaultData
         };
         let vUrl = '/saveGraph/';
         let dt = new FormData();
+        console.log("GRAPHDATA",graphData);
         dt.append("visualization_name", $scope.vName);
         dt.append("data", JSON.stringify(graphData));
         dt.append("dataset_id", selDatasetId);
