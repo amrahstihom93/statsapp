@@ -224,11 +224,10 @@
 
     <button  type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
 	<button  class="btn btn-primary" ng-click="paramterSave()">Save</button>
-
-  <div class="col-md-12 my-4">
-    <div class="card">
-      <div class="card-header">
-        <ul class="nav nav-tabs" role="tablist">
+  <div class="col-md-12 my-4 pallete-border">
+    <!--<div class="card">-->
+      <div class="card-header pallete-head">
+        <ul class="nav nav-tabs pallete-tabs" role="tablist">
           <li class="nav-item">
             <p class="nav-link active" data-toggle="tab" data-target="#home">Color</p>
           </li>
@@ -246,14 +245,22 @@
         <div class="tab-content">
           <div id="home" class="format container tab-pane active"><br>
             <h3>Color Pallete</h3>
-            <div class="colorpallete" >
-            <button  class="colorbutton"id="red" type="button" name="red" data-ng-click="bttest($event)"style="background:red"></button>
-            <button class="colorbutton" id="blue" type="button" name="blue" data-ng-click="bttest($event)"style="background:blue"></button>
-            <button class="colorbutton" id="green" type="button" name="green" data-ng-click="bttest($event)"style="background:green "></button>
-            <button class="colorbutton" id="grey" type="button" name="grey" data-ng-click="bttest($event)"style="background:grey "></button>
-            <button class="colorbutton" id="aliceblue" type="button" name="aliceblue" data-ng-click="bttest($event)"style="background:aliceblue "></button>
-            <button class="colorbutton" id="brown" type="button" name="brown" data-ng-click="bttest($event)"style="background:brown "></button>
+            <div class="colorpallete" ><div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select color
+                </button>
 
+                <input type="color" id="c"/>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class=" dropdownn-item colorbutton"id="red" type="button" name="red" data-ng-click="bttest($event)"style="background:red"></button>
+                    <button class=" dropdownn-item colorbutton" id="blue" type="button" name="blue" data-ng-click="bttest($event)"style="background:blue"></button>
+                    <button class=" dropdownn-item colorbutton" id="green" type="button" name="green" data-ng-click="bttest($event)"style="background:green "></button>
+                    <button class=" dropdownn-item colorbutton" id="grey" type="button" name="grey" data-ng-click="bttest($event)"style="background:grey "></button>
+                    <button class=" dropdownn-item colorbutton" id="aliceblue" type="button" name="aliceblue" data-ng-click="bttest($event)"style="background:aliceblue "></button>
+                    <button class=" dropdownn-item colorbutton" id="brown" type="button" name="brown" data-ng-click="bttest($event)"style="background:brown "></button>
+
+                </div>
+            </div>
 
             </div>
 
@@ -263,6 +270,12 @@
             <div class="form-group">
               <label for="exampleInputEmail1">Graph Title</label>
               <input type="text" class="form-control" id="graphTitle">
+              <div class="partition"></div>
+              <label >X Label</label>
+              <input type="text" class="form-control" id="xaxisLabel">
+              <br>
+              <label >Y Label</label>
+              <input type="text" class="form-control" id="yaxisLabel">
             </div>
           </div>
           <div id="menu2" class="container tab-pane "><br>
@@ -271,7 +284,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!--</div>-->
 	</div>
 
   </div>
