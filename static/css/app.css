@@ -74,3 +74,14 @@
 	width: 100%;
 	padding: 2%;
 }
+
+.colorbutton{
+  height: 20px;
+  width: 20px;
+}
+.colorpallete{
+	height: 100px;
+	width: 50%;
+	overflow-x: scroll;
+	overflow-y: scroll;
+}

@@ -1689,24 +1689,36 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
             showline: true,
         }],
         {margin:{t: 0}}, {displaylogo:false});
-
-        $scope.bttest = function(event){
-            console.log("insidebttest");
-            btid=event.target.id;
-            console.log(btid);
-            var trace = {
-                y: defaultData,
-                x: labels,
-                marker:{
-                   color: btid
-                },
-                type: 'histogram',
-                showline: true,
-            };
-            var data =[trace];
-            Plotly.newPlot(myChart2, data, layout);
-        }
       }
+      else if(gType == "histogram"){
+        var trace = {
+          y: ydata,
+          x: xdata,
+          type: 'histogram',
+          showline: true,
+        };
+
+
+        var data = [trace];
+           var layout = {
+             title: {
+               text: grptitle,
+               font: {
+                 family: 'Courier New, monospace',
+                 size: 24
+               },
+               xref: 'paper',
+               x: 0.05,
+             },
+               bargap: 0.005,
+               bargroupgap: 0.02,
+               updatemenus:updatemenus,
+           }
+
+           Plotly.newPlot(myChart2 , data, layout);
+      }
+
+
       else if(gType == "line"){
           Plotly.newPlot(chartView,[{
               y: ydata,
@@ -1947,6 +1959,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let xLabel="";
     let yLabel="";
     let rcolr ='';
+    let grphtitle='';
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
 
@@ -2370,6 +2383,9 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
+          var grptitle = document.getElementById("graphTitle").value;
+          grphtitle = grptitle;
+          console.log("graphtitle",grptitle);
           var btid;
 
 
@@ -2386,6 +2402,15 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
           var data = [trace];
              var layout = {
+               title: {
+                 text: grptitle,
+                 font: {
+                   family: 'Courier New, monospace',
+                   size: 24
+                 },
+                 xref: 'paper',
+                 x: 0.05,
+               },
                  bargap: 0.005,
                  bargroupgap: 0.02,
                  updatemenus:updatemenus,
@@ -2653,6 +2678,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("label",labels);
         console.log("defaultData",defaultData);
         console.log("color",rcolr);
+        console.log("gtitle", grphtitle);
         console.log("#########*******########");
         let graphData = {
             "xLabel": xLabel,

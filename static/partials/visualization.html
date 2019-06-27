@@ -224,15 +224,60 @@
 
     <button  type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
 	<button  class="btn btn-primary" ng-click="paramterSave()">Save</button>
+
+  <div class="col-md-12 my-4">
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <p class="nav-link active" data-toggle="tab" data-target="#home">Color</p>
+          </li>
+          <li class="nav-item">
+            <p class="nav-link active" data-toggle="tab" data-target="#menu1">Title</p>
+          </li>
+          <li class="nav-item">
+            <p class="nav-link active" data-toggle="tab" data-target="#menu2">Menu 2</p>
+          </li>
+        </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="card-body">
+        <div class="tab-content">
+          <div id="home" class="format container tab-pane active"><br>
+            <h3>Color Pallete</h3>
+            <div class="colorpallete" >
+            <button  class="colorbutton"id="red" type="button" name="red" data-ng-click="bttest($event)"style="background:red"></button>
+            <button class="colorbutton" id="blue" type="button" name="blue" data-ng-click="bttest($event)"style="background:blue"></button>
+            <button class="colorbutton" id="green" type="button" name="green" data-ng-click="bttest($event)"style="background:green "></button>
+            <button class="colorbutton" id="grey" type="button" name="grey" data-ng-click="bttest($event)"style="background:grey "></button>
+            <button class="colorbutton" id="aliceblue" type="button" name="aliceblue" data-ng-click="bttest($event)"style="background:aliceblue "></button>
+            <button class="colorbutton" id="brown" type="button" name="brown" data-ng-click="bttest($event)"style="background:brown "></button>
+
+
+            </div>
+
+          </div>
+          <div id="menu1" class="container tab-pane "><br>
+            <h3>Title Layout</h3>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Graph Title</label>
+              <input type="text" class="form-control" id="graphTitle">
+            </div>
+          </div>
+          <div id="menu2" class="container tab-pane "><br>
+            <h3>Menu 2</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 	</div>
+
+  </div>
 	<div class="col-md-8">
 	<div class="my-4 pull-left">
 		<div id="myChart2" ></div>
-	</div>
-    <button id="red" type="button" name="red" data-ng-click="bttest($event)">Red</button>
-    <button id="blue" type="button" name="blue" data-ng-click="bttest($event)">Blue</button>
-    <button id="green" type="button" name="green" data-ng-click="bttest($event)">Green</button>
-	</div>
 
 	</div>
 </div>
