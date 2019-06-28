@@ -182,9 +182,10 @@
 	</nav>
 	<div class="row">
 	<div class="col-md-4">
+        <div class="">
 	<h3>Dataset Name : [[selectedDataset]]</h3>
 	<label class="my-4" for="visuaName">Visualization Name</label>
-	<input type="text" ng-model="vName" class="form-control onePerLMargin" id="visuaName" placeholder="Enter Visualization Name">
+	<input type="text" ng-model="vName" class="form-control " id="visuaName" placeholder="Enter Visualization Name">
 
 	<h4 class="my-4">Select fields from drop down to make visualization:</h4>
 
@@ -221,21 +222,19 @@
 			</select>
 	</div>
     </div>
-
-    <button  type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
-	<button  class="btn btn-primary" ng-click="paramterSave()">Save</button>
-  <div class="col-md-12 my-4 pallete-border">
+    <div class="text-center" style="margin-bottom: 3%;">
+        <button  type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
+	   <button  class="btn btn-primary" ng-click="paramterSave()">Save</button>
+    </div>
+  <div class="col-md-12 my-4">
     <!--<div class="card">-->
       <div class="card-header pallete-head">
         <ul class="nav nav-tabs pallete-tabs" role="tablist">
           <li class="nav-item">
-            <p class="nav-link active" data-toggle="tab" data-target="#home">Color</p>
+            <button class="nav-link active" data-toggle="tab" data-target="#home">Color</button>
           </li>
           <li class="nav-item">
-            <p class="nav-link active" data-toggle="tab" data-target="#menu1">Title</p>
-          </li>
-          <li class="nav-item">
-            <p class="nav-link active" data-toggle="tab" data-target="#menu2">Menu 2</p>
+            <button class="nav-link active" data-toggle="tab" data-target="#menu1">Title</button>
           </li>
         </ul>
         </div>
@@ -243,50 +242,36 @@
         <!-- Tab panes -->
         <div class="card-body">
         <div class="tab-content">
-          <div id="home" class="format container tab-pane active"><br>
-            <h3>Color Pallete</h3>
-            <div class="colorpallete" ><div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select color
-                </button>
-
-                <input type="color" id="c"/>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class=" dropdownn-item colorbutton"id="red" type="button" name="red" data-ng-click="bttest($event)"style="background:red"></button>
-                    <button class=" dropdownn-item colorbutton" id="blue" type="button" name="blue" data-ng-click="bttest($event)"style="background:blue"></button>
-                    <button class=" dropdownn-item colorbutton" id="green" type="button" name="green" data-ng-click="bttest($event)"style="background:green "></button>
-                    <button class=" dropdownn-item colorbutton" id="grey" type="button" name="grey" data-ng-click="bttest($event)"style="background:grey "></button>
-                    <button class=" dropdownn-item colorbutton" id="aliceblue" type="button" name="aliceblue" data-ng-click="bttest($event)"style="background:aliceblue "></button>
-                    <button class=" dropdownn-item colorbutton" id="brown" type="button" name="brown" data-ng-click="bttest($event)"style="background:brown "></button>
-
-                </div>
+          <div id="home" class="format container tab-pane active">
+            <div class="colorpallete" >
+            <div class="text-center">
+                <input  type="color" class="colpick" id="c" />
             </div>
-
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
+            </div>
             </div>
 
           </div>
-          <div id="menu1" class="container tab-pane "><br>
-            <h3>Title Layout</h3>
+          <div id="menu1" class="container tab-pane ">
             <div class="form-group">
               <label for="exampleInputEmail1">Graph Title</label>
               <input type="text" class="form-control" id="graphTitle">
-              <div class="partition"></div>
               <label >X Label</label>
               <input type="text" class="form-control" id="xaxisLabel">
-              <br>
               <label >Y Label</label>
               <input type="text" class="form-control" id="yaxisLabel">
             </div>
-          </div>
-          <div id="menu2" class="container tab-pane "><br>
-            <h3>Menu 2</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <div class="text-center">
+  	             <button type="button" class="btn btn-primary" data-ng-click="titleset($event)">Submit</button>
+             </div>
           </div>
         </div>
       </div>
     <!--</div>-->
 	</div>
 
+  </div>
   </div>
 	<div class="col-md-8">
 	<div class="my-4 pull-left">

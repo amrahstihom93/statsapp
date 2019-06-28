@@ -1552,6 +1552,9 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
     let ydata = [];
     let xdata = [];
     let gType = '';
+    let color ='';
+    let graphtitle='';
+    let grphtitle='';
     let datasetName = '';
     let xData = [];
     let yData = [];
@@ -1660,14 +1663,22 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
     }
 
     $scope.viewVisualization = function (visualization) {
+
         console.log("vParams", visualization.parameters.labels);
         console.log("vParams1", visualization.parameters.defaultData);
-        console.log("vParams1", visualization.parameters.xLabel);
-        console.log("vParams1", visualization.parameters.yLabel);
+        console.log("vParams2", visualization.parameters.xLabel);
+        console.log("vParams3", visualization.parameters.yLabel);
+        console.log("vParams4", visualization.parameters.graphtitle);
+
+        console.log("vParams4", visualization.parameters.color);
         xLabel = visualization.parameters.xLabel;
         yLabel = visualization.parameters.yLabel;
         xdata = visualization.parameters.labels;
         ydata = visualization.parameters.defaultData;
+        graphtitle = visualization.parameters.graphtitle;
+        color = visualization.parameters.color;
+        xtitle = visualization.parameters.xAxisTitle;
+        ytitle = visualization.parameters.yAxisTitle;
         gType = visualization.type;
         console.log(gType);
         divId = document.getElementById("chartView");
@@ -1694,28 +1705,50 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
         var trace = {
           y: ydata,
           x: xdata,
+          marker:{
+             color: color
+          },
           type: 'histogram',
           showline: true,
         };
 
 
         var data = [trace];
-           var layout = {
-             title: {
-               text: grptitle,
-               font: {
-                 family: 'Courier New, monospace',
-                 size: 24
-               },
-               xref: 'paper',
-               x: 0.05,
-             },
-               bargap: 0.005,
-               bargroupgap: 0.02,
-               updatemenus:updatemenus,
-           }
+        var layout = {
+          title: {
+            text: graphtitle,
+            font: {
+              family: 'Courier New, monospace',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.05,
+          },
+          xaxis: {
+              title: {
+                  text: xtitle,
+                  font: {
+                      family: 'Courier New, monospace',
+                      size: 18,
+                      color: '#7f7f7f'
+                  }
+              },
+          },
+          yaxis: {
+              title: {
+                  text: ytitle,
+                  font: {
+                      family: 'Courier New, monospace',
+                      size: 18,
+                      color: '#7f7f7f'
+                  }
+              }
+          },
+            bargap: 0.005,
+            bargroupgap: 0.02,
+        }
 
-           Plotly.newPlot(myChart2 , data, layout);
+           Plotly.newPlot(chartView , data, layout);
       }
 
 
@@ -1959,7 +1992,9 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let xLabel="";
     let yLabel="";
     let rcolr ='';
-    let grphtitle='';
+    let graphtitle='';
+    let xtitle='';
+    let ytitle='';
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
 
@@ -2384,8 +2419,16 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
           var grptitle = document.getElementById("graphTitle").value;
+          var x_label = document.getElementById("xaxisLabel").value;
+          var y_label = document.getElementById("yaxisLabel").value;
+
+          var colpick = document.getElementById("c").value;
+          xtitle = x_label;
+          ytitle = y_label;
           grphtitle = grptitle;
-          console.log("graphtitle",grptitle);
+          console.log("graphtitle",grphtitle);
+          console.log("xLable",xtitle);
+          console.log("yLable",ytitle);
           var btid;
 
 
@@ -2393,8 +2436,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
           var trace = {
-            y: defaultData,
-            x: labels,
+            x: defaultData,
+            y: xLabel,
             type: 'histogram',
             showline: true,
           };
@@ -2411,6 +2454,26 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                  xref: 'paper',
                  x: 0.05,
                },
+               xaxis: {
+                   title: {
+                       text: xtitle,
+                       font: {
+                           family: 'Courier New, monospace',
+                           size: 18,
+                           color: '#7f7f7f'
+                       }
+                   },
+               },
+               yaxis: {
+                   title: {
+                       text: ytitle,
+                       font: {
+                           family: 'Courier New, monospace',
+                           size: 18,
+                           color: '#7f7f7f'
+                       }
+                   }
+               },
                  bargap: 0.005,
                  bargroupgap: 0.02,
                  updatemenus:updatemenus,
@@ -2420,19 +2483,114 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
              $scope.bttest = function(event){
                  console.log("insidebttest");
+                 colpick = document.getElementById("c").value;
+                 var grptitle = document.getElementById("graphTitle").value;
+                 console.log("grphtitle",grptitle);
+                 grphtitle = grptitle;
                  btid=event.target.id;
-                 rcolr = btid;
+                 rcolr = colpick;
                  console.log(btid);
+                 console.log(colpick);
                  var trace = {
-                     y: defaultData,
-                     x: labels,
+                     x: defaultData,
+                     y: xLabel,
                      marker:{
-                        color: btid
+                        color: colpick
                      },
                      type: 'histogram',
                      showline: true,
                  };
                  var data =[trace];
+                 var layout = {
+                   title: {
+                     text: grptitle,
+                     font: {
+                       family: 'Courier New, monospace',
+                       size: 24
+                     },
+                     xref: 'paper',
+                     x: 0.05,
+                   },
+                   xaxis: {
+                       title: {
+                           text: xtitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       },
+                   },
+                   yaxis: {
+                       title: {
+                           text: ytitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       }
+                   },
+                     bargap: 0.005,
+                     bargroupgap: 0.02,
+                     updatemenus:updatemenus,
+                 }
+                 Plotly.newPlot(myChart2, data, layout);
+             }
+             $scope.titleset = function(event){
+                 console.log("insidetitleset");
+                 var x_label = document.getElementById("xaxisLabel").value;
+                 var y_label = document.getElementById("yaxisLabel").value;
+                 xtitle = x_label;
+                 ytitle = y_label;
+                 var grptitle = document.getElementById("graphTitle").value;
+                 console.log("grphtitle",grptitle);
+
+                 grphtitle = grptitle;
+                 var trace = {
+                     x: defaultData,
+                     y: xLabel,
+                     marker:{
+                        color: rcolr
+                     },
+                     type: 'histogram',
+                     showline: true,
+                 };
+                 var data =[trace];
+                 var layout = {
+                   title: {
+                     text: grptitle,
+                     font: {
+                       family: 'Courier New, monospace',
+                       size: 24
+                     },
+                     xref: 'paper',
+                     x: 0.05,
+                   },
+                   xaxis: {
+                       title: {
+                           text: xtitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       },
+                   },
+                   yaxis: {
+                       title: {
+                           text: ytitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       }
+                   },
+                     bargap: 0.005,
+                     bargroupgap: 0.02,
+                     updatemenus:updatemenus,
+                 };
                  Plotly.newPlot(myChart2, data, layout);
              }
 
@@ -2679,12 +2837,17 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("defaultData",defaultData);
         console.log("color",rcolr);
         console.log("gtitle", grphtitle);
+        console.log("xaxis",xtitle);
+        console.log("yaxis",ytitle);
         console.log("#########*******########");
         let graphData = {
             "xLabel": xLabel,
             "yLabel": yLabel,
             "labels": labels,
             "color": rcolr,
+            "graphtitle": grphtitle,
+            "xAxisTitle": xtitle,
+            "yAxisTitle": ytitle,
             "defaultData": defaultData
         };
         let vUrl = '/saveGraph/';
