@@ -1693,13 +1693,50 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
         {margin:{t: 0}}, {displaylogo:false});
       }
       else if(gType == "boxplot"){
-        Plotly.newPlot(chartView,[{
+          var trace = {
             y: ydata,
             x: xdata,
-            type:'box',
+            marker:{
+               color: color
+            },
+            type: 'box',
             showline: true,
-        }],
-        {margin:{t: 0}}, {displaylogo:false});
+          };
+          var trace = [data];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.05,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+              bargap: 0.005,
+              bargroupgap: 0.02,
+          }
+        Plotly.newPlot(chartView , data, layout);
       }
       else if(gType == "histogram"){
         var trace = {
@@ -2227,58 +2264,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 showline: true,
             }],
             {margin:{t: 0}});
-            /*var myChart = new Chart(ctx2, {
-    //		type: 'pie',
-                type: graphType,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '',
-                        data: defaultData,
-                        fill: 1,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            stacked : true,
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: yLabel
-                            }
-                        }],
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: xLabel
-                            }
-                        }]
-                    }
-                }
-            });*/
         }
         else if (graphType =="scatter"){
             graphType = "scatter";
@@ -2296,59 +2281,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 mode:'markers',
             }],
             {margin:{t: 0}}, {displaylogo:false});
-          /*  var myChart = new Chart(ctx2, {
-                //		type: 'pie',
-                type: graphType,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '',
-                        data: coords,
-                        showLine: false,
-                        fill: 0,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            stacked : true,
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: yLabel
-                            }
-                        }],
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: xLabel
-                            }
-                        }]
-                    }
-                }
-            });*/
+
         }
         else if (graphType =="bubble"){
             graphType = "bubble";
@@ -2431,10 +2364,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("yLable",ytitle);
           var btid;
 
-
-
-
-
           var trace = {
             x: defaultData,
             y: xLabel,
@@ -2482,7 +2411,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
              Plotly.newPlot(myChart2 , data, layout);
 
              $scope.bttest = function(event){
-                 console.log("insidebttest");
+                 console.log("insidebttesthist");
                  colpick = document.getElementById("c").value;
                  var grptitle = document.getElementById("graphTitle").value;
                  console.log("grphtitle",grptitle);
@@ -2594,14 +2523,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                  Plotly.newPlot(myChart2, data, layout);
              }
 
-             /*Plotly.newPlot(myChart2,[{
-              y: defaultData,
-              x: labels,
-              type:'histogram',
-              showline: true,
-          }],
-          {margin:{t: 0}}, {displaylogo:false},{bargap: 0.005,
-          bargroupgap: 0.02});*/
 
         }
         else if (graphType == "boxplot"){
@@ -2610,31 +2531,114 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
 
-          Plotly.newPlot(myChart2,[{
-              y: defaultData,
-              x: labels,
-              type:'box',
-              showline: true,
-          }],
-          {margin:{t: 0}}, {displaylogo:false});
+          
 
           $scope.bttest = function(event){
-              console.log("insidebttest");
+              console.log("insidebttestbox");
+              colpick = document.getElementById("c").value;
+              var grptitle = document.getElementById("graphTitle").value;
+              console.log("grphtitle",grptitle);
               btid=event.target.id;
+              rcolr = colpick;
               console.log(btid);
+              console.log(colpick);
+              console.log("btid",btid);
               var trace = {
                   y: defaultData,
                   x: labels,
                   marker:{
-                     color: btid
+                     color: colpick
                   },
                   type: 'box',
                   showline: true,
               };
               var data =[trace];
+              var layout = {
+                title: {
+                  text: grptitle,
+                  font: {
+                    family: 'Courier New, monospace',
+                    size: 24
+                  },
+                  xref: 'paper',
+                  x: 0.5,
+                },
+                xaxis: {
+                    title: {
+                        text: xtitle,
+                        font: {
+                            family: 'Courier New, monospace',
+                            size: 18,
+                            color: '#7f7f7f'
+                        }
+                    },
+                },
+                yaxis: {
+                    title: {
+                        text: ytitle,
+                        font: {
+                            family: 'Courier New, monospace',
+                            size: 18,
+                            color: '#7f7f7f'
+                        }
+                    }
+                },
+              }
               Plotly.newPlot(myChart2, data, layout);
           }
+          $scope.titleset = function(event){
+              console.log("insidetitleset");
+              var x_label = document.getElementById("xaxisLabel").value;
+              var y_label = document.getElementById("yaxisLabel").value;
+              xtitle = x_label;
+              ytitle = y_label;
+              var grptitle = document.getElementById("graphTitle").value;
+              console.log("grphtitle",grptitle);
 
+              grphtitle = grptitle;
+              var trace = {
+                  y: defaultData,
+                  x: labels,
+                  marker:{
+                     color: rcolr
+                  },
+                  type: 'box',
+                  showline: true,
+              };
+              var data =[trace];
+              var layout = {
+                title: {
+                  text: grptitle,
+                  font: {
+                    family: 'Courier New, monospace',
+                    size: 24
+                  },
+                  xref: 'paper',
+                  x: 0.5,
+                },
+                xaxis: {
+                    title: {
+                        text: xtitle,
+                        font: {
+                            family: 'Courier New, monospace',
+                            size: 18,
+                            color: '#7f7f7f'
+                        }
+                    },
+                },
+                yaxis: {
+                    title: {
+                        text: ytitle,
+                        font: {
+                            family: 'Courier New, monospace',
+                            size: 18,
+                            color: '#7f7f7f'
+                        }
+                    }
+                },
+              };
+              Plotly.newPlot(myChart2, data, layout);
+          }
         }
         else if (graphType == "pie"){
           var ctx2 = document.getElementById("myChart2");
