@@ -1788,13 +1788,80 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
 
 
       else if(gType == "line"){
-          Plotly.newPlot(chartView,[{
-              y: ydata,
-              x: xdata,
-              type:'scatter',
+          var trace = {
+            y: ydata,
+            x: xdata,
+            marker:{
+               color: color
+            },
+            type: 'scatter',
+            showline: true,
+          };
+
+
+          var data = [trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+              bargap: 0.005,
+              bargroupgap: 0.02,
+          }
+
+             Plotly.newPlot(chartView , data, layout);
+
+      }
+      else if(gType == "pie"){
+
+          var trace = {
+              values: ydata,
+              labels: xdata,
+              type: 'pie',
               showline: true,
-          }],
-          {margin:{t: 0}});
+          };
+          var data =[trace];
+          var layout = {
+            title: {
+              text: grptitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            margin:{
+                t: 40
+            },
+            displaylogo:false
+          };
+          Plotly.newPlot(myChart2, data, layout);
 
       }
         //Plotly.newPlot( chartView, xdata, ydata);
@@ -2121,7 +2188,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                          size: 24
                        },
                        xref: 'paper',
-                       x: 0.05,
+                       x: 0.5,
                      },
                      xaxis: {
                          title: {
@@ -2216,10 +2283,124 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 y: defaultData,
                 x: labels,
                 type:'scatter',
-                fill: 'tonexty',
+                fill: 'toself',
                 mode: 'none',
             }],
             {margin:{t: 0}});
+
+            $scope.bttest = function(event){
+                console.log("insidebttestline");
+                colpick = document.getElementById("c").value;
+                var grptitle = document.getElementById("graphTitle").value;
+                console.log("grphtitle",grptitle);
+                grphtitle = grptitle;
+                btid=event.target.id;
+                rcolr = colpick;
+                console.log(btid);
+                console.log(colpick);
+
+                var trace = {
+                    y: defaultData,
+                    x: labels,
+                    type:'scatter',
+                    fill: 'toself',
+                    fillcolor: colpick,
+                    mode: 'none',
+                };
+
+                var data =[trace];
+
+                var layout = {
+                  title: {
+                    text: grptitle,
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 24
+                    },
+                    xref: 'paper',
+                    x: 0.5,
+                  },
+                  xaxis: {
+                      title: {
+                          text: xtitle,
+                          font: {
+                              family: 'Courier New, monospace',
+                              size: 18,
+                              color: '#7f7f7f'
+                          }
+                      },
+                  },
+                  yaxis: {
+                      title: {
+                          text: ytitle,
+                          font: {
+                              family: 'Courier New, monospace',
+                              size: 18,
+                              color: '#7f7f7f'
+                          }
+                      }
+                  },
+                    bargap: 0.005,
+                    bargroupgap: 0.02,
+                    margin:{t:0},
+                }
+                Plotly.newPlot(myChart2, data, layout);
+            }
+            $scope.titleset = function(event){
+                console.log("insidetitleset");
+                var x_label = document.getElementById("xaxisLabel").value;
+                var y_label = document.getElementById("yaxisLabel").value;
+                xtitle = x_label;
+                ytitle = y_label;
+                var grptitle = document.getElementById("graphTitle").value;
+                console.log("grphtitle",grptitle);
+
+                grphtitle = grptitle;
+                var trace = {
+                    y: defaultData,
+                    x: labels,
+                    type:'scatter',
+                    fill: 'toself',
+                    fillcolor: colpick,
+                    mode: 'none',
+                };
+                var data =[trace];
+                var layout = {
+                  title: {
+                    text: grptitle,
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 24
+                    },
+                    xref: 'paper',
+                    x: 0.05,
+                  },
+                  xaxis: {
+                      title: {
+                          text: xtitle,
+                          font: {
+                              family: 'Courier New, monospace',
+                              size: 18,
+                              color: '#7f7f7f'
+                          }
+                      },
+                  },
+                  yaxis: {
+                      title: {
+                          text: ytitle,
+                          font: {
+                              family: 'Courier New, monospace',
+                              size: 18,
+                              color: '#7f7f7f'
+                          }
+                      }
+                  },
+                    bargap: 0.005,
+                    bargroupgap: 0.02,
+                    margin:{t:0},
+                };
+                Plotly.newPlot(myChart2, data, layout);
+            }
 
         }
         else if (graphType == "controlchart"){
@@ -2625,6 +2806,11 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
+
+          $scope.alert = function(myColor) {
+              alert(myColor);
+          }
+
           var trace = {
             y: defaultData,
             x: labels,
@@ -2781,9 +2967,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
           console.log("%%XLABEL%%",xLabel);
-          var d = document.getElementById("pie");
-          value2 = d.options[d.selectedIndex].value;
-          console.log("selectedchart",value2);
 
 
           Plotly.newPlot(myChart2,[{
@@ -2792,6 +2975,44 @@ module.controller("visualizationCtrl", function ($scope, $http) {
               type:'pie',
           }],
           {margin:{t: 40}}, {displaylogo:false});
+
+
+          $scope.titleset = function(event){
+              console.log("insidetitleset");
+              var x_label = document.getElementById("xaxisLabel").value;
+              var y_label = document.getElementById("yaxisLabel").value;
+              xtitle = x_label;
+              ytitle = y_label;
+              var grptitle = document.getElementById("graphTitle").value;
+              console.log("grphtitle",grptitle);
+
+              grphtitle = grptitle;
+              var trace = {
+                  values: defaultData,
+                  labels: labels,
+                  type: 'pie',
+                  showline: true,
+              };
+              var data =[trace];
+              var layout = {
+                title: {
+                  text: grptitle,
+                  font: {
+                    family: 'Courier New, monospace',
+                    size: 24
+                  },
+                  xref: 'paper',
+                  x: 0.5,
+                },
+                margin:{
+                    t: 40
+                },
+                displaylogo:false
+              };
+              Plotly.newPlot(myChart2, data, layout);
+          }
+
+
 
         }
         else if (graphType == "radar"){
