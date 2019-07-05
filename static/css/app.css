@@ -136,3 +136,8 @@
 .nav-tabs:not(.nav-tabs-neutral)>.nav-item>.nav-link.active {
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
 }
+
+
+.noline{
+	text-decoration:none;
+}

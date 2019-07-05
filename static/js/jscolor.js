@@ -84,6 +84,7 @@ var jsc = {
 
 
 	isCanvasSupported : (function () {
+
 		var elm = document.createElement('canvas');
 		return !!(elm.getContext && elm.getContext('2d'));
 	})(),
@@ -855,7 +856,7 @@ var jsc = {
 					break;
 				}
 			};
-			
+
 			paletteObj.elm = vmlContainer;
 			paletteObj.draw = drawFunc;
 		}
@@ -926,7 +927,7 @@ var jsc = {
 				grad.color = color1;
 				grad.color2 = color2;
 			};
-			
+
 			sliderObj.elm = vmlContainer;
 			sliderObj.draw = drawFunc;
 		}
@@ -1026,7 +1027,7 @@ var jsc = {
 		this.pointerBorderColor = '#FFFFFF'; // px
         this.pointerBorderWidth = 1; // px
         this.pointerThickness = 2; // px
-		this.zIndex = 1000;
+		this.zIndex = 2000;
 		this.container = null; // where to append the color picker (BODY element by default)
 
 
@@ -1372,6 +1373,7 @@ var jsc = {
 
 
 		function drawPicker () {
+            console.log("indrawpicker");
 
 			// At this point, when drawing the picker, we know what the parent elements are
 			// and we can do all related DOM operations, such as registering events on them
