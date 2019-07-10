@@ -1,4 +1,5 @@
 var module = angular.module("statsApp", ['ngRoute']);
+
 module.config(function ($interpolateProvider, $httpProvider) {
     $interpolateProvider.startSymbol('[[').endSymbol(']]');
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
@@ -2255,7 +2256,32 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let ytitle='';
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
+    $scope.chooseDataset = function (dataset) {
+        console.log("datasetselection",dataset);
+        selDatasetId = dataset.dataset_id;
+        $scope.selectedDataset = dataset.dataset_name;
+        $scope.sName = '';
+        let data = new FormData();
+        let url = '/getGraphFields/';
+        data.append("dName", dataset.dataset_name);
 
+        $http.post(url, data, {
+            headers: {'Content-Type': undefined},
+            transformRequest: angular.identity
+        }).success(function (data, status, headers, config) {
+            $scope.fieldsAr = data;
+            console.log("fieldsAr", $scope.fieldsAr);
+            $scope.showGraph1 = true;
+            // this callback will be called asynchronously
+            // when the response is available
+        }).error(function (data, status, headers, config) {
+            console.log("somethingvName went wrong");
+
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+
+    }
     $http.get(url)
         .then(function (response) {
             //First function handles success
@@ -2271,6 +2297,9 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         $scope.showGraphList = false;
         location.reload();
 
+    }
+    $scope.coltest = function(){
+      console.log("inside coltest");
     }
 
     function setChart() {
@@ -2309,7 +2338,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
             var data = [trace];
                var layout = {
-                   margin:{t:0},
+                   margin:{t:40},
                }
                Plotly.newPlot(myChart2 , data, layout);
 
@@ -2368,7 +2397,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                      },
                        bargap: 0.005,
                        bargroupgap: 0.02,
-                       margin:{t:0},
+                       margin:{t:40},
                    }
                    Plotly.newPlot(myChart2, data, layout);
                }
@@ -2400,7 +2429,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                          size: 24
                        },
                        xref: 'paper',
-                       x: 0.05,
+                       x: 0.5,
                      },
                      xaxis: {
                          title: {
@@ -2424,14 +2453,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                      },
                        bargap: 0.005,
                        bargroupgap: 0.02,
-                       margin:{t:0},
+                       margin:{t:40},
                    };
                    Plotly.newPlot(myChart2, data, layout);
                }
 
         }
-
-
         else if (graphType =="area"){
             var ctx2 = document.getElementById("myChart2");
             console.log("ctx2$$$$",ctx2);
@@ -2442,7 +2469,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 fill: 'tonexty',
                 mode: 'none',
             }],
-            {margin:{t: 0}});
+            {margin:{t: 50}});
 
             $scope.bttest = function(event){
                 console.log("insidebttestline");
@@ -2496,9 +2523,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                           }
                       }
                   },
-                    bargap: 0.005,
-                    bargroupgap: 0.02,
-                    margin:{t:0},
+                    margin:{t:50},
                 }
                 Plotly.newPlot(myChart2, data, layout);
             }
@@ -2529,7 +2554,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                       size: 24
                     },
                     xref: 'paper',
-                    x: 0.05,
+                    x: 0.5,
                   },
                   xaxis: {
                       title: {
@@ -2551,9 +2576,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                           }
                       }
                   },
-                    bargap: 0.005,
-                    bargroupgap: 0.02,
-                    margin:{t:0},
+                    margin:{t:50},
                 };
                 Plotly.newPlot(myChart2, data, layout);
             }
@@ -2695,12 +2718,14 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                     y: defaultData,
                     x: labels,
                     type:'bar',
+                    mode:'markers',
                     orientation: 'h',
                     showline: true,
             };
             var data = [trace];
             var layout = {
-                margin: {t:0},
+              hovermode:'closest',
+                margin: {t:50},
             }
             Plotly.newPlot(myChart2 , data, layout);
             $scope.bttest = function(event){
@@ -2735,7 +2760,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                       size: 24
                     },
                     xref: 'paper',
-                    x: 0.05,
+                    x: 0.5,
                   },
                   xaxis: {
                       title: {
@@ -2757,7 +2782,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                           }
                       }
                   },
-                    margin:{t:0},
+                  hovermode:'closest',
+                    margin: {t:50},
                 }
                 Plotly.newPlot(myChart2, data, layout);
             }
@@ -2790,7 +2816,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                       size: 24
                     },
                     xref: 'paper',
-                    x: 0.05,
+                    x: 0.5,
                   },
                   xaxis: {
                       title: {
@@ -2812,7 +2838,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                           }
                       }
                   },
-                    margin:{t:0},
+                  hovermode:'closest',
+                    margin: {t:50},
                 };
                 Plotly.newPlot(myChart2, data, layout);
             }
@@ -2825,7 +2852,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("Default Data",defaultData);
             console.log("LABELS",labels);
             let coords = labels.map( (v,i) => ({ x: v, y: defaultData[i] }) );
-            console.log(coords);
+            console.log("coords",coords);
 
             var trace = {
                     y: defaultData,
@@ -2835,7 +2862,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             };
             var data = [trace];
             var layout = {
-                margin:{t:0},
+                margin:{t:50},
             }
             Plotly.newPlot(myChart2, data, layout);
 
@@ -2892,9 +2919,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                           }
                       }
                   },
-                    bargap: 0.005,
-                    bargroupgap: 0.02,
-                    margin:{t:30},
+                    margin:{t:50},
                 }
                 Plotly.newPlot(myChart2, data, layout);
             }
@@ -2948,7 +2973,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                           }
                       }
                   },
-                    margin:{t:30},
+                    margin:{t:50},
                 };
                 Plotly.newPlot(myChart2, data, layout);
             }
@@ -3016,7 +3041,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 }
             });
         }
-
         else if (graphType == "histogram"){
           var ctx2 = document.getElementById("myChart2");
           console.log("ctx2$$$$",ctx2);
@@ -3036,8 +3060,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           var btid;
 
           var trace = {
-            x: defaultData,
-            y: xLabel,
+            y: defaultData,
+            x: labels,
             type: 'histogram',
             showline: true,
           };
@@ -3091,8 +3115,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                  console.log(btid);
                  console.log(colpick);
                  var trace = {
-                     x: defaultData,
-                     y: xLabel,
+                   y: defaultData,
+                   x: labels,
                      marker:{
                         color: colpick
                      },
@@ -3146,8 +3170,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
                  grphtitle = grptitle;
                  var trace = {
-                     x: defaultData,
-                     y: xLabel,
+                   y: defaultData,
+                   x: labels,
                      marker:{
                         color: rcolr
                      },
@@ -3517,6 +3541,174 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           }],
           {margin:{t: 40}}, {displaylogo:false});
 
+        }
+        else if (graphType == "bar"){
+          var ctx2 = document.getElementById("myChart2");
+          console.log("ctx2$$$$",ctx2);
+          console.log("%%DEFAULTDATA%%",defaultData );
+          console.log("%%XLABEL%%",xLabel);
+          var grptitle = document.getElementById("graphTitle").value;
+          var x_label = document.getElementById("xaxisLabel").value;
+          var y_label = document.getElementById("yaxisLabel").value;
+
+          var colpick = document.getElementById("c").value;
+          xtitle = x_label;
+          ytitle = y_label;
+          grphtitle = grptitle;
+          console.log("graphtitle",grphtitle);
+          console.log("xLable",xtitle);
+          console.log("yLable",ytitle);
+          var btid;
+
+          var trace = {
+            y: defaultData,
+            x: labels,
+            type: 'bar',
+            showline: true,
+          };
+
+
+          var data = [trace];
+             var layout = {
+               title: {
+                 text: grptitle,
+                 font: {
+                   family: 'Courier New, monospace',
+                   size: 24
+                 },
+                 xref: 'paper',
+                 x: 0.5,
+               },
+               xaxis: {
+                   title: {
+                       text: xtitle,
+                       font: {
+                           family: 'Courier New, monospace',
+                           size: 18,
+                           color: '#7f7f7f'
+                       }
+                   },
+               },
+               yaxis: {
+                   title: {
+                       text: ytitle,
+                       font: {
+                           family: 'Courier New, monospace',
+                           size: 18,
+                           color: '#7f7f7f'
+                       }
+                   }
+               },
+             }
+
+             Plotly.newPlot(myChart2 , data, layout);
+
+             $scope.bttest = function(event){
+                 console.log("insidebttestbar");
+                 colpick = document.getElementById("c").value;
+                 var grptitle = document.getElementById("graphTitle").value;
+                 console.log("grphtitle",grptitle);
+                 grphtitle = grptitle;
+                 btid=event.target.id;
+                 rcolr = colpick;
+                 console.log(btid);
+                 console.log(colpick);
+                 var trace = {
+                     y: defaultData,
+                     x: labels,
+                     marker:{
+                        color: colpick
+                     },
+                     type: 'bar',
+                     showline: true,
+                 };
+                 var data =[trace];
+                 var layout = {
+                   title: {
+                     text: grptitle,
+                     font: {
+                       family: 'Courier New, monospace',
+                       size: 24
+                     },
+                     xref: 'paper',
+                     x: 0.5,
+                   },
+                   xaxis: {
+                       title: {
+                           text: xtitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       },
+                   },
+                   yaxis: {
+                       title: {
+                           text: ytitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       }
+                   },
+                 }
+                 Plotly.newPlot(myChart2, data, layout);
+             }
+             $scope.titleset = function(event){
+                 console.log("insidetitleset");
+                 var x_label = document.getElementById("xaxisLabel").value;
+                 var y_label = document.getElementById("yaxisLabel").value;
+                 xtitle = x_label;
+                 ytitle = y_label;
+                 var grptitle = document.getElementById("graphTitle").value;
+                 console.log("grphtitle",grptitle);
+
+                 grphtitle = grptitle;
+                 var trace = {
+                   y: defaultData,
+                   x: labels,
+                     marker:{
+                        color: rcolr
+                     },
+                     type: 'bar',
+                     showline: true,
+                 };
+                 var data =[trace];
+                 var layout = {
+                   title: {
+                     text: grptitle,
+                     font: {
+                       family: 'Courier New, monospace',
+                       size: 24
+                     },
+                     xref: 'paper',
+                     x: 0.5,
+                   },
+                   xaxis: {
+                       title: {
+                           text: xtitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       },
+                   },
+                   yaxis: {
+                       title: {
+                           text: ytitle,
+                           font: {
+                               family: 'Courier New, monospace',
+                               size: 18,
+                               color: '#7f7f7f'
+                           }
+                       }
+                   },
+                 };
+                 Plotly.newPlot(myChart2, data, layout);
+             }
         }
         else {
             var ctx2 = document.getElementById("myChart2");

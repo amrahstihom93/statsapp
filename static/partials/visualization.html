@@ -55,7 +55,7 @@
 			<div class="card-content">
 			<p>Create Column Chart.</p>
 			</div>
-			<button class="mx-auto btn btn-primary" ng-click="setGraphType('bar')">Column Chart</button>
+			<button class="mx-auto btn btn-primary " ng-click="setGraphType('bar')">Column Chart</button>
 		</div>
       </div>
 	  <div class="card">
@@ -156,57 +156,78 @@
         </div>
         </div>
     </div>
-	<!--<div class="card-deck mt-4em">
-		<div class="card">
-		<img class="card-img-top" src="../static/img/line.png" alt="Card image cap">
-        <div class="card-body">
-          <h3 class="card-title">Line Chart</h3>
-			<div class="card-content">
-			<p>Create Line chart.</p>
-			</div>
-			<a class="mx-auto btn btn-primary" href="">Line Chart</a>
-        </div>
-      </div>-->
 	</div>
 
 
 
 
- <!-- Actual graph-->
- <div ng-show="showGraph">
-	<nav aria-label="breadcrumb" class="my-4">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
-		<li class="breadcrumb-item" aria-current="page">Select Fields</li>
-	</ol>
-	</nav>
+<div ng-show="showGraph">
+  <nav aria-label="breadcrumb" class="my-4">
+    <ol class="breadcrumb">
+	       <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
+	       <li class="breadcrumb-item" aria-current="page">Select Fields</li>
+    </ol>
+  </nav>
+
 	<div class="row">
-	<div class="col-md-4">
+     <!--Left Pane-->
+	   <div class="col-md-4">
         <div class="">
-	<h3>Dataset Name : [[selectedDataset]]</h3>
-	<label class="my-4" for="visuaName">Visualization Name</label>
-	<input type="text" ng-model="vName" class="form-control " id="visuaName" placeholder="Enter Visualization Name">
+	         <div class="row ml-auto border">
+             <div class="col-sm-4  table table-striped my-4 ">
+               <label class="category">Dataset    Name</label>
+             </div>
+             <div class="col-sm table table-striped my-4 dropdown pull-right">
+               <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown">[[selectedDataset]]
+               </button>
+               <ul class="dropdown-menu scrollable-menu">
+                 <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+               </ul>
+             </div>
+           </div>
+           <div class="row ml-auto border border-top-0">
+             <div class="col-sm-4 table table-striped my-4">
+               <label class="category" for="visuaName">Name Visualization</label>
+             </div>
+             <div class="col-sm table table-striped my-4">
+               <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Visualization Name">
+             </div>
+           </div>
+           <div class="row ml-auto border border-top-0 bg-secondary ">
+             <label class="category p-2 mx-auto text-light">Select fields from drop down to make visualization</label>
+           </div>
+           <div class="row ml-auto border border-top-0">
+             <div ng-hide="pieCtrl" class=" container w-100">
+               <div class="row ">
+                 <div class="col-sm-4  table table-striped my-4 ">
+                   <label class="category">Select X Axis</label>
+                 </div>
+                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                   <select id="x_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                     <option selected>Select field</option>
+    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                   </select>
+                 </div>
+  	           </div>
 
-	<h4 class="my-4">Select fields from drop down to make visualization:</h4>
 
-    <div ng-hide="pieCtrl">
-    <div class="col-md-12">
-	Select X-axis :
-			<select id="x_value" name="x_axis_value" class="custom-select btn-info">
-				<option selected>Select field</option>
-				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-			</select>
-	</div>
-	<div class="col-md-12 my-4">
-	Select Y-axis :
-			<select id="y_value" name="y_axis_value" class="custom-select btn-info">
-				<option selected>Select field</option>
-				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-			</select>
-	</div>
-    </div>
+  	           <div class="row ">
+                 <div class="col-sm-4   table table-striped my-4 ">
+                   <label class="category">Select Y Axis</label>
+                 </div>
+                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                   <select id="y_value" name="y_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                     <option selected>Select field</option>
+    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                   </select>
+                 </div>
+  	           </div>
+             </div>
+           </div>
 
-    <div ng-hide="ctrlChart">
+
+
+           <div ng-hide="ctrlChart">
     <div class="col-md-12">
 	Select dependent value :
 			<select id="x_value" name="x_axis_value" class="custom-select btn-info">
@@ -221,11 +242,15 @@
 				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			</select>
 	</div>
-    </div>
-    <div class="text-center" style="margin-bottom: 3%;">
-        <button  type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
-	   <button  class="btn btn-primary" ng-click="paramterSave()">Save</button>
-    </div>
+           </div>
+           <div class="row ml-auto text-center border border-top-0 bg-info" style="padding-bottom:2%; margin-bottom: 3%;">
+             <div class="col-sm-6  table table-striped my-4 ">
+               <button  type="submit" class="btn btn-info " ng-click="makeGraph()">Create Graph</button>
+             </div>
+             <div class="col-sm-6  table table-striped my-4 ">
+  	           <button  class="btn btn-info" ng-click="paramterSave()">Save</button>
+             </div>
+           </div>
 
   <div class="col-md-12 my-4">
     <!--<div class="card">-->
@@ -250,8 +275,9 @@
             </div>
             <div class="text-center">
                 <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
-
             </div>
+            Color: <input class="jscolor" value="ab2567">
+
             </div>
 
           </div>
@@ -275,13 +301,13 @@
 	</div>
 
   </div>
-  </div>
-	<div class="col-md-8">
-	<div class="my-4 pull-left">
-		<div id="myChart2" ></div>
-
-	</div>
-</div>
+     </div>
+     <!--Right Pane-->
+     <div class="col-md-8">
+	   <div class="my-4 pull-left">
+		     <div id="myChart2" ></div>
+	   </div>
+     </div>
 
 
    <!--success modal-->

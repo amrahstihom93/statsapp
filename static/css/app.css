@@ -141,3 +141,17 @@
 .noline{
 	text-decoration:none;
 }
+
+.datsel{
+	margin-top:0px;
+}
+
+
+.form-control-0{
+  border-radius: 0px;
+}
+
+/*label.category{
+	display: table-caption;
+}
+*/
