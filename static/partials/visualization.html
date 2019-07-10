@@ -223,82 +223,125 @@
                  </div>
   	           </div>
              </div>
+             <!--<div ng-hide="ctrlChart" class=" container w-100">
+               <div class="row ">
+                 <div class="col-sm-4  table table-striped my-4 ">
+                   <label class="category">Select Dependent Value</label>
+                 </div>
+                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                   <select id="x_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                     <option selected>Select field</option>
+    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                   </select>
+                 </div>
+  	           </div>
+
+
+  	           <div class="row ">
+                 <div class="col-sm-4   table table-striped my-4 ">
+                   <label class="category">Select Sample Size</label>
+                 </div>
+                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                   <select id="y_value" name="y_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                     <option selected>Select field</option>
+    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                   </select>
+                 </div>
+  	           </div>
+             </div>-->
            </div>
 
 
 
            <div ng-hide="ctrlChart">
-    <div class="col-md-12">
-	Select dependent value :
-			<select id="x_value" name="x_axis_value" class="custom-select btn-info">
+               <div class="col-md-12">Select dependent value :
+                   <select id="x_value" name="x_axis_value" class="custom-select btn btn-info datsel">
+                       <option selected>Select field</option>
+                       <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                   </select>
+               </div>
+               <div class="col-md-12 my-4">Select sample size :
+			<select id="y_value" name="y_axis_value" class="custom-select btn   btn-info datsel">
 				<option selected>Select field</option>
 				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			</select>
-	</div>
-	<div class="col-md-12 my-4">
-	Select sample size :
-			<select id="y_value" name="y_axis_value" class="custom-select btn-info">
-				<option selected>Select field</option>
-				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-			</select>
-	</div>
+	       </div>
            </div>
-           <div class="row ml-auto text-center border border-top-0 bg-info" style="padding-bottom:2%; margin-bottom: 3%;">
+           <div class="row ml-auto text-center border border-top-0 " style="padding-bottom:2%;">
              <div class="col-sm-6  table table-striped my-4 ">
-               <button  type="submit" class="btn btn-info " ng-click="makeGraph()">Create Graph</button>
+               <button  type="submit" class="btn btn-info block" ng-click="makeGraph()">Create Graph</button>
              </div>
              <div class="col-sm-6  table table-striped my-4 ">
-  	           <button  class="btn btn-info" ng-click="paramterSave()">Save</button>
+  	           <button  class="btn btn-info block" ng-click="paramterSave()">Save</button>
              </div>
            </div>
+           <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#layout">
+             <label class="category p-2 mx-auto text-light" >Layout</label>
+           </div>
+           <div id="layout" class=" row ml-auto collapse border border-top-0">
+               <div class="card-header pallete-head border border-top-0">
+                   <ul class="row nav nav-tabs pallete-tabs" role="tablist">
+                       <li class="col-sm-6 nav-item">
+                           <button class="nav-link active block" data-toggle="tab" data-target="#home">Color</button>
+                       </li>
+                       <li class="col-sm-6 nav-item">
+                           <button class="nav-link active block" data-toggle="tab" data-target="#menu1">Title</button>
+                       </li>
+                   </ul>
+               </div>
+               <div class="card-body">
+                   <div class="tab-content">
+                       <div id="home" class="format container tab-pane active">
+                           <div ng-hide="otherPallete" class="colorpallete" >
+                               <div class="text-center">
+                                   <input  type="color" class="colpick" id="c" />
+                               </div>
+                               <div class="text-center">
+                                   <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
+                               </div>
 
-  <div class="col-md-12 my-4">
-    <!--<div class="card">-->
-      <div class="card-header pallete-head">
-        <ul class="nav nav-tabs pallete-tabs" role="tablist">
-          <li class="nav-item">
-            <button class="nav-link active" data-toggle="tab" data-target="#home">Color</button>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link active" data-toggle="tab" data-target="#menu1">Title</button>
-          </li>
-        </ul>
-        </div>
+                           </div>
+                           <div ng-hide="pieChart" class="colorpallete">
+                               <h1>huhuhhu</h1>
+                           </div>
 
-        <!-- Tab panes -->
-        <div class="card-body">
-        <div class="tab-content">
-          <div id="home" class="format container tab-pane active">
-            <div class="colorpallete" >
-            <div class="text-center">
-                <input  type="color" class="colpick" id="c" />
-            </div>
-            <div class="text-center">
-                <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
-            </div>
-            Color: <input class="jscolor" value="ab2567">
+                       </div>
+                       <div id="menu1" class="container tab-pane ">
+                           <div class="form-group">
+                               <div class="row">
+                                 <div class="col-sm-4 table table-striped my-4">
+                                   <label class="category" for="graphTitle">Graph Title</label>
+                                 </div>
+                                 <div class="col-sm table table-striped my-4">
+                                   <input type="text" class="form-control form-control-0" id="graphTitle" placeholder="Enter Graph Title">
+                                 </div>
+                               </div>
+                               <div class="row">
+                                 <div class="col-sm-4 table table-striped my-4">
+                                   <label class="category" for="xaxisLabel">X Label</label>
+                                 </div>
+                                 <div class="col-sm table table-striped my-4">
+                                   <input type="text" class="form-control form-control-0" id="xaxisLabel" placeholder="Enter Title For X Axis">
+                                 </div>
+                               </div>
+                               <div class="row">
+                                 <div class="col-sm-4 table table-striped my-4">
+                                   <label class="category" for="yaxisLabel">Y Label</label>
+                                 </div>
+                                 <div class="col-sm table table-striped my-4">
+                                   <input type="text" class="form-control form-control-0" id="yaxisLabel" placeholder="Enter Title For Y Axis">
+                                 </div>
+                               </div>
+                           </div>
+                           <div class="text-center">
+  	                            <button type="button" class="btn btn-primary" data-ng-click="titleset($event)">Submit</button>
 
-            </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+           </div>
 
-          </div>
-          <div id="menu1" class="container tab-pane ">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Graph Title</label>
-              <input type="text" class="form-control" id="graphTitle">
-              <label >X Label</label>
-              <input type="text" class="form-control" id="xaxisLabel">
-              <label >Y Label</label>
-              <input type="text" class="form-control" id="yaxisLabel">
-            </div>
-            <div class="text-center">
-  	             <button type="button" class="btn btn-primary" data-ng-click="titleset($event)">Submit</button>
-
-             </div>
-          </div>
-        </div>
-      </div>
-    <!--</div>-->
-	</div>
 
   </div>
      </div>

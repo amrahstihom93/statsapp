@@ -3843,13 +3843,25 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         $scope.showGraphList = false;
         $scope.pieCtrl=true;
         $scope.ctrlChart=true;
+        $scope.pieChart = true;
+        $scope.otherPallete=true;
         if(graphType=="controlchart"){
             $scope.ctrlChart=false;
             $scope.pieCtrl=true;
+            $scope.pieChart=true;
+            $scope.otherPallete=true;
+        }
+        else if(graphType=="pie"){
+            $scope.ctrlChart=true;
+            $scope.pieCtrl=false;
+            $scope.pieChart=false;
+            $scope.otherPallete=true;
         }
         else{
             $scope.ctrlChart=true;
             $scope.pieCtrl=false;
+            $scope.pieChart=true;
+            $scope.otherPallete=false;
         }
 
     }
