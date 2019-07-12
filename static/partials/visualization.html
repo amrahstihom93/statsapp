@@ -1,6 +1,5 @@
 
 <div class="container">
-
 <div ng-show="(!showGraph)&&(!showGraphList)&&(!showcchart)">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
@@ -196,6 +195,7 @@
            <div class="row ml-auto border border-top-0 bg-secondary ">
              <label class="category p-2 mx-auto text-light">Select fields from drop down to make visualization</label>
            </div>
+
            <div class="row ml-auto border border-top-0">
              <div ng-hide="pieCtrl" class=" container w-100">
                <div class="row ">
@@ -223,7 +223,7 @@
                  </div>
   	           </div>
              </div>
-             <!--<div ng-hide="ctrlChart" class=" container w-100">
+             <!-- <div ng-hide="ctrlChart" class=" container w-100">
                <div class="row ">
                  <div class="col-sm-4  table table-striped my-4 ">
                    <label class="category">Select Dependent Value</label>
@@ -248,7 +248,7 @@
                    </select>
                  </div>
   	           </div>
-             </div>-->
+             </div> -->
            </div>
 
 
@@ -256,17 +256,18 @@
            <div ng-hide="ctrlChart">
                <div class="col-md-12">Select dependent value :
                    <select id="x_value" name="x_axis_value" class="custom-select btn btn-info datsel">
-                       <option selected>Select field</option>
+
                        <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
                    </select>
                </div>
                <div class="col-md-12 my-4">Select sample size :
 			<select id="y_value" name="y_axis_value" class="custom-select btn   btn-info datsel">
-				<option selected>Select field</option>
+
 				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			</select>
 	       </div>
            </div>
+
            <div class="row ml-auto text-center border border-top-0 " style="padding-bottom:2%;">
              <div class="col-sm-6  table table-striped my-4 ">
                <button  type="submit" class="btn btn-info block" ng-click="makeGraph()">Create Graph</button>
@@ -295,6 +296,7 @@
                            <div ng-hide="otherPallete" class="colorpallete" >
                                <div class="text-center">
                                    <input  type="color" class="colpick" id="c" />
+
                                </div>
                                <div class="text-center">
                                    <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
@@ -302,7 +304,9 @@
 
                            </div>
                            <div ng-hide="pieChart" class="colorpallete">
-                               <h1>huhuhhu</h1>
+                               <div class="row">
+
+                               </div>
                            </div>
 
                        </div>
@@ -350,6 +354,7 @@
 	   <div class="my-4 pull-left">
 		     <div id="myChart2" ></div>
 	   </div>
+
      </div>
 
 

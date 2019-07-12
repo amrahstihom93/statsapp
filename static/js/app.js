@@ -480,6 +480,7 @@ module.controller("mlearnCtrl",function($scope,$http){
     $scope.eminem = false;
     $scope.venom = false;
     $scope.avengers = true;
+    
 
     $http.get(url)
         .then(function (response) {

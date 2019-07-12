@@ -8,7 +8,6 @@ from .models import visualization
 from django.contrib.auth.models import User
 import json, datetime
 
-
 # Create your views here.
 def chart(request):
     return render(request, 'chart.html')

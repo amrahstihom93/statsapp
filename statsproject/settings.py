@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'charts',
     'statistical',
 	'mlearn',
-    'colorful'
 ]
 
 MIDDLEWARE = [
