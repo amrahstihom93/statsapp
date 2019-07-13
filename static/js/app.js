@@ -480,7 +480,7 @@ module.controller("mlearnCtrl",function($scope,$http){
     $scope.eminem = false;
     $scope.venom = false;
     $scope.avengers = true;
-    
+
 
     $http.get(url)
         .then(function (response) {
@@ -3043,6 +3043,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             });
         }
         else if (graphType == "histogram"){
+
           var ctx2 = document.getElementById("myChart2");
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
@@ -3099,8 +3100,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                        }
                    }
                },
-                 bargap: 0.005,
-                 bargroupgap: 0.02,
              }
 
              Plotly.newPlot(myChart2 , data, layout);
@@ -3772,17 +3771,41 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     $scope.makeGraph = function () {
         console.log("in makeGraph");
         let formd = new FormData();
-        let val = document.getElementById('x_value');
-        let v = val.options[val.selectedIndex].value;
-        let graphDataUrl = '/getGraphData/';
-        formd.append("x_value", v);
-        xLabel = v;
-        console.log("xLabel",xLabel);
-        val = document.getElementById('y_value');
-        v = val.options[val.selectedIndex].value;
-        formd.append("y_value", v);
-        yLabel = v;
-        console.log("yLabel",yLabel);
+        let val;
+        let v;
+        let graphDataUrl;
+        if(graphType =="controlchart"){
+            console.log("makegraph function: control chart");
+            val = document.getElementById('dependent_value').value;
+            console.log("val",val);
+            v = val;
+            graphDataUrl = '/getGraphData/';
+            formd.append("x_value", v);
+            xLabel = v;
+            console.log("xLabel",xLabel);
+            val = document.getElementById('independent_value').value;
+            v= val;
+            formd.append("y_value",v);
+            yLabel = v;
+            console.log("yLabel",yLabel);
+        }
+        else {
+            console.log("makegraph Function: pie chart");
+            val = document.getElementById('x_value').value;
+            console.log("val",val);
+            v = val;
+            graphDataUrl = '/getGraphData/';
+            formd.append("x_value", v);
+            xLabel = v;
+            console.log("xLabel",xLabel);
+            val = document.getElementById('y_value').value;
+            v= val;
+            formd.append("y_value",v);
+            yLabel = v;
+            console.log("yLabel",yLabel);
+        }
+
+
         formd.append("dtName", $scope.selectedDataset);
         console.log("data to send", formd);
 
@@ -3792,10 +3815,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         }).success(function (data, status, headers, config) {
             console.log("graph data :", data);
             labels = data.labels
-            defaultData = data.defaultData;
-            console.log("x####", document.getElementById('x_value').options[document.getElementById('x_value').selectedIndex].value);
-            console.log("y###", document.getElementById('y_value').options[document.getElementById('y_value').selectedIndex].value);
-            setChart();
+            defaultData = data.defaultData;setChart();
             console.log("graphtype", graphType);
             // this callback will be called asynchronously
             // when the response is available

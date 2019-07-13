@@ -197,15 +197,42 @@
            </div>
 
            <div class="row ml-auto border border-top-0">
+
+               <div ng-hide="ctrlChart" class=" container w-100">
+                <div class="row ">
+                  <div class="col-sm-4  table table-striped my-4 ">
+                    <label class="category">Select Dependent Value</label>
+                  </div>
+                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                    <select id="dependent_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                      <option>Select field</option>
+                              <option ng-repeat="k in fieldsAr" >[[k]]</option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="row ">
+                  <div class="col-sm-4   table table-striped my-4 ">
+                    <label class="category">Select Sample Size</label>
+                  </div>
+                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                    <select id="independent_value" name="y_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                      <option selected>Select field</option>
+                              <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
              <div ng-hide="pieCtrl" class=" container w-100">
                <div class="row ">
                  <div class="col-sm-4  table table-striped my-4 ">
                    <label class="category">Select X Axis</label>
                  </div>
                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                   <select id="x_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                   <select id="x_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button" >
                      <option selected>Select field</option>
-    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+    				         <option ng-repeat="k in fieldsAr" >[[k]]</option>
                    </select>
                  </div>
   	           </div>
@@ -223,37 +250,12 @@
                  </div>
   	           </div>
              </div>
-             <!-- <div ng-hide="ctrlChart" class=" container w-100">
-               <div class="row ">
-                 <div class="col-sm-4  table table-striped my-4 ">
-                   <label class="category">Select Dependent Value</label>
-                 </div>
-                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                   <select id="x_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
-                     <option selected>Select field</option>
-    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-                   </select>
-                 </div>
-  	           </div>
 
-
-  	           <div class="row ">
-                 <div class="col-sm-4   table table-striped my-4 ">
-                   <label class="category">Select Sample Size</label>
-                 </div>
-                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                   <select id="y_value" name="y_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
-                     <option selected>Select field</option>
-    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-                   </select>
-                 </div>
-  	           </div>
-             </div> -->
            </div>
 
 
 
-           <div ng-hide="ctrlChart">
+           <!-- <div ng-hide="ctrlChart">
                <div class="col-md-12">Select dependent value :
                    <select id="x_value" name="x_axis_value" class="custom-select btn btn-info datsel">
 
@@ -266,7 +268,7 @@
 				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			</select>
 	       </div>
-           </div>
+           </div> -->
 
            <div class="row ml-auto text-center border border-top-0 " style="padding-bottom:2%;">
              <div class="col-sm-6  table table-striped my-4 ">
