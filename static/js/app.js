@@ -2303,6 +2303,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
       console.log("inside coltest");
     }
 
+
     function setChart() {
         //   var ctx = document.getElementById("myChart");
 
@@ -2310,6 +2311,44 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         var ctx2 = document.getElementById("myChart2");
         var ctx3 = document.getElementById("area").value;
         console.log("$$",graphType);
+
+        $scope.jsc=function(){
+            console.log("controllingjsc");
+            let jscid=document.getElementById("jscolor");
+            console.log(jscid);
+            jscid.classList.add("btn");
+        }
+
+        function RGBToHex(r,g,b) {
+
+            r = r.toString(16);
+            g = g.toString(16);
+            b = b.toString(16);
+
+            if (r.length == 1)
+            r = "0" + r;
+            if (g.length == 1)
+            g = "0" + g;
+            if (b.length == 1)
+            b = "0" + b;
+
+            return "#" + r + g + b;
+        }
+
+        AColorPicker.from('.picker')
+        .on('change', (picker, color) => {
+            console.log(color);
+            document.getElementById("c").style.background=color;
+            document.getElementById("c").value = color;
+        })
+        .on('coloradd', (picker, color) => {
+            // color added: color
+            // modified palette: picker.palette
+        })
+        .on('colorremove', (picker, color) => {
+            // color removed: color
+            // modified palette: picker.palette
+        });
 
         if(graphType == "line"){
             var ctx2 = document.getElementById("myChart2");
@@ -3858,6 +3897,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
     $scope.setGraphType = function (type) {
         graphType = type;
+        let gsel=document.getElementById("graphset").innerHTML = type;
+        console.log(gsel);
         console.log("grs", type);
         console.log("grs1", graphType);
         $scope.showGraph = true;

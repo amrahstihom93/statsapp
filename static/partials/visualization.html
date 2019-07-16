@@ -1,4 +1,4 @@
-
+{load static}
 <div class="container">
 <div ng-show="(!showGraph)&&(!showGraphList)&&(!showcchart)">
 <nav aria-label="breadcrumb" class="my-4">
@@ -177,13 +177,35 @@
                <label class="category">Dataset    Name</label>
              </div>
              <div class="col-sm table table-striped my-4 dropdown pull-right">
-               <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown">[[selectedDataset]]
+               <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >[[selectedDataset]]
                </button>
                <ul class="dropdown-menu scrollable-menu">
                  <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
                </ul>
              </div>
            </div>
+           <div class="row ml-auto border border-top-0">
+           <div class="col-sm-4  table table-striped my-4 ">
+             <label class="category">Chart Type</label>
+           </div>
+           <div class="col-sm table table-striped my-4 dropdown pull-right">
+             <button id="graphset"class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" value=graphType>graphType
+             </button>
+             <ul class="dropdown-menu scrollable-menu">
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('area')">Area</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('pie')">Pie</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('line')">Line</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('histogram')">Histogram</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('scatter')">Scatter</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('bar')">Column</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('radar')">Radar</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('polarArea')">Polar</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('horizontalBar')">Bar</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('boxplot')">Box Plot</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('controlchart')">Control Chart</a></li>
+             </ul>
+           </div>
+         </div>
            <div class="row ml-auto border border-top-0">
              <div class="col-sm-4 table table-striped my-4">
                <label class="category" for="visuaName">Name Visualization</label>
@@ -193,7 +215,7 @@
              </div>
            </div>
            <div class="row ml-auto border border-top-0 bg-secondary ">
-             <label class="category p-2 mx-auto text-light">Select fields from drop down to make visualization</label>
+             <label class="category p-2 mx-auto text-light">Visualization Parameters</label>
            </div>
 
            <div class="row ml-auto border border-top-0">
@@ -297,7 +319,16 @@
                        <div id="home" class="format container tab-pane active">
                            <div ng-hide="otherPallete" class="colorpallete" >
                                <div class="text-center">
-                                   <input  type="color" class="colpick" id="c" />
+                                   <!-- <input  type="color" class="colpick" id="c" value=""/> -->
+                                   <button id="c"style="height:50px; width:50px;" data-toggle="collapse" data-target="#acolor"></button>
+
+                                   <div id="acolor" class="picker collapse"
+                                    acp-color="#cddc39"
+                                    acp-show-rgb="yes"
+                                    acp-show-hsl="no"
+                                    acp-show-hex="yes"
+                                    acp-palette="PALETTE_MATERIAL_500">
+                                    </div>
 
                                </div>
                                <div class="text-center">
@@ -386,3 +417,4 @@
   </div>
 
 </div>
+<script src="static/js/jscolor.js"></script>
