@@ -214,11 +214,11 @@
                <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Visualization Name">
              </div>
            </div>
-           <div class="row ml-auto border border-top-0 bg-secondary ">
+           <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#viz_par">
              <label class="category p-2 mx-auto text-light">Visualization Parameters</label>
            </div>
 
-           <div class="row ml-auto border border-top-0">
+           <div id="viz_par" class="row ml-auto collapse border border-top-0">
 
                <div ng-hide="ctrlChart" class=" container w-100">
                 <div class="row ">
@@ -272,34 +272,21 @@
                  </div>
   	           </div>
              </div>
-
-           </div>
-
-
-
-           <!-- <div ng-hide="ctrlChart">
-               <div class="col-md-12">Select dependent value :
-                   <select id="x_value" name="x_axis_value" class="custom-select btn btn-info datsel">
-
-                       <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-                   </select>
-               </div>
-               <div class="col-md-12 my-4">Select sample size :
-			<select id="y_value" name="y_axis_value" class="custom-select btn   btn-info datsel">
-
-				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-			</select>
-	       </div>
-           </div> -->
-
-           <div class="row ml-auto text-center border border-top-0 " style="padding-bottom:2%;">
-             <div class="col-sm-6  table table-striped my-4 ">
-               <button  type="submit" class="btn btn-info block" ng-click="makeGraph()">Create Graph</button>
-             </div>
-             <div class="col-sm-6  table table-striped my-4 ">
-  	           <button  class="btn btn-info block" ng-click="paramterSave()">Save</button>
+             <div class="container ml-auto text-center " style="padding-bottom:2%;">
+                 <div class="row">
+                     <div class="col-sm-6  table table-striped my-4 ">
+                         <button  type="submit" class="btn btn-info block" ng-click="makeGraph()">Create Graph</button>
+                     </div>
+                     <div class="col-sm-6  table table-striped my-4 ">
+                         <button  class="btn btn-info block" ng-click="paramterSave()">Save</button>
+                     </div>
+                 </div>
              </div>
            </div>
+
+
+
+
            <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#layout">
              <label class="category p-2 mx-auto text-light" >Layout</label>
            </div>
@@ -320,7 +307,7 @@
                            <div ng-hide="otherPallete" class="colorpallete" >
                                <div class="text-center">
                                    <!-- <input  type="color" class="colpick" id="c" value=""/> -->
-                                   <button id="c"style="height:50px; width:50px;" class=" text-center" data-toggle="collapse" data-target="#acolor"></button>
+                                   <button id="c"style="height:50px; width:50px; border: 1px solid transparent;" class=" text-center" data-toggle="collapse" data-target="#acolor"></button>
 
                                    <div id="acolor" class="picker collapse"
                                     acp-color="#cddc39"

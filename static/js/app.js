@@ -3901,7 +3901,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
         var tabledata = [
-            {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+            {id:1, name:selDatasetId, age:"12", col:"red", dob:""},
  	        {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
  	        {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
  	        {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
