@@ -172,6 +172,10 @@
      <!--Left Pane-->
 	   <div class="col-md-4">
         <div class="">
+            <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
+              <label class="category p-2 mx-auto text-light" >Names</label>
+            </div>
+            <div id="viz_name" class=" ml-auto collapse">
 	         <div class="row ml-auto border">
              <div class="col-sm-4  table table-striped my-4 ">
                <label class="category">Dataset    Name</label>
@@ -213,6 +217,7 @@
              <div class="col-sm table table-striped my-4">
                <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Visualization Name">
              </div>
+           </div>
            </div>
            <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#viz_par">
              <label class="category p-2 mx-auto text-light">Visualization Parameters</label>

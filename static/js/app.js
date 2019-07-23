@@ -3854,7 +3854,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         }).success(function (data, status, headers, config) {
             console.log("graph data :", data);
             labels = data.labels
-            defaultData = data.defaultData;setChart();
+            defaultData = data.defaultData;
+            setChart();
             console.log("graphtype", graphType);
             // this callback will be called asynchronously
             // when the response is available
@@ -3864,8 +3865,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             // or server returns response with an error status.
         });
     }
-
+    let datset=[];
+    let datdata=[];
+    let defData=[];
     $scope.makeVisualization = function (dataset) {
+        datset=dataset;
+
         console.log("datasetName", dataset);
         selDatasetId = dataset.dataset_id;
         console.log("adsetid", selDatasetId);
@@ -3873,6 +3878,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         let data = new FormData();
         let url = '/getGraphFields/';
         data.append("dName", dataset.dataset_name);
+        console.log("data",dataset.data);
 
         $http.post(url, data, {
             headers: {'Content-Type': undefined},
@@ -3881,8 +3887,15 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("this is repsonse data", status);
             console.log("data is ", data);
             $scope.fieldsAr = data;
+            $scope.fields = dataset.data;
+            datdata = $scope.fieldsAr;
             console.log("fieldsAr", $scope.fieldsAr);
-
+            console.log("data*****");
+            console.log(dataset.data);
+            console.log("*******");
+            let colcount= datdata.length;
+            console.log("colcount",colcount);
+            console.log(datdata.column);
             $scope.showGraphList = true;
             // this callback will be called asynchronously
             // when the response is available
@@ -3896,6 +3909,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     }
 
     $scope.setGraphType = function (type) {
+
         graphType = type;
         let gsel=document.getElementById("graphset").innerHTML = type;
 
@@ -3907,22 +3921,31 @@ module.controller("visualizationCtrl", function ($scope, $http) {
  	        {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
  	        {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
         ]
-
+        let coltab;
+        let coltabar=[];
         //create Tabulator on DOM element with id "example-table"
-        var table = new Tabulator("#example-table", {
+        for (let k =1; k< datdata.length; k++){
+
+            coltab=
+                {title:datdata[k],
+                field: "name",
+                width:150,
+                editor:"input"},
+
+            coltabar.push(coltab);
+
+        }
+        console.log("coltabar",coltabar);
+        var table = new Tabulator("#example-table",{
             height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
             data:tabledata, //assign data to table
             layout:"fitColumns", //fit columns to width of table (optional)
-            columns:[ //Define Table Columns
-                {title:"Name", field:"name", width:150, editor:"input"},
-                {title:"Age", field:"age", align:"left", formatter:"progress"},
-                {title:"Favourite Color", field:"col"},
-                {title:"Date Of Birth", field:"dob", sorter:"date", align:"center"},
-            ],
+            columns:coltabar,
             // rowClick:function(e, row){ //trigger an alert message when the row is clicked
             //     alert("Row " + row.getData().id + " Clicked!!!!");
             // },
         });
+
 
 
         console.log(gsel);
