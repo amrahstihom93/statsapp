@@ -3868,6 +3868,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let datset=[];
     let datdata=[];
     let defData=[];
+    let splitData=[];
+    let spliob;
     $scope.makeVisualization = function (dataset) {
         datset=dataset;
 
@@ -3878,7 +3880,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         let data = new FormData();
         let url = '/getGraphFields/';
         data.append("dName", dataset.dataset_name);
-        console.log("data",dataset.data);
 
         $http.post(url, data, {
             headers: {'Content-Type': undefined},
@@ -3891,7 +3892,13 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             datdata = $scope.fieldsAr;
             console.log("fieldsAr", $scope.fieldsAr);
             console.log("data*****");
-            console.log(dataset.data);
+            splitData= dataset.data.split('\n');
+            console.log("data per row",splitData);
+            for (let n=0; n<splitData.length;n++){
+                spliob = splitData[n].split(',');
+                console.log("separated data per row",spliob);
+            }
+
             console.log("*******");
             let colcount= datdata.length;
             console.log("colcount",colcount);
@@ -3912,30 +3919,44 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
         graphType = type;
         let gsel=document.getElementById("graphset").innerHTML = type;
-
-
-        var tabledata = [
-            {id:1, name:selDatasetId, age:"12", col:"red", dob:""},
- 	        {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
- 	        {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
- 	        {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
- 	        {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
-        ]
+        let tabledata;
+        let tabledatar=[];
         let coltab;
         let coltabar=[];
-        //create Tabulator on DOM element with id "example-table"
+        for (let n=0; n<splitData.length;n++){
+            spliob = splitData[n].split(',');
+            console.log("separated data per row",spliob);
+            tabledatar.push(spliob);
+        }
+        console.log("tabledatar",tabledatar);
+        console.log(tabledatar[1][0]);
+
+
+        //get data for table headers from dataset
         for (let k =1; k< datdata.length; k++){
 
             coltab=
                 {title:datdata[k],
-                field: "name",
+                field: datdata[k],
                 width:150,
                 editor:"input"},
 
             coltabar.push(coltab);
 
         }
+        var m = datdata[3];
+        m = m.replace(/^"(.*)"$/, '$1');
+        console.log("data",m);
         console.log("coltabar",coltabar);
+        for (let r =1; r<tabledatar.length; r++){
+            tabledata = [
+
+                {id:r, plant:tabledatar[1][0], weight:tabledatar[1][1],group:tabledatar[1][2]},
+            ]
+            console.log("tabledata",typeof(tabledata));
+        }
+
+        console.log("tabledata",tabledata);
         var table = new Tabulator("#example-table",{
             height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
             data:tabledata, //assign data to table
@@ -3945,6 +3966,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             //     alert("Row " + row.getData().id + " Clicked!!!!");
             // },
         });
+
 
 
 
