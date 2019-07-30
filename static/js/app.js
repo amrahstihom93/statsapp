@@ -3866,7 +3866,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         });
     }
     let datset=[];
-    let datdata=[];
+    let
+    a=[];
     let defData=[];
     let splitData=[];
     let spliob;
@@ -3896,7 +3897,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("data per row",splitData);
             for (let n=0; n<splitData.length;n++){
                 spliob = splitData[n].split(',');
-                console.log("separated data per row",spliob);
             }
 
             console.log("*******");
@@ -3925,7 +3925,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         let coltabar=[];
         for (let n=0; n<splitData.length;n++){
             spliob = splitData[n].split(',');
-            console.log("separated data per row",spliob);
             tabledatar.push(spliob);
         }
         console.log("tabledatar",tabledatar);
@@ -3944,17 +3943,37 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             coltabar.push(coltab);
 
         }
-        var m = datdata[3];
-        m = m.replace(/^"(.*)"$/, '$1');
-        console.log("data",m);
-        console.log("coltabar",coltabar);
-        for (let r =1; r<tabledatar.length; r++){
-            tabledata = [
+        // var m = datdata[3];
+        // m = m.replace(/^"(.*)"$/, '$1');
+        // console.log("data",m);
+        // console.log("coltabar",coltabar);
+        let dataname;
+        console.log("header data array full",datdata);
+        let headerData = datdata.slice(1);
+        console.log("Header Data Array Sliced", typeof(headerData));
 
-                {id:r, plant:tabledatar[1][0], weight:tabledatar[1][1],group:tabledatar[1][2]},
-            ]
-            console.log("tabledata",typeof(tabledata));
+        console.log("tabledata Array", typeof(tabledatar));
+
+
+         var obj={};
+         var solData=[];
+         headerData.map(data=>{
+             obj[data]=null;
+             console.log("OBJ DAta",obj[data]);
+         });
+        for (let i =0; i<tabledatar.length-1;i++){
+            solData[i] = JSON.parse(JSON.stringify(obj));
         }
+        tabledata=[];
+        headerData.map((data, index)=>{
+            Object.keys(solData[index]).forEach((key,i)=>{
+                solData[index][key]=data[i];
+                console.log(data[i],'index', index);
+            })
+            console.log("Data New",solData[index])
+            tabledata.push(solData[index]);
+        });
+
 
         console.log("tabledata",tabledata);
         var table = new Tabulator("#example-table",{
