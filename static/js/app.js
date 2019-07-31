@@ -3984,7 +3984,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("tabledata",tabledata);
         var table = new Tabulator("#example-table",{
             height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-            
+
             data:tabledata, //assign data to table
             columns:coltabar,
             // rowClick:function(e, row){ //trigger an alert message when the row is clicked
@@ -4750,11 +4750,9 @@ module.controller("createNewDataset", function ($scope, $http) {
             });
     }
 
-    //For excel support --- js-xls
 
     var X = XLSX;
     var XW = {
-        /* worker message */
         msg: 'xlsx',
         /* worker scripts */
         worker: './xlsxworker.js'
