@@ -3894,6 +3894,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("fieldsAr", $scope.fieldsAr);
             console.log("data*****");
             splitData= dataset.data.split('\n');
+            splitData.pop();
             console.log("data per row",splitData);
             for (let n=0; n<splitData.length;n++){
                 spliob = splitData[n].split(',');
@@ -3919,7 +3920,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
         graphType = type;
         let gsel=document.getElementById("graphset").innerHTML = type;
-        let tabledata;
+
         let tabledatar=[];
         let coltab;
         let coltabar=[];
@@ -3950,36 +3951,41 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         let dataname;
         console.log("header data array full",datdata);
         let headerData = datdata.slice(1);
-        console.log("Header Data Array Sliced", typeof(headerData));
-
-        console.log("tabledata Array", typeof(tabledatar));
+        console.log("Header Data Array Sliced",headerData);
 
 
+
+         let solData=[];
          var obj={};
-         var solData=[];
          headerData.map(data=>{
              obj[data]=null;
-             console.log("OBJ DAta",obj[data]);
          });
         for (let i =0; i<tabledatar.length-1;i++){
             solData[i] = JSON.parse(JSON.stringify(obj));
+            console.log(typeof(solData[i]))
         }
-        tabledata=[];
-        headerData.map((data, index)=>{
+        var tempData = tabledatar.slice(1);
+        let tabledata=[];
+
+        console.log("Temp Data",tempData);
+        if (obj === 'null') { return null;}
+        tempData.map((data, index)=>{
             Object.keys(solData[index]).forEach((key,i)=>{
                 solData[index][key]=data[i];
-                console.log(data[i],'index', index);
+                console.log(data[i],'index-->', index, 'key-->', key);
             })
-            console.log("Data New",solData[index])
+            console.log("Data New",solData[index]);
             tabledata.push(solData[index]);
         });
+
+
 
 
         console.log("tabledata",tabledata);
         var table = new Tabulator("#example-table",{
             height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+            
             data:tabledata, //assign data to table
-            layout:"fitColumns", //fit columns to width of table (optional)
             columns:coltabar,
             // rowClick:function(e, row){ //trigger an alert message when the row is clicked
             //     alert("Row " + row.getData().id + " Clicked!!!!");

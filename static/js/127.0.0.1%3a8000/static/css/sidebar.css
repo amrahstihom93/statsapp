@@ -570,15 +570,12 @@ select.rsz {
 #sidebar {
     width:40px;
     transition: 1s;
-
-    transition-delay : 0.2s;
+    transition-delay: 0.2s;
 }
 #sidebar:hover{
     width:240px;
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: 0.5s;
-
-
 }
 
 #sidebar li {
