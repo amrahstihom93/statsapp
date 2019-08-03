@@ -3984,9 +3984,29 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("tabledata",tabledata);
         var table = new Tabulator("#example-table",{
             height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-            
+
             data:tabledata, //assign data to table
             columns:coltabar,
+            cellEdited:function(cell){
+                //cell - cell component
+                console.log("Edited Done");
+            },
+            dataEdited:function(data){
+                console.log("data",data);
+
+                var obn =data;
+                var tempData2=[];
+                let data2=[];
+                console.log(Object.keys(obn[1]))
+                tempData2.push(Object.keys(obn[0]));
+                console.log("TempData2",tempData2)
+                for (let i =0;i<data.length;i++){
+                    console.log("ObnValues",Object.values(data[i]))
+                    tempData2.push(Object.values(data[i]));
+                }
+                console.log("tempData2", tempData2)
+
+            },
             // rowClick:function(e, row){ //trigger an alert message when the row is clicked
             //     alert("Row " + row.getData().id + " Clicked!!!!");
             // },
