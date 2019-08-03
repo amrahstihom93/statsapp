@@ -4770,11 +4770,9 @@ module.controller("createNewDataset", function ($scope, $http) {
             });
     }
 
-    //For excel support --- js-xls
 
     var X = XLSX;
     var XW = {
-        /* worker message */
         msg: 'xlsx',
         /* worker scripts */
         worker: './xlsxworker.js'
