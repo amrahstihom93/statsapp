@@ -1561,6 +1561,7 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
     let xData = [];
     let yData = [];
     let currChartid = '';
+    let defaultData;
     console.log(currChartid);
     $http.get(vurl)
         .then(function (response) {
@@ -2084,6 +2085,7 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
 
     $scope.createGraph = function () {
         console.log("in createGraph");
+
         let formd = new FormData();
         let val = document.getElementById('x_val');
         let v = val.options[val.selectedIndex].value;
@@ -3875,6 +3877,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         datset=dataset;
 
         console.log("datasetName", dataset);
+        console.log("datasetdata",typeof(dataset.data))
         selDatasetId = dataset.dataset_id;
         console.log("adsetid", selDatasetId);
         $scope.selectedDataset = dataset.dataset_name;
@@ -3953,7 +3956,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         let headerData = datdata.slice(1);
         console.log("Header Data Array Sliced",headerData);
 
-
+        let headlength=headerData.length;
 
          let solData=[];
          var obj={};
@@ -4004,7 +4007,17 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                     console.log("ObnValues",Object.values(data[i]))
                     tempData2.push(Object.values(data[i]));
                 }
-                console.log("tempData2", tempData2)
+                let tflat=tempData2.flat();
+                tflat=tflat.join();
+                console.log(typeof(tflat))
+                tflat=tflat.replace(/(\S+\s*){1}/g, "$&\n");
+                let tflatobj = {i:tflat}
+                console.log("tempDAta2",tempData2)
+                console.log("tempData2flat", tempData2.flat())
+                console.log("tempData2joined", tempData2.join())
+                console.log("temData2 with line",tflat)
+                console.log("tflat obj", tflatobj)
+                console.log("labels", datset.data)
 
             },
             // rowClick:function(e, row){ //trigger an alert message when the row is clicked
