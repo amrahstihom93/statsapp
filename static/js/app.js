@@ -3987,7 +3987,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         console.log("tabledata",tabledata);
         var table = new Tabulator("#example-table",{
             height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-
+            addRowPos:"bottom",
             data:tabledata, //assign data to table
             columns:coltabar,
             cellEdited:function(cell){
@@ -4010,21 +4010,35 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 let tflat=tempData2.flat();
                 tflat=tflat.join();
                 console.log(typeof(tflat))
-                tflat=tflat.replace(/(\S+\s*){1}/g, "$&\n");
+                ttflat=tflat.split(/((?:\w+ ){5})/g).filter(Boolean).join("\n");
                 let tflatobj = {i:tflat}
                 console.log("tempDAta2",tempData2)
                 console.log("tempData2flat", tempData2.flat())
                 console.log("tempData2joined", tempData2.join())
                 console.log("temData2 with line",tflat)
                 console.log("tflat obj", tflatobj)
+                console.log("ttflat ", ttflat)
                 console.log("labels", datset.data)
 
             },
+            //Add row on "Add Row" button click
+
             // rowClick:function(e, row){ //trigger an alert message when the row is clicked
             //     alert("Row " + row.getData().id + " Clicked!!!!");
             // },
         });
+        $scope.addRow=function(event){
+            var rowCount = table.getDataCount();
 
+            var addRow=table.addRow();
+            console.log("RowCount",rowCount);
+        };
+
+
+        //Delete row on "Delete Row" button click
+        $("#del-row").click(function(){
+            $("#example-table").tabulator("deleteRow", 1);
+        });
 
 
 
