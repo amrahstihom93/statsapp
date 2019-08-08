@@ -4018,7 +4018,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 console.log("temData2 with line",tflat)
                 console.log("tflat obj", tflatobj)
                 console.log("ttflat ", ttflat)
-                console.log("labels", datset.data)
 
             },
             //Add row on "Add Row" button click
@@ -4031,6 +4030,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             var rowCount = table.getDataCount();
 
             var addRow=table.addRow();
+            console.log("RowCount",rowCount);
+        };
+        $scope.delRow=function(event){
+            var rowCount = table.getDataCount();
+
+            var addRow=table.deleteRow();
             console.log("RowCount",rowCount);
         };
 
