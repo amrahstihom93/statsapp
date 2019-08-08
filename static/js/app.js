@@ -3962,19 +3962,21 @@ module.controller("visualizationCtrl", function ($scope, $http) {
          var obj={};
          headerData.map(data=>{
              obj[data]=null;
+             // obj.id=null;
          });
         for (let i =0; i<tabledatar.length-1;i++){
             solData[i] = JSON.parse(JSON.stringify(obj));
-            console.log(typeof(solData[i]))
+            console.log(solData[i])
         }
         var tempData = tabledatar.slice(1);
         let tabledata=[];
 
         console.log("Temp Data",tempData);
-        if (obj === 'null') { return null;}
+        // if (obj === 'null') { return null;}
         tempData.map((data, index)=>{
             Object.keys(solData[index]).forEach((key,i)=>{
                 solData[index][key]=data[i];
+
                 console.log(data[i],'index-->', index, 'key-->', key);
             })
             console.log("Data New",solData[index]);
@@ -4010,7 +4012,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 let tflat=tempData2.flat();
                 tflat=tflat.join();
                 console.log(typeof(tflat))
-                ttflat=tflat.split(/((?:\w+ ){5})/g).filter(Boolean).join("\n");
                 let tflatobj = {i:tflat}
                 console.log("tempDAta2",tempData2)
                 console.log("tempData2flat", tempData2.flat())
@@ -4032,12 +4033,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             var addRow=table.addRow();
             console.log("RowCount",rowCount);
         };
-        $scope.delRow=function(event){
-            var rowCount = table.getDataCount();
-
-            var addRow=table.deleteRow();
-            console.log("RowCount",rowCount);
-        };
+        
 
 
         //Delete row on "Delete Row" button click
