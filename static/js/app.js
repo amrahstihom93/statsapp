@@ -1544,24 +1544,30 @@ module.controller("RouteController2", function ($scope,$http) {
 
     }
 });
-
+let xdata;
+let ydata;
+let xData;
+let yData;
+let xLabel;
+let yLabel;
+let defaultData;
+let graphData;
 module.controller("visualizationListCtrl", function ($scope, $http) {
     $scope.visualizationArr = [];
     $scope.visualName = '';
-    let xLabel = "";
-    let yLabel = "";
+    xLabel = "";
+    yLabel = "";
     let vurl = '/getVisualization/';
-    let ydata = [];
-    let xdata = [];
+    ydata = [];
+    xdata = [];
     let gType = '';
     let color ='';
     let graphtitle='';
     let grphtitle='';
     let datasetName = '';
-    let xData = [];
-    let yData = [];
+    xData = [];
+    yData = [];
     let currChartid = '';
-    let defaultData;
     console.log(currChartid);
     $http.get(vurl)
         .then(function (response) {
@@ -2138,7 +2144,7 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
     $scope.updateVisualization = function () {
         console.log("graph data x", xData);
         console.log("graph data y", yData);
-        let graphData = {
+        graphData = {
             "xLabel": xLabel,
             "yLabel": yLabel,
             "labels": xData,
@@ -3854,7 +3860,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity
         }).success(function (data, status, headers, config) {
-            console.log("graph data :", data);
+            console.log("graph data 1 :", data);
             labels = data.labels
             defaultData = data.defaultData;
             setChart();
@@ -3877,7 +3883,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         datset=dataset;
 
         console.log("datasetName", dataset);
-        console.log("datasetdata",typeof(dataset.data))
+        console.log("datasetdata",datset.data)
         selDatasetId = dataset.dataset_id;
         console.log("adsetid", selDatasetId);
         $scope.selectedDataset = dataset.dataset_name;
@@ -3918,7 +3924,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         });
 
     }
-
+    let tempData2;
     $scope.setGraphType = function (type) {
 
         graphType = type;
@@ -4000,7 +4006,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 console.log("data",data);
 
                 var obn =data;
-                var tempData2=[];
+                tempData2=[];
                 let data2=[];
                 console.log(Object.keys(obn[1]))
                 tempData2.push(Object.keys(obn[0]));
@@ -4010,15 +4016,28 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                     tempData2.push(Object.values(data[i]));
                 }
                 let tflat=tempData2.flat();
-                tflat=tflat.join();
+                tflat=tflat.join("\n");
                 console.log(typeof(tflat))
                 let tflatobj = {i:tflat}
                 console.log("tempDAta2",tempData2)
                 console.log("tempData2flat", tempData2.flat())
-                console.log("tempData2joined", tempData2.join())
-                console.log("temData2 with line",tflat)
-                console.log("tflat obj", tflatobj)
-                console.log("ttflat ", ttflat)
+                console.log("tempData2next",tempData2.join("\n"))
+                console.log("dataset",datset)
+                console.log(xLabel)
+                val = document.getElementById('x_value').value;
+                console.log("val",val)
+                v=val;
+                xLabel=v;
+                console.log("xLabel",xLabel);
+                val = document.getElementById('y_value').value;
+                v= val;
+                yLabel = v;
+                console.log("yLabel",yLabel);
+
+                console.log("graphType",graphType)
+                // datset.data=tempData2.join("\n");
+                // console.log("dataset",datset)
+
 
             },
             //Add row on "Add Row" button click
@@ -4029,11 +4048,27 @@ module.controller("visualizationCtrl", function ($scope, $http) {
         });
         $scope.addRow=function(event){
             var rowCount = table.getDataCount();
-
-            var addRow=table.addRow();
             console.log("RowCount",rowCount);
+            // var addRow=table.addRow();
+            var column = table.getData();
+            console.log(column);
+
+            var labels=[];
+            var defaultData=[];
+            column.forEach(function(obj){
+                labels.push(obj[xLabel]);
+            })
+            console.log("labels",labels)
+
+            column.forEach(function(obj){
+                defaultData.push(obj[yLabel]);
+            })
+            console.log("defaultData", defaultData);
+            
+            data = {labels:labels,defaultData:defaultData};
+            console.log("graph data 2: ",data)
         };
-        
+
 
 
         //Delete row on "Delete Row" button click

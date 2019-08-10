@@ -173,6 +173,7 @@ def getGraphData(request):
         "labels": labels,
         "defaultData": default_items,
     }
+    print(data)
     return JsonResponse(data)
 
 
