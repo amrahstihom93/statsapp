@@ -2312,6 +2312,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     }
 
 
+    
     function setChart() {
         //   var ctx = document.getElementById("myChart");
 
@@ -2630,6 +2631,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             }
 
         }
+
+
         else if (graphType == "controlchart"){
           var ctx2 = document.getElementById("myChart2");
           console.log("ctx2$$$$",ctx2);
@@ -2754,6 +2757,9 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
           Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
+        }
+        else if(graphType=="controlchartnp"){
+
         }
         else if (graphType =="horizontalBar"){
             graphType = "horizontalBar";
@@ -4022,8 +4028,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 console.log("tempDAta2",tempData2)
                 console.log("tempData2flat", tempData2.flat())
                 console.log("tempData2next",tempData2.join("\n"))
-                console.log("dataset",datset)
-                console.log(xLabel)
+                console.log("dataset",datset.data)
                 val = document.getElementById('x_value').value;
                 console.log("val",val)
                 v=val;
@@ -4064,7 +4069,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 defaultData.push(obj[yLabel]);
             })
             console.log("defaultData", defaultData);
-            
+
             data = {labels:labels,defaultData:defaultData};
             console.log("graph data 2: ",data)
         };
@@ -4764,7 +4769,9 @@ module.controller("createNewDataset", function ($scope, $http) {
         for (var v = 0; v < columnCount; v++) {
             if (changedHeaderName[v] != "") {
                 headerArr[v] = changedHeaderName[v];
+                console.log(headerArr[v])
             }
+
         }
 
         console.log("head array is", headerArr);
