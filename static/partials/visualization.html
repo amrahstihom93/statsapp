@@ -296,7 +296,9 @@
           <div class="col-sm-4  table table-striped my-4 ">
             <label class="category">Control Chart Type</label>
           </div>
-          <div class="col-sm table table-striped my-4 dropdown pull-right">
+          <div class="col-sm table table-striped my-4 btn-group">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#wiz" ><i class="fa fa-magic"></i></button>
+            <div class="dropdown  btn-group">
             <button id="graphset"class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" value=grs>graphType
             </button>
             <ul class="dropdown-menu scrollable-menu">
@@ -308,9 +310,60 @@
               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('xbarRcontrol')">Xbar-R Control Chart</a></li>
               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('IMRcontrol')">XI/MR Control Chart</a></li>
             </ul>
+            </div>
           </div>
-         </div>
 
+         </div>
+          <div name="chart-selector"class="modal fade" id="wiz">
+             <div class="modal-dialog model-lg">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h4 class="modal-title">Control Chart Wizard</h4>
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+                     <div class="modal-body">
+                         <form id="controlChartForm">
+                             <div class="container">
+                                 <h4>Is Data Variable or Attribute?</h4>
+                                 <div class="form-check form-check-radio form-check-inline">
+                                     <label class="form-check-label">
+                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="variable" value="variable"> Variable/Continuous
+                                         <span class="form-check-sign"></span>
+                                     </label>
+                                 </div>
+                                 <div class="form-check form-check-radio form-check-inline">
+                                     <label class="form-check-label">
+                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="attribute" value="attribute"> Attribute/Discrete
+                                         <span class="form-check-sign"></span>
+                                     </label>
+                                 </div>
+
+                             </div>
+                             <div ng-hide="subgrouping"class="container">
+                                 <h4>Is Rational Subgrouping Possible?</h4>
+                                 <div class="form-check form-check-radio form-check-inline">
+                                     <label class="form-check-label">
+                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="subgroupingYes"> Yes
+                                         <span class="form-check-sign"></span>
+                                     </label>
+                                 </div>
+                                 <div class="form-check form-check-radio form-check-inline">
+                                     <label class="form-check-label">
+                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="subgroupingNo"> No
+                                         <span class="form-check-sign"></span>
+                                     </label>
+                                 </div>
+
+                             </div>
+                         </form>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                     </div>
+
+                 </div>
+             </div>
+         </div>
            <div class="row ml-auto border border-top-0">
              <div class="col-sm-4 table table-striped my-4">
                <label class="category" for="visuaName">Name Visualization</label>
