@@ -2312,7 +2312,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     }
 
 
-    
+
     function setChart() {
         //   var ctx = document.getElementById("myChart");
 
@@ -2634,6 +2634,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
         else if (graphType == "controlchart"){
+            let ctrlgrphtype;
+            ctrlgrphtype=graphType;
+            if(ctrlgrphtype=="npControl"){
+                console.log(ctrlgrphtype,"ctrltype npcahrt")
+
+            }
           var ctx2 = document.getElementById("myChart2");
           console.log("ctx2$$$$",ctx2);
           console.log("%%DEFAULTDATA%%",defaultData );
@@ -3934,6 +3940,10 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     $scope.setGraphType = function (type) {
 
         graphType = type;
+        if(graphType=="controlchart"){
+            ctrlgrphtype =type;
+            console.log("CTRLGRPH",ctrlgrphtype);
+        }
         let gsel=document.getElementById("graphset").innerHTML = type;
 
         let tabledatar=[];
