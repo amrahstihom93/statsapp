@@ -2256,6 +2256,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let defaultData = [];
     let labels = [];
     let graphType = '';
+    let ctrlchartType='';
     let selDatasetId = '';
     let xLabel="";
     let yLabel="";
@@ -2312,14 +2313,14 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     }
 
 
-    
+
     function setChart() {
         //   var ctx = document.getElementById("myChart");
 
         let i = 0;
         var ctx2 = document.getElementById("myChart2");
         var ctx3 = document.getElementById("area").value;
-        console.log("$$",graphType);
+        console.log("$$",graphType,"and",ctrlchartType);
 
         $scope.jsc=function(){
             console.log("controllingjsc");
@@ -2634,129 +2635,362 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
         else if (graphType == "controlchart"){
-          var ctx2 = document.getElementById("myChart2");
-          console.log("ctx2$$$$",ctx2);
-          console.log("%%DEFAULTDATA%%",defaultData );
-          console.log("%%XLABEL%%",xLabel);
+          console.log("CTRLCHRTTYPE",ctrlchartType)
+          if(ctrlchartType=="npControl"){
+            var ctx2 = document.getElementById("myChart2");
+            console.log("ctx2$$$$",ctx2);
+            console.log("%%DEFAULTDATA%%",defaultData );
+            console.log("%%XLABEL%%",xLabel);
 
-          console.log(defaultData);
-          var y = defaultData.map(Number);
-          var x = labels.map(Number);
-          console.log(y);
-          function getSum(total, num) {
-            return total + num;
-          }
-          var xSum = x.reduce(getSum);
-          console.log(xSum);
-          var ySum = y.reduce(getSum);
-          console.log(ySum);
-          var ySlice = y.slice(0,15);
-          console.log(ySlice);
-          var xSlice = x.slice(0,15);
-          console.log(xSlice);
-
-          var pvalue = xSum/ySum;
-          console.log(pvalue);
-          var nvalue = (ySum/(y.length));
-          console.log(nvalue);
-          var qvalue  = 1-pvalue;
-          console.log(qvalue);
-
-          var ucl = pvalue + 3*(Math.sqrt((pvalue*qvalue)/nvalue));
-          console.log("UCL",ucl);
-          var lcl = pvalue - 3*(Math.sqrt((pvalue*qvalue)/nvalue));
-          console.log("LCL",lcl);
-
-          var propArr = [];
-          for(i = 0; i<x.length;i++){
-            propArr.push(x[i]/y[i]);
-          }
-          console.log("propotion",propArr);
-
-          var timeArr = [];
-          for( i=0; i<(x.length); i++){
-            var countg = i+1;
-            timeArr.push(countg);
-          }
-          console.log("Time",timeArr);
-
-          var lclArr = [];
-          for (i =0;i<(timeArr.length);i++){
-            lclArr.push(lcl);
-          }
-          console.log(lclArr);
-
-          var uclArr = [];
-          for (i =0;i<(timeArr.length);i++){
-            uclArr.push(ucl);
-          }
-          console.log(uclArr);
-
-          var pArr = [];
-          for (i =0;i<(timeArr.length);i++){
-            pArr.push(pvalue);
-          }
-          console.log(pArr);
-
-          var data ={
-            type: 'scatter',
-            x: timeArr,
-            y: propArr,
-            mode: 'lines+markers',
-            name: 'Data',
-            showlegend: true,
-            hoverinfo: 'all',
-            line:{
-              color: 'blue',
-              width: 2
-            },
-            marker:{
-              color: 'blue',
-              size: 8,
-              symbol: 'circle'
+            console.log(defaultData);
+            var y = defaultData.map(Number);
+            var x = labels.map(Number);
+            console.log(y);
+            function getSum(total, num) {
+              return total + num;
             }
-          }
-          var lcl = {
-            type: 'scatter',
-            x: timeArr,
-            y: lclArr,
-            mode: 'lines',
-            name: 'LCL',
-            showlegend: true,
-            line: {
-              color: 'red',
-              width: 2,
-              dash: 'dash'
+            var xSum = x.reduce(getSum);
+            console.log(xSum);
+            var ySum = y.reduce(getSum);
+            console.log(ySum);
+            var ySlice = y.slice(0,15);
+            console.log(ySlice);
+            var xSlice = x.slice(0,15);
+            console.log(xSlice);
+
+            var pvalue = xSum/ySum;
+            console.log(pvalue);
+            var nvalue = (ySum/(y.length));
+            console.log(nvalue);
+            var qvalue  = 1-pvalue;
+            console.log(qvalue);
+
+            var ucl = pvalue + 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+            console.log("UCL",ucl);
+            var lcl = pvalue - 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+            console.log("LCL",lcl);
+
+            var propArr = [];
+            for(i = 0; i<x.length;i++){
+              propArr.push(x[i]/y[i]);
             }
-          }
-          var ucl = {
-            type: 'scatter',
-            x: timeArr,
-            y: uclArr,
-            mode: 'lines',
-            name: 'UCL',
-            showlegend: true,
-            line: {
-              color: 'red',
-              width: 2,
-              dash: 'dash'
+            console.log("propotion",propArr);
+
+            var timeArr = [];
+            for( i=0; i<(x.length); i++){
+              var countg = i+1;
+              timeArr.push(countg);
             }
-          }
-          var centre = {
-            type: 'scatter',
-            x: timeArr,
-            y: pArr,
-            mode: 'lines',
-            name: 'Centre',
-            showlegend: true,
-            line: {
-              color: 'grey',
-              width: 2
+            console.log("Time",timeArr);
+
+            var lclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              lclArr.push(lcl);
             }
+            console.log(lclArr);
+
+            var uclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              uclArr.push(ucl);
+            }
+            console.log(uclArr);
+
+            var pArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              pArr.push(pvalue);
+            }
+            console.log(pArr);
+
+            var data ={
+              type: 'scatter',
+              x: timeArr,
+              y: propArr,
+              mode: 'lines+markers',
+              name: 'Data',
+              showlegend: true,
+              hoverinfo: 'all',
+              line:{
+                color: 'blue',
+                width: 2
+              },
+              marker:{
+                color: 'blue',
+                size: 8,
+                symbol: 'circle'
+              }
+            }
+            var lcl = {
+              type: 'scatter',
+              x: timeArr,
+              y: lclArr,
+              mode: 'lines',
+              name: 'LCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var ucl = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclArr,
+              mode: 'lines',
+              name: 'UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var centre = {
+              type: 'scatter',
+              x: timeArr,
+              y: pArr,
+              mode: 'lines',
+              name: 'Centre',
+              showlegend: true,
+              line: {
+                color: 'grey',
+                width: 2
+              }
+            }
+            console.log("this is p chart")
+            Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
+          }
+          else if(ctrlchartType=="pControl"){
+            var y = defaultData.map(Number);
+            var x = labels.map(Number);
+            console.log("defectscol",x);
+            console.log("samplecol",y);
+            function getSum(total, num) {
+              return total + num;
+            }
+            var xSum = x.reduce(getSum);
+            console.log("defsum",xSum);
+            var ySum = y.reduce(getSum);
+            console.log("propsum",ySum);
+            var ySlice = y.slice(0,15);
+            console.log("ySlice",ySlice);
+            var xSlice = x.slice(0,15);
+            console.log("xSlice",xSlice);
+            var pvalue = xSum/ySum;
+            console.log(pvalue);
+            var nvalue = (ySum/(y.length));
+            console.log(nvalue);
+            var qvalue  = 1-pvalue;
+            console.log(qvalue);
+
+            var ucl = pvalue + 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+            console.log("UCL",ucl);
+            var lcl = pvalue - 3*(Math.sqrt((pvalue*qvalue)/nvalue));
+            console.log("LCL",lcl);
+
+            var propArr = [];
+            for(i = 0; i<x.length;i++){
+              propArr.push(x[i]/y[i]);
+            }
+            console.log("propotion",propArr);
+
+            var timeArr = [];
+            for( i=0; i<(x.length); i++){
+              var countg = i+1;
+              timeArr.push(countg);
+            }
+            console.log("Time",timeArr);
+
+            var lclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              lclArr.push(lcl);
+            }
+            console.log(lclArr);
+
+            var uclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              uclArr.push(ucl);
+            }
+            console.log(uclArr);
+
+            var pArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              pArr.push(pvalue);
+            }
+            console.log(pArr);
+
+            var data ={
+              type: 'scatter',
+              x: timeArr,
+              y: propArr,
+              mode: 'lines+markers',
+              name: 'Data',
+              showlegend: true,
+              hoverinfo: 'all',
+              line:{
+                color: 'blue',
+                width: 2
+              },
+              marker:{
+                color: 'blue',
+                size: 8,
+                symbol: 'circle'
+              }
+            }
+            var lcl = {
+              type: 'scatter',
+              x: timeArr,
+              y: lclArr,
+              mode: 'lines',
+              name: 'LCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var ucl = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclArr,
+              mode: 'lines',
+              name: 'UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var centre = {
+              type: 'scatter',
+              x: timeArr,
+              y: pArr,
+              mode: 'lines',
+              name: 'Centre',
+              showlegend: true,
+              line: {
+                color: 'grey',
+                width: 2
+              }
+            }
+            console.log("this is p chart")
+            Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
+          }
+          else if(ctrlchartType=="cControl"){
+            var y = defaultData.map(Number);
+            console.log("data",y);
+            function getSum(total, num) {
+              return total + num;
+            }
+            var ySum = y.reduce(getSum);
+            console.log("ySum",ySum);
+            var ySlice = y.slice(0,15);
+            console.log("slicedData",ySlice);
+
+            var cvalue =(ySum/(y.length));
+            console.log("cvalue",cvalue);
+
+            var ucl= cvalue+3*(Math.sqrt(cvalue));
+            console.log("UCL",ucl);
+            var lcl= cvalue-3*(Math.sqrt(cvalue));
+            console.log("LCL",lcl);
+            lcl = lcl < 0 ? 0 : lcl;
+            console.log("LCL",lcl);
+
+            var timeArr = [];
+            for( i=0; i<(y.length); i++){
+              var countg = i+1;
+              timeArr.push(countg);
+            }
+            console.log("Time",timeArr);
+
+            var lclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              lclArr.push(lcl);
+            }
+            console.log("LCLARR",lclArr);
+
+            var uclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              uclArr.push(ucl);
+            }
+            console.log("UCLARR",uclArr);
+
+            var clArr=[];
+            for (i =0;i<(timeArr.length);i++){
+              clArr.push(cvalue);
+            }
+            console.log("CLARR",clArr);
+
+            var data ={
+              type: 'scatter',
+              x: timeArr,
+              y: y,
+              mode: 'lines+markers',
+              name: 'Data',
+              showlegend: true,
+              hoverinfo: 'all',
+              line:{
+                color: 'blue',
+                width: 2
+              },
+              marker:{
+                color: 'blue',
+                size: 8,
+                symbol: 'circle'
+              }
+            }
+            var lcl = {
+              type: 'scatter',
+              x: timeArr,
+              y: lclArr,
+              mode: 'lines',
+              name: 'LCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var ucl = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclArr,
+              mode: 'lines',
+              name: 'UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var centre = {
+              type: 'scatter',
+              x: timeArr,
+              y: clArr,
+              mode: 'lines',
+              name: 'Centre',
+              showlegend: true,
+              line: {
+                color: 'grey',
+                width: 2
+              }
+            }
+            console.log("this is p chart")
+            Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
+
+          }
+          else{
+            console.log("about to come soon")
           }
 
 
-          Plotly.newPlot(myChart2, [data,lcl,ucl,centre]);
+
+
         }
         else if(graphType=="controlchartnp"){
 
@@ -3934,8 +4168,25 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     $scope.setGraphType = function (type) {
 
         graphType = type;
+        if(graphType=="controlchart"){
+          $scope.ctrlchrtType=function(cctype){
+            ctrlchartType=cctype;
+            console.log("controlcharttype",cctype);
+            if(ctrlchartType=="npControl"){
+              console.log("it worked")
+            }
+            if(ctrlchartType=="pControl"){
+              console.log("it worked")
+            }
+            else if(ctrlchartType=="cControl"){
+              console.log("it worked")
+            }
+            else{
+              console.log("not working")
+            }
+          }
+        }
         let gsel=document.getElementById("graphset").innerHTML = type;
-
         let tabledatar=[];
         let coltab;
         let coltabar=[];
