@@ -2992,9 +2992,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
         }
-        else if(graphType=="controlchartnp"){
 
-        }
         else if (graphType =="horizontalBar"){
             graphType = "horizontalBar";
             var ctx2 = document.getElementById("myChart2");
@@ -4169,6 +4167,17 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
         graphType = type;
         if(graphType=="controlchart"){
+            $scope.variable=true;
+          $('input:radio[name=inlineRadioOptions]').change(function() {
+              if (this.value == 'variable') {
+                  $scope.variable=false;
+                  console.log("variableshow",$scope.variable)
+              }
+              else if (this.value == 'attribute') {
+                  $scope.variable=true;
+                  console.log("variablehide",$scope.variable)
+              }
+          });
           $scope.ctrlchrtType=function(cctype){
             ctrlchartType=cctype;
             console.log("controlcharttype",cctype);
