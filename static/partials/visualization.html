@@ -221,7 +221,7 @@
           <div class="col-sm table table-striped my-4 ">
             <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#wiz" ><i class="fa fa-magic"></i></button> -->
             <div class="dropdown">
-            <button id="ctrlgraphset"class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" value=ctrlchartType>ctrlchartType
+            <button id="ctrlgraphset"class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" value=ctrlchartType>cctype
             </button>
             <ul class="dropdown-menu scrollable-menu">
               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('pControl')">p-Control Chart</a></li>
@@ -230,7 +230,8 @@
               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('cControl')">c-Control Chart</a></li>
               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('xbarScontrol')">Xbar-S Control Chart</a></li>
               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('xbarRcontrol')">Xbar-R Control Chart</a></li>
-              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('IMRcontrol')">XI/MR Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('iControl')">I Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('mrControl')">MR Control Chart</a></li>
             </ul>
             </div>
           </div>
@@ -351,7 +352,7 @@
                <div ng-hide="ctrlChart" class=" container w-100">
                 <div class="row ">
                   <div class="col-sm-4  table table-striped my-4 ">
-                    <label class="category">Select Dependent Value</label>
+                    <label class="category">Select Defects</label>
                   </div>
                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                     <select id="dependent_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
@@ -364,7 +365,7 @@
 
                 <div class="row ">
                   <div class="col-sm-4   table table-striped my-4 ">
-                    <label class="category">Select Sample Size</label>
+                    <label class="category">Select Sample</label>
                   </div>
                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                     <select id="independent_value" name="y_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
