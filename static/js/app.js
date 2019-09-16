@@ -2248,6 +2248,7 @@ module.controller("datasetListCtrl", function ($scope, $http) {
 
 module.controller("visualizationCtrl", function ($scope, $http) {
     $scope.test = "This is working visualizationCtrl";
+    $scope.BarChart= true;
     $scope.datasetArr = [];
     $scope.showGraph = false;
     $scope.showGraphList = false;
@@ -2264,6 +2265,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let graphtitle='';
     let xtitle='';
     let ytitle='';
+
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
     $scope.chooseDataset = function (dataset) {
@@ -3042,6 +3044,178 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           else if(ctrlchartType=="uControl"){
             var y = defaultData.map(Number);
             var x = labels.map(Number);
+            console.log("data",y);
+            function getSum(total, num) {
+              return total + num;
+            }
+            var ySum = y.reduce(getSum);
+            console.log("ySum",ySum);
+            var ySlice = y.slice(0,15);
+            console.log("slicedData",ySlice);
+            var xSum = x.reduce(getSum);
+            console.log("xSum",xSum);
+            var xSlice = x.slice(0,15);
+            console.log("slicedData",xSlice);
+
+
+            var propArr = [];
+            for(i = 0; i<x.length;i++){
+              propArr.push(x[i]/y[i]);
+            }
+            console.log("Proportional",propArr)
+
+            var nvalue =(ySum/(y.length));
+            console.log("nvalue",nvalue);
+            var uvalue = xSum/ySum;
+            console.log("uvalue",uvalue);
+            var ucl= uvalue+3*(Math.sqrt(uvalue/nvalue));
+            console.log("UCL",ucl);
+            var lcl= uvalue-3*(Math.sqrt(uvalue/nvalue));
+            console.log("LCL",lcl);
+            lcl = lcl < 0 ? 0 : lcl;
+            console.log("LCL",lcl);
+            var indexAr =[];
+            var newEleAr = [];
+            function logArrayElements(element, index, array) {
+              if(element>ucl||element<lcl){
+                index++;
+                console.log("a[" + index + "] = " + element);
+                newEleAr.push(element)
+                indexAr.push(index)
+              }
+            }
+            propArr.forEach(logArrayElements)
+            console.log("INDEX ",indexAr,"Value " ,newEleAr);
+            var timeArr = [];
+            for( i=0; i<(y.length); i++){
+              var countg = i+1;
+              timeArr.push(countg);
+            }
+            console.log("Time",timeArr);
+
+            var lclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              lclArr.push(lcl);
+            }
+            console.log("LCLARR",lclArr);
+
+            var uclArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              uclArr.push(ucl);
+            }
+            console.log("UCLARR",uclArr);
+
+            var clArr=[];
+            for (i =0;i<(timeArr.length);i++){
+              clArr.push(uvalue);
+            }
+            console.log("CLARR",clArr);
+
+            var data ={
+              type: 'scatter',
+              x: timeArr,
+              y: propArr,
+              mode: 'lines+markers',
+              name: 'Data',
+              showlegend: true,
+              hoverinfo: 'all',
+              line:{
+                color: 'blue',
+                width: 2
+              },
+              marker:{
+                color: 'blue',
+                size: 8,
+                symbol: 'circle'
+              }
+            }
+            var lcl = {
+              type: 'scatter',
+              x: timeArr,
+              y: lclArr,
+              mode: 'lines',
+              name: 'LCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var ucl = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclArr,
+              mode: 'lines',
+              name: 'UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var viol = {
+              type: 'scatter',
+              x: indexAr,
+              y: newEleAr,
+              mode: 'markers',
+              name: 'Violation',
+              showlegend: true,
+              marker: {
+                color: 'red',
+                line: {width: 3},
+                opacity: 1,
+                size: 12,
+                symbol: 'circle-open'
+              }
+            }
+            var centre = {
+              type: 'scatter',
+              x: timeArr,
+              y: clArr,
+              mode: 'lines',
+              name: 'Centre',
+              showlegend: true,
+              line: {
+                color: 'grey',
+                width: 2
+              }
+            }
+            console.log("this is p chart")
+            Plotly.newPlot(myChart2, [data,lcl,viol,ucl,centre]);
+
+          }
+          else if(ctrlchartType=="xbarRcontrol"){
+              function range(start, end, step = 1) {
+
+                const allNumbers = [start, end, step].every(Number.isFinite);
+
+                if (!allNumbers) {
+                  throw new TypeError('range() expects only finite numbers as arguments.');
+                }
+
+                if (step <= 0) {
+                  throw new Error('step must be a number greater than 0.');
+                }
+
+                if (start > end) {
+                  step = -step;
+                }
+
+                const length = Math.floor(Math.abs((end - start) / step)) + 1;
+
+                return Array.from(Array(length), (x, index) => start + index * step);
+
+            }
+
+            var y = defaultData.map(Number);
+            var chartrange = y;
+            console.log("range",chartrange)
+            var x = labels.map(Number);
+            var xbar = x;
+            console.log("xbar", xbar)
+            console.log("Subgroup Array",range(1,y.length,1))
             console.log("data",y);
             function getSum(total, num) {
               return total + num;
@@ -4382,16 +4556,25 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             ctrlchartType=cctype;
             document.getElementById("ctrlgraphset").innerHTML = cctype;
             console.log("controlcharttype",cctype);
+            $scope.BarChart= true;
             if(ctrlchartType=="npControl"){
+                 $scope.BarChart = true;
               console.log("it worked")
             }
             if(ctrlchartType=="pControl"){
+                 $scope.BarChart = true;
               console.log("it worked")
             }
             else if(ctrlchartType=="cControl"){
+                 $scope.BarChart = true;
               console.log("it worked")
             }
             else if(ctrlchartType=="uControl"){
+                 $scope.BarChart = true;
+              console.log("it worked")
+            }
+            else if(ctrlchartType=="xbarRcontrol"){
+              $scope.BarChart = false;
               console.log("it worked")
             }
             else{
