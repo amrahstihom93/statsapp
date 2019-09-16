@@ -2248,6 +2248,7 @@ module.controller("datasetListCtrl", function ($scope, $http) {
 
 module.controller("visualizationCtrl", function ($scope, $http) {
     $scope.test = "This is working visualizationCtrl";
+    $scope.BarChart= true;
     $scope.datasetArr = [];
     $scope.showGraph = false;
     $scope.showGraphList = false;
@@ -2264,6 +2265,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let graphtitle='';
     let xtitle='';
     let ytitle='';
+
     $scope.names = ["Emil", "Tobias", "Linus"];
     let url = '/getDataset/'
     $scope.chooseDataset = function (dataset) {
@@ -4393,16 +4395,25 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             ctrlchartType=cctype;
             document.getElementById("ctrlgraphset").innerHTML = cctype;
             console.log("controlcharttype",cctype);
+            $scope.BarChart= true;
             if(ctrlchartType=="npControl"){
+                 $scope.BarChart = true;
               console.log("it worked")
             }
             if(ctrlchartType=="pControl"){
+                 $scope.BarChart = true;
               console.log("it worked")
             }
             else if(ctrlchartType=="cControl"){
+                 $scope.BarChart = true;
               console.log("it worked")
             }
             else if(ctrlchartType=="uControl"){
+                 $scope.BarChart = true;
+              console.log("it worked")
+            }
+            else if(ctrlchartType=="xbarRcontrol"){
+              $scope.BarChart = false;
               console.log("it worked")
             }
             else{

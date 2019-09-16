@@ -89,7 +89,11 @@ urlpatterns = [
     url(r'^mlist/$', ml_views.mlist, name="mlist"),
 
     url(r'^processmap/$', processmap_views.processmap, name="processmap"),
+    url(r'^open/$', processmap_views.processmapopen, name="processmap"),
+    url(r'^save/$', processmap_views.processmapsave, name="save"),
     url(r'^qualityTools/$', qualitytools_views.qtools, name="qualitytools"),
+
+    
 
 
 ]
