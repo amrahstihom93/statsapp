@@ -3184,6 +3184,17 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             Plotly.newPlot(myChart2, [data,lcl,viol,ucl,centre]);
 
           }
+          else if(ctrlchartType=="xbarRcontrol"){
+            let url = '/getSubgroup/'
+            $http.get(url)
+                .then(function (response) {
+                    //First function handles success
+                    console.log("RESPONSE", response)
+                }, function (response) {
+                    //Second function handles error
+                    console.log("Something went wrong");
+                });
+          }
           else{
             console.log("about to come soon")
           }

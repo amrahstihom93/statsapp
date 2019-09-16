@@ -56,6 +56,7 @@ urlpatterns = [
 	url(r'^getDataset/$', chart_views.getDataset, name='getDataset'),
 	url(r'^getGraphFields/$', chart_views.getGraphFields, name='getGraphFields'),
 	url(r'^getGraphData/$', chart_views.getGraphData, name='getGraphData'),
+    url(r'^getSubgroup/$', chart_views.getSubgroup, name='getSubgroup'),
 	url(r'^makeProcess/$', process_views.makeProcess, name='makeProcess'),
 	url(r'^getProcess/$', process_views.getProcess, name='getProcess'),
 	url(r'^getProcessList/$', process_views.getProcessList, name='getProcessList'),

@@ -1,4 +1,7 @@
 import pymongo
+import pandas as pd
+
+import numpy as np
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from pymongo import MongoClient
@@ -249,3 +252,22 @@ def editVisualisation(request):
     except:
         msg = 'something went wrong while updating'
         return HttpResponse(msg)
+def getSubgroup(request):
+    json_data={}
+    print('inside getSubgroup')
+
+
+    arrr=np.arange(2,25)
+    print (arrr)
+    data = {'Subgroup': [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
+        'A2': [1.880,1.023,0.729,0.577,0.483,0.419,0.373,0.337,0.308,0.285,0.266,0.249,0.235,0.223,0.212,0.203,0.194,0.187,0.180,0.173,0.167,0.162,0.157,0.153],
+        'd2': [1.128,1.693,2.059,2.326,2.534,2.704,2.847,2.970,3.078,3.173,3.258,3.336,3.407,3.472,3.532,3.588,3.640,3.689,3.735,3.778,3.819,3.858,3.895,3.931],
+        'D3': [0.000,0.000,0.000,0.000,0.000,0.076,0.136,0.184,0.223,0.256,0.283,0.307,0.328,0.347,0.363,0.378,0.391,0.403,0.415,0.425,0.434,0.443,0.451,0.459],
+        'D4': [3.268,2.574,2.282,2.114,2.004,1.924,1.864,1.816,1.777,1.744,1.717,1.693,1.672,1.653,1.637,1.622,1.608,1.597,1.585,1.575,1.566,1.557,1.548,1.541]
+        }
+
+    df = pd.DataFrame(data, columns= ['Subgroup', 'A2','d2', 'D3', 'D4'])
+    print(df)
+    df=df.to_json(orient='split')
+    print(df)
+    return JsonResponse(df, safe=False)
