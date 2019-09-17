@@ -3188,6 +3188,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           }
           else if(ctrlchartType=="xbarRcontrol"){
             // let url = '/getSubgroup/'
+            console.log(myChart2)
             let subVal=document.getElementById("subgroups_value").value;
             let A2,D3,D4;
             if(subVal==2){
@@ -3254,63 +3255,21 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
 
-            var xbarValue=(xbarSum/(xbar.length));
-            console.log("xbarValue",xbarValue);
-            console.log(subVal)
-            xdbarValue = (xbarValue/subVal);
-            console.log("xdbarValue",xdbarValue);
-            var rbarValue=(rangeSum/subVal);
-            console.log("rbarValue",rbarValue);
-            var multiA2val=A2*rbarValue
-            var uclx  =xdbarValue+multiA2val;
-            console.log("UCLx",uclx);
-            var lclx  =xdbarValue-multiA2val;
-            console.log("LCLx",lclx);
+            var xbarValue =  (xbarSum/xbar.length);
+            console.log("xbar Value ",xbarValue);
+            var rbarValue = (rangeSum/range.length);
+            console.log("rbar Value",rbarValue);
+
             var timeArr = [];
             for( i=0; i<(range.length); i++){
               var countg = i+1;
               timeArr.push(countg);
             }
             console.log("Time",timeArr);
-            var clArr=[];
-            for (i =0;i<(timeArr.length);i++){
-              clArr.push(xdbarValue);
-            }
-            console.log("CLARR",clArr);
-            xMax=Math.max(...xbar)
-            console.log("xMax",xMax)
-            xMin=Math.min(...xbar)
-            console.log("xMin",xMin)
 
-            var rangeVal = xMax-xMin;
-
-            lclr=D3*rbarValue;
-            uclr=D4*rbarValue;
-
-            var propArr = [];
-            for(i = 0; i<xbar.length;i++){
-              propArr.push(xbar[i]);
-            }
-
-            var indexAr =[];
-            var newEleAr = [];
-            function logArrayElements(element, index, array) {
-              if(element>uclx||element<lclx){
-                index++;
-                console.log("a[" + index + "] = " + element);
-                newEleAr.push(element)
-                indexAr.push(index)
-              }
-            }
-            propArr.forEach(logArrayElements)
-            console.log("INDEX ",indexAr,"Value " ,newEleAr);
-
-
+            var uclx  =xbarValue+(A2*rbarValue);
+            console.log("UCLx",uclx);
             var lclxArr = [];
-            for (i =0;i<(timeArr.length);i++){
-              lclxArr.push(lclx);
-            }
-            console.log("LCLxARR",lclxArr);
 
             var uclxArr = [];
             for (i =0;i<(timeArr.length);i++){
@@ -3318,30 +3277,92 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             }
             console.log("UCLxARR",uclxArr);
 
+            var lclx  =xbarValue-(A2*rbarValue);
+            console.log("LCLx",lclx);
+            for (i =0;i<(timeArr.length);i++){
+              lclxArr.push(lclx);
+            }
+            console.log("LCLxARR",lclxArr);
+
+            var clx = xbarValue;
+            console.log("CLx",clx);
+            var clxArr=[];
+            for (i =0;i<(timeArr.length);i++){
+              clxArr.push(clx);
+            }
+            console.log("CLxARR",clxArr);
+
+
+            var clr = rbarValue;
+            console.log("CLr",clr);
+            var clrArr=[];
+            for (i =0;i<(timeArr.length);i++){
+              clrArr.push(clr);
+            }
+            console.log("CLrARR",clrArr);
+
+
+            var lclr=D3*rbarValue;
+            console.log("LCLr",lclr);
             var lclrArr = [];
             for (i =0;i<(timeArr.length);i++){
               lclrArr.push(lclr);
             }
             console.log("LCLrARR",lclrArr);
 
+            var uclr=D4*rbarValue;
+            console.log("UCLr",uclr);
             var uclrArr = [];
             for (i =0;i<(timeArr.length);i++){
               uclrArr.push(uclr);
             }
             console.log("UCLrARR",uclrArr);
 
-            var clxArr=[];
-            for (i =0;i<(timeArr.length);i++){
-              clxArr.push(uvalue);
+            var propxArr = [];
+            for(i = 0; i<xbar.length;i++){
+              propxArr.push(xbar[i]);
             }
-            console.log("CLARR",clArr);
+            console.log("propxArr",propxArr);
 
-            var data ={
+            var proprArr = [];
+            for(i = 0; i<range.length;i++){
+              proprArr.push(range[i]);
+            }
+            console.log("proprArr",proprArr);
+
+            var indexxAr =[];
+            var newElexAr = [];
+            function logArrayxElements(element, index, array) {
+              if(element>uclx||element<lclx){
+                index++;
+                console.log("a[" + index + "] = " + element);
+                newElexAr.push(element)
+                indexxAr.push(index)
+              }
+            }
+            propxArr.forEach(logArrayxElements)
+            console.log("INDEX ",indexxAr,"Value x " ,newElexAr);
+
+            var indexrAr =[];
+            var newElerAr = [];
+            function logArrayrElements(element, index, array) {
+              if(element>uclr||element<lclr){
+                index++;
+                console.log("a[" + index + "] = " + element);
+                newElerAr.push(element)
+                indexrAr.push(index)
+              }
+            }
+            proprArr.forEach(logArrayrElements)
+            console.log("INDEX ",indexrAr,"Value r" ,newElerAr);
+
+
+            var xtrack ={
               type: 'scatter',
               x: timeArr,
-              y: propArr,
+              y: propxArr,
               mode: 'lines+markers',
-              name: 'Data',
+              name: 'Xbar Data',
               showlegend: true,
               hoverinfo: 'all',
               line:{
@@ -3354,12 +3375,30 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 symbol: 'circle'
               }
             }
-            var lclx = {
+            var rtrack = {
+                type: 'scatter',
+                x: timeArr,
+                y: proprArr,
+                mode: 'lines+markers',
+                name: 'Range Data',
+                showlegend: true,
+                hoverinfo: 'all',
+                line:{
+                  color: 'blue',
+                  width: 2
+                },
+                marker:{
+                  color: 'blue',
+                  size: 8,
+                  symbol: 'circle'
+                }
+            }
+            var lclxtrack = {
               type: 'scatter',
               x: timeArr,
-              y: lclArr,
+              y: lclxArr,
               mode: 'lines',
-              name: 'LCL',
+              name: 'Xbar LCL',
               showlegend: true,
               line: {
                 color: 'red',
@@ -3367,12 +3406,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 dash: 'dash'
               }
             }
-            var uclx = {
+            var lclrtrack = {
               type: 'scatter',
               x: timeArr,
-              y: uclArr,
+              y: lclrArr,
               mode: 'lines',
-              name: 'UCL',
+              name: 'Range LCL',
               showlegend: true,
               line: {
                 color: 'red',
@@ -3380,35 +3419,100 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 dash: 'dash'
               }
             }
-            // var viol = {
-            //   type: 'scatter',
-            //   x: indexAr,
-            //   y: newEleAr,
-            //   mode: 'markers',
-            //   name: 'Violation',
-            //   showlegend: true,
-            //   marker: {
-            //     color: 'red',
-            //     line: {width: 3},
-            //     opacity: 1,
-            //     size: 12,
-            //     symbol: 'circle-open'
-            //   }
-            // }
-            var centre = {
+            var uclxtrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclxArr,
+              mode: 'lines',
+              name: 'Xbar UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var uclrtrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclrArr,
+              mode: 'lines',
+              name: 'Range UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var violxtrack = {
+              type: 'scatter',
+              x: indexxAr,
+              y: newElexAr,
+              mode: 'markers',
+              name: 'Xbar Violation',
+              showlegend: true,
+              marker: {
+                color: 'red',
+                line: {width: 3},
+                opacity: 1,
+                size: 12,
+                symbol: 'circle-open'
+              }
+            }
+            var violrtrack = {
+              type: 'scatter',
+              x: indexrAr,
+              y: newElerAr,
+              mode: 'markers',
+              name: 'Range Violation',
+              showlegend: true,
+              marker: {
+                color: 'red',
+                line: {width: 3},
+                opacity: 1,
+                size: 12,
+                symbol: 'circle-open'
+              }
+            }
+            var centrextrack = {
               type: 'scatter',
               x: timeArr,
               y: clxArr,
               mode: 'lines',
-              name: 'Centre',
+              name: 'Xbar Centre',
               showlegend: true,
               line: {
                 color: 'grey',
                 width: 2
               }
             }
-            console.log("this is p chart")
-            Plotly.newPlot(myChart2, [data,lclx,centre,uclx]);
+            var centrertrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: clrArr,
+
+              mode: 'lines',
+              name: 'Range Centre',
+              showlegend: true,
+              line: {
+                color: 'grey',
+                width: 2
+              }
+            }
+            var layout = {
+                xaxis: {
+                    rangemode: 'tozero',
+                    autorange: true
+                },
+                yaxis: {
+                    rangemode: 'nonnegative',
+                    autorange: true
+                }
+            }
+            console.log("this is Xbar R chart")
+            Plotly.newPlot(myChart2, [xtrack,lclxtrack,centrextrack,violxtrack,uclxtrack],layout);
+            Plotly.newPlot(myChart3, [rtrack,lclrtrack,centrertrack,violrtrack,uclrtrack],layout);
 
           }
           else{
