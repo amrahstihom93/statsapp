@@ -3515,6 +3515,370 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             Plotly.newPlot(myChart3, [rtrack,lclrtrack,centrertrack,violrtrack,uclrtrack],layout);
 
           }
+          else if(ctrlchartType=="xbarScontrol"){
+            // let url = '/getSubgroup/'
+            console.log(myChart2)
+            let subVal=document.getElementById("subgroups_value").value;
+            let A3,B3,B4;
+            if(subVal==10){
+              A3 = 0.975;
+              B3 = 0.284;
+              B4 = 1.716;
+            }
+            else if(subVal==11){
+              A3 = 0.927;
+              B3 = 0.321;
+              B4 = 1.679;
+            }
+            else if(subVal==12){
+              A3 = 0.886;
+              B3 = 0.354;
+              B4 = 1.646;
+            }
+            else if(subVal==13){
+              A3 = 0.850;
+              B3 = 0.382;
+              B4 = 1.618;
+            }
+            else if(subVal==14){
+              A3 = 0.817;
+              B3 = 0.406;
+              B4 = 1.594;
+            }
+            else if(subVal==15){
+              A3 = 0.789;
+              B3 = 0.428;
+              B4 = 1.572;
+            }
+            else if(subVal==16){
+              A3 = 0.763;
+              B3 = 0.448;
+              B4 = 1.552;
+            }
+            else if(subVal==17){
+              A3 = 0.739;
+              B3 = 0.466;
+              B4 = 1.534;
+            }
+            else if(subVal==18){
+              A3 = 0.718;
+              B3 = 0.482;
+              B4 = 1.518;
+            }
+            else if(subVal==19){
+              A3 = 0.698;
+              B3 = 0.497;
+              B4 = 1.503;
+            }
+            else if(subVal==20){
+              A3 = 0.680;
+              B3 = 0.510;
+              B4 = 1.490;
+            }
+            else if(subVal==21){
+              A3 = 0.663;
+              B3 = 0.523;
+              B4 = 1.477;
+            }
+            else if(subVal==22){
+              A3 = 0.647;
+              B3 = 0.534;
+              B4 = 1.466;
+            }
+            else if(subVal==23){
+              A3 = 0.638;
+              B3 = 0.545;
+              B4 = 1.455;
+            }
+            else if(subVal==24){
+              A3 = 0.619;
+              B3 = 0.555;
+              B4 = 1.445;
+            }
+            else if(subVal==25){
+              A3 = 0.606;
+              B3 = 0.565;
+              B4 = 1.435;
+            }
+
+            var std_dev = defaultData.map(Number);
+            console.log("range",range)
+            var xbar = labels.map(Number);
+            console.log("xbar",xbar);
+            function getSum(total, num) {
+              return total + num;
+            }
+            var xbarSum = xbar.reduce(getSum);
+            console.log("xbarSum",xbarSum);
+            var xbarSlice = xbar.slice(0,15);
+            console.log("xbarSlicedData",xbarSlice);
+            var std_devSum = std_dev.reduce(getSum);
+            console.log("std_devSum",std_devSum);
+            var std_devSlice = std_dev.slice(0,15);
+            console.log("std_devSlicedData",std_devSlice);
+
+
+
+            var xbarValue =  (xbarSum/xbar.length);
+            console.log("xbar Value ",xbarValue);
+            var std_devbarValue = (std_devSum/range.length);
+            console.log("std_devbarValue",std_devbarValue);
+
+            var timeArr = [];
+            for( i=0; i<(range.length); i++){
+              var countg = i+1;
+              timeArr.push(countg);
+            }
+            console.log("Time",timeArr);
+
+            var uclx  =xbarValue+(A2*rbarValue);
+            console.log("UCLx",uclx);
+            var lclxArr = [];
+
+            var uclxArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              uclxArr.push(uclx);
+            }
+            console.log("UCLxARR",uclxArr);
+
+            var lclx  =xbarValue-(A2*rbarValue);
+            console.log("LCLx",lclx);
+            for (i =0;i<(timeArr.length);i++){
+              lclxArr.push(lclx);
+            }
+            console.log("LCLxARR",lclxArr);
+
+            var clx = xbarValue;
+            console.log("CLx",clx);
+            var clxArr=[];
+            for (i =0;i<(timeArr.length);i++){
+              clxArr.push(clx);
+            }
+            console.log("CLxARR",clxArr);
+
+
+            var clr = rbarValue;
+            console.log("CLr",clr);
+            var clrArr=[];
+            for (i =0;i<(timeArr.length);i++){
+              clrArr.push(clr);
+            }
+            console.log("CLrARR",clrArr);
+
+
+            var lclr=D3*rbarValue;
+            console.log("LCLr",lclr);
+            var lclrArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              lclrArr.push(lclr);
+            }
+            console.log("LCLrARR",lclrArr);
+
+            var uclr=D4*rbarValue;
+            console.log("UCLr",uclr);
+            var uclrArr = [];
+            for (i =0;i<(timeArr.length);i++){
+              uclrArr.push(uclr);
+            }
+            console.log("UCLrARR",uclrArr);
+
+            var propxArr = [];
+            for(i = 0; i<xbar.length;i++){
+              propxArr.push(xbar[i]);
+            }
+            console.log("propxArr",propxArr);
+
+            var proprArr = [];
+            for(i = 0; i<range.length;i++){
+              proprArr.push(range[i]);
+            }
+            console.log("proprArr",proprArr);
+
+            var indexxAr =[];
+            var newElexAr = [];
+            function logArrayxElements(element, index, array) {
+              if(element>uclx||element<lclx){
+                index++;
+                console.log("a[" + index + "] = " + element);
+                newElexAr.push(element)
+                indexxAr.push(index)
+              }
+            }
+            propxArr.forEach(logArrayxElements)
+            console.log("INDEX ",indexxAr,"Value x " ,newElexAr);
+
+            var indexrAr =[];
+            var newElerAr = [];
+            function logArrayrElements(element, index, array) {
+              if(element>uclr||element<lclr){
+                index++;
+                console.log("a[" + index + "] = " + element);
+                newElerAr.push(element)
+                indexrAr.push(index)
+              }
+            }
+            proprArr.forEach(logArrayrElements)
+            console.log("INDEX ",indexrAr,"Value r" ,newElerAr);
+
+
+            var xtrack ={
+              type: 'scatter',
+              x: timeArr,
+              y: propxArr,
+              mode: 'lines+markers',
+              name: 'Xbar Data',
+              showlegend: true,
+              hoverinfo: 'all',
+              line:{
+                color: 'blue',
+                width: 2
+              },
+              marker:{
+                color: 'blue',
+                size: 8,
+                symbol: 'circle'
+              }
+            }
+            var rtrack = {
+                type: 'scatter',
+                x: timeArr,
+                y: proprArr,
+                mode: 'lines+markers',
+                name: 'Range Data',
+                showlegend: true,
+                hoverinfo: 'all',
+                line:{
+                  color: 'blue',
+                  width: 2
+                },
+                marker:{
+                  color: 'blue',
+                  size: 8,
+                  symbol: 'circle'
+                }
+            }
+            var lclxtrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: lclxArr,
+              mode: 'lines',
+              name: 'Xbar LCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var lclrtrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: lclrArr,
+              mode: 'lines',
+              name: 'Range LCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var uclxtrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclxArr,
+              mode: 'lines',
+              name: 'Xbar UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var uclrtrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: uclrArr,
+              mode: 'lines',
+              name: 'Range UCL',
+              showlegend: true,
+              line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash'
+              }
+            }
+            var violxtrack = {
+              type: 'scatter',
+              x: indexxAr,
+              y: newElexAr,
+              mode: 'markers',
+              name: 'Xbar Violation',
+              showlegend: true,
+              marker: {
+                color: 'red',
+                line: {width: 3},
+                opacity: 1,
+                size: 12,
+                symbol: 'circle-open'
+              }
+            }
+            var violrtrack = {
+              type: 'scatter',
+              x: indexrAr,
+              y: newElerAr,
+              mode: 'markers',
+              name: 'Range Violation',
+              showlegend: true,
+              marker: {
+                color: 'red',
+                line: {width: 3},
+                opacity: 1,
+                size: 12,
+                symbol: 'circle-open'
+              }
+            }
+            var centrextrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: clxArr,
+              mode: 'lines',
+              name: 'Xbar Centre',
+              showlegend: true,
+              line: {
+                color: 'grey',
+                width: 2
+              }
+            }
+            var centrertrack = {
+              type: 'scatter',
+              x: timeArr,
+              y: clrArr,
+
+              mode: 'lines',
+              name: 'Range Centre',
+              showlegend: true,
+              line: {
+                color: 'grey',
+                width: 2
+              }
+            }
+            var layout = {
+                xaxis: {
+                    rangemode: 'tozero',
+                    autorange: true
+                },
+                yaxis: {
+                    rangemode: 'nonnegative',
+                    autorange: true
+                }
+            }
+            console.log("this is Xbar R chart")
+            Plotly.newPlot(myChart2, [xtrack,lclxtrack,centrextrack,violxtrack,uclxtrack],layout);
+            Plotly.newPlot(myChart3, [rtrack,lclrtrack,centrertrack,violrtrack,uclrtrack],layout);
+
+          }
           else{
             console.log("about to come soon")
           }
@@ -4713,25 +5077,36 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             ctrlchartType=cctype;
             document.getElementById("ctrlgraphset").innerHTML = cctype;
             console.log("controlcharttype",cctype);
-            $scope.BarChart= true;
+            $scope.XBarRChart = true;
+            $scope.XBarSChart = true;
             if(ctrlchartType=="npControl"){
-                 $scope.BarChart = true;
+                $scope.XBarRChart = true;
+                $scope.XBarSChart = true;
               console.log("it worked")
             }
             if(ctrlchartType=="pControl"){
-                 $scope.BarChart = true;
+                $scope.XBarRChart = true;
+                $scope.XBarSChart = true;
               console.log("it worked")
             }
             else if(ctrlchartType=="cControl"){
-                 $scope.BarChart = true;
+                $scope.XBarRChart = true;
+                $scope.XBarSChart = true;
               console.log("it worked")
             }
             else if(ctrlchartType=="uControl"){
-                 $scope.BarChart = true;
+                $scope.XBarRChart = true;
+                $scope.XBarSChart = true;
               console.log("it worked")
             }
             else if(ctrlchartType=="xbarRcontrol"){
-              $scope.BarChart = false;
+              $scope.XBarRChart = false;
+              $scope.XBarSChart = true;
+              console.log("it worked")
+            }
+            else if(ctrlchartType=="xbarScontrol"){
+              $scope.XBarRChart = true;
+              $scope.XBarSChart = false;
               console.log("it worked")
             }
             else{
