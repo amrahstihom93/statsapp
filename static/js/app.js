@@ -3518,7 +3518,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
           else if(ctrlchartType=="xbarScontrol"){
             // let url = '/getSubgroup/'
             console.log(myChart2)
-            let subVal=document.getElementById("subgroups_value").value;
+            let subVal=document.getElementById("subgroupsS_value").value;
+            console.log("subVal",subVal)
             let A3,B3,B4;
             if(subVal==10){
               A3 = 0.975;
@@ -3602,7 +3603,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             }
 
             var std_dev = defaultData.map(Number);
-            console.log("range",range)
+            console.log("std_dev",std_dev)
             var xbar = labels.map(Number);
             console.log("xbar",xbar);
             function getSum(total, num) {
@@ -3621,17 +3622,17 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
             var xbarValue =  (xbarSum/xbar.length);
             console.log("xbar Value ",xbarValue);
-            var std_devbarValue = (std_devSum/range.length);
+            var std_devbarValue = (std_devSum/std_dev.length);
             console.log("std_devbarValue",std_devbarValue);
 
             var timeArr = [];
-            for( i=0; i<(range.length); i++){
+            for( i=0; i<(std_dev.length); i++){
               var countg = i+1;
               timeArr.push(countg);
             }
             console.log("Time",timeArr);
-
-            var uclx  =xbarValue+(A2*rbarValue);
+            console.log("A3",A3)
+            var uclx  =xbarValue+ (A3*std_devbarValue);
             console.log("UCLx",uclx);
             var lclxArr = [];
 
@@ -3641,7 +3642,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             }
             console.log("UCLxARR",uclxArr);
 
-            var lclx  =xbarValue-(A2*rbarValue);
+            var lclx  =xbarValue-(A3*std_devbarValue);
             console.log("LCLx",lclx);
             for (i =0;i<(timeArr.length);i++){
               lclxArr.push(lclx);
@@ -3657,30 +3658,30 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             console.log("CLxARR",clxArr);
 
 
-            var clr = rbarValue;
-            console.log("CLr",clr);
-            var clrArr=[];
+            var cls = std_devbarValue;
+            console.log("CLs",cls);
+            var clsArr=[];
             for (i =0;i<(timeArr.length);i++){
-              clrArr.push(clr);
+              clsArr.push(cls);
             }
-            console.log("CLrARR",clrArr);
+            console.log("CLsARR",clsArr);
 
 
-            var lclr=D3*rbarValue;
-            console.log("LCLr",lclr);
-            var lclrArr = [];
+            var lcls=B3*std_devbarValue;
+            console.log("LCLs",lcls);
+            var lclsArr = [];
             for (i =0;i<(timeArr.length);i++){
-              lclrArr.push(lclr);
+              lclsArr.push(lcls);
             }
-            console.log("LCLrARR",lclrArr);
+            console.log("LCLsARR",lclsArr);
 
-            var uclr=D4*rbarValue;
-            console.log("UCLr",uclr);
-            var uclrArr = [];
+            var ucls=B4*std_devbarValue;
+            console.log("UCLs",ucls);
+            var uclsArr = [];
             for (i =0;i<(timeArr.length);i++){
-              uclrArr.push(uclr);
+              uclsArr.push(ucls);
             }
-            console.log("UCLrARR",uclrArr);
+            console.log("UCLsARR",uclsArr);
 
             var propxArr = [];
             for(i = 0; i<xbar.length;i++){
@@ -3688,11 +3689,11 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             }
             console.log("propxArr",propxArr);
 
-            var proprArr = [];
-            for(i = 0; i<range.length;i++){
-              proprArr.push(range[i]);
+            var propsArr = [];
+            for(i = 0; i<std_dev.length;i++){
+              propsArr.push(std_dev[i]);
             }
-            console.log("proprArr",proprArr);
+            console.log("propsArr",propsArr);
 
             var indexxAr =[];
             var newElexAr = [];
@@ -3707,18 +3708,18 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             propxArr.forEach(logArrayxElements)
             console.log("INDEX ",indexxAr,"Value x " ,newElexAr);
 
-            var indexrAr =[];
-            var newElerAr = [];
-            function logArrayrElements(element, index, array) {
-              if(element>uclr||element<lclr){
+            var indexsAr =[];
+            var newElesAr = [];
+            function logArraysElements(element, index, array) {
+              if(element>ucls||element<lcls){
                 index++;
                 console.log("a[" + index + "] = " + element);
-                newElerAr.push(element)
-                indexrAr.push(index)
+                newElesAr.push(element)
+                indexsAr.push(index)
               }
             }
-            proprArr.forEach(logArrayrElements)
-            console.log("INDEX ",indexrAr,"Value r" ,newElerAr);
+            propsArr.forEach(logArraysElements)
+            console.log("INDEX ",indexsAr,"Value s" ,newElesAr);
 
 
             var xtrack ={
@@ -3739,12 +3740,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 symbol: 'circle'
               }
             }
-            var rtrack = {
+            var strack = {
                 type: 'scatter',
                 x: timeArr,
-                y: proprArr,
+                y: propsArr,
                 mode: 'lines+markers',
-                name: 'Range Data',
+                name: 'Sigma Data',
                 showlegend: true,
                 hoverinfo: 'all',
                 line:{
@@ -3770,12 +3771,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 dash: 'dash'
               }
             }
-            var lclrtrack = {
+            var lclstrack = {
               type: 'scatter',
               x: timeArr,
-              y: lclrArr,
+              y: lclsArr,
               mode: 'lines',
-              name: 'Range LCL',
+              name: 'Sigma LCL',
               showlegend: true,
               line: {
                 color: 'red',
@@ -3796,12 +3797,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 dash: 'dash'
               }
             }
-            var uclrtrack = {
+            var uclstrack = {
               type: 'scatter',
               x: timeArr,
-              y: uclrArr,
+              y: uclsArr,
               mode: 'lines',
-              name: 'Range UCL',
+              name: 'Sigma UCL',
               showlegend: true,
               line: {
                 color: 'red',
@@ -3824,12 +3825,12 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 symbol: 'circle-open'
               }
             }
-            var violrtrack = {
+            var violstrack = {
               type: 'scatter',
-              x: indexrAr,
-              y: newElerAr,
+              x: indexsAr,
+              y: newElesAr,
               mode: 'markers',
-              name: 'Range Violation',
+              name: 'Sigma Violation',
               showlegend: true,
               marker: {
                 color: 'red',
@@ -3851,13 +3852,13 @@ module.controller("visualizationCtrl", function ($scope, $http) {
                 width: 2
               }
             }
-            var centrertrack = {
+            var centrestrack = {
               type: 'scatter',
               x: timeArr,
-              y: clrArr,
+              y: clsArr,
 
               mode: 'lines',
-              name: 'Range Centre',
+              name: 'Sigma Centre',
               showlegend: true,
               line: {
                 color: 'grey',
@@ -3876,7 +3877,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             }
             console.log("this is Xbar R chart")
             Plotly.newPlot(myChart2, [xtrack,lclxtrack,centrextrack,violxtrack,uclxtrack],layout);
-            Plotly.newPlot(myChart3, [rtrack,lclrtrack,centrertrack,violrtrack,uclrtrack],layout);
+            Plotly.newPlot(myChart3, [strack,lclstrack,centrestrack,violstrack,uclstrack],layout);
 
           }
           else{
