@@ -2262,7 +2262,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     let xLabel="";
     let yLabel="";
     let rcolr ='';
-    let graphtitle='';
+    let graphtitle='default';
     let xtitle='';
     let ytitle='';
 
@@ -2637,6 +2637,8 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
 
         else if (graphType == "controlchart"){
+            var grptitle = document.getElementById("graphTitle").value;
+            grphtitle = grptitle;
           console.log("CTRLCHRTTYPE",ctrlchartType)
           if(ctrlchartType=="npControl"){
             var ctx2 = document.getElementById("myChart2");
@@ -3190,6 +3192,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             // let url = '/getSubgroup/'
             console.log(myChart2)
             let subVal=document.getElementById("subgroups_value").value;
+            var grptitle = document.getElementById("graphTitle").value;
             let A2,D3,D4;
             if(subVal==2){
               A2 = 1.880;
@@ -3519,6 +3522,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
             // let url = '/getSubgroup/'
             console.log(myChart2)
             let subVal=document.getElementById("subgroupsS_value").value;
+            var grptitle = document.getElementById("graphTitle").value;
             console.log("subVal",subVal)
             let A3,B3,B4;
             if(subVal==10){
