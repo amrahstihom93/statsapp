@@ -65,6 +65,9 @@ module.config(['$routeProvider',
         }).when('/qualityTools',{
             templateUrl: static_url + 'partials/qtools.html',
             controller: 'qTools'
+        }).when('/opptracker',{
+            templateUrl: static_url + 'partials/opptrack.html',
+            controller: 'opptracker'
         });
     }]);
 
@@ -99,18 +102,18 @@ module.controller("qTools",function($scope, $http){
             '<td><input type="text" class="form-control" name="process function (step)" id="process function (step)"></td>' +
             '<td><input type="text" class="form-control" name="potential failure modes "errors"" id="potential failure modes "errors""></td>' +
             '<td><input type="text" class="form-control" name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
-            '<td><input type="number" class="form-control" name="sev" id="sev"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="sev" name="sev" class="btn btn-primary dropdown-toggle datsel" type="button"><option>SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
 			'<td><input type="text" class="form-control" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
-            '<td><input type="number" class="form-control" name="occ" id="occ"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="occ" name="occ" class="btn btn-primary dropdown-toggle datsel" type="button"><option>OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
             '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
-            '<td><input type="number" class="form-control" name="det" id="det"></td>' +
-            '<td><input type="number" class="form-control" name="rpn" id="rpn"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="det" name="det" class="btn btn-primary dropdown-toggle datsel" type="button"><option>DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><input type="text" class="form-control" name="rpn" id="rpn"></td>' +
             '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
             '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
             '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
-            '<td><input type="number" class="form-control" name="new sev" id="new sev"></td>' +
-            '<td><input type="number" class="form-control" name="new occ" id="new occ"></td>' +
-            '<td><input type="number" class="form-control" name="new det" id="new det"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="new sev" name="new sev" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="new occ" name="new occ" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="new det" name="new det" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
             '<td><input type="number" class="form-control" name="new rpn" id="new rpn"></td>' +
 			'<td>' + actions + '</td>' +
             '</tr>';
@@ -159,7 +162,97 @@ module.controller("qTools",function($scope, $http){
         });
 
 });
+module.controller("opptracker",function($scope, $http){
+    console.log("Opportunity Tracker")
+    let url = '/getProcess/';
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.processList = response.data;
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+    var x =document.getElementById("add-new");
+    $scope.selectedProcess ='';
+    $(document).ready(function(){
+        console.log("letsstart");
+        //$('[data-toggle="tooltip"]').tooltip();
+        var actions = $("table td:last-child").html();
 
+
+        // Append table with add row form on add new button click
+        $(".add-new").click(function(){
+            console.log("add-new clicked");
+            $(this).attr("disabled", "disabled");
+            var index = $("table tbody tr:last-child").index();
+            var row = '<tr>' +
+            '<td><input type="text" class="form-control" name="legend" id="legend"></td>' +
+            '<td><input type="text" class="form-control" name="opportunity name" id="opportunity name"></td>' +
+            '<td><input type="text" class="form-control" name="quantification notes" id="quantification notes"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="opportunity description" name="opportunity description" class="btn btn-primary dropdown-toggle datsel" type="button"><option>SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+			'<td><input type="text" class="form-control" name="intervention nature" id="intervention nature"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="process name" name="process name" class="btn btn-primary dropdown-toggle datsel" type="button"><option>OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><input type="text" class="form-control" name="opportunity category" id="opportunity category"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="efforts" name="efforts" class="btn btn-primary dropdown-toggle datsel" type="button"><option>DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><input type="text" class="form-control" name="impact" id="impact"></td>' +
+            '<td><input type="text" class="form-control" name="created by" id="created by"></td>' +
+            '<td><input type="text" class="form-control" name="estimated annualized impact" id="estimated annualized impact"></td>' +
+            '<td><input type="text" class="form-control" name="type of impact" id="type of impact"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="approved for charter creation" name="approved for charter creation" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="yes">YES</option><option value="no">NO</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="effort score" name="effort score" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="impact score" name="impact score" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="nature score" name="nature score" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
+            '<td><input type="number" class="form-control" name="priority score" id="priority score"></td>' +
+			'<td>' + actions + '</td>' +
+            '</tr>';
+            $("table").append(row);
+            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            //$('[data-toggle="tooltip"]').tooltip();
+        });
+
+        // Add row on add button click
+        $(document).on("click", ".add", function(){
+		var empty = false;
+		var input = $(this).parents("tr").find('input[type="text"]');
+            input.each(function(){
+                if(!$(this).val()){
+                    $(this).addClass("error");
+                    empty = true;
+                }
+                else{
+                    $(this).removeClass("error");
+                }
+            });
+            $(this).parents("tr").find(".error").first().focus();
+            if(!empty){
+                input.each(function(){
+                    $(this).parent("td").html($(this).val());
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new").removeAttr("disabled");
+            }
+        });
+
+    // Edit row on edit button click
+	$(document).on("click", ".edit", function(){
+        console.log("edit button clicked");
+        $(this).parents("tr").find("td:not(:last-child)").each(function(){
+			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+		});
+		$(this).parents("tr").find(".add, .edit").toggle();
+		$(".add-new").attr("disabled", "disabled");
+    });
+	// Delete row on delete button click
+	$(document).on("click", ".delete", function(){
+        $(this).parents("tr").remove();
+		$(".add-new").removeAttr("disabled");
+    });
+        });
+
+});
 //ProcessMapping RouteController1
 module.controller("pmapCtrl",function($scope,$http){
     $http.get(url)

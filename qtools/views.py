@@ -6,3 +6,5 @@ from django.shortcuts import render
 def qtools(request):
     print("Quality Tools DUDE!!!")
     return render(request, 'qtools.html')
+def opptracker(request):
+    return render(request, 'opptrack.html')
