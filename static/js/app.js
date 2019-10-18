@@ -182,7 +182,12 @@ module.controller("opptracker",function($scope, $http){
         //$('[data-toggle="tooltip"]').tooltip();
         var actions = $("table td:last-child").html();
 
-
+        $(".save").click(function(){
+            var y =document.getElementsByTagName("th");
+            for(var i = 0;i<y.length; i++){
+                console.log(y[i].innerHTML);
+            }
+        });
         // Append table with add row form on add new button click
         $(".add-new").click(function(){
             console.log("add-new clicked");
@@ -213,6 +218,7 @@ module.controller("opptracker",function($scope, $http){
             //$('[data-toggle="tooltip"]').tooltip();
         });
 
+
         // Add row on add button click
         $(document).on("click", ".add", function(){
 		var empty = false;
@@ -235,7 +241,6 @@ module.controller("opptracker",function($scope, $http){
                 $(".add-new").removeAttr("disabled");
             }
         });
-
     // Edit row on edit button click
 	$(document).on("click", ".edit", function(){
         console.log("edit button clicked");
