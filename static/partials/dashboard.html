@@ -7,7 +7,66 @@
 </nav>
 
     <div class="row" ng-hide="isDashboardVisible">
-        <div class="col">
+      <!--left Pane-->
+      <div class="col-md-4">
+        <div class="">
+          <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#dash_name">
+            <label class="category p-2 mx-auto text-light" >Name</label>
+          </div>
+          <div id="dash_name" class=" ml-auto collapse">
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="visuaName">Dashboard Name</label>
+              </div>
+              <div class="col-sm table table-striped my-4">
+                <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Dashboard Name">
+              </div>
+            </div>
+          </div>
+          <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#dash_layout">
+            <label class="category p-2 mx-auto text-light" >Layout</label>
+          </div>
+          <div id="dash_layout" class=" ml-auto collapse">
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="visuaName">Dashboard Layout</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="dash_layout" name="dash_layout" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Layout</option>
+                          <option value="1x2">1x2</option>
+                          <option value="2x4">2x4</option>
+                </select>
+              </div>
+            </div>
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="visuaName">Dashboard Type</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="dash_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Type</option>
+                          <option value="landscape">Landscape</option>
+                          <option value="portrait">Portrait</option>
+                </select>
+              </div>
+            </div>
+            <div class="container ml-auto text-center " style="padding-bottom:2%;">
+                <div class="row">
+                    <div class="col-sm-6  table table-striped my-4 ">
+                        <button  class="btn btn-info block" ng-click="dashSave()">Save</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+
+        </div>
+        </div>
+      <!--right pane-->
+      <div class="col-md-8" style="backgroundColor:grey">
+      </div>
+        <!-- <div class="col">
 
         	<form>
         		<div class="form-group row">
@@ -29,10 +88,10 @@
   				</div>
   				<button class="btn btn-primary" ng-click="initDashboard()">Submit</button>
 			</form>
-        </div>
+        </div> -->
 
     </div>
-	
+
 <!-- 	<div class="card text-center mt-2em smokeBackground">
 		<div class="card-header" ng-hide="true">
 			<h3>Add Visualization</h3>
@@ -40,10 +99,10 @@
   		<div class="card-body">
     		<p class="card-text">Add previously saved Visualization or statistical summary to make new dashboards.
     		</p>
-	
+
     		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Visualization
 			</button>
-	
+
   		</div>
 	</div> -->
 
@@ -75,18 +134,18 @@
           <div class="card-header">
           </div>
           <div class="card-body visualizationx" id="visualization1">
-             
+
             <div class="card-body">
               <h3> Add <strong>New Visualization</strong> using top right corner button.</h3>
             </div>
 
             <div class="my-4" id="testdiv">
-              
+
             </div>
         </div>
         <div id="editor"></div>
-        </div>			
-	  
+        </div>
+
   		</div>
 	</div>
 
@@ -104,13 +163,13 @@
       		</div>
       		<div class="modal-body">
         		<h2 class="text-center">Select the visualization from drop down.</h2>
-        		<select id="visualization_list" name="visualization_list" class="form-control"  
+        		<select id="visualization_list" name="visualization_list" class="form-control"
         		ng-model="selectedVisual" ng-change="openVisualization(selectedVisual)">
 					<option selected>Select field</option>
 					<option ng-repeat="k in vList" value="[[k.visualization_name]]">
 					[[k.visualization_name]]</option>
 				</select>
-				
+
 			<div class="my-4">
 				<canvas id="selectedVisualization" width="400" height="350"></canvas>
 			</div>
@@ -118,7 +177,7 @@
       	<div class="modal-footer">
       		<button type="button" class="btn btn-success pull-left" ng-click="addVisualization()">Add Visualizaton</button>
         	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        	
+
       	</div>
     	</div>
 
@@ -147,7 +206,7 @@
           <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveTextSubtitle()">
             Ok</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          
+
         </div>
       </div>
 
@@ -174,7 +233,7 @@
           <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveTextNarration()">
             Ok</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          
+
         </div>
       </div>
 
@@ -182,7 +241,3 @@
   </div>
 
 </div>
- 
-
- 
-
