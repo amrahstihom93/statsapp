@@ -1168,6 +1168,7 @@ module.controller("analyticalCtrl", function($scope,$http) {
 
 
 module.controller("dashboardCtrl", function ($scope,$http) {
+    console.log("we are in dashboard")
     $scope.test = "This is working test1";
     $scope.selectedVisual = '';
     $scope.isNameSaved = true;
@@ -1179,6 +1180,15 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     let xData = [];
     let yData = [];
     let vurl = '/getVisualization/';
+    let purl = '/getProcess';
+    //gettingprocessid for dashboard
+    $http.get(purl)
+        .then(function(response){
+            console.log("get response", response);
+            $scope.plist=response.data;
+        }, function(respose){
+            console.log("Something went wrong");
+        });
     $http.get(vurl)
         .then(function (response) {
             //First function handles success

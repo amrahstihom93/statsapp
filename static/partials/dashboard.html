@@ -6,7 +6,7 @@
   </ol>
 </nav>
 
-    <div class="row" ng-hide="isDashboardVisible">
+    <div class="row" >
       <!--left Pane-->
       <div class="col-md-4">
         <div class="">
@@ -16,10 +16,10 @@
           <div id="dash_name" class=" ml-auto collapse">
             <div class="row ml-auto border border-top-0">
               <div class="col-sm-4 table table-striped my-4">
-                <label class="category" for="visuaName">Dashboard Name</label>
+                <label class="category" for="dashName">Dashboard Name</label>
               </div>
               <div class="col-sm table table-striped my-4">
-                <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Dashboard Name">
+                <input type="text" ng-model="vName" class="form-control form-control-0" id="dashName" placeholder="Enter Dashboard Name">
               </div>
             </div>
           </div>
@@ -29,7 +29,7 @@
           <div id="dash_layout" class=" ml-auto collapse">
             <div class="row ml-auto border border-top-0">
               <div class="col-sm-4 table table-striped my-4">
-                <label class="category" for="visuaName">Dashboard Layout</label>
+                <label class="category" for="dashName">Dashboard Layout</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                 <select id="dash_layout" name="dash_layout" class="btn btn-primary dropdown-toggle block datsel" type="button">
@@ -41,7 +41,7 @@
             </div>
             <div class="row ml-auto border border-top-0">
               <div class="col-sm-4 table table-striped my-4">
-                <label class="category" for="visuaName">Dashboard Type</label>
+                <label class="category" for="dashName">Dashboard Type</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                 <select id="dash_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
@@ -54,7 +54,7 @@
             <div class="container ml-auto text-center " style="padding-bottom:2%;">
                 <div class="row">
                     <div class="col-sm-6  table table-striped my-4 ">
-                        <button  class="btn btn-info block" ng-click="dashSave()">Save</button>
+                        <button  class="btn btn-info block" ng-click="initDashboard()">Submit</button>
                     </div>
                 </div>
             </div>
@@ -63,9 +63,7 @@
 
         </div>
         </div>
-      <!--right pane-->
-      <div class="col-md-8" style="backgroundColor:grey">
-      </div>
+
         <!-- <div class="col">
 
         	<form>
@@ -90,6 +88,10 @@
 			</form>
         </div> -->
 
+            <div class="col-md-8" ng-show="isDashboardVisible" style="height:200px;backgroundColor:grey">
+                <h4>This area would represent <b>Dashboard Part</b> in two types of layout</h4>
+            </div>
+
     </div>
 
 <!-- 	<div class="card text-center mt-2em smokeBackground">
@@ -106,7 +108,8 @@
   		</div>
 	</div> -->
 
-	<div class="card text-center mt-2em smokeBackground" ng-show="isDashboardVisible">
+	<!-- <div class="card text-center mt-2em smokeBackground" ng-show="isDashboardVisible">
+
 		<div class="card-header">
 			<form class="form-inline col-md-5">
 			  <div class="form-group mx-sm-3 mb-2">
@@ -147,7 +150,7 @@
         </div>
 
   		</div>
-	</div>
+	</div> -->
 
 
 
