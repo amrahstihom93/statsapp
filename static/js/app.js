@@ -1519,6 +1519,10 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     $scope.initDashboard = function(){
         $scope.isDashboardVisible = true;
 		console.log('dashboardType',$scope.dashboardType);
+    var dash_type = document.getElementById("dash_type").value;
+    var dash_layout = document.getElementById("dash_layouT").value;
+    console.log("Dashboard Type",dash_type);
+    console.log("Dashboard Layout",dash_layout);
     }
 
     function viewChart(x, y, xLabel, yLabel,id) {

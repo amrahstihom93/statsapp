@@ -32,10 +32,10 @@
                 <label class="category" for="dashName">Dashboard Layout</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                <select id="dash_layout" name="dash_layout" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                <select id="dash_layouT" name="dash_layouT" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Layout</option>
-                          <option value="1x2">1x2</option>
-                          <option value="2x4">2x4</option>
+                          <option value="2by1">2x1</option>
+                          <option value="2by4">2x4</option>
                 </select>
               </div>
             </div>
@@ -88,9 +88,30 @@
 			</form>
         </div> -->
 
-            <div class="col-md-8" ng-show="isDashboardVisible" style="height:200px;backgroundColor:grey">
+            <div class="col-md-8" ng-show="isDashboardVisible" style="color:white;height:600px;background-color:grey">
                 <h4>This area would represent <b>Dashboard Part</b> in two types of layout</h4>
+                <ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" data-target="#home">Home</a></li>
+  <li><a data-toggle="tab" data-target="#menu1">Menu 1</a></li>
+  <li><a data-toggle="tab" data-target="#menu2">Menu 2</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <h3>HOME</h3>
+    <p>Some content.</p>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <h3>Menu 1</h3>
+    <p>Some content in menu 1.</p>
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
             </div>
+
 
     </div>
 
