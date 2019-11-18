@@ -1174,6 +1174,7 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     $scope.isNameSaved = true;
     $scope.dashboardName = 'none';
     $scope.isDashboardVisible = false;
+    $scope.vList =[];
     let visualizationInDashId = '';
     let textNarration = 'Write some narration for this graph';
     let gType = '';
@@ -1515,6 +1516,8 @@ module.controller("dashboardCtrl", function ($scope,$http) {
        // pDiv.insertBefore(outerCard, pDiv.children[0]);
 
     }
+    $scope.dash_layout =false;
+    $scope.sheet_layout =true;
     let url = '/getProcess/';
     $http.get(url)
         .then(function (response) {
@@ -1526,6 +1529,18 @@ module.controller("dashboardCtrl", function ($scope,$http) {
             //Second function handles error
             console.log("Something went wrong");
         });
+        let vrl='/getVisualization/';
+        $http.get(vrl)
+            .then(function (response) {
+                //First function handles success
+                console.log("get response", response);
+                $scope.vList = response.data;
+                console.log("Vlist",response.data)
+                //  $scope.datasetArr = response.data;
+            }, function (response) {
+                //Second function handles error
+                console.log("Something went wrong");
+            });
 
     $scope.initDashboard = function(){
         $scope.isDashboardVisible = true;
@@ -1537,6 +1552,9 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     console.log("Dashboard Type",dash_type);
     console.log("Dashboard Layout",dash_layout);
     console.log("Process Selected",sel_process);
+    $scope.dash_layout =true;
+    $scope.sheet_layout =false;
+
     }
 
     function viewChart(x, y, xLabel, yLabel,id) {

@@ -28,7 +28,7 @@
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                 <select id="select_process" ng-model="selectedProcess" name="select_process" class="btn btn-primary dropdown-toggle block datsel" type="button">
-                  <option>Select PRocess</option>
+                  <option>Select Process</option>
                   <option ng-repeat="x in processList" value="[[x.process_id]]">
                       [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                   </option>
@@ -38,6 +38,7 @@
               </div>
             </div>
           </div>
+          <div ng-hide="dash_layout">
           <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#dash_layout">
             <label class="category p-2 mx-auto text-light" >Layout</label>
           </div>
@@ -74,9 +75,73 @@
                 </div>
             </div>
           </div>
+          </div>
+          <div ng-hide="sheet_layout">
+          <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#sheet_layout">
+            <label class="category p-2 mx-auto text-light" >Sheet Layout</label>
+          </div>
+          <div id="sheet_layout" class=" ml-auto collapse">
+
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Element</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="dash_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Element</option>
+                          <option value="charts">Charts</option>
+                          <option value="analytics">Analytics</option>
+                </select>
+              </div>
+            </div>
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Data</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="dash_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Data</option>
+                    <option ng-repeat="x in vList" value-"[[x.visualization_name]]">[[x.visualization_name]]</option>
+
+                </select>
+              </div>
+            </div>
+            <div class="container ml-auto text-center " style="padding-bottom:2%;">
+                <div class="row">
+                    <div class="col-sm-6  table table-striped my-4 ">
+                        <button  class="btn btn-info block" ng-click="initDashboard()">Submit</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+          </div>
 
 
         </div>
+        <div class="col-md-8" ng-show="isDashboardVisible" style="height:500px;">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" data-target="#sheet">Sheet 1</a></li>
+                <li><a data-toggle="tab" data-target="#sheet1">New Sheet 1</a></li>
+                <li><a data-toggle="tab" data-target="#">Add Sheet</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="sheet" class="tab-pane fade in active">
+                    <div style="height:50%;background-color:grey;margin-bottom:0.5%;">
+
+                    </div>
+                    <div  style="height:50%;background-color:grey;margin-top:0.5%;">
+                        
+                    </div>
+                </div>
+                <div id="sheet1" class="tab-pane fade">
+                    <h3>Sheet 1</h3>
+                    <p>Some content in menu 1.</p>
+                </div>
+            </div>
+
+        </div>
+
         </div>
 
         <!-- <div class="col">
@@ -103,26 +168,11 @@
 			</form>
         </div> -->
 
-            <div class="col-md-8" ng-show="isDashboardVisible" style="height:600px;">
-                <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" data-target="#sheet">Sheet</a></li>
-  <li><a data-toggle="tab" data-target="#sheet1">New Sheet 1</a></li>
-</ul>
 
-<div class="tab-content">
-  <div id="sheet" class="tab-pane fade in active">
-    <h3>Sheet</h3>
-    <p>Some content.</p>
-  </div>
-  <div id="sheet1" class="tab-pane fade">
-    <h3>Sheet 1</h3>
-    <p>Some content in menu 1.</p>
-  </div>
-</div>
-            </div>
 
 
     </div>
+
 
 <!-- 	<div class="card text-center mt-2em smokeBackground">
 		<div class="card-header" ng-hide="true">
