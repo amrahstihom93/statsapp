@@ -50,8 +50,8 @@
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                 <select id="dash_layouT" name="dash_layouT" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Layout</option>
-                          <option value="2by1">2x1</option>
-                          <option value="2by4">2x4</option>
+                          <option value="twobyone">2x1</option>
+                          <option value="twobyfour">2x4</option>
                 </select>
               </div>
             </div>
@@ -84,10 +84,10 @@
 
             <div class="row ml-auto border border-top-0">
               <div class="col-sm-4 table table-striped my-4">
-                <label class="category" for="dashName">Select Element</label>
+                <label class="category" for="dashName">Select Element 1</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                <select id="dash_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                <select id="el1_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Element</option>
                           <option value="charts">Charts</option>
                           <option value="analytics">Analytics</option>
@@ -96,12 +96,37 @@
             </div>
             <div class="row ml-auto border border-top-0">
               <div class="col-sm-4 table table-striped my-4">
-                <label class="category" for="dashName">Select Data</label>
+                <label class="category" for="dashName">Select Data 1</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                <select id="dash_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                <select ng-click="chartup(x)" id="d1_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Data</option>
                     <option ng-repeat="x in vList" value-"[[x.visualization_name]]">[[x.visualization_name]]</option>
+
+                </select>
+              </div>
+            </div>
+
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Element 2</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="el2_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Element</option>
+                          <option value="charts">Charts</option>
+                          <option value="analytics">Analytics</option>
+                </select>
+              </div>
+            </div>
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Data 2</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="d2_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Data</option>
+                    <option  ng-repeat="x in statisticalArr" value-"[[x.statistical_name]]">[[x.statistical_name]]</option>
 
                 </select>
               </div>
@@ -126,12 +151,26 @@
             </ul>
 
             <div class="tab-content">
-                <div id="sheet" class="tab-pane fade in active">
+                <div ng-hide="twobyone"id="sheet" class="tab-pane fade in active">
                     <div style="height:50%;background-color:grey;margin-bottom:0.5%;">
 
                     </div>
                     <div  style="height:50%;background-color:grey;margin-top:0.5%;">
-                        
+
+                    </div>
+                </div>
+                <div ng-hide="twobyfour" id="sheet" class="tab-pane fade in active">
+                    <div style="height:50%; width:50%;background-color:grey;margin-bottom:0.5%;">
+
+                    </div>
+                    <div  style="height:50%;width:50%;background-color:grey;margin-top:0.5%;">
+
+                    </div>
+                    <div style="height:50%;width:50%;background-color:grey;margin-bottom:0.5%;">
+
+                    </div>
+                    <div  style="height:50%;width:50%;background-color:grey;margin-top:0.5%;">
+
                     </div>
                 </div>
                 <div id="sheet1" class="tab-pane fade">

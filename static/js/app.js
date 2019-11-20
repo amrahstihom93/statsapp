@@ -1518,7 +1518,23 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     }
     $scope.dash_layout =false;
     $scope.sheet_layout =true;
+    $scope.statisticalArr =[];
+    $scope.statisticalName='';
+    $scope.visualizationArr=[];
+    let staturl = '/getStatistical/';
+    $http.get(staturl)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.statisticalArr = response.data;
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+
     let url = '/getProcess/';
+
     $http.get(url)
         .then(function (response) {
             //First function handles success
@@ -1535,23 +1551,45 @@ module.controller("dashboardCtrl", function ($scope,$http) {
                 //First function handles success
                 console.log("get response", response);
                 $scope.vList = response.data;
-                console.log("Vlist",response.data)
+                visualizationArr=response.data;
+                console.log("Vlist",visualizationArr)
                 //  $scope.datasetArr = response.data;
             }, function (response) {
                 //Second function handles error
                 console.log("Something went wrong");
             });
 
+        $scope.chartup=function chartup(chart){
+            let selected_chart=document.getElementById("d1_type").value;
+            console.log("chartselected",selected_chart);
+            console.log(visualizationArr);
+            let dataname;
+            visualizationArr.filter(function (dataname) { return dataname.visualization_name == selected_chart });
+            console.log(chart);
+            let v = _.find($scope.visualizationArr, function(o) { return o.visualization_name === chart; });
+            console.log(v)
+
+        }
     $scope.initDashboard = function(){
         $scope.isDashboardVisible = true;
 		console.log('dashboardType',$scope.dashboardType);
     var sel_process = document.getElementById("select_process").value;
     var dash_type = document.getElementById("dash_type").value;
     var dash_layout = document.getElementById("dash_layouT").value;
-
+    var el1_type = document.getElementById("el1_type").value;
     console.log("Dashboard Type",dash_type);
     console.log("Dashboard Layout",dash_layout);
     console.log("Process Selected",sel_process);
+    console.log("Element 1 Selected",el1_type);
+    if(dash_layout == "twobyone"){
+        $scope.twobyone =false;
+        $scope.twobyfour =true;
+    }
+    else{
+        $scope.twobyone =true;
+        $scope.twobyfour =false;
+    }
+
     $scope.dash_layout =true;
     $scope.sheet_layout =false;
 
@@ -1818,6 +1856,7 @@ module.controller("visualizationListCtrl", function ($scope, $http) {
     }
 
     $scope.viewVisualization = function (visualization) {
+        console.log(visualization);
 
         console.log("vParams", visualization.parameters.labels);
         console.log("vParams1", visualization.parameters.defaultData);
