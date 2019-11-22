@@ -1562,12 +1562,86 @@ module.controller("dashboardCtrl", function ($scope,$http) {
         $scope.chartup=function chartup(chart){
             let selected_chart=document.getElementById("d1_type").value;
             console.log("chartselected",selected_chart);
-            console.log(visualizationArr);
+            console.log("viz list",visualizationArr);
             let dataname;
-            visualizationArr.filter(function (dataname) { return dataname.visualization_name == selected_chart });
-            console.log(chart);
-            let v = _.find($scope.visualizationArr, function(o) { return o.visualization_name === chart; });
+            // let v = _.find($scope.vList, function(o) { return o.visualization_name === visualization; });
+            // visualizationArr.filter(function (dataname) { return dataname.visualization_name == selected_chart });
+            // console.log(chart);
+            let v = _.find(visualizationArr, function(o) { return o.visualization_name === selected_chart; });
             console.log(v)
+            console.log("gType",v.type);
+            let gType = v.type;
+            console.log("vparam", v.parameters.labels);
+            let xdata = v.parameters.labels;
+            console.log("vParams1", v.parameters.defaultData);
+            let ydata = v.parameters.defaultData;
+            console.log("vParams2", v.parameters.xLabel);
+            console.log("vParams3", v.parameters.yLabel);
+            console.log("vParams4", v.parameters.graphtitle);
+            let graphtitle = v.parameters.graphTitle;
+            console.log("vParams5", v.parameters.color);
+            let color = v.parameters.color;
+            let xtitle = v.parameters.xAxisTitle;
+            let ytitle = v.parameters.yAxisTitle;
+            console.log("vParams6", v.parameters.controlChartType);
+            console.log("vParams7", v.parameters.subValue);
+
+            let divId = document.getElementById("chartView");
+            console.log(divId)
+            if(gType == "line"){
+                var trace = {
+                  y: ydata,
+                  x: xdata,
+                  marker:{
+                     color: color
+                  },
+                  type: 'scatter',
+                  showline: true,
+                };
+
+
+                var data = [trace];
+                var layout = {
+                  title: {
+                    text: graphtitle,
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 24
+                    },
+                    xref: 'paper',
+                    x: 0.5,
+                  },
+                  xaxis: {
+                      title: {
+                          text: xtitle,
+                          font: {
+                              family: 'Courier New, monospace',
+                              size: 18,
+                              color: '#7f7f7f'
+                          }
+                      },
+                  },
+                  yaxis: {
+                      title: {
+                          text: ytitle,
+                          font: {
+                              family: 'Courier New, monospace',
+                              size: 18,
+                              color: '#7f7f7f'
+                          }
+                      }
+                  },
+                    bargap: 0.005,
+                    bargroupgap: 0.02,
+                }
+
+                   Plotly.newPlot(chartView , data, layout);
+
+            }
+            else {
+              console.log("selected another graph");
+              Plotly.purge(divId);
+            }
 
         }
     $scope.initDashboard = function(){
