@@ -87,7 +87,7 @@
                 <label class="category" for="dashName">Select Element 1</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                <select id="el1_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                <select id="el1_type" ng-click="elsel(x)" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Element</option>
                           <option value="charts">Charts</option>
                           <option value="analytics">Analytics</option>
@@ -101,13 +101,13 @@
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                 <select ng-click="chartup(x)" id="d1_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Data</option>
-                    <option ng-repeat="x in vList" value-"[[x.visualization_name]]">[[x.visualization_name]]</option>
-
+                    <option ng-hide="chartdata" ng-repeat="x in vList" value-"[[x.visualization_name]]">[[x.visualization_name]]</option>
+                    <option  ng-hide="statdata" ng-repeat="x in statisticalArr" value-"[[x.statistical_name]]">[[x.statistical_name]]</option>
                 </select>
               </div>
             </div>
-
-            <div class="row ml-auto border border-top-0">
+            <div ng-hide="secondelement">
+             <div class="row ml-auto border border-top-0">
               <div class="col-sm-4 table table-striped my-4">
                 <label class="category" for="dashName">Select Element 2</label>
               </div>
@@ -131,6 +131,7 @@
                 </select>
               </div>
             </div>
+        </div>
             <div class="container ml-auto text-center " style="padding-bottom:2%;">
                 <div class="row">
                     <div class="col-sm-6  table table-striped my-4 ">
@@ -143,7 +144,7 @@
 
 
         </div>
-        <div class="col-md-8" ng-show="isDashboardVisible" style="height:500px;">
+        <div class="col-md-8" ng-show="isDashboardVisible" style="height:720px;">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" data-target="#sheet">Sheet 1</a></li>
                 <li><a data-toggle="tab" data-target="#sheet1">New Sheet 1</a></li>
@@ -153,10 +154,10 @@
             <div class="tab-content">
                 <div ng-hide="twobyone"id="sheet" class="tab-pane fade in active">
                     <div id = "el1_sheet" style="height:50%;background-color:grey;margin-bottom:0.5%;">
-                       <div id="chartView" style="width:100%; height:250;"></div>
+                       <div id="chartView" style="width:100%; height:360;"></div>
                     </div>
                     <div  style="height:50%;background-color:grey;margin-top:0.5%;">
-                         <div id="chartView2" style="width:100%; height:250;"></div>
+                         <div id="chartView2" style="width:100%; height:360;"></div>
 
                     </div>
                 </div>
