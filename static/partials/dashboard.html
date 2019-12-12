@@ -112,10 +112,9 @@
                 <label class="category" for="dashName">Select Element 2</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                <select id="el2_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                <select id="el2_type" name="dash_type" ng-click="elsel2(x)" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Element</option>
                           <option value="charts">Charts</option>
-                          <option value="analytics">Analytics</option>
                 </select>
               </div>
             </div>
@@ -124,9 +123,9 @@
                 <label class="category" for="dashName">Select Data 2</label>
               </div>
               <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                <select id="d2_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                <select id="d2_type" ng-click="chartup2(x)"name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
                   <option>Select Data</option>
-                    <option  ng-repeat="x in statisticalArr" value-"[[x.statistical_name]]">[[x.statistical_name]]</option>
+                  <option ng-repeat="x in vList" value-"[[x.visualization_name]]">[[x.visualization_name]]</option>
 
                 </select>
               </div>
