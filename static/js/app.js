@@ -493,7 +493,9 @@ module.controller("statisticalCtrl", function($scope,$http) {
              else if($scope.selectedmethod == 'describe'){
                      $scope.calculatedSummary =  data.summary;
                      $scope.calculationDone = true;
+                     console.log("field data",data.fieldData)
                      fieldDataForoGraph = data.fieldData;
+                     console.log("fielddataforgraph",typeof(fieldDataForoGraph))
                      fieldDataToSave = fieldDataForoGraph.toString();
                      var trace = {
     					x: fieldDataForoGraph,
@@ -1583,6 +1585,10 @@ module.controller("dashboardCtrl", function ($scope,$http) {
             $scope.chartup=function chartup(chart){
                 $scope.chartdata=false;
                 $scope.statdata=true;
+                var sumstat = document.getElementById("statView2");
+                sumstat.style.display="none";
+                var chart2 = document.getElementById ("chartView2");
+                chart2.style.display = "block";
                 // document.getElementById("el1_sheet").appendChild(div);
 
                 let selected_chart=document.getElementById("d1_type").value;
@@ -3025,7 +3031,68 @@ module.controller("dashboardCtrl", function ($scope,$http) {
             $scope.chartup = function chartup(chart){
                 $scope.chartdata=true;
                 $scope.statdata=false;
-                console.log("$$$$$$$$$$$$$$")
+
+                console.log("$$$$$$$$$$$$$$statsarr",$scope.statisticalArr)
+                let statisticalArr = $scope.statisticalArr;
+                let selected_chart=document.getElementById("d1_type").value;
+                console.log("chartselected",selected_chart);
+                let dataname;
+                let v = _.find(statisticalArr, function(o) { return o.statistical_name === selected_chart; });
+                console.log(v)
+                let stat_value = v.statistical_calculated_value;
+                console.log("stat_values",stat_value);
+                let graph_data = '';
+                graph_data=v.parameters;
+
+                graph_data = graph_data.split(',').map(Number);
+                console.log("graph_data", graph_data)
+                console.log("stat_summary",stat_value);
+                console.log("stat_summary",v.statistical_calculated_value)
+                $scope.calSummary = JSON.parse(v.statistical_calculated_value)
+                let sumobject = $scope.calSummary;
+                console.log($scope.calSummary)
+
+                // let namesum = "summary";
+                // var divnode=document.createElement("div");
+                // var ulnode = document.createElement("ul");
+                // var linode = document.createElement("li")
+                // var count =sumobject.count;
+                // var mean =sumobject.mean;
+                // var std =sumobject.std;
+                // var median =sumobject.median;
+                // var skewness =sumobject.skewness;
+                // var kurtosis =sumobject.kurtosis;
+                // var min =sumobject.min;
+                // var max =sumobject.max;
+                //
+                // var textnode = document.createTextNode("Count :"+count);
+                //
+                // ulnode.appendChild(linode);
+                // linode.appendChild(textnode);
+                //
+                // document.getElementById("statView2").appendChild(ulnode);
+                var sumstat = document.getElementById("statView2");
+                sumstat.style.display="block";
+                sumstat.style.color = "white";
+                sumstat.style.overflowY =  "scroll"
+                var chart2 = document.getElementById ("chartView2");
+                chart2.style.display = "none";
+
+
+                Plotly.purge(chartView)
+                Plotly.purge(chartView2)
+
+                var trace ={
+                    x: graph_data,
+                    type: 'histogram',
+                };
+                var data = [trace];
+                var layout = {
+                    bargraph: 0.005,
+                    bargroupgap:0.02,
+                }
+                Plotly.newPlot(chartView, data, layout);
+
             }
             console.log("elementselected was analytics")
         }

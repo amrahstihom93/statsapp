@@ -157,7 +157,62 @@
                     </div>
                     <div  style="height:50%;background-color:grey;margin-top:0.5%;">
                          <div id="chartView2" style="width:100%; height:360;"></div>
-
+                         <div id="statView2" style="width:100%; height:360;">
+                             <table class="table table-bordered text-center" style="color:white">
+                                 <thead>
+                                     <tr>
+                                         <th>Parameter</th>
+                                         <th class="text-center">Value</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                                         <td class="text-left">Count</td>
+                                         <td>[[calSummary.count]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Mean</td>
+                                         <td>[[calSummary.mean]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Standard Deviation</td>
+                                         <td>[[calSummary.std]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Median</td>
+                                         <td>[[calSummary.median]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Skewness</td>
+                                         <td>[[calSummary.skewness]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Kurtosis</td>
+                                         <td>[[calSummary.kurtosis]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Minimum</td>
+                                         <td>[[calSummary.min]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">25%</td>
+                                         <td>[[calSummary.25]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">50%</td>
+                                         <td>[[calSummary.50]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">75%</td>
+                                         <td>[[calSummary.75]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Maximum</td>
+                                         <td>[[calSummary.max]]</td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
                     </div>
                 </div>
                 <div ng-hide="twobyfour" id="sheet" class="tab-pane fade in active">
