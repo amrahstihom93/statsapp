@@ -3045,32 +3045,13 @@ module.controller("dashboardCtrl", function ($scope,$http) {
                 graph_data=v.parameters;
 
                 graph_data = graph_data.split(',').map(Number);
-                console.log("graph_data", graph_data)
+                console.log("graph_data", graph_data);
                 console.log("stat_summary",stat_value);
-                console.log("stat_summary",v.statistical_calculated_value)
-                $scope.calSummary = JSON.parse(v.statistical_calculated_value)
+                console.log("stat_summary",v.statistical_calculated_value);
+                $scope.calSummary = JSON.parse(v.statistical_calculated_value);
                 let sumobject = $scope.calSummary;
-                console.log($scope.calSummary)
+                console.log($scope.calSummary);
 
-                // let namesum = "summary";
-                // var divnode=document.createElement("div");
-                // var ulnode = document.createElement("ul");
-                // var linode = document.createElement("li")
-                // var count =sumobject.count;
-                // var mean =sumobject.mean;
-                // var std =sumobject.std;
-                // var median =sumobject.median;
-                // var skewness =sumobject.skewness;
-                // var kurtosis =sumobject.kurtosis;
-                // var min =sumobject.min;
-                // var max =sumobject.max;
-                //
-                // var textnode = document.createTextNode("Count :"+count);
-                //
-                // ulnode.appendChild(linode);
-                // linode.appendChild(textnode);
-                //
-                // document.getElementById("statView2").appendChild(ulnode);
                 var sumstat = document.getElementById("statView2");
                 sumstat.style.display="block";
                 sumstat.style.color = "white";
