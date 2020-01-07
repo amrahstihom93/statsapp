@@ -1576,7 +1576,9 @@ module.controller("dashboardCtrl", function ($scope,$http) {
 
 
         let elementSelected ;
+
         $scope.elsel=function elsel(elementsel){
+
             console.log("inside elsel")
             let selected_element = document.getElementById("el1_type").value;
             console.log("selected element",selected_element)
@@ -4536,6 +4538,7 @@ module.controller("dashboardCtrl", function ($scope,$http) {
       }
         }
 
+
         console.log("Selected Element", elementSelected);
 
     $scope.initDashboard = function(){
@@ -4561,6 +4564,9 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     $scope.dash_layout =true;
     $scope.sheet_layout =false;
 
+    }
+    function addSheet(){
+        console.log("sheet added");
     }
 
     function viewChart(x, y, xLabel, yLabel,id) {
@@ -4618,6 +4624,7 @@ module.controller("dashboardCtrl", function ($scope,$http) {
             }
         });
     }
+
 
     $scope.saveNarration = function(){
         console.log("hi from save narration");
