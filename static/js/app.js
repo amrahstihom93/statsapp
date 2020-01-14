@@ -4565,9 +4565,10 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     $scope.sheet_layout =false;
 
     }
-    function addSheet(){
-        console.log("sheet added");
+    $scope.addSheet = function(){
+      console.log("sheet added")
     }
+    
 
     function viewChart(x, y, xLabel, yLabel,id) {
         var ctx2 = document.getElementById(id);
