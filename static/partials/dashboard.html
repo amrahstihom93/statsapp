@@ -143,15 +143,13 @@
 
 
         </div>
-        <div class="col-md-8" ng-show="isDashboardVisible" style="height:720px;">
-            <ul class="nav nav-tabs">
+        <div class="col-md-8 " ng-show="isDashboardVisible" style="height:720px;">
+            <ul class="nav nav-tabs" id="listtab">
                 <li class="active"><a data-toggle="tab" data-target="#sheet">Sheet 1</a></li>
-                <li><a data-toggle="tab" data-target="#sheet1">New Sheet 1</a></li>
                 <button ng-click= "addSheet()">Add Sheet</button>
             </ul>
-          
             <div class="tab-content">
-                <div ng-hide="twobyone"id="sheet" class="tab-pane fade in active">
+                <div ng-hide="twobyone"id="sheet_1" class="tab-pane fade in active">
                     <div id = "el1_sheet" style="height:50%;background-color:grey;margin-bottom:0.5%;">
                        <div id="chartView" style="width:100%; height:360;"></div>
                     </div>
@@ -230,10 +228,10 @@
 
                     </div>
                 </div>
-                <div id="sheet1" class="tab-pane fade">
+                <!-- <div id="sheet1" class="tab-pane fade">
                     <h3>Sheet 1</h3>
                     <p>Some content in menu 1.</p>
-                </div>
+                </div> -->
             </div>
 
         </div>

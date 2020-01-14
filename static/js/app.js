@@ -4567,8 +4567,28 @@ module.controller("dashboardCtrl", function ($scope,$http) {
     }
     $scope.addSheet = function(){
       console.log("sheet added")
-    }
-    
+      function makeid(length) {
+          var result           = '';
+          var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          var charactersLength = characters.length;
+          for ( var i = 0; i < length; i++ ) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+          }
+          return result;
+      }
+
+      console.log(makeid(5));
+      var id = $(".nav-tabs").children().length; //think about it ;)
+      console.log("nav-tabs length",id)
+      var tabId = 'sheet_' + id;
+      console.log("new tab",tabId)
+      var lastLength = id;
+      $(this).closest('li').before('<li><a data-toggle="tab " data-target="#sheet_' + id + '">New Sheet</a> <span> x </span></li>');
+      $('.tab-content').append('<div class="tab-pane fade" id="' + tabId + '"><h3>Sheet_2</h3><p>New sheet</p> ' + id + '</div>');
+      $('.nav-tabs ').append('<li><a data-toggle="tab " data-target="#sheet_' + id + '">New Sheet</a></li>');
+      $('.nav-tabs li:nth-child(' + id + ') a').click();
+  }
+
 
     function viewChart(x, y, xLabel, yLabel,id) {
         var ctx2 = document.getElementById(id);
