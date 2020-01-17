@@ -119,6 +119,7 @@ module.controller("qTools",function($scope, $http){
             '</tr>';
             $("table").append(row);
             $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            console.log(index)
             //$('[data-toggle="tooltip"]').tooltip();
         });
 
@@ -193,6 +194,7 @@ module.controller("opptracker",function($scope, $http){
             console.log("add-new clicked");
             $(this).attr("disabled", "disabled");
             var index = $("table tbody tr:last-child").index();
+
             var row = '<tr>' +
             '<td><div class="table table-striped dropdown"><select id="legend" name="legend" class="btn btn-primary dropdown-toggle datsel fa" style="font-weight:900"type="button"><option value="technology" style="font-weight:900">&#xf26c</option><option value="people" style="font-weight:900">&#xf0c0</option><option value="process"style="font-weight:900">&#xf085</option></select></div></td>' +
             '<td><input type="text" class="form-control" name="opportunity name" id="opportunity name"></td>' +
@@ -215,7 +217,8 @@ module.controller("opptracker",function($scope, $http){
             '</tr>';
             $("table").append(row);
             $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-            //$('[data-toggle="tooltip"]').tooltip();
+
+
         });
 
 
@@ -240,6 +243,7 @@ module.controller("opptracker",function($scope, $http){
                 $(this).parents("tr").find(".add, .edit").toggle();
                 $(".add-new").removeAttr("disabled");
             }
+
         });
     // Edit row on edit button click
 	$(document).on("click", ".edit", function(){
