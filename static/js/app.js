@@ -104,10 +104,10 @@ module.controller("qTools",function($scope, $http){
             '<td><input type="text" class="form-control" name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
             '<td><div class="table table-striped dropdown"><select id="sev" name="sev" class="btn btn-primary dropdown-toggle datsel" type="button"><option>SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
 			'<td><input type="text" class="form-control" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
-            '<td><div class="table table-striped dropdown"><select id="occ" name="occ" class="btn btn-primary dropdown-toggle datsel" type="button"><option>OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="occ" name="occ"  class="btn btn-primary dropdown-toggle datsel" type="button"><option>OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
             '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
             '<td><div class="table table-striped dropdown"><select id="det" name="det" class="btn btn-primary dropdown-toggle datsel" type="button"><option>DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><input type="text" class="form-control" name="rpn" id="rpn"></td>' +
+            '<td><input type="button" class="form-control calcRPN" name="rpn" id="rpn" ></td>' +
             '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
             '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
             '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
@@ -119,10 +119,30 @@ module.controller("qTools",function($scope, $http){
             '</tr>';
             $("table").append(row);
             $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-            console.log(index)
+            console.log("row ",index+1," added")
+
+
             //$('[data-toggle="tooltip"]').tooltip();
         });
-
+        // $scope.calcRPN = function(){
+        //     var occ=document.getElementById("occ").value;
+        //     console.log("value of occ is ",occ)
+        // }
+        function calcRPN(){
+            var occ=document.getElementById("occ").value;
+            var sev=document.getElementById("sev").value;
+            var det=document.getElementById("det").value;
+            console.log("value of sev is ",sev)
+            console.log("value of occ is ",occ)
+            console.log("value of det is ",det)
+            var rpn = sev*occ*det;
+            console.log(rpn)
+            document.getElementById("rpn").value = rpn;
+            document.getElementById("rpn").innerHTML = rpn;
+        }
+        $(document).on("click",".calcRPN",function(){
+            calcRPN();
+        });
         // Add row on add button click
         $(document).on("click", ".add", function(){
 		var empty = false;
