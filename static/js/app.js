@@ -114,7 +114,7 @@ module.controller("qTools",function($scope, $http){
             '<td><div class="table table-striped dropdown"><select id="new sev" name="new sev" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
             '<td><div class="table table-striped dropdown"><select id="new occ" name="new occ" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
             '<td><div class="table table-striped dropdown"><select id="new det" name="new det" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><input type="number" class="form-control" name="new rpn" id="new rpn"></td>' +
+            '<td><input type="number" class="form-control calc_newRPN" name="new rpn" id="new rpn"></td>' +
 			'<td>' + actions + '</td>' +
             '</tr>';
             $("table").append(row);
@@ -140,8 +140,24 @@ module.controller("qTools",function($scope, $http){
             document.getElementById("rpn").value = rpn;
             document.getElementById("rpn").innerHTML = rpn;
         }
+        function calc_newRPN(){
+            var occ=document.getElementById("new occ").value;
+            var sev=document.getElementById("new sev").value;
+            var det=document.getElementById("new det").value;
+            console.log("value of sev is ",sev)
+            console.log("value of occ is ",occ)
+            console.log("value of det is ",det)
+            var new_rpn = sev*occ*det;
+            console.log(new_rpn)
+            document.getElementById("new rpn").value = new_rpn;
+            document.getElementById("new rpn").innerHTML = new_rpn;
+        }
+
         $(document).on("click",".calcRPN",function(){
             calcRPN();
+        });
+        $(document).on("click",".calc_newRPN",function(){
+            calc_newRPN();
         });
         // Add row on add button click
         $(document).on("click", ".add", function(){
