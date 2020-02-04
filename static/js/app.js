@@ -98,16 +98,17 @@ module.controller("qTools",function($scope, $http){
             console.log("add-new clicked");
             $(this).attr("disabled", "disabled");
             var index = $("table tbody tr:last-child").index();
+            var new_index= index+1;
             var row = '<tr>' +
             '<td><input type="text" class="form-control" name="process function (step)" id="process function (step)"></td>' +
             '<td><input type="text" class="form-control" name="potential failure modes "errors"" id="potential failure modes "errors""></td>' +
             '<td><input type="text" class="form-control" name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
-            '<td><div class="table table-striped dropdown"><select id="sev" name="sev" class="btn btn-primary dropdown-toggle datsel" type="button"><option>SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="sev_'+(new_index)+'" name="sev_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
 			'<td><input type="text" class="form-control" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
-            '<td><div class="table table-striped dropdown"><select id="occ" name="occ"  class="btn btn-primary dropdown-toggle datsel" type="button"><option>OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="occ_'+(new_index)+'" name="occ_'+(new_index)+'"  class="btn btn-primary dropdown-toggle datsel" type="button"><option>OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
             '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
-            '<td><div class="table table-striped dropdown"><select id="det" name="det" class="btn btn-primary dropdown-toggle datsel" type="button"><option>DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><input type="button" class="form-control calcRPN" name="rpn" id="rpn" ></td>' +
+            '<td><div class="table table-striped dropdown"><select id="det_'+(new_index)+'" name="det_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><input type="button" class="form-control calcRPN" name="rpn_'+(new_index)+'" id="rpn_'+(new_index)+'" ></td>' +
             '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
             '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
             '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
@@ -129,16 +130,19 @@ module.controller("qTools",function($scope, $http){
         //     console.log("value of occ is ",occ)
         // }
         function calcRPN(){
-            var occ=document.getElementById("occ").value;
-            var sev=document.getElementById("sev").value;
-            var det=document.getElementById("det").value;
+
+            var index = $("table tbody tr:last-child").index();
+            console.log("current row -->",index)
+            var occ=document.getElementById("occ_"+index).value;
+            var sev=document.getElementById("sev_"+index).value;
+            var det=document.getElementById("det_"+index).value;
             console.log("value of sev is ",sev)
             console.log("value of occ is ",occ)
             console.log("value of det is ",det)
             var rpn = sev*occ*det;
             console.log(rpn)
-            document.getElementById("rpn").value = rpn;
-            document.getElementById("rpn").innerHTML = rpn;
+            document.getElementById("rpn_"+index).value = rpn;
+            document.getElementById("rpn_"+index).innerHTML = rpn;
         }
         function calc_newRPN(){
             var occ=document.getElementById("new occ").value;
