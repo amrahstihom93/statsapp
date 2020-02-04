@@ -2,20 +2,20 @@
     <nav aria-label="breadcrumb" class="my-4">
         <ol class="breadcrumb">
             <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
-            <li class="breadcrumb-item" aria-current="page">Choose Dataset</li>
+            <!-- <li class="breadcrumb-item" aria-current="page">Choose Dataset</li> -->
         </ol>
     </nav>
     <!-- <a href="/dataset">dataset</a> -->
-    <h3>Choose dataset to make analytical summary:</h3>
+    <h4>Choose dataset to make analytical summary:</h4>
     <!--DropdownSelector-->
-  <div class=" table table-bordered table-striped my-4 dropdown pull-right">
+  <!-- <div class=" table table-bordered table-striped my-4 dropdown pull-right">
       <button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
 
       </button>
       <ul class="dropdown-menu scrollable-menu">
           <li class="listline" ng-repeat="x in datasetArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
       </ul>
-  </div>
+  </div> -->
 
     <table class="table table-bordered table-striped my-4">
         <thead>
@@ -37,20 +37,20 @@
 <div class="container" ng-show="showGraph1">
 
 <!-- Reveal dataset list in main page-->
-    <nav aria-label="breadcrumb" class="my-4">
-        <ol class="breadcrumb">
+    <!-- <nav aria-label="breadcrumb" class="my-4">
+        <ol class="breadcrumb"> -->
             <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
-            <li class="breadcrumb-item" aria-current="page">Change Selected Dataset</li>
+            <!-- <li class="breadcrumb-item" aria-current="page">Change Selected Dataset</li>
         </ol>
-    </nav>
+    </nav> -->
     <!--DropdownSelector summarypage-->
-    <div class="boom table table-bordered table-striped my-4 dropdown pull-right">
+    <!-- <div class="boom table table-bordered table-striped my-4 dropdown pull-right">
         <button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
         </button>
         <ul class="dropdown-menu scrollable-menu">
             <li class="listline" ng-repeat="x in datasetArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
         </ul>
-    </div>
+    </div> -->
 
   <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
@@ -59,7 +59,7 @@
   </ol>
   </nav>
   <div class="row">
-  <div class="col-md-4">
+  <!-- <div class="col-md-4">
 	<h3>Dataset Name : [[selectedDataset]]</h3>
 	<label class="my-4" for="visuaName">Analytical Name</label>
 	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="aName" placeholder="Enter Analytical Name">
@@ -89,8 +89,202 @@
 	</div>
 	<button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
 	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+  </div> -->
+  <div class="col-md-4">
+
+    <div class="">
+        <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
+          <label class="category p-2 mx-auto text-light" >Names</label>
+        </div>
+        <div id="viz_name" class=" ml-auto collapse">
+       <div class="row ml-auto border">
+         <div class="col-sm-4  table table-striped my-4 ">
+           <label class="category">Dataset    Name</label>
+         </div>
+         <div class="col-sm table table-striped my-4 dropdown pull-right">
+           <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >[[selectedDataset]]
+           </button>
+           <ul class="dropdown-menu scrollable-menu">
+             <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+           </ul>
+         </div>
+       </div>
+       <div class="row ml-auto border border-top-0">
+         <div class="col-sm-4 table table-striped my-4">
+           <label class="category" for="visuaName">Name Analytical</label>
+         </div>
+         <div class="col-sm table table-striped my-4">
+           <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Analytical Name">
+         </div>
+       </div>
+       </div>
+       </div>
+       <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#viz_par">
+         <label class="category p-2 mx-auto text-light">Analytical Parameters</label>
+       </div>
+       <div id="viz_par" class="row ml-auto collapse border border-top-0">
+
+                 <div ng-hide="ctrlChart" class=" container w-100">
+                  <div class="row ">
+                    <div class="col-sm-4  table table-striped my-4 ">
+                      <label class="category">Select method</label>
+                    </div>
+                    <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                      <select id="method" name="method" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedmethod" ng-change="initCalculate()" class="custom-select btn-info">
+                        <option>Select field</option>
+                               <option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div ng-hide="ctrlChart" class=" container w-100">
+                 <div class="row ">
+                   <div class="col-sm-4  table table-striped my-4 ">
+                     <label class="category">Select Group</label>
+                   </div>
+                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                     <select id="group" name="group_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedgroup"  class="custom-select btn-info">
+                       <option selected>Select field</option>
+                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                     </select>
+                   </div>
+                 </div>
+               </div>
+               <div ng-hide="ctrlChart" class=" container w-100">
+                <div class="row ">
+                  <div class="col-sm-4  table table-striped my-4 ">
+                    <label class="category">Select Data</label>
+                  </div>
+                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+                      <option>Select field</option>
+                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+                 <div class="container ml-auto text-center " style="padding-bottom:2%;">
+                   <div class="row">
+                       <div class="col-sm-6  table table-striped my-4 ">
+                           <button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
+                       </div>
+                       <div class="col-sm-6  table table-striped my-4 ">
+                           <button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+                       </div>
+                   </div>
+               </div>
+             </div>
+             <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#layout">
+               <label class="category p-2 mx-auto text-light" >Layout</label>
+             </div>
+             <div id="layout" class=" row ml-auto collapse border border-top-0">
+                 <div class="card-header pallete-head border border-top-0">
+                     <ul class="row nav nav-tabs pallete-tabs" role="tablist">
+                         <li class="col-sm-6 nav-item">
+                             <button class="nav-link active block" data-toggle="tab" data-target="#home">Color</button>
+                         </li>
+                         <li class="col-sm-6 nav-item">
+                             <button class="nav-link active block" data-toggle="tab" data-target="#menu1">Title</button>
+                         </li>
+                     </ul>
+                 </div>
+                 <div class="card-body">
+                     <div class="tab-content">
+                         <div id="home" class="format container tab-pane active">
+                             <div ng-hide="otherPallete" class="colorpallete" >
+                                 <div class="text-center">
+                                     <!-- <input  type="color" class="colpick" id="c" value=""/> -->
+                                     <button id="c"style="height:50px; width:50px; border: 1px solid transparent;" class=" text-center" data-toggle="collapse" data-target="#acolor"></button>
+
+                                     <div id="acolor" class="picker collapse"
+                                      acp-color="#cddc39"
+                                      acp-show-rgb="yes"
+                                      acp-show-hsl="no"
+                                      acp-show-hex="yes"
+                                      acp-palette="PALETTE_MATERIAL_500">
+                                      </div>
+
+                                 </div>
+                                 <div class="text-center">
+                                     <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
+                                 </div>
+
+                             </div>
+                             <div ng-hide="pieChart" class="colorpallete">
+                                 <div class="row">
+
+                                 </div>
+                             </div>
+
+                         </div>
+                         <div id="menu1" class="container tab-pane ">
+                             <div class="form-group">
+                                 <div class="row">
+                                   <div class="col-sm-4 table table-striped my-4">
+                                     <label class="category" for="graphTitle">Graph Title</label>
+                                   </div>
+                                   <div class="col-sm table table-striped my-4">
+                                     <input type="text" class="form-control form-control-0" id="graphTitle" placeholder="Enter Graph Title" >
+                                   </div>
+                                 </div>
+                                 <div class="row">
+                                   <div class="col-sm-4 table table-striped my-4">
+                                     <label class="category" for="xaxisLabel">X Label</label>
+                                   </div>
+                                   <div class="col-sm table table-striped my-4">
+                                     <input type="text" class="form-control form-control-0" id="xaxisLabel" placeholder="Enter Title For X Axis" >
+                                   </div>
+                                 </div>
+                                 <div class="row">
+                                   <div class="col-sm-4 table table-striped my-4">
+                                     <label class="category" for="yaxisLabel">Y Label</label>
+                                   </div>
+                                   <div class="col-sm table table-striped my-4">
+                                     <input type="text" class="form-control form-control-0" id="yaxisLabel" placeholder="Enter Title For Y Axis" >
+                                   </div>
+                                 </div>
+                             </div>
+                             <div class="text-center">
+                                 <button type="button" class="btn btn-primary" data-ng-click="titleset($event)">Submit</button>
+
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+             </div>
+	<!--<h3>Dataset Name : [[selectedDataset]]</h3>
+	<label class="my-4" for="visuaName">Analytical Name</label>
+	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="aName" placeholder="Enter Analytical Name">
+
+	<h4 class="my-4">Select fields from drop down:</h4>
+	<div class="col-md-12 my-4">
+	Select method :
+		<select id="method" name="method" ng-model="selectedmethod" ng-change="initCalculate()" class="custom-select btn-info">
+			<option selected>Select field</option>
+			<option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
+		</select>
+	</div>
+	<div class="col-md-12 my-4">
+	Select Group :
+		<select id="group" name="group_name" ng-model="selectedgroup" class="custom-select btn-info">
+			<option selected>Select group</option>
+			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+		</select>
+	</div>
+
+	<div class="col-md-12 my=4">
+	Select Data :
+		<select id="datacol" name="datacol_name" ng-model="selecteddatacol" class="custom-select btn-info">
+			<option selected>Select data</option>
+			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+		</select>
+	</div>
+	<button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
+	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+  </div>-->
   </div>
   <div class="col-md-8">
+     <div class="col-md-4">
 			<table class = "table table-striped">
 				<thead class="bg-primary" style="color:white;">
 					<tr>
@@ -98,7 +292,7 @@
 							[[selectedmethod]] : [[calculatedSummary]]
 						</th>
 						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row"  scope="col" >Factor</th>
-						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row"  scope="col" >Values</th>
+						<th ng-show="selectedmethod=='anova' && calculationDone" scope= "row"  scope="col" style="width:80px">Values</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -126,6 +320,21 @@
 							[[calculatedSummary.p]]
 						</td>
 					</tr>
+          </tbody>
+          </table>
+          </div>
+          <div class="col-md-4">
+            <table class = "table table-striped">
+              <thead class="bg-primary" style="color:white;">
+                <tr>
+                  <th ng-show="calculationDone && selectedmethod!='anova'">
+                    [[selectedmethod]] : [[calculatedSummary]]
+                  </th>
+                  <th ng-show="selectedmethod=='anova' && calculationDone" scope= "row"  scope="col" >Factor</th>
+                  <th ng-show="selectedmethod=='anova' && calculationDone" scope= "row"  scope="col" style="width:80px">Values</th>
+                </tr>
+              </thead>
+              <tbody>
 					<tr>
 						<th ng-show="calculationDone && selectedmethod!='anova'">
 							[[selectedmethod]] : [[calculatedSummary]]

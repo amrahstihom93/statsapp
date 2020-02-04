@@ -157,13 +157,17 @@ def calculateAnalytics(request):
 
 		#calculating the f-ration
 		f = ms_between/ms_within
+
+		f = truncate(f,5)
+		print("Value of F ", f)
 		#calculating p-value
 		p=stats.f.sf(f, df_between, df_within)
-
+		p = truncate(p,5)
 		#effect sizes
 		eta_square = ss_between/ss_total
+		eta_square = truncate(eta_square,5)
 		omega_square = (ss_between - (df_between * ms_within))/(ss_total + ms_within)
-
+		omega_square = truncate(omega_square,5)
 
 		og = list(datag.loc[:,selectedgroup])
 		oc = list(datac.loc[:,selecteddatacol])

@@ -1,18 +1,23 @@
 <div ng-hide="datasetSaved">
     <nav class="breadcrumb my-4">
-        <span class="breadcrumb-item active">Dataset</span>
+        <!-- <span class="breadcrumb-item active">Dataset</span> -->
     </nav>
     <div class="row">
         <div class="col">
-            <p> Want to create new dataset ? </p>
-            Select File Type
-
-            <select required ng-model="fileType" class="custom-select">
-                <option value="csv">.CSV</option>
-                <option value="xls">.XLS</option>
-                <option value="mysql">MySQL DB</option>
-            </select>
-            <a href="" ng-click="submitFileType()" class="btn btn-primary">Submit</a>
+            <h4>Want to create new dataset ?</h4>
+            <div class="col-md-2">
+                <h5 style="width:300px">Select File Type</h5>
+              </div>
+                <div class="col-md-6">
+                    <select required ng-model="fileType" class="custom-select" style="width:600px">
+                        <option value="csv">.CSV</option>
+                        <option value="xls">.XLS</option>
+                        <option value="mysql">MySQL DB</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                <a href="" ng-click="submitFileType()" class="btn btn-primary" style="margin-top:-1px">Submit</a>
+            </div>
         </div>
 
     </div>
@@ -55,34 +60,72 @@
 <div class="container" ng-show="fileSelected">
     <div>
         <div class="row">
-            <div class="col-md-4 col-6">
-                <p>Select Process to be associated with dataset</p>
-                Select Process:
+
+                <h4>Select Process to be associated with dataset</h4>
+                <form id="upForm" name="uploadForm" class="my-4 form-inline" method="post">
+                  <div class="col-md-12 col-4">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="width:150px">Process</th>
+                      <th style="width:150px">Dataset Name</th>
+                      <th style="width:150px">Choose File</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <select required ng-model="selectedProcess" class="custom-select" style="padding-left:50px; width:350px" >
+                            <!--	<option value="PIDroot00000000000000">root</option>-->
+                            <option ng-repeat="x in processList" value="[[x.process_id]]">
+                                [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
+                            </option>
+                        </select>
+                      </td>
+                      <td>
+                        <input type="text" ng-model="datasetName" name="datasetName" class="form-control onePerLMargin"
+                               required/ style="padding-left:50px; width:350px">
+                      </td>
+                      <td>
+                        <input ng-hide="fileType==='mysql'" type="file" id="files" name="myfile" class="form-control my-4 onePerLMargin"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                required /  style="width:250px">
+                        <button id="2ndStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="isFileUploaded"
+                                        ng-click="submitHeaderType()" style="width:80px; margin-top:2px">submit
+                        </button>
+                        <button id="1stStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="!isFileUploaded"
+                                        ng-click="submit()" style="width:80px; margin-top:2px">Upload
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+                <!--Select Process:
                 <select required ng-model="selectedProcess" class="custom-select">
                     <!--	<option value="PIDroot00000000000000">root</option>-->
-                    <option ng-repeat="x in processList" value="[[x.process_id]]">
+                    <!--<option ng-repeat="x in processList" value="[[x.process_id]]">
                         [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                     </option>
-                </select>
+                </select>-->
+                </div>
             </div>
-        </div>
-        <form id="upForm" name="uploadForm" class="my-4 form-inline" method="post">
+        <!-- <form id="upForm" name="uploadForm" class="my-4 form-inline" method="post">
             Dataset Name:
             <input type="text" ng-model="datasetName" name="datasetName" class="form-control onePerLMargin"
                    required/><br>
 
            <input ng-hide="fileType==='mysql'" type="file" id="files" name="myfile" class="form-control my-4 onePerLMargin"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            required />
+            required /> -->
             <!--	<button type="submit" id="submit-file" class="btn btn-primary onePerLMargin" ng-click="submit()">Upload File</button>
         -->
 
-            <button id="2ndStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="isFileUploaded"
+            <!-- <button id="2ndStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="isFileUploaded"
                     ng-click="submitHeaderType()">submit
             </button>
             <button id="1stStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="!isFileUploaded"
                     ng-click="submit()">Upload
             </button>
-        </form>
+        </form> -->
 
         <div id="drop">Drop a spreadsheet file here to see sheet data</div>
 
