@@ -112,10 +112,10 @@ module.controller("qTools",function($scope, $http){
             '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
             '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
             '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
-            '<td><div class="table table-striped dropdown"><select id="new sev" name="new sev" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><div class="table table-striped dropdown"><select id="new occ" name="new occ" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><div class="table table-striped dropdown"><select id="new det" name="new det" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><input type="number" class="form-control calc_newRPN" name="new rpn" id="new rpn"></td>' +
+            '<td><div class="table table-striped dropdown"><select id="new_sev" name="new_sev" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="new_occ" name="new_occ" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><div class="table table-striped dropdown"><select id="new_det" name="new_det" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><input type="number" class="form-control calc_newRPN" name="new_rpn" id="new_rpn"></td>' +
 			'<td>' + actions + '</td>' +
             '</tr>';
             $("table").append(row);
@@ -133,6 +133,11 @@ module.controller("qTools",function($scope, $http){
 
             var index = $("table tbody tr:last-child").index();
             console.log("current row -->",index)
+
+            var totalRowCount = $("#qtfmea tr").length;
+            console.log("total rows",totalRowCount);
+            var rowCount = $("#qtfmea td").closest("tr").length;
+            console.log("Data Rows",rowCount);
             var occ=document.getElementById("occ_"+index).value;
             var sev=document.getElementById("sev_"+index).value;
             var det=document.getElementById("det_"+index).value;
@@ -145,16 +150,16 @@ module.controller("qTools",function($scope, $http){
             document.getElementById("rpn_"+index).innerHTML = rpn;
         }
         function calc_newRPN(){
-            var occ=document.getElementById("new occ").value;
-            var sev=document.getElementById("new sev").value;
-            var det=document.getElementById("new det").value;
+            var occ=document.getElementById("new_occ").value;
+            var sev=document.getElementById("new_sev").value;
+            var det=document.getElementById("new_det").value;
             console.log("value of sev is ",sev)
             console.log("value of occ is ",occ)
             console.log("value of det is ",det)
             var new_rpn = sev*occ*det;
             console.log(new_rpn)
-            document.getElementById("new rpn").value = new_rpn;
-            document.getElementById("new rpn").innerHTML = new_rpn;
+            document.getElementById("new_rpn").value = new_rpn;
+            document.getElementById("new_rpn").innerHTML = new_rpn;
         }
 
         $(document).on("click",".calcRPN",function(){
