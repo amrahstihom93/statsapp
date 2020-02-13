@@ -6764,7 +6764,6 @@ module.controller("visualizationCtrl", function ($scope, $http) {
 
     function setChart() {
         //   var ctx = document.getElementById("myChart");
-
         let i = 0;
         var ctx2 = document.getElementById("myChart2");
         var ctx3 = document.getElementById("area").value;
@@ -9746,6 +9745,7 @@ module.controller("visualizationCtrl", function ($scope, $http) {
     }
 
     $scope.paramterSave = function () {
+        let grphtitle;
         console.log("#########*******########");
         console.log("xLabel",xLabel);
         console.log("yLabel",yLabel);
