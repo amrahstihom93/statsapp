@@ -73,6 +73,9 @@ module.config(['$routeProvider',
 
 //QualityTools RouteController1
 module.controller("qTools",function($scope, $http){
+  $scope.saveFMEA = function(){
+    console.log("inside save fmea function")
+  }
     console.log("QualityTools");
     let url = '/getProcess/';
     $http.get(url)
@@ -129,6 +132,7 @@ module.controller("qTools",function($scope, $http){
         //     var occ=document.getElementById("occ").value;
         //     console.log("value of occ is ",occ)
         // }
+
         function calcRPN(){
 
             var index = $("table tbody tr:last-child").index();
@@ -182,6 +186,8 @@ module.controller("qTools",function($scope, $http){
         $(document).on("click",".calc_newRPN",function(){
             calc_newRPN();
         });
+
+
         // Add row on add button click
         $(document).on("click", ".add", function(){
 		var empty = false;

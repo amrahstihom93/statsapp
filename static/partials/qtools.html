@@ -16,6 +16,14 @@
                                 </option>
                             </select>
                         </div>
+                        <div class="col-sm-4">
+                          <div class="col-sm-4 table table-striped my-4">
+                            <label class="category" for="visuaName">Name FMEA</label>
+                          </div>
+                          <div class="col-sm table table-striped my-4">
+                            <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter FMEA Name">
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,5 +78,8 @@
                 </tbody>
             </table>
 
+            </div>
+            <div class="col-sm-4">
+                <button type="button" id="saveFMEA" class="btn btn-info " ng-click="saveFMEA()"> Save</button>
             </div>
         </div>
