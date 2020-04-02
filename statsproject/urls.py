@@ -93,6 +93,8 @@ urlpatterns = [
     url(r'^save/$', processmap_views.processmapsave, name="save"),
     url(r'^qualityTools/$', qualitytools_views.qtools, name="qualitytools"),
     url(r'^opptracker/$', qualitytools_views.opptracker, name="opptracker"),
+    url(r'^saveFMEA/$', qualitytools_views.saveFMEA, name="qualitytools_fmea"),
+    url(r'^fmeaList/$', qualitytools_views.fmeaList, name="qualitytools_fmeaList")
 
 
 

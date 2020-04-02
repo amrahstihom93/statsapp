@@ -65,16 +65,212 @@ module.config(['$routeProvider',
         }).when('/qualityTools',{
             templateUrl: static_url + 'partials/qtools.html',
             controller: 'qTools'
+
+        }).when('/fmeaList',{
+            templateUrl: static_url + 'partials/fmeaList.html',
+            controller: 'getfmeaList'
+
         }).when('/opptracker',{
             templateUrl: static_url + 'partials/opptrack.html',
             controller: 'opptracker'
         });
     }]);
 
+
 //QualityTools RouteController1
+module.controller ("getfmeaList",function($scope, $http){
+    console.log("inside List Fmea")
+    $scope.fmeaListArr = [];
+    let url2 ='/fmeaList/'
+    $http.get(url2)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.fmeaListArr = response.data;
+
+
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+});
 module.controller("qTools",function($scope, $http){
+
+  $scope.testFmea = function(){
+    console.log("Test FMEA function")
+    let table = document.getElementById("qtfmea");
+    let tableLength = document.getElementById("qtfmea").rows.length;
+    let rowLength = table.rows[0].cells.length
+
+    let collection= []
+    let testDict = {}
+    let headerObject = {}
+    let testObject = {}
+    let mainDict = {}
+
+    let testArray=[]
+
+
+    for (var i =0;i<rowLength;i++){
+      // headerObject[table.rows[0].cells[i].innerText]=table.rows[0].cells[i].innerText;
+      headerObject[table.rows[0].cells[i].innerText]=null;
+    }
+
+    console.log("testarray",headerObject)
+    let headerDataObject ={}
+    let headerObject2={}
+
+    for (var x =1;x<tableLength;x++){
+      var headObj = {}
+      for(var y=0;y<rowLength;y++){
+        headObj[table.rows[0].cells[y].innerText]=table.rows[x].cells[y].innerText
+      }
+      console.log(headObj)
+      collection.push(headObj)
+    }
+
+    console.log("collected Data", collection)
+    let parameters;
+    parameters = JSON.stringify(collection)
+    console.log("response parameters",parameters)
+    let fmea_name = document.getElementById("fmeaName").value;
+    $scope.fmeaName='';
+    $scope.fmeaparam='';
+    $scope.selectedProcess='';
+    let url ='/saveFMEA/';
+    let url2 = '/getProcess';
+    $http.get(url2)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.processList = response.data;
+
+
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+    let fmeadata = new FormData();
+    fmeadata.append("fmeaparam",parameters);
+    fmeadata.append("fmeaName",fmea_name);
+    fmeadata.append("fmeaparam",parameters);
+    $scope.selectedProcess = document.getElementById("selectbox").value
+    fmeadata.append("process_id",$scope.selectedProcess);
+    $http.post(url, fmeadata, {
+        headers: {'Content-Type': undefined},
+        transformRequest: angular.identity
+    }).success(function (data, status, headers, config) {
+        console.log("this is repsonse data", status);
+        console.log("data is ", data);
+        if (data == "saved successfully") {
+            $('#successModal').modal();
+        }
+        // this callback will be called asynchronously
+        // when the response is available
+    }).error(function (data, status, headers, config) {
+        console.log("something went wrong");
+
+    });
+
+
+  };
   $scope.saveFMEA = function(){
-    console.log("inside save fmea function")
+
+    let table_length = document.getElementById("qtfmea").rows.length;
+    console.log("totalRows", table_length);
+    var describeDict ={};
+    let testDict={}
+    for(i=0;i<table_length;i++){
+      testDict[i]={}
+    }
+    console.log(testDict);
+    let process_function_step = document.getElementById("qtfmea").rows[1].cells[0].innerText;
+    let potential_failure_modes = document.getElementById("qtfmea").rows[1].cells[1].innerText;
+    let potential_failure_effects = document.getElementById("qtfmea").rows[1].cells[2].innerText;
+    let sev = document.getElementById("qtfmea").rows[1].cells[3].innerText;
+    let potential_causes_of_failure = document.getElementById("qtfmea").rows[1].cells[4].innerText;
+    let occ = document.getElementById("qtfmea").rows[1].cells[5].innerText;
+    let current_process_control = document.getElementById("qtfmea").rows[1].cells[6].innerText;
+    let det = document.getElementById("qtfmea").rows[1].cells[7].innerText;
+    let rpn = document.getElementById("qtfmea").rows[1].cells[8].innerText;
+    let recommended_actions = document.getElementById("qtfmea").rows[1].cells[9].innerText;
+    let responsible_person_and_target_date = document.getElementById("qtfmea").rows[1].cells[10].innerText;
+    let take_actions = document.getElementById("qtfmea").rows[1].cells[11].innerText;
+    let new_sev = document.getElementById("qtfmea").rows[1].cells[12].innerText;
+    let new_occ = document.getElementById("qtfmea").rows[1].cells[13].innerText
+    let new_det = document.getElementById("qtfmea").rows[1].cells[14].innerText
+    let new_rpn = document.getElementById("qtfmea").rows[1].cells[15].innerText;
+
+    describeDict["process_function_step"]=process_function_step;
+    describeDict["potential_failure_modes"]=potential_failure_modes;
+    describeDict["potential_failure_effects"]=potential_failure_effects;
+    describeDict["sev"]=sev;
+    describeDict["potential_causes_of_failure"]=potential_causes_of_failure;
+    describeDict["occ"]=occ;
+    describeDict["current_process_control"]=current_process_control;
+    describeDict["det"]=det;
+    describeDict["rpn"]=rpn;
+    describeDict["recommended_actions"]=recommended_actions;
+    describeDict["responsible_person_and_target_date"]=responsible_person_and_target_date;
+    describeDict["take_actions"]=take_actions;
+    describeDict["new_sev"]=new_sev;
+    describeDict["new_occ"]=new_occ;
+    describeDict["new_det"]=new_det;
+    describeDict["new_rpn"]=new_rpn;
+
+
+    console.log("inside save fmea function");
+    let fmea_name = document.getElementById("fmeaName").value;
+    console.log(fmea_name);
+    $scope.fmeaName='';
+    $scope.fmeaparam='';
+    $scope.selectedProcess='';
+    console.log("process_function_step",process_function_step)
+    let parameters;
+    parameters = JSON.stringify(describeDict)
+    let url ='/saveFMEA/';
+    let url2='/getProcess/';
+    $http.get(url2)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.processList = response.data;
+
+
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+    console.log("processdidiiddid",document.getElementById("selectbox").value)
+    $scope.selectedProcess = document.getElementById("selectbox").value
+    let fmeadata = new FormData();
+    fmeadata.append("fmeaName",fmea_name);
+    fmeadata.append("fmeaparam",parameters);
+    fmeadata.append("process_id",$scope.selectedProcess);
+    console.log("selected process",$scope.selectedProcess);
+    console.log("FMEA_name",fmeadata.fmeaName);
+    console.log("Dictonary for summary",describeDict);
+    $http.post(url, fmeadata, {
+        headers: {'Content-Type': undefined},
+        transformRequest: angular.identity
+    }).success(function (data, status, headers, config) {
+        console.log("this is repsonse data", status);
+        console.log("data is ", data);
+        if (data == "saved successfully") {
+            $('#successModal').modal();
+        }
+        // this callback will be called asynchronously
+        // when the response is available
+    }).error(function (data, status, headers, config) {
+        console.log("something went wrong");
+
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+    });
+
   }
     console.log("QualityTools");
     let url = '/getProcess/';
@@ -90,6 +286,25 @@ module.controller("qTools",function($scope, $http){
         });
     var x =document.getElementById("add-new");
     $scope.selectedProcess ='';
+    //setinput
+    function setInputFilter(textbox, inputFilter) {
+      ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+        textbox.addEventListener(event, function() {
+          if (inputFilter(this.value)) {
+            this.oldValue = this.value;
+            this.oldSelectionStart = this.selectionStart;
+            this.oldSelectionEnd = this.selectionEnd;
+          } else if (this.hasOwnProperty("oldValue")) {
+            this.value = this.oldValue;
+            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+          } else {
+            this.value = "";
+          }
+        });
+      });
+    }
+
+
     $(document).ready(function(){
         console.log("letsstart");
         //$('[data-toggle="tooltip"]').tooltip();
@@ -106,28 +321,41 @@ module.controller("qTools",function($scope, $http){
             '<td><input type="text" class="form-control" name="process function (step)" id="process function (step)"></td>' +
             '<td><input type="text" class="form-control" name="potential failure modes "errors"" id="potential failure modes "errors""></td>' +
             '<td><input type="text" class="form-control" name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
-            '<td><div class="table table-striped dropdown"><select id="sev_'+(new_index)+'" name="sev_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><input type="text" class="form-control"  id="sev_'+(new_index)+'" name="sev_'+(new_index)+'"></td>'+
+            // '<td><div class="table table-striped dropdown"><select id="sev_'+(new_index)+'" name="sev_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
 			'<td><input type="text" class="form-control" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
-            '<td><div class="table table-striped dropdown"><select id="occ_'+(new_index)+'" name="occ_'+(new_index)+'"  class="btn btn-primary dropdown-toggle datsel" type="button"><option>OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
+            '<td><input type="text" class="form-control"  id="occ_'+(new_index)+'" name="occ_'+(new_index)+'"></td>' +
             '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
-            '<td><div class="table table-striped dropdown"><select id="det_'+(new_index)+'" name="det_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><input type="button" class="form-control calcRPN" name="rpn_'+(new_index)+'" id="rpn_'+(new_index)+'" ></td>' +
+            '<td><input type="text" class="form-control"  id="det_'+(new_index)+'" name="det_'+(new_index)+'"></td>' +
+            '<td><input type="text" class="form-control calcRPN" name="rpn_'+(new_index)+'" id="rpn_'+(new_index)+'" ></td>' +
             '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
             '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
             '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
-            '<td><div class="table table-striped dropdown"><select id="new_sev_'+(new_index)+'" name="new_sev_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW SEV</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><div class="table table-striped dropdown"><select id="new_occ_'+(new_index)+'" name="new_occ_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW OCC</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><div class="table table-striped dropdown"><select id="new_det_'+(new_index)+'" name="new_det_'+(new_index)+'" class="btn btn-primary dropdown-toggle datsel" type="button"><option>NEW DET</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td>' +
-            '<td><input type="number" class="form-control calc_newRPN" name="new_rpn_'+(new_index)+'" id="new_rpn_'+(new_index)+'"></td>' +
+            '<td><input type="text" class="form-control"  id="new_sev_'+(new_index)+'" name="new_sev_'+(new_index)+'"></td>' +
+            '<td><input type="text" class="form-control"  id="new_occ_'+(new_index)+'" name="new_occ_'+(new_index)+'"></td>' +
+            '<td><input type="text" class="form-control"  id="new_det_'+(new_index)+'" name="new_det_'+(new_index)+'"></td>' +
+            '<td><input type="text" class="form-control calc_newRPN" name="new_rpn_'+(new_index)+'" id="new_rpn_'+(new_index)+'"></td>' +
 			'<td>' + actions + '</td>' +
             '</tr>';
             $("table").append(row);
             $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
             console.log("row ",index+1," added")
 
-
+            setInputFilter(document.getElementById("sev_"+new_index), function(value) {
+              return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 10); });
+            setInputFilter(document.getElementById("occ_"+new_index), function(value) {
+              return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 10); });
+            setInputFilter(document.getElementById("det_"+new_index), function(value) {
+              return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 10); });
+            setInputFilter(document.getElementById("new_sev_"+new_index), function(value) {
+              return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 10); });
+            setInputFilter(document.getElementById("new_occ_"+new_index), function(value) {
+              return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 10); });
+            setInputFilter(document.getElementById("new_det_"+new_index), function(value) {
+              return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 10); });
             //$('[data-toggle="tooltip"]').tooltip();
         });
+
         // $scope.calcRPN = function(){
         //     var occ=document.getElementById("occ").value;
         //     console.log("value of occ is ",occ)
@@ -138,23 +366,23 @@ module.controller("qTools",function($scope, $http){
             var index = $("table tbody tr:last-child").index();
             console.log("current row -->",index)
 
-            var totalRowCount = $("#qtfmea tr").length;
-            console.log("total rows",totalRowCount);
-            var rowCount = $("#qtfmea td").closest("tr").length;
-            console.log("Data Rows",rowCount);
-            for(var i = 0; i<rowCount; i++){
-                var occ = document.getElementById("occ_"+i).value;
-                var sev = document.getElementById("sev_"+i).value;
-                var det = document.getElementById("det_"+i).value;
-                var rpn = sev*occ*det;
-
-                console.log("values of occ for row",i,'is',occ);
-                console.log("values of sev for row",i,'is',sev);
-                console.log("values of det for row",i,'is',det);
-                console.log("values of rpn for row",i,'is',rpn);
-                document.getElementById("rpn_"+i).value = rpn;
-                document.getElementById("rpn_"+i).innerHTML = rpn;
-            }
+            // var totalRowCount = $("#qtfmea tr").length;
+            // console.log("total rows",totalRowCount);
+            // var rowCount = $("#qtfmea td").closest("tr").length;
+            // console.log("Data Rows",rowCount);
+            // for(var i = 0; i<rowCount; i++){
+            //     var occ = document.getElementById("occ_"+i).value;
+            //     var sev = document.getElementById("sev_"+i).value;
+            //     var det = document.getElementById("det_"+i).value;
+            //     var rpn = sev*occ*det;
+            //
+            //     console.log("values of occ for row",i,'is',occ);
+            //     console.log("values of sev for row",i,'is',sev);
+            //     console.log("values of det for row",i,'is',det);
+            //     console.log("values of rpn for row",i,'is',rpn);
+            //     document.getElementById("rpn_"+i).value = rpn;
+            //     document.getElementById("rpn_"+i).innerHTML = rpn;
+            // }
             var occ=document.getElementById("occ_"+index).value;
             var sev=document.getElementById("sev_"+index).value;
             var det=document.getElementById("det_"+index).value;
@@ -163,8 +391,9 @@ module.controller("qTools",function($scope, $http){
             console.log("value of det is ",det)
             var rpn = sev*occ*det;
             console.log(rpn)
-            // document.getElementById("rpn_"+index).value = rpn;
-            // document.getElementById("rpn_"+index).innerHTML = rpn;
+            document.getElementById("rpn_"+index).value = rpn;
+            document.getElementById("rpn_"+index).innerHTML = rpn;
+            document.getElementById("rpn_"+index).innerText = rpn;
         }
         function calc_newRPN(){
             var index = $("table tbody tr:last-child").index();
@@ -178,6 +407,7 @@ module.controller("qTools",function($scope, $http){
             console.log(new_rpn)
             document.getElementById("new_rpn_"+index).value = new_rpn;
             document.getElementById("new_rpn_"+index).innerHTML = new_rpn;
+            document.getElementById("new_rpn_"+index).innerText = new_rpn;
         }
 
         $(document).on("click",".calcRPN",function(){
@@ -10434,7 +10664,7 @@ module.controller("createNewDataset", function ($scope, $http) {
         if($scope.fileType === 'mysql'){
             fd.append('types',typesArr);
         }
-        console.log("select process", $scope.selectedProcess);
+        console.log("select process from scope", $scope.selectedProcess);
 //	fd.append("headersDatatype",dataType);
         // for sending manual values
         //   fd.append("type", "edit");

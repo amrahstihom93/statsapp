@@ -1,8 +1,11 @@
+from __future__ import unicode_literals
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import JSONField
 from upload.models import Dataset
-
+from accounts.models import ClientList, Profile
+from process.models import Process
 
 
 class fmea(models.Model):

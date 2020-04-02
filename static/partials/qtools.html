@@ -1,4 +1,4 @@
-{% load staticfiles %}
+
 <div id="fmea" class="table-wrapper rat">
             <div class="table-title rat">
                 <div class="row">
@@ -11,7 +11,7 @@
                             <h5 class="col-sm-8">Select Process:</h5>
                             <select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select ">
                                 <!--	<option value="PIDroot00000000000000">root</option>-->
-                                <option ng-repeat="x in processList" value="[[x.process_id]]">
+                                <option ng-repeat="x in processList track by $index" value="[[x.process_id]]">
                                     [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                                 </option>
                             </select>
@@ -21,7 +21,7 @@
                             <label class="category" for="visuaName">Name FMEA</label>
                           </div>
                           <div class="col-sm table table-striped my-4">
-                            <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter FMEA Name">
+                            <input type="text" ng-model="fmeaName" class="form-control form-control-0" id="fmeaName" placeholder="Enter FMEA Name">
                           </div>
                         </div>
                     </div>
@@ -80,6 +80,7 @@
 
             </div>
             <div class="col-sm-4">
-                <button type="button" id="saveFMEA" class="btn btn-info " ng-click="saveFMEA()"> Save</button>
+              <button type="button" id="testFmea" class="btn btn-info " ng-click="testFmea()"> Save</button>
+                <button type="button" id="ListFmea" class="btn btn-info " ng-click="ListFmea()"> List</button>
             </div>
         </div>

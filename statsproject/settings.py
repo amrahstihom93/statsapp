@@ -25,7 +25,7 @@ SECRET_KEY = '8q%xx+w0s=8#7pe8e1^%*!+ruo1%5y=1uilczq-jgb01c8t31m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['statsv1-cloned-m0h17sh4rm4.c9users.io', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.5','statsv1-cloned-m0h17sh4rm4.c9users.io', '127.0.0.1']
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sigmaway12'
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'charts',
     'statistical',
 	'mlearn',
+    'qtools',
 ]
 
 MIDDLEWARE = [
@@ -92,9 +93,9 @@ WSGI_APPLICATION = 'statsproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'testdb',
+        'NAME': 'statictics3',
 		'USER' : 'postgres',
-		'PASSWORD':'admin123',
+		'PASSWORD':'password',
 		'HOST': 'localhost',
 		'PORT' : '5432',
     },
