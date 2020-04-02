@@ -18,13 +18,17 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from statsapp import views
+
+from mlearn import views as ml_views
+
 #from statsapp.views import MyPDFView
 from accounts import views as accounts_views
 from upload import views as dataset_upload_views
 from charts import views as chart_views
 from process import views as process_views
 from statistical import views as statistical_views
-
+from processmap import views as processmap_views
+from qtools import views as qualitytools_views
 from django.contrib.auth import views as auth_views
 #from wkhtmltopdf.views import PDFTemplateView
 
@@ -52,6 +56,7 @@ urlpatterns = [
 	url(r'^getDataset/$', chart_views.getDataset, name='getDataset'),
 	url(r'^getGraphFields/$', chart_views.getGraphFields, name='getGraphFields'),
 	url(r'^getGraphData/$', chart_views.getGraphData, name='getGraphData'),
+    url(r'^getSubgroup/$', chart_views.getSubgroup, name='getSubgroup'),
 	url(r'^makeProcess/$', process_views.makeProcess, name='makeProcess'),
 	url(r'^getProcess/$', process_views.getProcess, name='getProcess'),
 	url(r'^getProcessList/$', process_views.getProcessList, name='getProcessList'),
@@ -62,19 +67,35 @@ urlpatterns = [
 	url(r'^account_activation_sent/$', accounts_views.account_activation_sent, name='account_activation_sent'),
 	url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
 		accounts_views.activate, name='activate'),
-	#url(r'^pdf/$', PDFTemplateView.as_view(template_name='pdftest.html',filename='mypdf.pdf'), name='pdf'),	
+	#url(r'^pdf/$', PDFTemplateView.as_view(template_name='pdftest.html',filename='mypdf.pdf'), name='pdf'),
 	#url(r'^pdfresponse/$',MyPDFView.as_view(), name='pdfresponse'),
 	url(r'^mysqlconnect/$', dataset_upload_views.mysqlconnect, name='mySqlConnector'),
 	url(r'^saveStatistics/$',statistical_views.saveStatistics,name='saveStatistics'),
 	url(r'^calculateStatistics/$',statistical_views.calculateStatistics,name='calculateStatistics'),
-	url(r'^getStatistical/$', statistical_views.getStatisticalList,name='getStatistical'),	
+	url(r'^getStatistical/$', statistical_views.getStatisticalList,name='getStatistical'),
 	url(r'^delStatistical/(?P<id>\d+)/$', statistical_views.delStatistical,name='delete-statistical'),
-	
+
 	url(r'^saveAnalytics/$',statistical_views.saveAnalytics,name='saveAnalytics'),
 	url(r'^calculateAnalytics/$',statistical_views.calculateAnalytics,name='calculateAnalytics'),
-	url(r'^getAnalytical/$', statistical_views.getAnalyticalList,name='getAnalytical'),	
+	url(r'^getAnalytical/$', statistical_views.getAnalyticalList,name='getAnalytical'),
 	url(r'^delAnalytical/(?P<id>\d+)/$', statistical_views.delAnalytical,name='delete-analytical'),
-		
+
+	url(r'^mlearn/$', ml_views.mlearn, name="mlearn"),
+    url(r'^calcsregression/$', ml_views.calcsregression, name='calcsregression'),
+    url(r'^multiregression/$', ml_views.multiregression, name='multiregression'),
+    url(r'^savemodel/$', ml_views.savemodel, name='calcsregression'),
+
+    url(r'^mdep/$', ml_views.mlearn, name="mdep"),
+    url(r'^mlist/$', ml_views.mlist, name="mlist"),
+
+    url(r'^processmap/$', processmap_views.processmap, name="processmap"),
+    url(r'^open/$', processmap_views.processmapopen, name="processmap"),
+    url(r'^save/$', processmap_views.processmapsave, name="save"),
+    url(r'^qualityTools/$', qualitytools_views.qtools, name="qualitytools"),
+    url(r'^opptracker/$', qualitytools_views.opptracker, name="opptracker"),
+
+
+
 
 ]
 if settings.DEBUG:

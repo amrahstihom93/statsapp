@@ -1,6 +1,7 @@
-<div class="container">
 
-<div ng-show="(!showGraph)&&(!showGraphList)">
+{load static}
+<div class="container">
+<div ng-show="(!showGraph)&&(!showGraphList)&&(!showcchart)">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
@@ -25,7 +26,7 @@
     </tbody>
   </table>
  </div>
- 
+
  <!-- Graph Types List-->
  	<div class="container" ng-show="showGraphList">
     <nav aria-label="breadcrumb" class="my-4">
@@ -35,124 +36,505 @@
 		</ol>
 	</nav>
 	<h2 class="text-center">Choose Chart Type</h2>
-	<div class="card-deck mt-4em">
+    <div ng-model="selectedChart">
+        <div class="card-deck mt-4em">
       <div class="card">
 		<img class="card-img-top" src="../static/img/p1.png" alt="Image of Pie Chart">
-        <div class="card-body">
-          <h3 class="card-title">Pie Chart</h3>
-			<div class="card-content">
+        <div class="text-center card-body">
+          <!-- <h3 class="card-title">Pie Chart</h3> -->
+			<!-- <div class="card-content">
 			<p>Create Pie Chart.</p>
-			</div>
-            <button class="btn btn-primary" ng-click="setGraphType('pie')">Pie Chart</button>
+			</div> -->
+            <button class="btn btn-primary"ng-click="setGraphType('pie')">Pie Chart</button>
         </div>
       </div>
 	  <div class="card">
 		<img class="card-img-top" src="../static/img/bar.png" alt="Image of Bar Chart">
-        <div class="card-body">
-          <h3 class="card-title">Bar Chart</h3>
+        <div class="text-center card-body">
+          <!-- <h3 class="card-title">Column Chart</h3>
 			<div class="card-content">
-			<p>Create Bar Chart.</p>
-			</div>
-			<button class="mx-auto btn btn-primary" ng-click="setGraphType('bar')">Bar Chart</button>
+			<p>Create Column Chart.</p>
+			</div> -->
+			<button class="mx-auto btn btn-primary " ng-click="setGraphType('bar')">Column Chart</button>
 		</div>
       </div>
 	  <div class="card">
 		<img class="card-img-top" src="../static/img/area.png" alt="Image of Area Chart">
-        <div class="card-body">
-          <h3 class="card-title">Area Chart</h3>
+        <div class="text-center card-body">
+          <!-- <h3 class="card-title">Area Chart</h3>
 			<div class="card-content">
 			<p>Create Area chart.</p>
-			</div>
-			<button class="mx-auto btn btn-primary" ng-click="setGraphType('line')">Area Chart</button>
+			</div> -->
+			<button class="mx-auto btn btn-primary" id="area" value="area"ng-click="setGraphType('area')">Area Chart</button>
         </div>
       </div>
-	  
-	  
-	</div>
-	<!--<div class="card-deck mt-4em">
-		<div class="card">
-		<img class="card-img-top" src="../static/img/line.png" alt="Card image cap">
-        <div class="card-body">
-          <h3 class="card-title">Line Chart</h3>
+      <div class="card">
+		<img class="card-img-top" src="../static/img/radar3.png" alt="Image of Radar Chart">
+        <div class="text-center card-body">
+          <!-- <h3 class="card-title">Radar Chart</h3>
 			<div class="card-content">
-			<p>Create Line chart.</p>
-			</div>
-			<a class="mx-auto btn btn-primary" href="">Line Chart</a>
+			<p>Create Radar chart.</p>
+			</div> -->
+			<button class="mx-auto btn btn-primary" ng-click="setGraphType('radar')">Radar Chart</button>
         </div>
-      </div>-->
-	</div>
- 
- 
- 
- 
- <!-- Actual graph-->
- <div ng-show="showGraph">
-	<nav aria-label="breadcrumb" class="my-4">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
-		<li class="breadcrumb-item" aria-current="page">Select Fields</li>
-	</ol>
-	</nav>
-	<div class="row">
-	<div class="col-md-4">
-	<h3>Dataset Name : [[selectedDataset]]</h3>
-	<label class="my-4" for="visuaName">Visualization Name</label>
-	<input type="text" ng-model="vName" class="form-control onePerLMargin" id="visuaName" placeholder="Enter Visualization Name">
+      </div>
+      <div class="card">
+		<img class="card-img-top" src="../static/img/polar2.png" alt="Image of polar Chart">
+        <div class="text-center card-body">
+          <!-- <h3 class="card-title">Polar Chart</h3>
+			<div class="card-content">
+			<p>Create Polar chart.</p>
+			</div> -->
+			<button class="mx-auto btn btn-primary" ng-click="setGraphType('polarArea')">Polar Chart</button>
+        </div>
+      </div>
 
-	<h4 class="my-4">Select fields from drop down to make visualization:</h4>
-	<div class="col-md-12">
-	Select X-axis :
-			<select id="x_value" name="x_axis_value" class="custom-select btn-info">
-				<option selected>Select field</option>
-				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-			</select>
+        </div>
+        <div class ="card-deck mt-4em">
+            <div class="card">
+      		<img class="card-img-top" src="../static/img/line.png" alt="Image of polar Chart">
+              <div class="text-center card-body">
+                <!-- <h3 class="card-title">Line Chart</h3>
+      			<div class="card-content">
+      			<p>Create Line chart.</p>
+      			</div> -->
+      			<button class="mx-auto btn btn-primary" id="line" ng-click="setGraphType('line')">Line Chart</button>
+              </div>
+        </div>
+        <div class="card">
+  		<img class="card-img-top" src="../static/img/scatter.png" alt="Image of polar Chart">
+          <div class="text-center card-body">
+            <!-- <h3 class="card-title">Scatter Chart</h3>
+  			<div class="card-content">
+  			<p>Create Scatter chart.</p>
+  			</div> -->
+  			<button class="mx-auto btn btn-primary" ng-click="setGraphType('scatter')">Scatter Chart</button>
+          </div>
+        </div>
+        <div class="card">
+  		<img class="card-img-top" src="../static/img/horzbar.png" alt="Image of polar Chart">
+          <div class="text-center card-body">
+            <!-- <h3 class="card-title">Bar Chart</h3>
+  			<div class="card-content">
+  			<p>Create Bar chart.</p>
+  			</div> -->
+  			<button class="mx-auto btn btn-primary" ng-click="setGraphType('horizontalBar')">Bar Chart</button>
+          </div>
+        </div>
+        <div class="card">
+  		<img class="card-img-top" src="../static/img/box.png" alt="Image of box plot">
+          <div class="text-center card-body">
+            <!-- <h3 class="card-title">Create Box Plot</h3>
+  			<div class="card-content">
+  			<p>Create chart.</p>
+  			</div> -->
+  			<button class=" mx-auto btn btn-primary" ng-click="setGraphType('boxplot')">Box Plot</button>
+          </div>
+        </div>
+        <div class="card">
+  		<img class="card-img-top" src="../static/img/histo.png" alt="Image of polar Chart">
+          <div class="text-center card-body">
+            <!-- <h3 class="card-title">Histogram Chart</h3>
+  			<div class="card-content">
+  			<p>Create Histogram.</p>
+  			</div> -->
+  			<button class="mx-auto btn btn-primary" ng-click="setGraphType('histogram')">Histogram Chart</button>
+          </div>
+        </div>
+        </div>
+        <!-- <div class ="card-deck mt-4em"> -->
+
+        <div class="card" style="width:18%;">
+            <img class="card-img-top" src="../static/img/ctrl_chart.png" alt="Image of polar Chart">
+            <div class="text-center card-body">
+                <!-- <h3 class="card-title">Control Chart</h3>
+                <div class="card-content">
+                    <p>Create chart.</p>
+                </div> -->
+                <button class="mx-auto btn btn-primary" ng-click="setGraphType('controlchart')">Control Chart</button>
+                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#wiz" >Control Chart</button> -->
+            </div>
+        </div>
+        <!-- </div> -->
+
+    </div>
 	</div>
-	<div class="col-md-12 my-4">
-	Select Y-axis :
-			<select id="y_value" name="y_axis_value" class="custom-select btn-info">
-				<option selected>Select field</option>
-				<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-			</select>
-	</div>		
-	<button type="submit" class="btn btn-info" ng-click="makeGraph()">Create Graph</button>
-	<button class="btn btn-primary" ng-click="paramterSave()">Save</button>
-	</div>
-	<div class="col-md-8">
-	<div class="my-4 pull-left">
-		<canvas id="myChart2" width="500" height="400"></canvas>
-	</div>
-	</div>
-	
-	</div>
-	</div>
-   
+
+
+
+
+<div ng-show="showGraph">
+  <nav aria-label="breadcrumb" class="my-4">
+    <ol class="breadcrumb">
+	       <li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
+	       <li class="breadcrumb-item" aria-current="page">Select Fields</li>
+    </ol>
+  </nav>
+
+	<div class="row">
+     <!--Left Pane-->
+	   <div class="col-md-4">
+        <div class="">
+            <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
+              <label class="category p-2 mx-auto text-light" >Names</label>
+            </div>
+            <div id="viz_name" class=" ml-auto collapse">
+	         <div class="row ml-auto border">
+             <div class="col-sm-4  table table-striped my-4 ">
+               <label class="category">Dataset    Name</label>
+             </div>
+             <div class="col-sm table table-striped my-4 dropdown pull-right">
+               <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >[[selectedDataset]]
+               </button>
+               <ul class="dropdown-menu scrollable-menu">
+                 <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+               </ul>
+             </div>
+           </div>
+           <div class="row ml-auto border border-top-0">
+           <div class="col-sm-4  table table-striped my-4 ">
+             <label class="category">Chart Type</label>
+           </div>
+           <div class="col-sm table table-striped my-4 dropdown pull-right">
+             <button id="graphset"class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" value=graphType>graphType
+             </button>
+             <ul class="dropdown-menu scrollable-menu">
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('area')">Area</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('pie')">Pie</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('line')">Line</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('histogram')">Histogram</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('scatter')">Scatter</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('bar')">Column</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('radar')">Radar</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('polarArea')">Polar</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('horizontalBar')">Bar</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('boxplot')">Box Plot</a></li>
+               <li class="listline dropdown-item" ><br><a href="" class="" ng-click="setGraphType('controlchart')">Control Chart</a></li>
+             </ul>
+           </div>
+         </div>
+
+         <div ng-hide="ctrlChart" class="row ml-auto border border-top-0">
+          <div class="col-sm-4  table table-striped my-4 ">
+            <label class="category">Control Chart Type</label>
+          </div>
+          <div class="col-sm table table-striped my-4 ">
+            <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#wiz" ><i class="fa fa-magic"></i></button> -->
+            <div class="dropdown">
+            <button id="ctrlgraphset"class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" value=ctrlchartType>cctype
+            </button>
+            <ul class="dropdown-menu scrollable-menu">
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('pControl')">p-Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('npControl')">np-Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('uControl')">u-Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('cControl')">c-Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('xbarScontrol')">Xbar-S Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('xbarRcontrol')">Xbar-R Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('iControl')">I Control Chart</a></li>
+              <li class="listline dropdown-item" ><br><a href="" class="" ng-click="ctrlchrtType('mrControl')">MR Control Chart</a></li>
+            </ul>
+            </div>
+          </div>
+
+         </div>
+         
+           <div class="row ml-auto border border-top-0">
+             <div class="col-sm-4 table table-striped my-4">
+               <label class="category" for="visuaName">Name Visualization</label>
+             </div>
+             <div class="col-sm table table-striped my-4">
+               <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Visualization Name">
+             </div>
+           </div>
+           </div>
+           <div ng-hide="ctrlChart">
+             <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#ctrl_wiz">
+               <label class="category p-2 mx-auto text-light">Wizard</label>
+             </div>
+             <div id="ctrl_wiz" class="row ml-auto collapse border">
+               <form id="controlChartForm container">
+                 <div class="row container ">
+                   <div class="col-sm-4  table table-striped my-4 ">
+                     <label class="category">Variable or Attribute?</label>
+                   </div>
+                   <div class="col-sm-6">
+                     <div class="form-check form-check-radio ">
+                       <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="variable" value="variable"> Yes
+                         <span class="form-check-sign"></span>
+                       </label>
+                     </div>
+                     <div class="form-check form-check-radio">
+                       <label class="form-check-label">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="attribute" value="attribute">No
+                          <span class="form-check-sign"></span>
+                       </label>
+                     </div>
+                    </div>
+                  </div>
+                  <div ng-hide="variable"class="row container ">
+                    <div class="col-sm-4  table table-striped my-4 ">
+                      <label class="category">Variable or Attribute?</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check form-check-radio ">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="variable" value="variable"> Yes
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-radio">
+                        <label class="form-check-label">
+                           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="attribute" value="attribute">No
+                           <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                     </div>
+                   </div>
+               </form>
+             </div>
+           </div>
+           <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#viz_par">
+             <label class="category p-2 mx-auto text-light">Visualization Parameters</label>
+           </div>
+
+           <div id="viz_par" class="row ml-auto collapse border border-top-0">
+
+               <div ng-hide="ctrlChart" class=" container w-100">
+                <div class="row ">
+                  <div class="col-sm-4  table table-striped my-4 ">
+                    <label class="category">Select Defects</label>
+                  </div>
+                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                    <select id="dependent_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                      <option>Select field</option>
+                              <option ng-repeat="k in fieldsAr" >[[k]]</option>
+                    </select>
+                  </div>
+                </div>
+                <div ng-hide="XBarRChart" class="row ">
+                  <div class="col-sm-4  table table-striped my-4 ">
+                    <label class="category">Select Subgroups</label>
+                  </div>
+                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                    <select id="subgroups_value" name="subgroups_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                      <option>Select subgroups</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                    </select>
+                  </div>
+                </div>
+                <div ng-hide="XBarSChart" class="row ">
+                  <div class="col-sm-4  table table-striped my-4 ">
+                    <label class="category">Select Subgroups</label>
+                  </div>
+                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                    <select id="subgroupsS_value" name="subgroups_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                      <option>Select subgroups</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                              <option value="16">16</option>
+                              <option value="17">17</option>
+                              <option value="18">18</option>
+                              <option value="19">19</option>
+                              <option value="20">20</option>
+                              <option value="21">21</option>
+                              <option value="22">22</option>
+                              <option value="23">23</option>
+                              <option value="24">24</option>
+                              <option value="25">25</option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="row ">
+                  <div class="col-sm-4   table table-striped my-4 ">
+                    <label class="category">Select Sample</label>
+                  </div>
+                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                    <select id="independent_value" name="y_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                      <option selected>Select field</option>
+                              <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+             <div ng-hide="pieCtrl" class=" container w-100">
+               <div class="row ">
+                 <div class="col-sm-4  table table-striped my-4 ">
+                   <label class="category">Select X Axis</label>
+                 </div>
+                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                   <select id="x_value" name="x_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button" >
+                     <option selected>Select field</option>
+    				         <option ng-repeat="k in fieldsAr" >[[k]]</option>
+                   </select>
+                 </div>
+  	           </div>
+
+
+  	           <div class="row ">
+                 <div class="col-sm-4   table table-striped my-4 ">
+                   <label class="category">Select Y Axis</label>
+                 </div>
+                 <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                   <select id="y_value" name="y_axis_value" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                     <option selected>Select field</option>
+    				         <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+                   </select>
+                 </div>
+  	           </div>
+             </div>
+             <div class="container ml-auto text-center " style="padding-bottom:2%;">
+                 <div class="row">
+                     <div class="col-sm-6  table table-striped my-4 ">
+                         <button  type="submit" class="btn btn-info block" ng-click="makeGraph()">Create Graph</button>
+                     </div>
+                     <div class="col-sm-6  table table-striped my-4 ">
+                         <button  class="btn btn-info block" ng-click="paramterSave()">Save</button>
+                     </div>
+                 </div>
+             </div>
+           </div>
+
+
+
+
+           <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#layout">
+             <label class="category p-2 mx-auto text-light" >Layout</label>
+           </div>
+           <div id="layout" class=" row ml-auto collapse border border-top-0">
+               <div class="card-header pallete-head border border-top-0">
+                   <ul class="row nav nav-tabs pallete-tabs" role="tablist">
+                       <li class="col-sm-6 nav-item">
+                           <button class="nav-link active block" data-toggle="tab" data-target="#home">Color</button>
+                       </li>
+                       <li class="col-sm-6 nav-item">
+                           <button class="nav-link active block" data-toggle="tab" data-target="#menu1">Title</button>
+                       </li>
+                   </ul>
+               </div>
+               <div class="card-body">
+                   <div class="tab-content">
+                       <div id="home" class="format container tab-pane active">
+                           <div ng-hide="otherPallete" class="colorpallete" >
+                               <div class="text-center">
+                                   <!-- <input  type="color" class="colpick" id="c" value=""/> -->
+                                   <button id="c"style="height:50px; width:50px; border: 1px solid transparent;" class=" text-center" data-toggle="collapse" data-target="#acolor"></button>
+
+                                   <div id="acolor" class="picker collapse"
+                                    acp-color="#cddc39"
+                                    acp-show-rgb="yes"
+                                    acp-show-hsl="no"
+                                    acp-show-hex="yes"
+                                    acp-palette="PALETTE_MATERIAL_500">
+                                    </div>
+
+                               </div>
+                               <div class="text-center">
+                                   <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
+                               </div>
+
+                           </div>
+                           <div ng-hide="pieChart" class="colorpallete">
+                               <div class="row">
+
+                               </div>
+                           </div>
+
+                       </div>
+                       <div id="menu1" class="container tab-pane ">
+                           <div class="form-group">
+                               <div class="row">
+                                 <div class="col-sm-4 table table-striped my-4">
+                                   <label class="category" for="graphTitle">Graph Title</label>
+                                 </div>
+                                 <div class="col-sm table table-striped my-4">
+                                   <input type="text" class="form-control form-control-0" id="graphTitle" placeholder="Enter Graph Title" >
+                                 </div>
+                               </div>
+                               <div class="row">
+                                 <div class="col-sm-4 table table-striped my-4">
+                                   <label class="category" for="xaxisLabel">X Label</label>
+                                 </div>
+                                 <div class="col-sm table table-striped my-4">
+                                   <input type="text" class="form-control form-control-0" id="xaxisLabel" placeholder="Enter Title For X Axis" >
+                                 </div>
+                               </div>
+                               <div class="row">
+                                 <div class="col-sm-4 table table-striped my-4">
+                                   <label class="category" for="yaxisLabel">Y Label</label>
+                                 </div>
+                                 <div class="col-sm table table-striped my-4">
+                                   <input type="text" class="form-control form-control-0" id="yaxisLabel" placeholder="Enter Title For Y Axis" >
+                                 </div>
+                               </div>
+                           </div>
+                           <div class="text-center">
+  	                            <button type="button" class="btn btn-primary" data-ng-click="titleset($event)">Submit</button>
+
+                            </div>
+                        </div>
+                    </div>
+               </div>
+           </div>
+
+
+  </div>
+     </div>
+     <!--Right Pane-->
+     <div class="col-md-8">
+
+	   <div class="my-4 pull-left">
+		     <div id="myChart2" ></div>
+	   </div>
+       <div class="my-4 pull-left">
+		     <div id="myChart3" ></div>
+	   </div>
+       <div class="my-4 pull-left"style="width:100%;">
+           <button ng-click="addRow($event)"> Add Row</button>
+           <button ng-click="getRow($event)"> Delete Row</button>
+           <div id="example-table" ></div>
+       </div>
+     </div>
+
+
    <!--success modal-->
    <div class="modal fade" id="successModal">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Success</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
-          Visualization is saved successfully. 
+          Visualization is saved successfully.
         </div>
-        
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
         </div>
-        
+
       </div>
     </div>
   </div>
-	
+
 </div>
- 
-
- 
-
+<script src="static/js/jscolor.js"></script>

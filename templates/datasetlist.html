@@ -1,96 +1,264 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Dataset List - Sigma Statistics{% endblock %}
-	{% block stylesheet %}
-	    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js">
-	{% endblock %}
-	{% block breadcrumb %}
-		<h3>Dataset</h3>
-	{% endblock %}
-    {% block sidebar %}
-		    <div class="wrapper the-icons">    
-            <!-- Sidebar Holder -->
-			<nav id="sidebar">
-                <div class="sidebar-header">
-                    <h3>Statistics App</h3>
-                </div>
-                <ul class="list-unstyled components">
-                    <p>Navigation</p>
-                    <li>
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Dashboard</a>
-                        <ul class="collapse show list-unstyled" id="homeSubmenu">
-                            <li><a href="#/dashboard">Create Dashboard</a></li>
-                            <li><a href="#">Edit Dashboard</a></li>
-							<li><a href="#">Dashboard List</a></li>
-                        </ul>
-                    </li>
-					<li>
-                        <a href="#processSubmenu" data-toggle="collapse" aria-expanded="false">Process</a>
-                        <ul class="collapse show list-unstyled" id="processSubmenu">
-                            <li><a href="#/createProcess">Create New Process</a></li>
-                          <!--  <li><a href="#">Process List</a></li>-->
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#datasetSubmenu" data-toggle="collapse" aria-expanded="true">Dataset</a>
-                        <ul class="collapse show list-unstyled" id="datasetSubmenu">
-                            <li><a href="#/createDataset">Create Dataset</a></li>
-                            <li class=""><a href="#/datasetList">Dataset List</a></li>
-                        </ul>
-                    </li>
-					<li>
-                        <a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false">Visualization</a>
-                        <ul class="collapse show list-unstyled" id="visualizationSubmenu">
-                            <li><a href="#/createVisual">Create visualization</a></li>
-                        <!--    <li><a href="#">Edit visualization</a></li>-->
-							<li><a href="#/visualList">Visualization List</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#analysisSubmenu" data-toggle="collapse" aria-expanded="false">Analysis</a>
-                        <ul class="collapse show list-unstyled" id="analysisSubmenu">
-                            <li><a href="#/statistical">Statistical Summary</a></li>
-                            <li><a href="#/statisticalList">Statistical List</a></li>
-                            <li><a href="#/analytical">Analytical Summary</a></li>
-                            <li><a href="#/analyticalList">Analytical List</a></li>
-                        </ul>
-                    </li>
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js">
+{% endblock %}
+{% block breadcrumb %}
+<h3>Dataset</h3>
+{% endblock %}
+{% block sidebar %}
+<div class="wrapper the-icons">
+	<!-- Sidebar Holder -->
+	<div>
+	<nav id="sidebar" class="x" >
+    	<ul class="list-unstyled components x">
+      		<p>Navigation</p>
+
+		<li>
+			<a href="#processSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-industry"></i>Process</a>
+        	<ul class="collapse list-unstyled" id="processSubmenu">
+            	<li><a href="#/createProcess"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Create New Process</a></li>
+
+          	</ul>
+      	</li>
+
+      	<li>
+        	<a href="#datasetSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-database"></i>Dataset</a>
+        	<ul class="collapse list-unstyled x" id="datasetSubmenu">
+            	<li><a href="#/createDataset"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Create Dataset</a></li>
+            	<li ><a href="#/datasetList"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Dataset List</a></li>
+        	</ul>
+      	</li>
+		<li>
+        	<a href="#visualizationSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-chart-pie"></i>Visualization</a>
+        	<ul class="collapse list-unstyled x" id="visualizationSubmenu">
+          		<li><a href="#/createVisual"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Create visualization</a></li>
+
+				<li><a href="#/visualList"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Visualization List</a></li>
+        	</ul>
+      	</li>
+		<li>
+			<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-newspaper"></i>Dashboard</a>
+			<ul class="collapse list-unstyled x" id="homeSubmenu">
+        <li><a href="#/dashboard"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Create Dashboard</a></li>
+        <li><a href="#"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Edit Dashboard</a></li>
+				<li><a href="#"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Dashboard List</a></li>
+			</ul>
+      	</li>
+
+			<li>
+				<a href="#transformations" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-external-link-alt"></i>Transformations</a>
+			</li>
+			<li>
+        		<a href="#analyticsSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-chart-line"></i>Analytics</a>
+        		<ul class="collapse list-unstyled x" id="analyticsSubmenu">
+          			<li><a href = "#statisticsSubmenu" data-toggle = "collapse" aria-expanded="false">Statistics</a>
+									<ul class="collapse  list-unstyled" id="statisticsSubmenu">
+										<li><a href="#/statistical" >Statistical Summary</a></li>
+										<li><a href="#" >Sampling</a></li>
+										<li>
+											<a href="#hypotestingSubmenu" data-toggle="collapse" aria-expanded="false">Hypothesis Testing</a>
+											<ul class="collapse  list-unstyled" id="hypotestingSubmenu">
+												<li><a href="#">Test</a></li>
+												<li><a href="#/analytical">Analytical Summary</a></li>
+											</ul>
+										</li>
+										<li>
+											<a href="#savestatSubmenu" data-toggle="collapse" aria-expanded="false">Saved Statistics</a>
+											<ul class="collapse  list-unstyled" id="savestatSubmenu">
+												<li><a href="#/analyticalList" >Analytical List</a></li>
+												<li><a href="#/statisticalList">Statistical List</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+        		</ul>
+      		</li>
+			<li>
+				<a href = "#machineLearning" data-toggle = "collapse" aria-expanded="false"><i class="iconhead fa fa-cogs"></i>Machine Learning</a>
+				<ul class="collapse  list-unstyled x" id="machineLearning">
+					<li><a href="#/mlearn" ><i class="fa fa-arrow-right fa-fw icon-pad"></i>Create Model</a></li>
+					<li><a href="#/mlist" ><i class="fa fa-arrow-right fa-fw icon-pad"></i>List Model</a></li>
+					<li><a href="#/mdep" ><i class="fa fa-arrow-right fa-fw icon-pad"></i>Deploy Model</a></li>
 				</ul>
-            </nav>
-    {% endblock %}
-	{% block content %}
-		
-		{% verbatim %}
-		<div ng-view>
-			<div id="content">
-			
-			
-			</div>
-        </div>
-	
-		{% endverbatim %}
-			
-        </div>
+
+			</li>
+			<li>
+				<a href="#projectManagement" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-project-diagram"></i>Project Management</a>
+			</li>
+			<li>
+				<a href="#qualitytoolsSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-tools"></i>Quality Tools</a>
+				<ul class="collapse  list-unstyled x" id="qualitytoolsSubmenu">
+					<li><a href="#fmeasubmenu"data-toggle="collapse" aria-expanded="false">FMEA</a>
+						<ul class="collapse list-unstyled" id="fmeasubmenu">
+							<li><a href="#qualityTools">Create FMEA</a></li>
+							<li><a href="#">FMEA List</a></li>
+						</ul>
+					</li>
+					<li><a href="#opptracksubmenu"data-toggle="collapse" aria-expanded="false">Opportunity Tracker</a>
+						<ul class="collapse list-unstyled" id="opptracksubmenu">
+							<li><a href="#opptracker">Create Opp. Tracker</a></li>
+							<li><a href="#">Tracker List</a></li>
+						</ul>
+					</li>
+					<!--<li><a href="processmap" aria-expanded="false">Process Menu</a></li>-->
+				</ul>
+			</li>
+			<li>
+				<a href="#simulations" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-play"></i>Simulations</a>
+			</li>
+		</ul>
+  </nav>
+  </div>
+  <div>
+	<nav id="sidebar2" class="y">
+		<ul class="list-unstyled components">
+      		<p>Navigation</p>
+
+			<li>
+				<a class="mini" href="#processSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-industry fa-3x"></i></a>
+        		<ul class="collapse list-unstyled" id="processSubmenu">
+            		<li><a href="#/createProcess"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Create New Process</a></li>
+
+          		</ul>
+      		</li>
+
+      		<li>
+        		<a class="mini" href="#datasetSubmenu" data-toggle="collapse" aria-expanded="false"><i class="iconhead fa fa-database fa-3x"></i></a>
+        		<ul class="collapse list-unstyled " id="datasetSubmenu">
+            		<li><a href="#/createDataset"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Create Dataset</a></li>
+            		<li class=""><a href="#/datasetList"><i class="fa fa-arrow-right fa-fw icon-pad"></i>Dataset List</a></li>
+        		</ul>
+      		</li>
+		</ul>
+	</nav>
+	<!--<nav id="sidebar"class="main-menu">
+            <ul>
+                <li>
+                    <a href="http://justinfarrow.com">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                            Dashboard
+                        </span>
+                    </a>
+
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-laptop fa-2x"></i>
+                        <span class="nav-text">
+                            Stars Components
+                        </span>
+                    </a>
+
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                       <i class="fa fa-list fa-2x"></i>
+                        <span class="nav-text">
+                            Forms
+                        </span>
+                    </a>
+
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                       <i class="fa fa-folder-open fa-2x"></i>
+                        <span class="nav-text">
+                            Pages
+                        </span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-bar-chart-o fa-2x"></i>
+                        <span class="nav-text">
+                            Graphs and Statistics
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-font fa-2x"></i>
+                        <span class="nav-text">
+                           Quotes
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                       <i class="fa fa-table fa-2x"></i>
+                        <span class="nav-text">
+                            Tables
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                        <i class="fa fa-map-marker fa-2x"></i>
+                        <span class="nav-text">
+                            Maps
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                       <i class="fa fa-info fa-2x"></i>
+                        <span class="nav-text">
+                            Documentation
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="logout">
+                <li>
+                   <a href="#">
+                         <i class="fa fa-power-off fa-2x"></i>
+                        <span class="nav-text">
+                            Logout
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>-->
+	</div>
+{% endblock %}
+{% block content %}
+
+{% verbatim %}
+<div ng-view>
+	<div id="content">
 
 
-	
-	{% endblock %}
+	</div>
+</div>
 
-	{% block additional_script %}
-		<script>
-		var static_url = '{{STATIC_URL}}'
-		</script>
-		<script type="text/javascript">
-             $(document).ready(function () {
-                 $('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').toggleClass('active');
-                 });
-             });
-        </script>
-        <script type="text/javascript" src="https://cdn.rawgit.com/MrRio/jsPDF/master/dist/jspdf.min.js">
-    </script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js">
-    </script>
-    <script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
-	{% endblock %}
+{% endverbatim %}
+
+</div>
+
+
+
+{% endblock %}
+
+{% block additional_script %}
+<script>
+	var static_url = '{{STATIC_URL}}'
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#sidebarCollapse').on('click', function () {
+			$('#sidebar').toggleClass('active');
+		});
+    });
+</script>
+<script type="text/javascript" src="https://cdn.rawgit.com/MrRio/jsPDF/master/dist/jspdf.min.js">
+</script>
+<script type="text/javascript" src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js">
+</script>
+<script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
+{% endblock %}

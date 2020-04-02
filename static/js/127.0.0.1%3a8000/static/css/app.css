@@ -1,0 +1,161 @@
+.navbar-brand {
+	font-weight:600;
+}
+.mt-2em{
+	margin-top: 2em !important;
+}
+.mt-4em{
+	margin-top: 4em !important;
+}
+.mt-6em{
+	margin-top: 6em !important;
+}
+.mt-8em{
+	margin-top: 8em !important;
+}
+.preview-grid{
+	max-height:450px;
+	overflow-x:auto;
+	overflow-y:auto;
+}
+.pull-right{
+	float: right !important;
+}
+.pull-left{
+	float: left !important;
+}
+.head-color{
+	background-color:#A3C1AD;
+}
+.onePerLMargin{
+	margin-left:1%;
+}
+.none {
+  cursor: not-allowed;
+}
+.preview-table{
+	max-width:450px;
+}
+#drop{
+	border:2px dashed #bbb;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding:25px;
+	text-align:center;
+	font:20pt bold,"Vollkorn";color:#bbb
+}
+.pointer {
+	cursor: pointer;
+	color: rgb(0, 119, 179) !important;
+}
+
+#viewModalBody{
+	overflow-x:scroll;
+}
+.table-wrapper-scroll-y {
+  display: block;
+  max-height: 200px;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.home-crd{
+	margin-top: 20% !important;
+}
+
+.full-cntnt{
+	width: 100%;
+	padding: 2%;
+}
+
+
+.colorbutton{
+  height: 20px;
+  width: 20px;
+}
+.colorpallete{
+	height: 100px;
+	width: auto;
+}
+.left-wrapper{
+	border-right:1px solid;
+}
+.partition{
+	border-top:1px solid;
+	margin-top: 5%;
+}
+.pallete-border{
+	border-top: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+}
+
+.pallete-tabs{
+	padding: 0px 0rem;
+}
+.colpick{
+	width:46%;
+	height:30%;
+	border-radius: 3px;
+
+}
+.pallete-nav-but{
+	background-color: #39a1f4;
+	border-radius: 3px;
+}
+.nav-tabs>.nav-item>.nav-link.active {
+    background-color: #39a1f4;
+    border-radius: 3px;
+    color: #FFFFFF;
+}
+
+.nav-tabs>.nav-item>.nav-link {
+    color: #39a1f4;
+    margin: 0;
+    margin-right: 5px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    font-size: 14px;
+    padding: 5px 23px;
+    line-height: 1.5;
+}
+.nav-tabs:not(.nav-tabs-neutral)>.nav-item>.nav-link.active {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+.noline{
+	text-decoration:none;
+}
+
+.datsel{
+	margin-top:0px;
+}
+
+
+.form-control-0{
+  border-radius: 0px;
+}
+
+/*label.category{
+	display: table-caption;
+}
+*/
+.col-md-8{
+	flex: 0 0 74.666667%;
+max-width: 74.666667%;
+}
+
+.col-md-4{
+	flex: 0 0 70.333333%;
+	max-width: 47.333333%;
+}

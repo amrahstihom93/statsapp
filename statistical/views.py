@@ -8,7 +8,7 @@ from .models import statistical
 from .models import analytical
 from django.contrib.auth.models import User
 import json, datetime
-import pandas as pd 
+import pandas as pd
 from pymongo import MongoClient
 from io import StringIO
 import statistics
@@ -32,7 +32,7 @@ def saveAnalytics(request):
 	    vForm.user_id = user_obj
 	    vForm.dataset_id = dataset_obj
 	    vForm.analytical_id = 'sid' + request.POST['analytical_name'] + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-	    vForm.analytical_method = request.POST['selectedmethod'] 
+	    vForm.analytical_method = request.POST['selectedmethod']
 	    print('hi from save to all')
 	    vForm.analytical_calculated_value = request.POST['analytical_calculated_value']
 	    print("$$$$$", type(vForm.analytical_calculated_value))
@@ -51,33 +51,31 @@ def saveStatistics(request):
 	json_data = {}
 	data = {}
 	if request.method == 'POST':
-	    vForm.statistical_name = request.POST['statistical_name']
-	    dataset_obj = Dataset.objects.get(dataset_id=request.POST['dataset_id'])
-	    user_obj = User.objects.get(pk=request.user.id)
-	    vForm.user_id = user_obj
-	    vForm.dataset_id = dataset_obj
-	    vForm.statistical_id = 'sid' + request.POST['statistical_name'] + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-	    vForm.statistical_method = request.POST['selectedmethod'] 
-	    print('hi from save to all')
-	    vForm.statistical_calculated_value = request.POST['statistical_calculated_value']
-	    print("$$$$$", type(vForm.statistical_calculated_value))
-	#    data = request.POST['fieldData']
-	#    json_data = json.loads(data)
-	    vForm.parameters = request.POST['fieldData']
-	    vForm.save()
-	    msg = 'saved successfully'
-	    return HttpResponse(msg)
+		vForm.statistical_name = request.POST['statistical_name']
+		dataset_obj = Dataset.objects.get(dataset_id=request.POST['dataset_id'])
+		user_obj = User.objects.get(pk=request.user.id)
+		vForm.user_id = user_obj
+		vForm.dataset_id = dataset_obj
+		vForm.statistical_id = 'sid' + request.POST['statistical_name'] + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+		vForm.statistical_method = request.POST['selectedmethod']
+		print('hi from save to all')
+
+		vForm.statistical_calculated_value = request.POST['statistical_calculated_value']
+		#data = request.POST['fieldData']
+		#json_data = json.loads(data)
+		vForm.parameters = request.POST['fieldData']
+		vForm.save()
+		msg = 'saved successfully'
+		return HttpResponse(msg)
 	msg = 'error while saving statistical summary'
 	return HttpResponse(msg)
 
-	
-	
+
+
 
 
 def calculateAnalytics(request):
 	print('Hiiiiiiiiii')
-
-	
 	if request.method == 'POST':
 		result = 0
 		res = 0
@@ -86,75 +84,96 @@ def calculateAnalytics(request):
 		print(fieldsArr)
 		selectedgroupname = request.POST['selectedgroup']
 		selectedgroup = request.POST['selectedgroup']
-		selecteddatacol = request.POST['selecteddatacol']		
-		
+		selecteddatacol = request.POST['selecteddatacol']
+
 		print("Group = ",request.POST['selectedgroup'])
 		print("Data = ", request.POST['selecteddatacol'])
 		print("Test Method =", request.POST['selectedmethod'])
 		print("Dataset ID =", request.POST['dataset_id'])
-		
 		susr = str(request.user)
 		client = MongoClient()
 		db = client.datasetDatadb
 		collection = db[request.POST['dataset_id']]
 		datav = collection.find( { } )
 		pd.set_option('display.max_columns', None)
-		
+
 		#########Anova Calcs Starts from here########
 		datag = pd.DataFrame(list(collection.find({selectedgroup:{"$exists":True}})))
 		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
-		
+		#print ("DATAG==>")
+		#print(datag)
+		#print ("DATAC==>")
+		#print(datac)
+		print("type datag###", type(datag))
+
 		g=datag[selectedgroup]
+
 		c=datac[selecteddatacol]
-		
+		print("Grouped data col====>")
+		print(g)
+		print("Val data col====>")
+		print(c)
+
 		k=len(pd.unique(g))
+		print("unique groups==>",pd.unique(g))
+
 		N=len(datag.values)
+		print("Datag values ==>>",datag.values)
 		n=datag.groupby(g).size()[0]
-		
-		print(k)
-		print(N)
-		print(n)
-		
+		print("data grouped==>",datag.groupby(g))
+		print("k==>",k)
+		print("N==>",N)
+		print("n==>",n)
+
 		#degrees of freedom
 		df_between = k-1
-		df_within = N-1
-		df_total = N-1
-		
+		df_within = N-k
+		df_total = df_between + df_within
+		print("df_between==>",df_between)
+		print("df_within==>",df_within)
+		print("df_total==>",df_total)
+
 		print('Group=>',selectedgroup)
 		c_data= c.convert_objects(convert_numeric=True)
-		
+
 		ss_between = (sum(c_data.groupby(g).sum()**2)/n) - (c_data.sum()**2)/N
-		#print(ss_between)
-		
+		print("ss_between==>",ss_between)
+
 		sum_y_squared = sum([value**2 for value in c_data.values])
 		#print(sum_y_squared)
-		
+
 		ss_within = sum_y_squared - sum(c_data.groupby(g).sum()**2)/n
-		print(ss_within)
-		
+		print("ss_within==>",ss_within)
+
 		ss_total = sum_y_squared - (c_data.sum()**2)/N
-		print(ss_total)
-		
-		
+		print("ss_total==>",ss_total)
+
+
 		#mean square
 		ms_between = ss_between/df_between
 		ms_within = ss_within/df_within
-		
+		print("ms_between==>",ms_between)
+		print("ms_within==>",ms_within)
+
 		#calculating the f-ration
 		f = ms_between/ms_within
+
+		f = truncate(f,5)
+		print("Value of F ", f)
 		#calculating p-value
 		p=stats.f.sf(f, df_between, df_within)
-		
+		p = truncate(p,5)
 		#effect sizes
-		eta_squared = ss_between/ss_total
-		omega_squared = (ss_between - (df_between * ms_within))/(ss_total + ms_within)
-		
-		
+		eta_square = ss_between/ss_total
+		eta_square = truncate(eta_square,5)
+		omega_square = (ss_between - (df_between * ms_within))/(ss_total + ms_within)
+		omega_square = truncate(omega_square,5)
+
 		og = list(datag.loc[:,selectedgroup])
 		oc = list(datac.loc[:,selecteddatacol])
-		
+
 		xx = pd.DataFrame(og,oc)
-		print("omegasquare==>>", omega_squared)
+		print("omegasquare==>>", omega_square)
 		csv = pd.DataFrame.to_csv(xx)
 		#print(csv)
 		sd = pd.read_csv(StringIO(csv))
@@ -164,42 +183,24 @@ def calculateAnalytics(request):
 		#print(c)
 		#ls=sd.describe()
 		#ndf=pd.DataFrame({'':[f, p, eta_squared, omega_squared]}, index='f p eta_squared omega_squared'.split())
-		ndf = pd.DataFrame({'f':f, 'p':p, 'eta_squared':eta_squared, 'omega_squared':omega_squared}, index=[0])
+		ndf = pd.DataFrame({'f':f, 'p':p, 'eta_square':eta_square, 'omega_square':omega_square}, index=[0])
 		#n_ndf = ndf.to_frame()
 		#df = pd.DataFrame([{'pi':pi, 'e':e, 'phi':phi}])
 		#print("NDF",ndf )
 		#print("NDF Class===>>>",type(ndf) )
 		csvn=pd.DataFrame.to_csv(ndf)
-		
+
 		nndf=pd.read_csv(StringIO(csvn))
-		
+
 		nndf_t = nndf/len(nndf)
 
 		#nndf_data= nndf.convert_objects(convert_numeric=True)
-		print("####ndf type", type(ndf.loc['0':,"omega_squared"]))
-		print("####nndf type", type(nndf.loc['0':,"omega_squared"]))
-		
+		print("####ndf type", type(ndf.loc['0':,"omega_square"]))
+		print("####nndf type", type(nndf.loc['0':,"omega_square"]))
+
 		print("####nndf_t type", type(nndf_t))
-		#print("nndf_Data class==>", type(nndf_data))
-		#print(ls)
-		#k = len(pd.unique(datag.selectedgroupname))
-		#print(ls)
-		
-		#csv_g = pd.DataFrame.to_csv(xg)
-		#sd_g = pd.read_csv(StringIO(csv_g))
-		#print('type of data1',type(sd_g))
-		#ls_g = sd_g.describe()
-		
-		#csv_c = pd.DataFrame.to_csv(xc)
-		#sd_c = pd.read_csv(StringIO(csv_c))
-		#print('type of data2',type(sd_c))
-		
-		#ls_c = sd_c.describe()
-		# print('location',ls.loc[1])
-		
-		#print('The final result group',type(ls_g))
-		#print('The final result datacol',type(ls_c))
-	
+
+
 		responseData = {
            	'summary':result,
 			'fieldData':og,
@@ -219,35 +220,42 @@ def calculateAnalytics(request):
 		}
 		#print(request.POST['selectedgroup'])
 		if request.POST['selectedmethod'] == 'anova':
-			
+
 			describeDict['f'] = nndf_t.iloc[0]['f']
 			describeDict['p'] = nndf_t.iloc[0]['p']
-			describeDict['eta_square'] = nndf_t.iloc[0]['eta_squared']
-			describeDict['omega_square'] = nndf_t.iloc[0]['omega_squared']
+			describeDict['eta_square'] = nndf_t.iloc[0]['eta_square']
+			describeDict['omega_square'] = nndf_t.iloc[0]['omega_square']
 			responseData['summary']=  describeDict
-			
-		
+
+		print ('$$%$%$%$%',responseData)
+
+
 		return JsonResponse(responseData)
-	
-	
-	
+
+
+def truncate(n, decimals=0):
+    multiplier = 10 ** decimals
+    return int(n * multiplier) / multiplier
+
+
+
 def calculateStatistics(request):
 	print('Hiiiiiiiiii')
 
-	
+
 	if request.method == 'POST':
 		result = 0
 		res = 0
 		print("In Post Method")
 		fieldsArr = []
 		print(fieldsArr)
-		selectedfield = request.POST['selectedfield'] 
+		selectedfield = request.POST['selectedfield']
 		print(request.POST['selectedfield'])
 		print(request.POST['selectedmethod'])
 		print(request.POST['dataset_id'])
 	# dataset_id = request.POST['dName']
 	# print(dataset_id)
-		
+
 		susr = str(request.user)
 		client = MongoClient()
 		db = client.datasetDatadb
@@ -332,21 +340,48 @@ def calculateStatistics(request):
 			"75" : "",
 			"max" : ""
 		}
+		dec_p = 3
 		print(request.POST['selectedfield'])
 		if request.POST['selectedmethod'] == 'describe':
+
 			med = sd.median()
 			med1 = med.to_frame()
+			med1 = med1.iloc[1][0]
+			med1 = med1.tolist()
+			med1 = truncate(med1,dec_p)
+
 			ske = sd.skew()
 			ske1 = ske.to_frame()
+			ske1 = ske1.iloc[1][0]
+			ske1 = ske1.tolist()
+			tskew1 = truncate(ske1,dec_p)
+
+			ls = sd.describe()
+			print("LS",ls)
+			count = ls.loc["count","0"]
+
+			mean = ls.loc["mean","0"]
+			mean = mean.tolist()
+			mean = truncate(mean, dec_p)
+			print(mean)
+
+			std = ls.loc["std","0"]
+			std = std.tolist()
+			std = truncate(std, dec_p)
+
 			kurt = sd.kurtosis()
 			kurt1 = kurt.to_frame()
-			describeDict['count'] = ls.loc["count","0"]
-			describeDict['mean'] = ls.loc["mean","0"]
-			describeDict['std'] = ls.loc["std","0"]
+			kurt1 = kurt1.iloc[1][0]
+			kurt1 = kurt1.tolist()
+			kurt1 = truncate(kurt1,dec_p)
+
+			describeDict['count'] = count
+			describeDict['mean'] = mean
+			describeDict['std'] = std
 			describeDict['min'] = ls.loc["min","0"]
-			describeDict['median'] = med1.iloc[1][0]
-			describeDict['skewness'] = ske1.iloc[1][0]
-			describeDict['kurtosis'] = kurt1.iloc[1][0]
+			describeDict['median'] = med1
+			describeDict['skewness'] = tskew1
+			describeDict['kurtosis'] = kurt1
 			describeDict['25'] = ls.loc["25%","0"]
 			describeDict['50'] = ls.loc["50%","0"]
 			describeDict['75'] = ls.loc["75%","0"]
@@ -367,7 +402,7 @@ def calculateStatistics(request):
 		return JsonResponse(responseData)
 
 
-		
+
 def getAnalyticalList(request):
     usr = str(request.user)
     listObj = []
@@ -381,10 +416,10 @@ def getAnalyticalList(request):
         return JsonResponse(listObj, safe=False)
     except:
         msg = 'error while getting datasets'
-    return HttpResponse(msg)		
+    return HttpResponse(msg)
 
 
-		
+
 def getStatisticalList(request):
     usr = str(request.user)
     listObj = []
@@ -400,7 +435,7 @@ def getStatisticalList(request):
         msg = 'error while getting datasets'
     return HttpResponse(msg)
 
-	
+
 
 def delAnalytical(request, id):
 	print('In Delete Method')

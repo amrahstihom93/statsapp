@@ -430,18 +430,6 @@ def xupload(request):
         form1.p_id = process_obj
         form1.save()
 
-        # doc.dataset_name = 'NEw'
-        # csv_file = request.FILES['myfile']
-        # file_data = csv_file.read().decode("utf-8")
-        # lines = file_data.split("\n")
-        # doc.save()
-        #	for he in types:
-        #		responseData[data.headers[i]] = he
-        #		i=i+1
-        #	print(responseData)
-        #	print(type(responseData))
-        #	i = str(responseData)
-        #	print(type(i))
         typesString = str(types)
         slicedTypes = typesString[1:len(typesString) - 1]
         #	print(slicedString)
@@ -559,18 +547,18 @@ def mysqlconnect(request):
         print('hey     ----------------------------------------------------------')
         print(headerData)
         data = pd.read_sql_query(Query, conn)
-        
+
     # code to insert data in mongodbusing dataframe
     #   client = MongoClient()
     #   db = client.datasetDatadb
     #   postd = db.postd123
     #   data_json = json.loads(data.to_json(orient='records'))
     #   postd.remove()
-    #   postd.insert(data_json)     
+    #   postd.insert(data_json)
         csv = pd.DataFrame.to_csv(data, index=False )
         types = pd.DataFrame.to_csv(headerData ,index=False )
-        
-        
+
+
         response = {
             'csv': csv,
             'types': types

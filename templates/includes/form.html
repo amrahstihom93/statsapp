@@ -16,20 +16,25 @@
     <div class="form-group">
         {% if 'Firm:' in field.label_tag %}
             {% for radio in form.firm %}
-                <label class="radio-inline" for= {{radio.id_for_label}} >
+
+            <div class="form-check form-check-radio">
+                <label class="radio-check radio-inline form-check-label" for= {{radio.id_for_label}} >
                     {{ radio.choice_label }}
-                    <span class="radio">{{ radio.tag }}</span>
+                    <span class="radio form-check-sign">{{ radio.tag }}</span>
                 </label>
+            </div>
             {% endfor %}
 
         {% elif 'Company:' in field.label_tag %}
             <div id="company_radio" style="display:none">
                 {% for radio in form.company %}
-                    <label class="radio-inline" for = {{ radio.id_for_label }}  >
+                <div class="form-check form-check-radio">
+                    <label class="radio-check radio-inline form-check-label" for = {{ radio.id_for_label }}  >
                         {#                        {{ radio.id_for_label }}#}
                         {{ radio.choice_label }}
-                        <span class="radio">{{ radio.tag }}</span>
+                        <span class="radio-check radio form-check-sign">{{ radio.tag }}</span>
                     </label>
+                </div>
                 {% endfor %}
                        {% for error in field.errors %}
                     <div class="invalid-feedback">
@@ -90,11 +95,13 @@
                 </small>
             {% endif %}
             </div>
+
+
         {% endif %}
     {#    {% if 'Company:' in field.label_tag %}#}
     {#        <div id="IsCompany" style="display:none">#}
     {#            <label class="radio-inline">#}
-    {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="newcompany"  value="newcompany" />    New Company#}
+    {#                <input type="radio" id="exampleRadios1" onclick="CompanyCheck()" name="companytype" id="newcompany"  value="newcompany" />    New Company#}
     {#            </label>#}
     {#            <label class="radio-inline">#}
     {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="oldcompany" value="oldcompany" />    Existing Company#}

@@ -2,8 +2,7 @@
 
 {% block title %}Log in to Sigma Statistics{% endblock %}
 
-{% block content %}
-  <div class="row justify-content-center">
+<!--  <div class="row justify-content-center">
     <div class="col-lg-4 col-md-6 col-sm-8">
       <div class="card">
         <div class="card-body">
@@ -24,5 +23,57 @@
         </small>
       </div>
     </div>
-  </div>
+  </div>-->
+
+
+
+
+{% block content %}
+<div class="col-md-4 ml-auto mr-auto">
+        <div class="card card-login card-plain">
+          <form class="form" method="post" novalidate>
+
+            <div class="card-header text-center">
+              <div class="logo-container">
+                <img src="../static/img/s2.png" alt="">
+              </div>
+            </div>
+            {% csrf_token %}
+            <!--<div class="card-body">
+              <div class="input-group no-border input-lg">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="now-ui-icons users_circle-08"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username...">
+              </div>
+              <div class="input-group no-border input-lg">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="now-ui-icons text_caps-small"></i>
+                  </span>
+                </div>
+                <input type="password" placeholder="Password..." class="form-control" />
+              </div>
+            </div>-->
+            {% include 'includes/form.html'%}
+
+            <div class="card-footer text-center">
+              <button type="submit" class="btn btn-info btn-round btn-lg btn-block">Login</button>
+              <!--<a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block" type="submit">Get Started</a>-->
+              <div class="pull-left">
+                <h6>
+                  <a href="{% url 'signup' %}" class="link">Create Account</a>
+                </h6>
+              </div>
+              <div class="pull-right">
+                <h6>
+                  <a href="#pablo" class="link">Need Help?</a>
+                </h6>
+              </div>
+          </form>
+          </div>
+        </div>
+
 {% endblock %}

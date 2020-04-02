@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<div id="fmea" class="table-wrapper rat">
+            <div class="table-title rat">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Failure Mode & Effects Analysis</h2></div>
+                    <div class="col-sm-4">
+                        <button type="button" id="add-new" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-6">
+                            <h5 class="col-sm-8">Select Process:</h5>
+                            <select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select ">
+                                <!--	<option value="PIDroot00000000000000">root</option>-->
+                                <option ng-repeat="x in processList" value="[[x.process_id]]">
+                                    [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="col-sm-4 table table-striped my-4">
+                            <label class="category" for="visuaName">Name FMEA</label>
+                          </div>
+                          <div class="col-sm table table-striped my-4">
+                            <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter FMEA Name">
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="qtfmea">
+            <table id="qtfmea"class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Process Function (Step)</th>
+						<th>Potential Failure Modes "Errors"</th>
+						<th>Potential Failure Effects "Deffects" "Ys"</th>
+						<th>SEV</th>
+						<th>Potential Causes of Failure "Inputs" "Xs"</th>
+                        <th>OCC</th>
+                        <th>Current Process Control</th>
+                        <th>DET</th>
+                        <th>RPN</th>
+                        <th>Recommended Actions</th>
+                        <th>Responsible Person & Target Date</th>
+                        <th>Take Actions</th>
+                        <th>New SEV</th>
+                        <th>New OCC</th>
+                        <th>New DET</th>
+                        <th>New RPN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+						            <td></td>
+						            <td></td>
+                        <td></td>
+						            <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            </div>
+            <div class="col-sm-4">
+                <button type="button" id="saveFMEA" class="btn btn-info " ng-click="saveFMEA()"> Save</button>
+            </div>
+        </div>

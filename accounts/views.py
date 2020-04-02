@@ -19,7 +19,7 @@ def signup(request):
     client = ClientList()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        print(request.POST)
+        print("POST REQUEST",request.POST)
         print('before validation')
         if form.is_valid():
             print(request.POST)
@@ -78,10 +78,10 @@ def signup(request):
             print(type(emailid))
             print(emailid)
             print(type(client.email_id))
-            send_mail(subject, message, 'jasnoorkaur3@gmail.com', emailid)
+            send_mail(subject, message, 'mohitsigmaway123@gmail.com', emailid)
             msg = 'Account is created successfully and activation link is sent on your email-id'
             result=createRootProcess(user, client)
-            print(result)
+            print("result",result)
             return render(request, 'signup-success.html', {'success_msg': msg})
     else:
         form = SignUpForm()

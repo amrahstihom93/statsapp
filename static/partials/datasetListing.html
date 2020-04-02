@@ -1,4 +1,6 @@
+
 <div class="container">
+
 <div ng-hide="(viewClicked||editClicked)">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
@@ -8,7 +10,7 @@
 
   <table id="datasetList" class="table table-bordered table-striped my-4">
     <thead>
-      <tr ng-hide="true">
+      <tr ng-hide="true" class="ng-hide">
         <th>Dataset</th>
 		<!--<th>Created By</th>-->
         <th>View</th>
@@ -17,15 +19,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr">
-        <td>[[x.dataset_name]]</td>
+      <tr ng-repeat="x in datasetArr" class="row">
+        <td class="ng-binding" style="width:80%">[[x.dataset_name]]</td>
 		<!--<td>[[x.user_id]]</td>-->
-        <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a></td>
-        <td><a href="" class="btn btn-info"  ng-disabled="true">Edit</a></td>
-		<td><a href="" class="btn btn-danger" ng-click="delDataset(x.dataset_name)">Delete</a></td>
+        <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+        <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+		<td class="text-center"><a href="" class="btn btn-danger" ng-click="delDataset(x.dataset_name)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
       </tr>
     </tbody>
   </table>
+
   <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -43,7 +46,7 @@
     </div>
   </div>
 </div>
-  
+
   <div id="datasetView">
   </div>
  </div>

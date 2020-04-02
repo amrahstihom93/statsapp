@@ -1,0 +1,378 @@
+<div class = "container" ng-hide = "venom">
+
+	<div class="container" ng-hide="eminem">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+				<li class="breadcrumb-item" aria-current="page">Create ML Model</li>
+			</ol>
+		</nav>
+		<!--<div class="table table-bordered table-striped my-4 dropdown">
+      		<button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
+
+      		</button>
+      		<ul class="dropdown-menu scrollable-menu">
+          		<li ng-repeat="x in mlearnArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+      		</ul>
+  		</div>-->
+		<div class="container text-center">
+			<h1 class="text-center">Create a Model</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Select Database</h3>
+					<select id="dataset" name="dataset" ng-model="selectedDataset" class="custom-select btn-info">
+						<option ng-repeat="x in mlearnArr">[[x.dataset_name]]</option>
+					</select>
+					<br>
+				</div>
+				<div class="col-md-6 ">
+					<h3>Select Algorithm</h3>
+					<select id="algo" name="algo" ng-model="selectedmodel" class="custom-select btn-info ">
+						<option>Select Algo</option>
+						<option ng-option value="Simple Linear Regression">Simple Linear Regression</option>
+						<option ng-option value="Multivar Linear Regression">Multivar Linear Regression</option>
+						<option ng-option value="Logistic Regression">Logistic Regression</option>
+						<option ng-option value="Support Vector Machine">Support Vector Machine</option>
+						<option ng-option value="K-Nearest Neighbour">K-Nearest Neighbour</option>
+						<option ng-option value="Decision Tree Algorithm">Decision Tree Algorithm</option>
+						<option ng-option value="Random Forest Algorithm">Random Forest Algorithm</option>
+					</select>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center row">
+				<a href=""><button type="button" class="btn btn-primary" id = "slct-btn" ng-click="chooseDataset()">Proceed</button></a>
+			</div>
+		</div>
+	</div>
+	<!-- Model for Simple Linear Regression-->
+	<div class="container" ng-if="selectedmodel =='Simple Linear Regression'" ng-show="eminem" >
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item" aria-current="page">Select Variables : Simple Linear Regression</li>
+			</ol>
+		</nav>
+		<div class="container text-center">
+			<h1 class="text-center">Select Variables</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Select Independent variable</h3>
+					<select id="idvar" name="idvar" ng-model="idvar" class="custom-select btn-info">
+						<option>Select Independent Variable</option>
+						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<h3>Select Dependent variable</h3>
+					<select id="dvar" name="dvar" ng-model:"dvar" class="custom-select btn-info">
+						<option>Select Dependent Variable</option>
+						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+					</select>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center row">
+				<button type="button" class="btn btn-primary" id = "slct-btn2" ng-click="chooseVariables()">Proceed</button>
+			</div>
+		</div>
+	</div>
+	<!--Model for Logistic Regression-->
+	<div class="container" ng-if="selectedmodel =='Multivar Linear Regression'" ng-show="eminem">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item" aria-current="page">Select Variables :Multivar Linear Regression</li>
+			</ol>
+		</nav>
+		<div class="container text-center">
+			<h1 class="text-center">Select Variables</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Select Dependent variable</h3>
+					<select id="dvar" name="dvar" ng-model:"dvar" class="custom-select btn-info">
+						<option>Select Dependent Variable</option>
+						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<h3>Select Independent variable</h3>
+					<!--<select id="idvar" name="idvar" ng-model="idvar" class="custom-select btn-info">
+						<option>Select Independent Variable</option>
+						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+					</select>-->
+
+					<div class= "optionBox">
+						<div class="blocktM"  ng-repeat="row in rows">
+							<select class = "mmm" id="idvar"  name="idvar" data-ng-model="selectedPeriod"class="custom-select btn-info">
+								<option>Select Independent Variable</option>
+								<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+
+							</select>
+
+							<div class="blockt">
+								<span class="add" ng-click="removeRow(rowIndex)">
+									Remove
+								</span>
+							</div>
+						</div>
+						<br>
+						<div class="blockt">
+							<span class="add" ng-click="showMeSelectedPeriods()">
+								Show
+							</span>
+						</div>
+
+						<div class="blockt">
+							<span class="add" ng-click="addRow()">
+								Add
+							</span>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+			<div class="d-flex justify-content-center row">
+				<button type="button" class="btn btn-primary" id = "slct-btn2" ng-click="chooseVariables()">Proceed</button>
+			</div>
+		</div>
+	</div>
+	<!--Model for Support Vector Machine-->
+	<div class="container" ng-if="selectedmodel =='Support Vector Machine'" ng-show="eminem">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item" aria-current="page">Select Variables : Support Vector Machine</li>
+			</ol>
+		</nav>
+	</div>
+	<!--Model for K-Nearest Neighbour-->
+	<div class="container" ng-if="selectedmodel =='K-Nearest Neighbour'" ng-show="eminem">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item" aria-current="page">Select Variables : K-Nearest Neighbour</li>
+			</ol>
+		</nav>
+	</div>
+
+</div>
+
+
+
+<div class="container" ng-show="venom">
+	<div class = "container" ng-show="avengers">
+		<div class="container text-center">
+			<nav aria-label="breadcrumb" class="my-4">
+				<ol class="breadcrumb">
+					<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+					<li class="breadcrumb-item" aria-current="page">Select parameters</li>
+				</ol>
+			</nav>
+			<h1 class="text-center">Select Parameters</h1>
+			<!--<form  method="POST">-->
+        	<div class="row">
+            	<div class="col-md-4" ng-model="training_size"name="t_size" >
+                	<h3>Select Training Set Size</h3>
+                	<input type="number" id ="training_size" min=50 max=100 value='0'>
+            	</div>
+            	<div class="col-md-4"name="random_state"ng-model="random_state" >
+                	<h3>Random State</h3>
+                	<input type="number" id="random_state" min=0>
+            	</div>
+            	<div class="col-md-4"ng-model="fit_intercept">
+                	<h3>Fit Intercept</h3>
+                	<select name="fit_intercept" id="fit_intercept" >
+                    	<option value="true">True</option>
+                    	<option value="false">False</option>
+                	</select>
+            	</div>
+        	</div>
+        	<div class="d-flex justify-content-center row" style="margin-top: 20px;">
+                	<button type="submit" class="btn btn-primary" name = "slct-btn3" id = "slct-btn3" ng-click="selectparm()">Proceed</button>
+        	</div>
+        	<!--</form>-->
+		</div>
+	</div>
+	<div class="container" ng-hide="avengers">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
+				<li class="breadcrumb-item" aria-current="page">Training Results</li>
+			</ol>
+		</nav>
+		<div class="card-deck mt-4em" align-items-center text-center">
+
+			<div class="card text-center" style="width: auto;">
+				<h3>Training Scatter Plot</h3>
+  				<img class="card-img-top" src="/static/test1.png" alt="/static/test1.png">
+  				<div class="card-body">
+    				<h5 class="card-title text-center">Regression Plot</h5>
+
+  				</div>
+			</div>
+			<div class="card text-center" style="width: auto;overflow-y:auto; ">
+				<h3>Training Data Variables</h3>
+				<div class="col-sm" ng-if="selectedmodel =='Multivar Linear Regression'">
+						<table class = "table table-striped">
+							<thead class="bg-primary" style="color:white;">
+								<tr>
+									<th ng-show="calculatedscore" scope= "row"  scope="col" >Factor</th>
+									<th ng-show="calculatedscore" scope= "row"  scope="col" >Values</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--<tr>
+									<th ng-show="calculatedscore" scope= "row" >Accuracy</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.result_score]]
+									</td>
+								</tr>-->
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >R-Squared</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.rsquared]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >Adjective R-Squared</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.radjective]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >Std. Error of Estimate</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.err_of_estimate]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >F-value</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.fvalue]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >P-value</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.pvalue]]
+									</td>
+								</tr>
+								<tr>
+									<th ng-show="calculatedscore" scope= "row" >Coefficient</th>
+									<td ng-show="calculatedscore">
+										[[calculatedscore.coefficients]]
+									</td>
+								</tr>
+							</tbody>
+					<!--<div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
+						<h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+						</h2>
+						<h3 ng-show="calculationDone && selectedmethod!='anova'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
+							[[selectedmethod]] : [[calculatedSummary]]
+						</h3>
+						<ul ng-show="selectedmethod=='anova' && calculationDone">
+						<li>f :[[calculatedSummary.f]]</li>
+						<li>p :[[calculatedSummary.p]]</li>
+						<li>eta_square :[[calculatedSummary.eta_square]]</li>
+						<li>omega_square : [[calculatedSummary.omega_square]]</li>
+						</ul>
+						</div>-->
+						</table>
+					</div>
+					<div class="col-sm"  ng-if="selectedmodel =='Simple Linear Regression'">
+							<table class = "table table-striped">
+								<thead class="bg-primary" style="color:white;">
+									<tr>
+										<th ng-show="calculatedscore" scope= "row"  scope="col" >Factor</th>
+										<th ng-show="calculatedscore" scope= "row"  scope="col" >Values</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th ng-show="calculatedscore" scope= "row" >Accuracy</th>
+										<td ng-show="calculatedscore">
+											[[calculatedscore.result_score]]
+										</td>
+									</tr>
+									<tr>
+										<th ng-show="calculatedscore" scope= "row" >R-Squared</th>
+										<td ng-show="calculatedscore">
+											[[calculatedscore.rsquared]]
+										</td>
+									</tr>
+									<tr>
+										<th ng-show="calculatedscore" scope= "row" >Adjective R-Squared</th>
+										<td ng-show="calculatedscore">
+											[[calculatedscore.radjective]]
+										</td>
+									</tr>
+									<tr>
+										<th ng-show="calculatedscore" scope= "row" >Std. Error of Estimate</th>
+										<td ng-show="calculatedscore">
+											[[calculatedscore.err_of_estimate]]
+										</td>
+									</tr>
+									<tr>
+										<th ng-show="calculatedscore" scope= "row" >F-value</th>
+										<td ng-show="calculatedscore">
+											[[calculatedscore.fvalue]]
+										</td>
+									</tr>
+									<tr>
+										<th ng-show="calculatedscore" scope= "row" >P-value</th>
+										<td ng-show="calculatedscore">
+											[[calculatedscore.pvalue]]
+										</td>
+									</tr>
+									<tr>
+										<th ng-show="calculatedscore" scope= "row" >T-value</th>
+										<td ng-show="calculatedscore">
+											[[calculatedscore.tvalue]]
+										</td>
+									</tr>
+								</tbody>
+						<!--<div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
+							<h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+							</h2>
+							<h3 ng-show="calculationDone && selectedmethod!='anova'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
+								[[selectedmethod]] : [[calculatedSummary]]
+							</h3>
+							<ul ng-show="selectedmethod=='anova' && calculationDone">
+							<li>f :[[calculatedSummary.f]]</li>
+							<li>p :[[calculatedSummary.p]]</li>
+							<li>eta_square :[[calculatedSummary.eta_square]]</li>
+							<li>omega_square : [[calculatedSummary.omega_square]]</li>
+							</ul>
+							</div>-->
+							</table>
+						</div>
+			</div>
+		</div>
+		<h3>Save model :</h3><br>
+		<input type="text" name="filename"id="filename" placeholder="Enter FileName"><br>
+		<a href="" class="btn btn-primary" ng-click="savemodel()">Save</a>
+
+		<div class="modal fade" id="successModal">
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Success</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					Model is saved successfully.
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</div>
+
+</div>

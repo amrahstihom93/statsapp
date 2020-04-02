@@ -7,18 +7,142 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
 	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-	<link rel="stylesheet" href="{% static 'css/demo.css' %}">
+	<!--<link rel="stylesheet" href="{% static 'css/demo.css' %}">-->
 	<link rel="stylesheet" href="{% static 'css/component.css' %}">
+  <link rel="stylesheet" href="{% static 'css/nowui/now-ui-kit.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/nowui/demo.css' %}">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link href="{% static 'css/nowui/fa-all.css' %}" rel="stylesheet">
+
 	<script src="{% static 'angular/angular1.2.5.js' %}"></script>
 	<script src="{% static 'angular/angular-route1.2.5.js' %}"></script>
-    <script src="{% static 'js/app.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
     {% block stylesheet %}{% endblock %}
   </head>
-  <body ng-app="statsApp">
+  <body ng-app="statsApp" class=" login-page sidebar-collapse">
     {% block body %}
 
-		<div class="demo-1">
-		<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+		<div >
+      {% if user.is_authenticated %}
+      <nav class="navbar navbar-expand-lg bg-sgmw fixed-top navbar-info " color-on-scroll="400">
+        <div class="container full-width-bar">
+          <div class="dropdown button-dropdown">
+            <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+              <span class="button-bar"></span>
+              <span class="button-bar"></span>
+              <span class="button-bar"></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-header">Dropdown header</a>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-submenu">
+                  <a class="test" href="#">newddown</a>
+                  <div class="dropdown-menu" href="#">
+                          <a class="dropdown-header">HEADER</a>
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">One more separated link</a>
+            </div>
+          </div>
+
+          <div class="navbar-translate">
+            <a class="navbar-brand" href="{% url 'home' %}" rel="tooltip" title="StatsApp Home " data-placement="bottom">
+              Sigma Statistics
+            </a>
+            <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-bar top-bar"></span>
+              <span class="navbar-toggler-bar middle-bar"></span>
+              <span class="navbar-toggler-bar bottom-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="{% static 'img/blurred-image-1.jpg' %}">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown" title="" rel="tooltip">
+
+                <a class="nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" href="{% url 'logout'}">
+                  <i class="fab fa fa-user " ></i>
+                  <p>{{ user.username }}</p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+									<a class=" dropdown-header text-center">User Menu</a>
+									<a class="dropdown-item text-center d-block" href="#">My Account</a>
+									<a class="dropdown-item text-center d-block" href="#">Change Password</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{% url 'logout' %}" title="Logout" rel="tooltip">
+                    <i class="cnter-icon fab fa fa-sign-out-alt center"></i>
+                    <p></p>
+                  </a>
+								</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!--Second dropdown-->
+
+      </nav>
+      {% else %}
+      <nav class="navbar navbar-expand-lg bg-sgmw fixed-top navbar-transparent  " color-on-scroll="400">
+      <div class="container full-width-bar">
+        <div class="dropdown button-dropdown">
+          <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+            <span class="button-bar"></span>
+            <span class="button-bar"></span>
+            <span class="button-bar"></span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-header">Dropdown header</a>
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">One more separated link</a>
+          </div>
+        </div>
+
+        <div class="navbar-translate">
+          <a class="navbar-brand" href="{% url 'home' %}" rel="tooltip" title="StatsApp Home " data-placement="bottom">
+            Sigma Statistics
+          </a>
+          <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar top-bar"></span>
+            <span class="navbar-toggler-bar middle-bar"></span>
+            <span class="navbar-toggler-bar bottom-bar"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="{% static 'img/blurred-image-1.jpg' %}">
+          <ul class="navbar-nav">
+            <li class="nav-item" title="Login" rel="tooltip">
+              <a class="nav-link" href="{% url 'login' %}">
+                <i class="fab fa fa-sign-in-alt "></i>
+                <p>Login</p>
+              </a>
+            </li>
+            <li class="nav-item"title="SignUp"rel=tooltip>
+              <a class="nav-link"   href="{% url 'signup' %}">
+                <i class="fab fa fa-list-alt" ></i>
+                <p>SignUp</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endif %}
+    <!-- End Navbar -->
+
+		<!--<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}">Sigma Statistics</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,77 +179,146 @@
             {% endif %}
           </div>
         </div>
-      </nav>
-	  
-<!--	  				
+      </nav>-->
+
+<!--
       <div class="container">
         <ol class="breadcrumb my-4">
           {% block breadcrumb %}
           {% endblock %}
         </ol>
         {% block content %}
-	
+
         {% endblock %}
       </div>-->
 	  {% if user.is_authenticated %}
-	<div class="container">
-    <div class="card-deck mt-4em">
-      <div class="card">
-		<img class="card-img-top" src="{% static 'img/41.jpg' %}" alt="Card image cap">
+	<!--<div class="container">
+        <div class ="card-deck home-crd row text-center">
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2 ">
+                <div class="image">
+                    <a href="dataset/#/createProcess">
+                        <img src="{% static 'img/4-150-01.jpg' %}" alt="Process Consulting" class="rounded-circle image" border="0">
+
+                    </a>
+
+                </div>
+                <h4>Process</h4>
+                <p>Craft a customized approach to process improvement. Optimize speed and impact
+                    <br>
+                    <a href="/our-services/business-process-consulting-company-usa-india.html">
+                        Read more →
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2">
+                <a href="dataset/#/dashboard">
+                    <img src="{% static 'img/41.jpg' %}" alt="Process Consulting" class="rounded-circle image" border="0">
+                </a>
+                <h4>Dashboard</h4>
+                <p>Craft a customized approach to process improvement. Optimize speed and impact
+                    <br>
+                    <a href="/our-services/business-process-consulting-company-usa-india.html">
+                        Read more →
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2">
+                <a href="dataset/#/createVisual">
+                    <img src="{% static 'img/vis.jpg' %}" alt="Visualization" class="rounded-circle" border="0">
+                </a>
+                <h4>Visualization</h4>
+                <p>Craft a customized approach to process improvement. Optimize speed and impact
+                    <br>
+                    <a href="/our-services/business-process-consulting-company-usa-india.html">
+                        Read more →
+                    </a>
+                </p>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-1-offset col-xs-6 col-xl-2">
+                <a href="dataset/#/mlearn">
+                    <img src="{% static 'img/1.jpg' %}" alt="Machine Learning" class="rounded-circle" border="0">
+                </a>
+                <h4>Machine Learning</h4>
+                <p>Create and deploy a machine learning model. Optimize results and automate them.
+                    <br>
+                    <a href="/our-services/business-process-consulting-company-usa-india.html">
+                        Read more →
+                    </a>
+                </p>
+            </div>
+        </div>-->
+<div class="container">
+    <div class="card-deck home-crd">
+
+  	  <div class="card rndcard">
+  		<img class="card-img-top rnd-img" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap">
         <div class="card-body">
-          <h3 class="card-title">Dashboard</h3>
-			<div class="card-content">
-			<p>Create Dashboard from visualization</p>
-			</div>
-            <a class="btn btn-primary btn-block" href="dataset/#/dashboard">Start</a>
+            <a class="mx-auto btn btn-info btn-block" href="dataset/#/createProcess">Process</a>
         </div>
-      </div>
-	  <div class="card">
-		<img class="card-img-top" src="{% static 'img/4-150-01.jpg' %}" alt="Card image cap">
+     </div>
+
+     <div class="card rndcard">
+         <img class="card-img-top rnd-img" src="{% static 'img/41.jpg' %}" alt="Card image cap">
+         <div class="card-body">
+             <a class="mx-auto btn btn-info btn-block" href="dataset/#/dashboard">Dashboard</a>
+         </div>
+     </div>
+	 <div class="card rndcard">
+		<img class="card-img-top rnd-img" src="{% static 'img/dd.jpg' %}" alt="Card image cap">
         <div class="card-body">
-          <h3 class="card-title">Processes</h3>
-			<div class="card-content">
-			<p>Create new process.</p>
-			</div>
-			<a class="mx-auto btn btn-primary btn-block" href="dataset/#/createProcess">Create new process</a>
-		</div>
-      </div>
-	  	  <div class="card">
-		<img class="card-img-top" src="{% static 'img/dd.jpg' %}" alt="Card image cap">
-        <div class="card-body">
-          <h3 class="card-title">Dataset</h3>
-			<div class="card-content">
-			<p>Create and upload the data to make dataset.</p>
-			</div>
-			<a class="mx-auto btn btn-primary btn-block" href="dataset/#/createDataset">Start</a>
+			<a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Dataset</a>
         </div>
+     </div>
+
+     <div class="card rndcard">
+         <img class="card-img-top rnd-img" src="{% static 'img/vis.jpg' %}" alt="Card image cap">
+         <div class="card-body">
+             <a class="mx-auto btn btn-info btn-block" href="dataset/#/createVisual">Visualizaton</a>
+         </div>
+     </div>
+
+      <div class="card rndcard">
+          <img class="card-img-top rnd-img" src="{% static 'img/anltcs.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+              <a class="mx-auto btn btn-info btn-block" href="dataset/#/createDataset">Analytics</a>
+          </div>
       </div>
-	</div>
-	</div>
-	  
-	  
+      <div class="card rndcard">
+          <img class="card-img-top rnd-img" src="{% static 'img/pmap.png' %}" alt="Card image cap">
+          <div class="card-body">
+              <a class="mx-auto btn btn-info btn-block" href="processmap">Process Map</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+
 	  {% else %}
 			<div class="content">
-				<div id="large-header" class="large-header">					
+				<div id="large-header" class="large-header">
 					<canvas id="demo-canvas"></canvas>
 				</div>
 			</div>
 		{% endif %}
 		</div>
-	
+
 
 
     {% endblock body %}
-	
+
 	<script>
 		var static_url = '{{STATIC_URL}}'
 	</script>
+
     <script src="{% static 'js/jquery/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/popper/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/EasePack.min.js' %}"></script>
     <script src="{% static 'js/TweenLite.min.js' %}"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="{% static 'js/nouislider.min.js' %}"></script>
     <script src="{% static 'js/demo-1.js' %}"></script>
     <script src="{% static 'js/rAF.js' %}"></script>
+    <script src="{% static 'js/nowui/now-ui-kit.js' %}"></script>
   </body>
 </html>

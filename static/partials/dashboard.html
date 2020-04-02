@@ -2,13 +2,243 @@
 
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
-  	<li class="breadcrumb-item pointer"  ng-click="resetDashboard()">Dashboard</li>
 	<li class="breadcrumb-item" aria-current="page">Create Dashboard</li>
   </ol>
 </nav>
 
-    <div class="row" ng-hide="isDashboardVisible">
-        <div class="col">
+    <div class="row" >
+      <!--left Pane-->
+      <div class="col-md-4">
+        <div class="">
+          <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#dash_name">
+            <label class="category p-2 mx-auto text-light" >Name</label>
+          </div>
+          <div id="dash_name" class=" ml-auto collapse">
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Dashboard Name</label>
+              </div>
+              <div class="col-sm table table-striped my-4">
+                <input type="text" ng-model="vName" class="form-control form-control-0" id="dashName" placeholder="Enter Dashboard Name">
+              </div>
+            </div>
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Process Name</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="select_process" ng-model="selectedProcess" name="select_process" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Process</option>
+                  <option ng-repeat="x in processList" value="[[x.process_id]]">
+                      [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
+                  </option>
+                </select>
+              </div>
+
+              </div>
+            </div>
+          </div>
+          <div ng-hide="dash_layout">
+          <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#dash_layout">
+            <label class="category p-2 mx-auto text-light" >Layout</label>
+          </div>
+          <div id="dash_layout" class=" ml-auto collapse">
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Dashboard Layout</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="dash_layouT" name="dash_layouT" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Layout</option>
+                          <option value="twobyone">2x1</option>
+                          <option value="twobyfour">2x4</option>
+                </select>
+              </div>
+            </div>
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Dashboard Type</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="dash_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Type</option>
+                          <option value="landscape">Landscape</option>
+                          <option value="portrait">Portrait</option>
+                </select>
+              </div>
+            </div>
+            <div class="container ml-auto text-center " style="padding-bottom:2%;">
+                <div class="row">
+                    <div class="col-sm-6  table table-striped my-4 ">
+                        <button  class="btn btn-info block" ng-click="initDashboard()">Submit</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+          </div>
+          <div ng-hide="sheet_layout">
+          <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#sheet_layout">
+            <label class="category p-2 mx-auto text-light" >Sheet Layout</label>
+          </div>
+          <div id="sheet_layout" class=" ml-auto collapse">
+
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Element 1</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="el1_type" ng-click="elsel(x)" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Element</option>
+                          <option value="charts">Charts</option>
+                          <option value="analytics">Analytics</option>
+                </select>
+              </div>
+            </div>
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Data 1</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select ng-click="chartup(x)" id="d1_type" name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Data</option>
+                    <option ng-hide="chartdata" ng-repeat="x in vList" value-"[[x.visualization_name]]">[[x.visualization_name]]</option>
+                    <option  ng-hide="statdata" ng-repeat="x in statisticalArr" value-"[[x.statistical_name]]">[[x.statistical_name]]</option>
+                </select>
+              </div>
+            </div>
+            <div ng-hide="secondelement">
+             <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Element 2</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="el2_type" name="dash_type" ng-click="elsel2(x)" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Element</option>
+                          <option value="charts">Charts</option>
+                </select>
+              </div>
+            </div>
+            <div class="row ml-auto border border-top-0">
+              <div class="col-sm-4 table table-striped my-4">
+                <label class="category" for="dashName">Select Data 2</label>
+              </div>
+              <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+                <select id="d2_type" ng-click="chartup2(x)"name="dash_type" class="btn btn-primary dropdown-toggle block datsel" type="button">
+                  <option>Select Data</option>
+                  <option ng-repeat="x in vList" value-"[[x.visualization_name]]">[[x.visualization_name]]</option>
+
+                </select>
+              </div>
+            </div>
+        </div>
+            <div class="container ml-auto text-center " style="padding-bottom:2%;">
+                <div class="row">
+                    <div class="col-sm-6  table table-striped my-4 ">
+                        <button  class="btn btn-info block" ng-click="initDashboard()">Submit</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+          </div>
+
+
+        </div>
+        <div class="col-md-8 " ng-show="isDashboardVisible" style="height:720px;">
+            <ul class="nav nav-tabs" id="listtab">
+                <li class="active"><a data-toggle="tab" data-target="#sheet">Sheet 1</a></li>
+                <button ng-click= "addSheet()">Add Sheet</button>
+            </ul>
+            <div class="tab-content">
+                <div ng-hide="twobyone"id="sheet_1" class="tab-pane fade in active">
+                    <div id = "el1_sheet" style="height:50%;background-color:grey;margin-bottom:0.5%;">
+                       <div id="chartView" style="width:100%; height:360;"></div>
+                    </div>
+                    <div  style="height:50%;background-color:grey;margin-top:0.5%;">
+                         <div id="chartView2" style="width:100%; height:360;"></div>
+                         <div id="statView2" style="width:100%; height:360;">
+                             <table class="table table-bordered text-center" style="color:white">
+                                 <thead>
+                                     <tr>
+                                         <th>Parameter</th>
+                                         <th class="text-center">Value</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                                         <td class="text-left">Count</td>
+                                         <td>[[calSummary.count]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Mean</td>
+                                         <td>[[calSummary.mean]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Standard Deviation</td>
+                                         <td>[[calSummary.std]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Median</td>
+                                         <td>[[calSummary.median]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Skewness</td>
+                                         <td>[[calSummary.skewness]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Kurtosis</td>
+                                         <td>[[calSummary.kurtosis]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Minimum</td>
+                                         <td>[[calSummary.min]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">25%</td>
+                                         <td>[[calSummary.25]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">50%</td>
+                                         <td>[[calSummary.50]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">75%</td>
+                                         <td>[[calSummary.75]]</td>
+                                     </tr>
+                                     <tr>
+                                         <td class="text-left">Maximum</td>
+                                         <td>[[calSummary.max]]</td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                    </div>
+                </div>
+                <div ng-hide="twobyfour" id="sheet" class="tab-pane fade in active">
+                    <div style="height:50%; width:50%;background-color:grey;margin-bottom:0.5%;">
+
+
+                    </div>
+                    <div  style="height:50%;width:50%;background-color:grey;margin-top:0.5%;">
+
+                    </div>
+                    <div style="height:50%;width:50%;background-color:grey;margin-bottom:0.5%;">
+
+                    </div>
+                    <div  style="height:50%;width:50%;background-color:grey;margin-top:0.5%;">
+
+                    </div>
+                </div>
+                <!-- <div id="sheet1" class="tab-pane fade">
+                    <h3>Sheet 1</h3>
+                    <p>Some content in menu 1.</p>
+                </div> -->
+            </div>
+
+        </div>
+
+        </div>
+
+        <!-- <div class="col">
 
         	<form>
         		<div class="form-group row">
@@ -22,18 +252,22 @@
     				</label>
     				<div class="col-sm-10">
       					<select class="custom-select mr-sm-2" id="selectDashboardType" ng-model="dashboardType">
-        					<option value="" disabled selected>Select Type</option>
-							<option value="landscape">Landscape</option>
-							<option value="portrait">Portrait</option>
+        					 <option value="" disabled selected>Select Type</option>
+							     <option value="landscape">Landscape</option>
+							     <option value="portrait">Portrait</option>
       					</select>
     				</div>
   				</div>
   				<button class="btn btn-primary" ng-click="initDashboard()">Submit</button>
 			</form>
-        </div>
+        </div> -->
+
+
+
 
     </div>
-	
+
+
 <!-- 	<div class="card text-center mt-2em smokeBackground">
 		<div class="card-header" ng-hide="true">
 			<h3>Add Visualization</h3>
@@ -41,16 +275,17 @@
   		<div class="card-body">
     		<p class="card-text">Add previously saved Visualization or statistical summary to make new dashboards.
     		</p>
-	
+
     		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Visualization
 			</button>
-	
+
   		</div>
 	</div> -->
 
-	<div class="card text-center mt-2em smokeBackground" ng-show="isDashboardVisible">
+	<!-- <div class="card text-center mt-2em smokeBackground" ng-show="isDashboardVisible">
+
 		<div class="card-header">
-			<form class="form-inline">
+			<form class="form-inline col-md-5">
 			  <div class="form-group mx-sm-3 mb-2">
     			<label for="dash" class="sr-only">Dashboard Name</label>
     			<div ng-show="isNameSaved" class="">
@@ -58,47 +293,38 @@
     			</div>
     			<input type="text" class="form-control" id="dash" ng-init="josof" ng-model = "dashboardName" ng-hide="isNameSaved"
     			placeholder="">
-  			  </div>
+  			</div>
   				<button type="submit" class="btn btn-primary mb-2" ng-hide="isNameSaved" ng-click="saveDashboardName()">Save</button>
   				<button type="submit" class="btn btn-primary mb-2 ml-2" ng-show="isNameSaved" ng-click="editDashboardName()">Edit
   				</button>
 		</form>
+          <button type="submit" ng-click="addNewVisualization()" data-toggle="modal" data-target="#myModal" class="btn btn-primary mb-2 ml-2 float-right">
+            Add New
+          </button>
+          <button type="submit" ng-click="multipageExport()" class="btn btn-primary float-right">
+            Export
+          </button>
 		</div>
-  		<div class="card-body" ng-show="isDashboardVisible">
+  		<div class="card-body" ng-show="isDashboardVisible" id="visualizationContainer">
 
-        <div class="card text-center mt-2em smokeBackground">
+        <div class="card  text-center mt-2em smokeBackground" ng-show="zeroVisualizations">
           <div class="card-header">
-            <h3></h3>
           </div>
-          <div class="card-body" id="visualizationOne">
-             
-  
-            <button id="addVisualization1" ng-click="addVisual($event)" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">    Add New Visualization
-            </button>
+          <div class="card-body visualizationx" id="visualization1">
+
+            <div class="card-body">
+              <h3> Add <strong>New Visualization</strong> using top right corner button.</h3>
+            </div>
 
             <div class="my-4" id="testdiv">
-              
+
             </div>
         </div>
+        <div id="editor"></div>
         </div>
 
-
-        <div class="card text-center mt-2em smokeBackground">
-          <div class="card-header">
-            <h3></h3>
-          </div>
-          <div class="card-body" id="visualizationTwo">
-              
-  
-            <button id="addVisualization2" ng-click="addVisual($event)" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Visualization
-            </button>
-  
-          </div>
-        </div>
-			
-	  
   		</div>
-	</div>
+	</div> -->
 
 
 
@@ -114,13 +340,13 @@
       		</div>
       		<div class="modal-body">
         		<h2 class="text-center">Select the visualization from drop down.</h2>
-        		<select id="visualization_list" name="visualization_list" class="form-control"  
+        		<select id="visualization_list" name="visualization_list" class="form-control"
         		ng-model="selectedVisual" ng-change="openVisualization(selectedVisual)">
 					<option selected>Select field</option>
 					<option ng-repeat="k in vList" value="[[k.visualization_name]]">
 					[[k.visualization_name]]</option>
 				</select>
-				
+
 			<div class="my-4">
 				<canvas id="selectedVisualization" width="400" height="350"></canvas>
 			</div>
@@ -128,15 +354,67 @@
       	<div class="modal-footer">
       		<button type="button" class="btn btn-success pull-left" ng-click="addVisualization()">Add Visualizaton</button>
         	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        	
+
       	</div>
     	</div>
 
   	</div>
 	</div>
-	
+
+
+
+
+
+  <!-- Modal for adding subtitle text-->
+  <div id="subtitleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title">Add Subtitle</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="text-center">Write Subtitle for the visualization.</h2>
+            <input type="text" class="form-control my-4" ng-model="subtitleText" name="">
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveTextSubtitle()">
+            Ok</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+   <!-- Modal for adding text narration-->
+  <div id="narrationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title">Add Text</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h2 class="text-center">Write Text narration for the visualization.</h2>
+             <textarea class="form-control my-4" rows="5" ng-model="narrationText"></textarea>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveTextNarration()">
+            Ok</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
- 
-
- 
-

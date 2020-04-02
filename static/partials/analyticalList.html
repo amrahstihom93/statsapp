@@ -1,0 +1,91 @@
+<div class="container">
+<div ng-hide="">
+<nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page">Analytical List</li>
+  </ol>
+</nav>
+
+  <table id="analyticalList" class="table table-bordered table-striped my-4">
+    <thead>
+      <tr ng-hide="true">
+        <th>Analytical</th>
+		<!--<th>Created By</th>-->
+        <th>View</th>
+		<th>Edit</th>
+		<th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in analyticalArr">
+        <td>[[x.analytical_name]]</td>
+		<!--<td>[[x.user_id]]</td>-->
+        <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewAnalytical(x)">View</a></td>
+
+
+<!-- modal for view-->
+
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="viewModalLabel">Analytical Summary</h5>
+
+
+
+           <div class="btn-group">
+ <!--  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Export
+    </button>
+    <div class="dropdown-menu">
+      <button class="dropdown-item" id="create_pdf">Export as PDF</button>
+      <button class="dropdown-item" ng-click="createIm()">Export as Image</button>
+    </div>
+  </div> -->
+			</div>
+      </div>
+      <div class="modal-body specific" id="viewModalBody">
+	    <div class="col-md-8">
+			<div class="my-4">
+				<div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
+					<h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+					</h2>
+					<!--  <h3 class="font-weight-bold text-center text-primary" style="padding-bottom: 30px;">
+						[[selMethod]] : [[calSummary]]
+					</h3> -->
+					<ul>
+						<li>F :[[calSummary.f]]</li>
+						<li>P :[[calSummary.p]]</li> 
+						<li>ETA_square :[[calSummary.eta_square]]</li>
+						<li>Omega_square : [[calSummary.omega_square]]</li>
+						
+					</ul>
+				</div>
+			
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+		<td><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editAnalytical(x)">Edit</a></td>
+		<td><a href="" class="btn btn-danger" ng-click="delAnalytical(x.id)">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+  
+
+
+
+</div>
+

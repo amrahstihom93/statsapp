@@ -2,14 +2,14 @@
 <div ng-hide="">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
-	<li class="breadcrumb-item" aria-current="page">Analytical List</li>
+	<li class="breadcrumb-item" aria-current="page">Statistical List</li>
   </ol>
 </nav>
 
-  <table id="analyticalList" class="table table-bordered table-striped my-4">
+  <table id="statisticalList" class="table table-bordered table-striped my-4">
     <thead>
       <tr ng-hide="true">
-        <th>Analytical</th>
+        <th>Statistical</th>
 		<!--<th>Created By</th>-->
         <th>View</th>
 		<th>Edit</th>
@@ -18,9 +18,9 @@
     </thead>
     <tbody>
       <tr ng-repeat="x in statisticalArr">
-        <td>[[x.analytical_name]]</td>
+        <td>[[x.statistical_name]]</td>
 		<!--<td>[[x.user_id]]</td>-->
-        <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewAnalytical(x)">View</a></td>
+        <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewStatistical(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
 
 
 <!-- modal for view-->
@@ -48,15 +48,15 @@
       <div class="modal-body specific" id="viewModalBody">
 	    <div class="col-md-8">
   <div class="my-4">
-        <div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
-          <h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+        <div id="statisticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
+          <h2 class="text-primary text-center display-4" style="padding: 30px;">Statistical Summary:
           </h2>
          <!--  <h3 class="font-weight-bold text-center text-primary" style="padding-bottom: 30px;">
               [[selMethod]] : [[calSummary]]
           </h3> -->
           <ul>
             <li>Count :[[calSummary.count]]</li>
-            <li>Mean :[[calSummary.mean]]</li> 
+            <li>Mean :[[calSummary.mean]]</li>
             <li>Standard Deviation :[[calSummary.std]]</li>
             <li>Median : [[calSummary.median]]</li>
             <li>Skewness : [[calSummary.skewness]]</li>
@@ -82,17 +82,16 @@
 
 
 
-		<td><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editAnalytical(x)">Edit</a></td>
-		<td><a href="" class="btn btn-danger" ng-click="delAnalytical(x.id)">Delete</a></td>
+		<td><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editStatistical(x)"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+		<td><a href="" class="btn btn-danger" ng-click="delStatistical(x.id)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
       </tr>
     </tbody>
   </table>
 
 </div>
 
-  
+
 
 
 
 </div>
-
