@@ -105,7 +105,7 @@ testpath==0.3.1
 tornado==5.0.2
 traitlets==4.3.2
 unicodecsv==0.14.1
-urllib3==1.23
+urllib3==1.24.2
 wcwidth==0.1.7
 webencodings==0.5.1
 win-inet-pton==1.0.1
