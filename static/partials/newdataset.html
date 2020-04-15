@@ -1,6 +1,6 @@
 <div ng-hide="datasetSaved">
     <nav class="breadcrumb my-4">
-        <!-- <span class="breadcrumb-item active">Dataset</span> -->
+        <!--<span class="breadcrumb-item active">Dataset</span>-->
     </nav>
     <div class="row">
         <div class="col">
@@ -19,8 +19,7 @@
                 <a href="" ng-click="submitFileType()" class="btn btn-primary" style="margin-top:-1px">Submit</a>
             </div>
         </div>
-
-    </div>
+      </div>
     <hr/>
 </div>
 
@@ -107,25 +106,26 @@
                         [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                     </option>
                 </select>-->
-                </div>
+
             </div>
-        <!-- <form id="upForm" name="uploadForm" class="my-4 form-inline" method="post">
+        </div>
+        <!--<form id="upForm" name="uploadForm" class="my-4 form-inline" method="post">
             Dataset Name:
             <input type="text" ng-model="datasetName" name="datasetName" class="form-control onePerLMargin"
                    required/><br>
 
            <input ng-hide="fileType==='mysql'" type="file" id="files" name="myfile" class="form-control my-4 onePerLMargin"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            required /> -->
+            required />
             <!--	<button type="submit" id="submit-file" class="btn btn-primary onePerLMargin" ng-click="submit()">Upload File</button>
         -->
 
-            <!-- <button id="2ndStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="isFileUploaded"
+            <!--<button id="2ndStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="isFileUploaded"
                     ng-click="submitHeaderType()">submit
             </button>
             <button id="1stStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="!isFileUploaded"
                     ng-click="submit()">Upload
             </button>
-        </form> -->
+        </form>-->
 
         <div id="drop">Drop a spreadsheet file here to see sheet data</div>
 
