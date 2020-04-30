@@ -282,7 +282,7 @@ body {
 
 p {
     font-size: 1.1em;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.7em;
     color: #999;
 }
@@ -335,6 +335,7 @@ a, a:hover, a:focus {
   transition: all 0.3s;
   display: inline-block;
   overflow: hidden;
+  height: 100%;
 }
 
 
