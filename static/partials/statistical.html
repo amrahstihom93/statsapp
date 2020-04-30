@@ -16,18 +16,18 @@
         <li ng-repeat="x in datasetArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
     </ul>
 </div> -->
-  <table class="table table-bordered table-striped my-4">
-    <thead>
+<!--<div class="row no-gutters">
+<div class="col-md-6">-->
+  <table class="table table-striped my-4">
+    <thead ng-hide="true" class="ng-hide">
       <tr>
         <th>Dataset</th>
-	<!--	<th>Created By</th>-->
        <th>Select Dataset</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="x in datasetArr">
         <td>[[x.dataset_name]]</td>
-		<!--<td>[[x.user_id]]</td>-->
         <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
       </tr>
     </tbody>
@@ -41,6 +41,23 @@
   </div>-->
 
 </div>
+<!--<div class="col-md-6">
+  <table class="table table-striped my-4">
+    <thead ng-hide="true" class="ng-hide">
+      <tr>
+        <th>Dataset</th>
+       <th>Select Dataset</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in datasetArr">
+        <td>[[x.dataset_name]]</td>
+        <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>-->
 <!--
 <div class = "container" ng-hide ="">
 -->
@@ -330,12 +347,13 @@
 
 
         </div> -->
-        <div class="col-md-4">
+        <div class="row no-gutters">
+        <div class="col-md-6">
          <div id="statisticalSummary"  style="background-color: #D3D3D3;" ng-show="selectedmethod=='describe' && calculationDone">
              <h3 ng-show="calculationDone && selectedmethod!='describe'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
                  [[selectedmethod]] : [[calculatedSummary]]
              </h3>
-             <table class="table table-bordered text-center" ng-show="selectedmethod=='describe' && calculationDone">
+             <table class="table text-center" ng-show="selectedmethod=='describe' && calculationDone" >
                  <thead>
                      <tr>
                          <th class="text-left">Parameter</th>
@@ -371,12 +389,12 @@
                </table>
                    </div>
                    </div>
-                   <div class="col-md-4">
+                   <div class="col-md-6">
                      <div id="statisticalSummary"  style="background-color: #D3D3D3;" ng-show="selectedmethod=='describe' && calculationDone">
                          <h3 ng-show="calculationDone && selectedmethod!='describe'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
                              [[selectedmethod]] : [[calculatedSummary]]
                          </h3>
-                         <table class="table table-bordered text-center" ng-show="selectedmethod=='describe' && calculationDone">
+                         <table class="table text-center" ng-show="selectedmethod=='describe' && calculationDone">
                              <thead>
                                  <tr>
                                      <th class="text-left">Parameter</th>

@@ -5,8 +5,8 @@
 	<li class="breadcrumb-item" aria-current="page">Visualization List</li>
   </ol>
 </nav>
-
-  <table id="visualizationList" class="table table-bordered table-striped my-4">
+<div class="col-md-6">
+  <table id="visualizationList" class="table table-striped my-4">
     <thead>
       <tr ng-hide="true">
         <th>Visualization</th>
@@ -20,12 +20,35 @@
       <tr ng-repeat="x in visualizationArr" class="row">
         <td class="col">[[x.visualization_name]]</td>
 		<!--<td>[[x.user_id]]</td>-->
-        <td class="text-center" style ="width:5%;"><a href="" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewVisualization(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-		<td class="text-center" style ="width:5%;"><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editVisualization(x)"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-		<td class="text-center" style ="width:5%;"><a href="" class="btn btn-danger" ng-click="delVisualization(x.id)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+        <td class="text-center" ><a href="" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewVisualization(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+		<td class="text-center" ><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editVisualization(x)"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+		<td class="text-center" ><a href="" class="btn btn-danger" ng-click="delVisualization(x.id)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
       </tr>
     </tbody>
   </table>
+</div>
+<div class="col-md-6">
+  <table id="visualizationList" class="table table-striped my-4">
+    <thead>
+      <tr ng-hide="true">
+        <th>Visualization</th>
+		<!--<th>Created By</th>-->
+        <th>View</th>
+		<th>Edit</th>
+		<th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in visualizationArr" class="row">
+        <td class="col">[[x.visualization_name]]</td>
+		<!--<td>[[x.user_id]]</td>-->
+        <td class="text-center" ><a href="" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewVisualization(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+		<td class="text-center" ><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editVisualization(x)"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+		<td class="text-center" ><a href="" class="btn btn-danger" ng-click="delVisualization(x.id)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
   <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">

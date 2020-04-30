@@ -91,22 +91,22 @@
 		</nav>
 
 		<table id="" class="table table-bordered table-striped my-4">
-			<!--<thead>
-				<tr>
+			<thead>
+				<tr ng-hide="true" class="ng-hide">
 					<th>Process</th>
 					<th>Action</th>
 				</tr>
-			</thead>-->
+			</thead>
 			<tbody>
-				<tr ng-repeat="x in pArr">
-					<td>[[x.process_name]]</a></td>
+				<tr ng-repeat="x in processArr">
+					<td class="ng-binding">[[x.process_name]]</td>
 					<td><a href="" class="btn btn-primary" ng-click="selProcess(x)">Select</a></td>
 				</tr>
 			</tbody>
 		</table>
 
 	</div>
-<!--	<div class="" ng-show="bothProcessDataset">
+ <div class="" ng-show="bothProcessDataset">
 		<nav class="breadcrumb my-4">
 			<span class="breadcrumb-item active">Dataset List</span>
 		</nav>
@@ -121,12 +121,11 @@
 				<tr ng-repeat="d in dArr">
 					<td>[[d.dataset_name]]</a></td>
 				<!--	<td>[[d.user_id]]</td>-->
-				<!--	<td><a href="#/createDataset" class="btn btn-primary">Action</a></td>
+				<td><a href="#/createDataset" class="btn btn-primary">Action</a></td>
 				</tr>
 			</tbody>
 		</table>
-
-	</div>-->
+</div>
 	<div class="" ng-show="emptyProcess">
 
 		<div class="card text-center mt-2em smokeBackground">

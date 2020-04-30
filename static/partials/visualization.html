@@ -1,4 +1,3 @@
-
 <div class="container">
 <div ng-show="(!showGraph)&&(!showGraphList)&&(!showcchart)">
 <!--<nav aria-label="breadcrumb" class="my-4">
@@ -8,8 +7,10 @@
   <!--</ol>
 </nav>-->
   <h4>Choose dataset to make visualization:</h4>
-  <table class="table table-bordered table-striped my-4">
-    <thead>
+  <!--<div class="row no-gutters">
+  <div class="col-md-6">-->
+  <table class="table table-striped my-4">
+    <thead ng-hide="true" class="ng-hide">
       <tr>
         <th>Dataset</th>
         <th>Make Visualization</th>
@@ -18,12 +19,28 @@
     <tbody>
       <tr ng-repeat="x in datasetArr">
         <td>[[x.dataset_name]]</td>
-		<!--<td>[[x.user_id]]</td>-->
         <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
       </tr>
     </tbody>
   </table>
  </div>
+ <!--<div class="col-md-6">
+ <table class="table table-striped my-4">
+   <thead ng-hide="true" class="ng-hide">
+     <tr>
+       <th>Dataset</th>
+       <th>Make Visualization</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr ng-repeat="x in datasetArr">
+       <td>[[x.dataset_name]]</td>
+          <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
+     </tr>
+   </tbody>
+ </table>
+</div>
+</div>
 
  <!-- Graph Types List-->
  	<div class="container" ng-show="showGraphList">
