@@ -90,10 +90,12 @@ def calcsregression(request):
 		print("random_state_valuee*********",random_state)
 		# Fitting Simple Linear Regression to the dataset
 		if random_state == 0:
-			from sklearn.cross_validation import train_test_split
+			# from sklearn.cross_validation import train_test_split
+			from sklearn.model_selection import train_test_split
 			x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = (1-(int(training_size)/100)))
 		else:
-			from sklearn.cross_validation import train_test_split
+			# from sklearn.cross_validation import train_test_split
+			from sklearn.model_selection import train_test_split
 			x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = (1-(int(training_size)/100)), random_state = int(random_state))
 
 		# Fitting Simple Linear Regression to the Training set
