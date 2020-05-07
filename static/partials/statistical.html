@@ -349,13 +349,13 @@
         </div> -->
         <div class="row no-gutters">
         <div class="col-md-6">
-         <div id="statisticalSummary"  style="background-color: #D3D3D3;" ng-show="selectedmethod=='describe' && calculationDone">
+         <div id="statisticalSummary"  style="background-color: #868e96;" ng-show="selectedmethod=='describe' && calculationDone">
              <h3 ng-show="calculationDone && selectedmethod!='describe'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
                  [[selectedmethod]] : [[calculatedSummary]]
              </h3>
              <table class="table text-center" ng-show="selectedmethod=='describe' && calculationDone" >
                  <thead>
-                     <tr>
+                     <tr style="background-color: #ff751a;">
                          <th class="text-left">Parameter</th>
                          <th class="text-center" style="width:80px">Value</th>
                      </tr>
@@ -390,13 +390,13 @@
                    </div>
                    </div>
                    <div class="col-md-6">
-                     <div id="statisticalSummary"  style="background-color: #D3D3D3;" ng-show="selectedmethod=='describe' && calculationDone">
+                     <div id="statisticalSummary"  style="background-color: #868e96;" ng-show="selectedmethod=='describe' && calculationDone">
                          <h3 ng-show="calculationDone && selectedmethod!='describe'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
                              [[selectedmethod]] : [[calculatedSummary]]
                          </h3>
                          <table class="table text-center" ng-show="selectedmethod=='describe' && calculationDone">
-                             <thead>
-                                 <tr>
+                            <thead>
+                                 <tr style="background-color: #ff751a;">
                                      <th class="text-left">Parameter</th>
                                      <th class="text-center" style="width:80px">Value</th>
                                  </tr>
@@ -422,6 +422,10 @@
                    <tr>
                        <td class="text-left">Maximum</td>
                        <td>[[calculatedSummary.max]]</td>
+                   </tr>
+                   <tr>
+                       <td class="text-left"></td>
+                       <td style="height:40px"></td>
                    </tr>
                </tbody>
            </table>

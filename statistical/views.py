@@ -135,7 +135,7 @@ def calculateAnalytics(request):
 
 		print('Group=>',selectedgroup)
 		c_data= c.convert_objects(convert_numeric=True)
-
+		pd.to_numeric(c)
 		ss_between = (sum(c_data.groupby(g).sum()**2)/n) - (c_data.sum()**2)/N
 		print("ss_between==>",ss_between)
 
