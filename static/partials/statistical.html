@@ -16,9 +16,9 @@
         <li ng-repeat="x in datasetArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
     </ul>
 </div> -->
-<!--<div class="row no-gutters">
-<div class="col-md-6">-->
-  <table class="table table-striped my-4">
+<!--<div class="row no-gutters">-->
+<div class="col-md-6">
+  <table  id="datasetList" class="table table-striped my-4">
     <thead ng-hide="true" class="ng-hide">
       <tr>
         <th>Dataset</th>
@@ -41,8 +41,8 @@
   </div>-->
 
 </div>
-<!--<div class="col-md-6">
-  <table class="table table-striped my-4">
+<div class="col-md-6">
+  <table id="datasetList" class="table table-striped my-4">
     <thead ng-hide="true" class="ng-hide">
       <tr>
         <th>Dataset</th>
@@ -57,7 +57,7 @@
     </tbody>
   </table>
 </div>
-</div>-->
+</div>
 <!--
 <div class = "container" ng-hide ="">
 -->
