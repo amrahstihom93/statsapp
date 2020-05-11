@@ -236,8 +236,11 @@ def multiregression(request):
 		idvararr = []
 		idvararr = [idvar]
 		print(idvararr)
-		dataSet = dvardat.iloc[:,[1,0]].values
+		# dataSet = dvardat.iloc[:,[1,0]].values
+		dataSet = dvardat.iloc[:,:-1].values
+		dataSett = dvardat.iloc[:,[1,0]].values
 		print("DATASET&&&",dataSet)
+		print("DATASETT&&&",dataSett)
 		###idvardat = pd.DataFrame(list(collection.find({idvar[0]:{"exists":True}})))
 		###print("idvardat")
 		###print(idvardat)

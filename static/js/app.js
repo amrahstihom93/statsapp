@@ -53,6 +53,9 @@
           }).when('/analyticalList', {
               templateUrl: static_url + 'partials/analyticalList.html',
               controller: 'analyticalListCtrl'
+          }).when('/hypothesis', {
+              templateUrl: static_url + 'partials/hypothesis.html',
+              controller: 'hypotheticalCtrl'
           }).when('/mlearn', {
               templateUrl: static_url + 'partials/mlearn.html',
               controller: 'mlearnCtrl'
@@ -1315,7 +1318,89 @@
 
   	});
 
+  module.controller("hypotheticalCtrl",function($scope,$http){
+    $scope.calculationDone = false;
+    $scope.testArr = ['Shapiro-Wilk Test','D’Agostino’s K^2 Test'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
 
+    		    console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(data,status,headers,config){
+            console.log("response from calcula",data);
+              console.log("response from calculateAnalytics",data);
+  			 console.log("response calculateAnalytics");
+
+
+               if($scope.selectedtest == 'mode'){
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+
+               }
+               else if($scope.selectedtest == 'Shapiro-Wilk Test'){
+                       $scope.calculatedSummary =  data.summary;
+                       $scope.calculationDone = false;
+                   //    fieldDataForoGraph = data.fieldData;
+                     //  fieldDataToSave = fieldDataForoGraph.toString();
+  				     console.log("In else calculateAnalytics",data);
+  					   console.log("calculateHypothesis",$scope.calculatedSummary);
+
+  				}
+  		}).error(function(data,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        $scope.initCalculate = function(){
+            $scope.calculationDone = false;
+        }
+  });
   module.controller("analyticalCtrl", function($scope,$http) {
       $scope.test ="This is working analytical";
       $scope.calculationDone = false;

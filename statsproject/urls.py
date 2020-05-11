@@ -80,6 +80,8 @@ urlpatterns = [
 	url(r'^getAnalytical/$', statistical_views.getAnalyticalList,name='getAnalytical'),
 	url(r'^delAnalytical/(?P<id>\d+)/$', statistical_views.delAnalytical,name='delete-analytical'),
 
+    url(r'^calculateHypothesis/$',statistical_views.calculateHypothesis,name='calculateHypothesis'),
+
 	url(r'^mlearn/$', ml_views.mlearn, name="mlearn"),
     url(r'^calcsregression/$', ml_views.calcsregression, name='calcsregression'),
     url(r'^multiregression/$', ml_views.multiregression, name='multiregression'),

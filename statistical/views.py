@@ -20,6 +20,7 @@ from scipy import stats
 
 # Create your views here.
 
+
 def saveAnalytics(request):
 	print('I am in save function')
 	vForm = analytical()
@@ -70,10 +71,45 @@ def saveStatistics(request):
 	msg = 'error while saving statistical summary'
 	return HttpResponse(msg)
 
+#calculateHypothesis
+def calculateHypothesis(request):
+	print('into Calculate Hypothesis')
+	if request.method == 'POST':
+		print("in POST method")
 
+		selecteddatacol = request.POST['selecteddatacol']
+		selectedtest = request.POST['selectedtest']
 
+		print("Test  =", request.POST['selectedtest'])
+		print("Dataset ID =", request.POST['dataset_id'])
+		print("Data = ", request.POST['selecteddatacol'])
+		#connecting to database and fetching data column
+		susr = str(request.user)
+		client = MongoClient()
+		db = client.datasetDatadb
+		collection = db[request.POST['dataset_id']]
+		datav = collection.find( { } )
+		pd.set_option('display.max_columns', None)
 
+		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
+		valc=datac[selecteddatacol]
+		valc_list = valc.tolist()
+		valc_fltlist = [float(i) for i in valc_list]
+		print("val converted data col==>>",valc_fltlist)
 
+		if selectedtest == 'Shapiro-Wilk Test':
+			# Example of the Shapiro-Wilk Normality Test
+			from scipy.stats import shapiro
+			ddata = valc_fltlist
+			stat, p = shapiro(ddata)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably Gaussian')
+			else:
+				print('Probably not Gaussian')
+	return HttpResponse()
+
+#calculaateAnalytics
 def calculateAnalytics(request):
 	print('Hiiiiiiiiii')
 	if request.method == 'POST':
