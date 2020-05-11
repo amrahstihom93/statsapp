@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="x in datasetArr">
-        <td class="ng-binding" style="width:60%">[[x.dataset_name]]</td>
+        <td class="ng-binding" style="width:50%">[[x.dataset_name]]</td>
 		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
         <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
 	    	<td class="text-center"><a href="" class="btn btn-danger" ng-click="delDataset(x.dataset_name)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
@@ -39,7 +39,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="x in datasetArr">
-        <td class="ng-binding" style="width:60%">[[x.dataset_name]]</td>
+        <td class="ng-binding" style="width:50%">[[x.dataset_name]]</td>
 		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
         <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
 	    	<td class="text-center"><a href="" class="btn btn-danger" ng-click="delDataset(x.dataset_name)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>

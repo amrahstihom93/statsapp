@@ -1,14 +1,14 @@
 <div class="container">
-	<div ng-show="(!showGraph)&&(!showGraphList)&&(!showcchart)">
+<!--	<div ng-show="(!showGraph)&&(!showGraphList)&&(!showcchart)">
 <nav aria-label="breadcrumb" class="my-4">
 	  <!--<ol class="breadcrumb">
 	    <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>
 		  <li class="breadcrumb-item" aria-current="page">Choose Dataset</li>-->
-	 <!--</ol>-->
-	</nav>
+	 <!--</ol>
+ </nav>-->
 	<!-- <h3 class="my-4">Parent Process : [[currentSelectedProcess]]</h3> -->
 	<h4 class="my-4">Create New Process</h4>
-	<table class="table table-bordered">
+	<table class="table table-bordered table-responsive">
 	  <thead>
 		<tr>
 		  <th>Process Name</th>
@@ -90,7 +90,7 @@
 			<span class="breadcrumb-item active">Process List</span>
 		</nav>
 
-		<table id="" class="table table-bordered table-striped my-4">
+		<table id="" class="table table-bordered table-striped my-4 table-responsive">
 			<thead>
 				<tr ng-hide="true" class="ng-hide">
 					<th>Process</th>
@@ -98,7 +98,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="x in processArr">
+				<tr ng-repeat="x in pArr">
 					<td class="ng-binding">[[x.process_name]]</td>
 					<td><a href="" class="btn btn-primary" ng-click="selProcess(x)">Select</a></td>
 				</tr>
@@ -110,7 +110,7 @@
 		<nav class="breadcrumb my-4">
 			<span class="breadcrumb-item active">Dataset List</span>
 		</nav>
-		<table id="" class="table table-bordered table-striped my-4">
+		<table id="" class="table table-bordered table-striped my-4 table-responsive">
 			<thead>
 				<tr ng-hide="true">
 					<th>Dataset</th>

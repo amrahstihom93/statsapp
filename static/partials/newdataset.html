@@ -74,7 +74,7 @@
                   <tbody>
                     <tr>
                       <td>
-                        <select required ng-model="selectedProcess" class="custom-select" style="padding-left:50px; width:350px" >
+                        <select required ng-model="selectedProcess" class="custom-select" style="padding-left:50px; width:350px; height:32px" >
                             <!--	<option value="PIDroot00000000000000">root</option>-->
                             <option ng-repeat="x in processList" value="[[x.process_id]]">
                                 [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
@@ -86,12 +86,12 @@
                                required/ style="padding-left:50px; width:350px">
                       </td>
                       <td>
-                        <input ng-hide="fileType==='mysql'" type="file" id="files" name="myfile" class="form-control my-4 onePerLMargin"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                        <input ng-hide="fileType==='mysql'" type="file" id="files" name="myfile" class="form-control onePerLMargin"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                 required /  style="width:250px">
-                        <button id="2ndStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="isFileUploaded"
+                        <button id="2ndStepUpload" class="btn btn-success pull-right onePerLMargin" ng-show="isFileUploaded"
                                         ng-click="submitHeaderType()" style="width:80px; margin-top:2px">submit
                         </button>
-                        <button id="1stStepUpload" class="btn btn-success pull-right my-4 onePerLMargin" ng-show="!isFileUploaded"
+                        <button id="1stStepUpload" class="btn btn-success pull-right onePerLMargin" ng-show="!isFileUploaded"
                                         ng-click="submit()" style="width:80px; margin-top:2px">Upload
                         </button>
                       </td>

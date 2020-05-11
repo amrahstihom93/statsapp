@@ -75,7 +75,7 @@
     }
     table.table .form-control {
         height: 32px;
-        line-height: 32px;
+        line-height: normal;
         box-shadow: none;
         border-radius: 2px;
     }
@@ -86,7 +86,7 @@
 		display: none;
 	}
 .table .btn{
-	width:98%;
+	width:70%;
 }
 th {
 	text-align:center;
