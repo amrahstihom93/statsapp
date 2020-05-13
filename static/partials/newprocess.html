@@ -13,8 +13,7 @@
 		<tr>
 		  <th>Process Name</th>
 		  <th>Parent Process</th>
-				  <!--<th>Sub Process</th>-->
-				  <th>Create New Process</th>
+		  <th>Create New Process</th>
 		</tr>
 	  </thead>
 	  <tbody>
@@ -89,7 +88,7 @@
 		<nav class="breadcrumb my-4">
 			<span class="breadcrumb-item active">Process List</span>
 		</nav>
-
+		<div class="col-md-6">
 		<table id="" class="table table-bordered table-striped my-4 table-responsive">
 			<thead>
 				<tr ng-hide="true" class="ng-hide">
@@ -104,8 +103,23 @@
 				</tr>
 			</tbody>
 		</table>
-
-	</div>
+</div>
+<div class="col-md-6">
+<table id="" class="table table-bordered table-striped my-4 table-responsive">
+	<thead>
+		<tr ng-hide="true" class="ng-hide">
+			<th>Process</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="x in pArr">
+			<td class="ng-binding">[[x.process_name]]</td>
+			<td><a href="" class="btn btn-primary" ng-click="selProcess(x)">Select</a></td>
+		</tr>
+	</tbody>
+</table>
+</div>
  <div class="" ng-show="bothProcessDataset">
 		<nav class="breadcrumb my-4">
 			<span class="breadcrumb-item active">Dataset List</span>

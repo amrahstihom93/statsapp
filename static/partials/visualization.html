@@ -8,8 +8,8 @@
 </nav>-->
   <h4>Choose dataset to make visualization:</h4>
 <!--<div class="row no-gutters">-->
-  <div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4">
+  <div class="col-md-6" style="padding-right: initial; padding-left: initial;">
+  <table id="datasetList" class="table table-bordered table-striped my-4">
     <thead ng-hide="true" class="ng-hide">
       <tr>
         <th>Dataset</th>
@@ -17,15 +17,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr">
+      <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
         <td>[[x.dataset_name]]</td>
         <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
       </tr>
     </tbody>
   </table>
  </div>
- <div class="col-md-6">
- <table id="datasetList" class="table table-striped my-4">
+ <div class="col-md-6" style="padding-right: initial; padding-left: initial;">
+ <table id="datasetList" class="table table-bordered table-striped my-4">
    <thead ng-hide="true" class="ng-hide">
      <tr>
        <th>Dataset</th>
@@ -33,7 +33,7 @@
      </tr>
    </thead>
    <tbody>
-     <tr ng-repeat="x in datasetArr">
+     <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
        <td>[[x.dataset_name]]</td>
           <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
      </tr>
