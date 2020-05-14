@@ -76,6 +76,7 @@ def calculateHypothesis(request):
 	print('into Calculate Hypothesis')
 	if request.method == 'POST':
 		print("in POST method")
+		result=0
 
 		selecteddatacol = request.POST['selecteddatacol']
 		selectedtest = request.POST['selectedtest']
@@ -91,8 +92,8 @@ def calculateHypothesis(request):
 		datav = collection.find( { } )
 		pd.set_option('display.max_columns', None)
 
-		datac = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
-		valc=datac[selecteddatacol]
+		data = pd.DataFrame(list(collection.find({selecteddatacol:{"$exists":True}})))
+		valc=data[selecteddatacol]
 		valc_list = valc.tolist()
 		valc_fltlist = [float(i) for i in valc_list]
 		print("val converted data col==>>",valc_fltlist)
@@ -100,14 +101,81 @@ def calculateHypothesis(request):
 		if selectedtest == 'Shapiro-Wilk Test':
 			# Example of the Shapiro-Wilk Normality Test
 			from scipy.stats import shapiro
-			ddata = valc_fltlist
-			stat, p = shapiro(ddata)
+			data = valc_fltlist
+			stat, p = shapiro(data)
+			stat = round(stat,3)
+			p = round(p,3)
 			print('stat=%.3f, p=%.3f' % (stat, p))
 			if p > 0.05:
 				print('Probably Gaussian')
+				gaussian_result = 'Probably Gaussian'
 			else:
 				print('Probably not Gaussian')
-	return HttpResponse()
+				gaussian_result = 'Probably not Gaussian'
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"gaussian_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['gaussian_result'] = gaussian_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
+		elif selectedtest == 'D’Agostino’s K^2 Test':
+			# Example of the D'Agostino's K^2 Normality Test
+			from scipy.stats import normaltest
+			data = valc_fltlist
+			stat, p = normaltest(data)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably Gaussian')
+				gaussian_result = 'Probably Gaussian'
+			else:
+				print('Probably not Gaussian')
+				gaussian_result = 'Probably not Gaussian'
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"gaussian_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['gaussian_result'] = gaussian_result
+			responseData['summary']=  describeDict
+
+		elif selectedtest == 'Anderson-Darling Test':
+			# Example of the Anderson-Darling Normality Test
+			from scipy.stats import anderson
+			data = valc_fltlist
+			result = anderson(data)
+			print('stat=%.3f' % (result.statistic))
+			for i in range(len(result.critical_values)):
+				sl, cv = result.significance_level[i], result.critical_values[i]
+				if result.statistic < cv:
+					print('Probably Gaussian at the %.1f%% level' % (sl))
+				else:
+					print('Probably not Gaussian at the %.1f%% level' % (sl))
+		print ('$$%$%$%$%',responseData)
+
+	return JsonResponse(responseData)
 
 #calculaateAnalytics
 def calculateAnalytics(request):
@@ -242,12 +310,7 @@ def calculateAnalytics(request):
 			'fieldData':og,
 			'selectedgroup': request.POST['selectedgroup']
         }
-		#l = pd.DataFrame.to_csv(ls)
-		#lg = pd.DataFrame.to_json(ls_g)
-		#lc = pd.DataFrame.to_json(ls_c)
-		#print("###only median",med)
-		#print(ls.loc["mean","0"])
-		#responseData['summary'] = 100
+
 		describeDict = {
 			"f" : "",
 			"p" : "",
