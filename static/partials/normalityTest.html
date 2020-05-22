@@ -268,6 +268,30 @@
                   </tr>
                 </tbody>
             </table>
+
+            <table class="table text-center" ng-show="selectedtest=='D’Agostino’s K^2 Test' && calculationDone" >
+                <thead>
+                    <tr style="background-color: #ff751a;">
+                        <th class="text-left">Parameter</th>
+                        <th class="text-center" style="width:80px">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left">P</td>
+                        <td>[[calculatedSummary.p]]</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-left">Stat</td>
+                        <td>[[calculatedSummary.stat]]</td>
+                    </tr>
+                    <tr>
+                      <td class="text-left">Result </td>
+                      <td>[[calculatedSummary.gaussian_result]]</td>
+                    </tr>
+                  </tbody>
+              </table>
   </div>
 
   <!-- <div id="histoDiv"></div> -->

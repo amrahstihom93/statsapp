@@ -61,6 +61,9 @@
               controller: 'correlationtestCtrl'
           }).when('/stationaryTest', {
               templateUrl: static_url + 'partials/stationaryTest.html',
+              controller: 'stationarytestCtrl'
+          }).when('/pshTest', {
+              templateUrl: static_url + 'partials/pshTest.html',
               controller: 'hypotheticalCtrl'
           }).when('/mlearn', {
               templateUrl: static_url + 'partials/mlearn.html',
@@ -1520,28 +1523,118 @@
                        // $scope.calculationDone = true;
                        // fieldDataForoGraph = data.fieldData;
                        // fieldDataToSave = fieldDataForoGraph.toString();
-                       console.log("In if calculateHypothesis",dt);
+                       console.log("In if Correlation Coefficient",dt);
           					   console.log("calculateHypothesis",$scope.calculatedSummary);
 
                }
-               else if($scope.selectedtest == 'Shapiro-Wilk Test'){
+               else if($scope.selectedtest == 'Spearman’s Rank Correlation'){
+                       $scope.calculatedSummary =  dt.summary;
+                       $scope.calculationDone = true;
+                       //    fieldDataForoGraph = data.fieldData;
+                       //  fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In else Spearman’s Rank Correlation",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+              }
+              else if($scope.selectedtest == 'Kendall’s Rank Correlation'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                      //    fieldDataForoGraph = data.fieldData;
+                      //  fieldDataToSave = fieldDataForoGraph.toString();
+                      console.log("In else Kendall’s Rank Correlation",dt);
+         					    console.log("calculateHypothesis",$scope.calculatedSummary);
+             }
+
+  		}).error(function(dt,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        $scope.initCalculate = function(){
+            $scope.calculationDone = false;
+        }
+  });
+  module.controller("stationarytestCtrl",function($scope,$http){
+    $scope.calculationDone = false;
+    $scope.testArr = ['Augmented Dickey-Fuller Unit Root Test','Kwiatkowski-Phillips-Schmidt-Shin'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    $scope.showGraph1 = true;
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
+
+            console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                document.getElementById("1stdataset").innerHTML = $scope.selectedDataset;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(dt,status,headers,config){
+            console.log("response from calculaH",dt);
+              console.log("response from calculateHypothesis",dt);
+         console.log("response calculateHypothesis");
+
+
+               if($scope.selectedtest == 'Augmented Dickey-Fuller Unit Root Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In if calculateHypothesis",dt);
+                       console.log("calculateHypothesis",$scope.calculatedSummary);
+
+               }
+               else if($scope.selectedtest == 'Kwiatkowski-Phillips-Schmidt-Shin'){
                        $scope.calculatedSummary =  dt.summary;
                        $scope.calculationDone = true;
                        //    fieldDataForoGraph = data.fieldData;
                        //  fieldDataToSave = fieldDataForoGraph.toString();
                        console.log("In else calculateAnalytics",dt);
-          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+                       console.log("calculateHypothesis",$scope.calculatedSummary);
               }
-              else if($scope.selectedtest == 'Anderson-Darling Test'){
-                      $scope.calculatedSummary =  dt.summary;
-                      $scope.calculationDone = true;
-                      //    fieldDataForoGraph = data.fieldData;
-                      //  fieldDataToSave = fieldDataForoGraph.toString();
-                      console.log("In else calculateAnalytics",dt);
-         					    console.log("calculateHypothesis",$scope.calculatedSummary);
-             }
 
-  		}).error(function(dt,status,headers,config){
+
+      }).error(function(dt,status,headers,config){
               console.log("Something went wrong");
           });
         }

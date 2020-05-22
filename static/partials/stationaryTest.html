@@ -93,7 +93,7 @@
            <label class="category">Dataset    Name</label>
          </div>
          <div class="col-sm table table-striped my-4 dropdown pull-right">
-           <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >[[selectedDataset]]
+           <button name="1stdataset" id="1stdataset"  class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset
            </button>
            <ul class="dropdown-menu scrollable-menu">
              <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
@@ -244,30 +244,26 @@
              <!-- </div> -->
   </div>
   <div class="col-md-8">
+          <div class="card" ng-show="selectedtest=='Augmented Dickey-Fuller Unit Root Test' && calculationDone">
 
-          <table class="table text-center" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" >
-              <thead>
-                  <tr style="background-color: #ff751a;">
-                      <th class="text-left">Parameter</th>
-                      <th class="text-center" style="width:80px">Value</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td class="text-left">P</td>
-                      <td>[[calculatedSummary.p]]</td>
-                  </tr>
+            <div class="card-body">
+              <h5 class="card-title text-center">Augmented Dickey-Fuller Unit Root Test</h5>
+              <div class="row ml-auto">
+              <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
+              </div>
+              <div class="row ml-auto">
+              <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
+              </div>
+              <div class="row ml-auto">
+              <p class="card-text"><h6>Result = [[calculatedSummary.stationary_result]]</h6></p>
+              </div>
+            </div>
+            
 
-                  <tr>
-                      <td class="text-left">Stat</td>
-                      <td>[[calculatedSummary.stat]]</td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">Result </td>
-                    <td>[[calculatedSummary.gaussian_result]]</td>
-                  </tr>
-                </tbody>
-            </table>
+          </div>
+
+
+
   </div>
 
   <!-- <div id="histoDiv"></div> -->

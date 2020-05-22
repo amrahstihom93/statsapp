@@ -6,7 +6,7 @@
         <!--</ol>
     </nav>
     <!-- <a href="/dataset">dataset</a> -->
-    <h4>Choose dataset to start Correlation tests:</h4>
+    <h4>Choose dataset to start Stationary tests:</h4>
     <!--DropdownSelector-->
     <table class="table table-striped my-4">
         <thead ng-hide="true" class="ng-hide">
@@ -90,25 +90,13 @@
         <div id="viz_name" class=" ml-auto collapse">
        <div class="row ml-auto border">
          <div class="col-sm-4  table table-striped my-4 ">
-           <label class="category">1st Dataset    Name</label>
+           <label class="category">Dataset    Name</label>
          </div>
          <div class="col-sm table table-striped my-4 dropdown pull-right">
-           <button name="1stdataset" id="1stdataset" class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset<!--[[selectedDataset]]-->
+           <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >[[selectedDataset]]
            </button>
            <ul class="dropdown-menu scrollable-menu">
              <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
-           </ul>
-         </div>
-       </div>
-       <div class="row ml-auto border">
-         <div class="col-sm-4  table table-striped my-4 ">
-           <label class="category">2nd Dataset    Name</label>
-         </div>
-         <div class="col-sm table table-striped my-4 dropdown pull-right">
-           <button  name="2nddataset" id="2nddataset" class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset<!--[[selectedDataset2]]-->
-           </button>
-           <ul class="dropdown-menu scrollable-menu">
-             <li  class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset2(x)">[[x.dataset_name]]</a></li>
            </ul>
          </div>
        </div>
@@ -156,7 +144,7 @@
                <div ng-hide="ctrlChart" class=" container w-100">
                 <div class="row ">
                   <div class="col-sm-4  table table-striped my-4 ">
-                    <label class="category">Select 1st Data</label>
+                    <label class="category">Select Data</label>
                   </div>
                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
                     <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
@@ -165,18 +153,6 @@
                     </select>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-4  table table-striped my-4 ">
-                    <label class="category">Select 2nd Data</label>
-                  </div>
-                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                    <select id="datacol2" name="datacol_name2" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol2" class="custom-select btn-info">
-                      <option>Select field</option>
-                      <option ng-repeat="k in fieldsAr2" value="[[k]]">[[k]]</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
               </div>
                  <div class="container ml-auto text-center " style="padding-bottom:2%;">
                    <div class="row">
@@ -268,39 +244,8 @@
              <!-- </div> -->
   </div>
   <div class="col-md-8">
-          <!-- <div class="card col-md-8" ng-show="selectedtest=='Pearson’s Correlation Coefficient' && calculationDone">
-            <div class="card-body">
-              <h4 class="card-title">Pearson's Correlation Test</h4>
-              <table ="table text-center">
-              <thead>
-                  <tr style="background-color: #ff751a;">
-                      <th class="text-left">Parameter</th>
-                      <th class="text-center" style="width:80px">Value</th>
-                  </tr>
-              </thead>
-              <p class="card-text">
 
-                <tbody>
-                    <tr>
-                        <td class="text-left">P</td>
-                        <td>[[calculatedSummary.p]]</td>
-                    </tr>
-
-                    <tr>
-                        <td class="text-left">Stat</td>
-                        <td>[[calculatedSummary.stat]]</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left">Result </td>
-                      <td>[[calculatedSummary.relationship_result]]</td>
-                    </tr>
-                  </tbody>
-              </p>
-              </table>
-            </div>
-          </div> -->
-
-          <table class="table text-center" ng-show="selectedtest=='Pearson’s Correlation Coefficient' && calculationDone" >
+          <table class="table text-center" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" >
               <thead>
                   <tr style="background-color: #ff751a;">
                       <th class="text-left">Parameter</th>
@@ -319,57 +264,10 @@
                   </tr>
                   <tr>
                     <td class="text-left">Result </td>
-                    <td>[[calculatedSummary.relationship_result]]</td>
+                    <td>[[calculatedSummary.gaussian_result]]</td>
                   </tr>
                 </tbody>
             </table>
-            <table class="table text-center" ng-show="selectedtest=='Spearman’s Rank Correlation' && calculationDone" >
-                <thead>
-                    <tr style="background-color: #ff751a;">
-                        <th class="text-left">Parameter</th>
-                        <th class="text-center" style="width:80px">Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-left">P</td>
-                        <td>[[calculatedSummary.p]]</td>
-                    </tr>
-
-                    <tr>
-                        <td class="text-left">Stat</td>
-                        <td>[[calculatedSummary.stat]]</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left">Result </td>
-                      <td>[[calculatedSummary.relationship_result]]</td>
-                    </tr>
-                  </tbody>
-              </table>
-              <table class="table text-center" ng-show="selectedtest=='Kendall’s Rank Correlation' && calculationDone" >
-                  <thead>
-                      <tr style="background-color: #ff751a;">
-                          <th class="text-left">Parameter</th>
-                          <th class="text-center" style="width:80px">Value</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td class="text-left">P</td>
-                          <td>[[calculatedSummary.p]]</td>
-                      </tr>
-
-                      <tr>
-                          <td class="text-left">Stat</td>
-                          <td>[[calculatedSummary.stat]]</td>
-                      </tr>
-                      <tr>
-                        <td class="text-left">Result </td>
-                        <td>[[calculatedSummary.relationship_result]]</td>
-                      </tr>
-                    </tbody>
-                </table>
-
   </div>
 
   <!-- <div id="histoDiv"></div> -->
