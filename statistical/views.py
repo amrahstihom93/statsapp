@@ -173,6 +173,54 @@ def calculateHypothesis(request):
 					print('Probably Gaussian at the %.1f%% level' % (sl))
 				else:
 					print('Probably not Gaussian at the %.1f%% level' % (sl))
+		elif selectedtest == 'Pearson’s Correlation Coefficient':
+			# Example of the Anderson-Darling Normality Test
+			selecteddatacol2 = request.POST['selecteddatacol2']
+			print("2nd Data = ", request.POST['selecteddatacol2'])
+			collection2 = db[request.POST['dataset_id2']]
+			print("2nd Dataset ID = ", request.POST['dataset_id2'])
+
+			datav2 = collection2.find( { } )
+			pd.set_option('display.max_columns', None)
+			data2 = pd.DataFrame(list(collection2.find({selecteddatacol2:{"$exists":True}})))
+			valc2=data2[selecteddatacol2]
+			valc2_list = valc2.tolist()
+			valc2_fltlist = [float(i) for i in valc2_list]
+			print("val converted data col 2==>>",valc2_fltlist)
+
+			# Example of the Pearson's Correlation test
+			from scipy.stats import pearsonr
+			data1 = valc_fltlist
+
+			print(data1)
+			data2 = valc2_fltlist
+			stat, p = pearsonr(data1, data2)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably independent')
+				relationship_result = 'Probably Independent'
+			else:
+				print('Probably dependent')
+				relationship_result = 'Probably Dependent'
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"relationship_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['relationship_result'] = relationship_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
 		print ('$$%$%$%$%',responseData)
 
 	return JsonResponse(responseData)
