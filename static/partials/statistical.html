@@ -17,8 +17,8 @@
     </ul>
 </div> -->
 <!--<div class="row no-gutters">-->
-<div class="col-md-6">
-  <table  id="datasetList" class="table table-striped my-4">
+<div class="col-md-6" style="padding-right: initial; padding-left: initial;">
+  <table  id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
     <thead ng-hide="true" class="ng-hide">
       <tr>
         <th>Dataset</th>
@@ -26,8 +26,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr">
-        <td>[[x.dataset_name]]</td>
+      <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
+        <td style="padding-left: 30px">[[x.dataset_name]]</td>
         <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
       </tr>
     </tbody>
@@ -41,8 +41,8 @@
   </div>-->
 
 </div>
-<div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4">
+<div class="col-md-6" style="padding-right: initial; padding-left: initial;">
+  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
     <thead ng-hide="true" class="ng-hide">
       <tr>
         <th>Dataset</th>
@@ -50,8 +50,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr">
-        <td>[[x.dataset_name]]</td>
+      <tr ng-repeat="x in datasetArr | limitTo : 7 : 7">
+        <td style="padding-left: 30px">[[x.dataset_name]]</td>
         <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
       </tr>
     </tbody>

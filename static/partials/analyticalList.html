@@ -7,7 +7,7 @@
 </nav>
 <div class="row no-gutters">
   <div class="col-md-6">
-  <table id="analyticalList" class="table table-striped my-4">
+  <table id="analyticalList" class="table table-striped my-4" style="border: 1px solid black">
     <thead>
       <tr ng-hide="true">
         <th>Analytical</th>
@@ -18,7 +18,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="x in analyticalArr">
-        <td>[[x.analytical_name]]</td>
+        <td style="padding-left: 30px">[[x.analytical_name]]</td>
         <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewAnalytical(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
 
 
@@ -83,7 +83,7 @@
 </div>
 
 <div class="col-md-6">
-<table id="analyticalList" class="table table-striped my-4">
+<table id="analyticalList" class="table table-striped my-4" style="border: 1px solid black">
   <thead>
     <tr ng-hide="true">
       <th>Analytical</th>
@@ -94,7 +94,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="x in analyticalArr">
-      <td>[[x.analytical_name]]</td>
+      <td style="padding-left: 30px">[[x.analytical_name]]</td>
       <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewAnalytical(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
 
 
