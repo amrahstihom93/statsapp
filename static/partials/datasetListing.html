@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
+      <tr ng-repeat="x in datasetArr">
         <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
 		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
         <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
@@ -38,7 +38,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
+      <tr ng-repeat="x in datasetArr">
         <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
 		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
         <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>

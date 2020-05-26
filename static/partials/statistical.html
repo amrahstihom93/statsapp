@@ -26,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
+      <tr ng-repeat="x in datasetArr">
         <td style="padding-left: 30px">[[x.dataset_name]]</td>
         <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
       </tr>
@@ -50,7 +50,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr | limitTo : 7 : 7">
+      <tr ng-repeat="x in datasetArr">
         <td style="padding-left: 30px">[[x.dataset_name]]</td>
         <td><a href="" class="btn btn-primary" ng-click="chooseDataset(x)">Select</a></td>
       </tr>

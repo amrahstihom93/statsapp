@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in statisticalArr | limitTo : 7 : 1">
+      <tr ng-repeat="x in statisticalArr">
         <td>[[x.statistical_name]]</td>
         <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewStatistical(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
 

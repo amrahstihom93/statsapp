@@ -5922,7 +5922,7 @@ img {
 }
 
 .page-header .container {
-  height: 100%;
+/*  height: 100%;*/
   z-index: 1;
   text-align: center;
   position: relative;
