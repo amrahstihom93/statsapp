@@ -81,7 +81,104 @@
 	<button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
 	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
   </div> -->
+
   <div class="col-md-4">
+    <div class="">
+      <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
+        <label class="category p-2 mx-auto text-light" >Names</label>
+      </div>
+      <div id="viz_name" class=" ml-auto collapse">
+      <div class="row ml-auto border">
+       <div class="col-sm-4  table table-striped my-4 ">
+         <label class="category">1st Dataset    Name</label>
+       </div>
+       <div class="col-sm table table-striped my-4 dropdown pull-right">
+         <button name="1stdataset" id="1stdataset" class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset<!--[[selectedDataset]]-->
+         </button>
+         <ul class="dropdown-menu scrollable-menu">
+           <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
+         </ul>
+       </div>
+      </div>
+      <div class="row ml-auto border">
+       <div class="col-sm-4  table table-striped my-4 ">
+         <label class="category">2nd Dataset    Name</label>
+       </div>
+       <div class="col-sm table table-striped my-4 dropdown pull-right">
+         <button  name="2nddataset" id="2nddataset" class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset<!--[[selectedDataset2]]-->
+         </button>
+         <ul class="dropdown-menu scrollable-menu">
+           <li  class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset2(x)">[[x.dataset_name]]</a></li>
+         </ul>
+       </div>
+      </div>
+      <div class="row ml-auto border border-top-0">
+       <div class="col-sm-4 table table-striped my-4">
+         <label class="category" for="visuaName">Name Hypothesis</label>
+       </div>
+       <div class="col-sm table table-striped my-4">
+         <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Analytical Name">
+       </div>
+      </div>
+      </div>
+       </div>
+       <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#viz_par">
+         <label class="category p-2 mx-auto text-light">Hypothesis Parameters</label>
+       </div>
+       <div id="viz_par" class="row ml-auto collapse border border-top-0">
+         <div ng-hide="ctrlChart" class=" container w-100">
+          <div class="row ">
+            <div class="col-sm-4  table table-striped my-4 ">
+              <label class="category">Select test</label>
+            </div>
+            <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+              <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="initCalculate()" class="custom-select btn-info">
+                <option>Select field</option>
+                       <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div ng-hide="ctrlChart" class=" container w-100">
+         <div class="row ">
+           <div class="col-sm-4  table table-striped my-4 ">
+             <label class="category">Select 1st Data</label>
+           </div>
+           <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+             <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+               <option>Select field</option>
+               <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+             </select>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-sm-4  table table-striped my-4 ">
+             <label class="category">Select 2nd Data</label>
+           </div>
+           <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+             <select id="datacol2" name="datacol_name2" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol2" class="custom-select btn-info">
+               <option>Select field</option>
+               <option ng-repeat="k in fieldsAr2" value="[[k]]">[[k]]</option>
+             </select>
+           </div>
+         </div>
+        </div>
+        <div class="container ml-auto text-center " style="padding-bottom:2%;">
+          <div class="row">
+              <div class="col-sm-6  table table-striped my-4 ">
+                  <button type="submit" class="btn btn-info" ng-click="calculateHypothesis()">Calculate</button>
+              </div>
+              <div class="col-sm-6  table table-striped my-4 ">
+                  <button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+              </div>
+          </div>
+      </div>
+
+             </div>
+  </div>
+
+
+  <!--<div class="col-md-4">
 
     <div class="">
         <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
@@ -94,7 +191,7 @@
          </div>
          <div class="col-sm table table-striped my-4 dropdown pull-right">
            <button name="1stdataset" id="1stdataset" class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset<!--[[selectedDataset]]-->
-           </button>
+           <!--</button>
            <ul class="dropdown-menu scrollable-menu">
              <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
            </ul>
@@ -106,7 +203,7 @@
          </div>
          <div class="col-sm table table-striped my-4 dropdown pull-right">
            <button  name="2nddataset" id="2nddataset" class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset<!--[[selectedDataset2]]-->
-           </button>
+          <!-- </button>
            <ul class="dropdown-menu scrollable-menu">
              <li  class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset2(x)">[[x.dataset_name]]</a></li>
            </ul>
@@ -152,7 +249,7 @@
                      </select>
                    </div>
                  </div>
-               </div> -->
+               </div>
                <div ng-hide="ctrlChart" class=" container w-100">
                 <div class="row ">
                   <div class="col-sm-4  table table-striped my-4 ">
@@ -266,10 +363,69 @@
                       </div>
                  </div> -->
              <!-- </div> -->
-  </div>
+
   <div class="col-md-8">
 
-          <table class="table text-center" ng-show="selectedtest=='Kruskal-Wallis H Test' && calculationDone" >
+                            <div class="card" ng-show="selectedtest=='Kruskal-Wallis H Test' && calculationDone">
+
+                              <div class="card-body">
+                                <h5 class="card-title text-center">Kruskal-Wallis H Test</h5>
+                                <div class="row ml-auto">
+                                <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
+                                </div>
+                                <div class="row ml-auto">
+                                <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
+                                </div>
+                                <div class="row ml-auto">
+                                <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
+                                </div>
+                              </div>
+
+
+                            </div>
+                            <div class="card" ng-show="selectedtest=='Mann-Whitney U Test' && calculationDone">
+
+                              <div class="card-body">
+                                <h5 class="card-title text-center">Mann-Whitney U Test</h5>
+                                <div class="row ml-auto">
+                                <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
+                                </div>
+                                <div class="row ml-auto">
+                                <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
+                                </div>
+                                <div class="row ml-auto">
+                                <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
+                                </div>
+                              </div>
+                              <div class="card" ng-show="selectedtest=='Wilcoxon Signed-Rank Test' && calculationDone" >
+
+                                <div class="card-body">
+                                  <h5 class="card-title text-center">Wilcoxon Signed-Rank Test</h5>
+                                  <div class="row ml-auto">
+                                  <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
+                                  </div>
+                                  <div class="row ml-auto">
+                                  <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
+                                  </div>
+                                  <div class="row ml-auto">
+                                  <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
+                                  </div>
+                                </div>
+                                <div class="card" ng-show="selectedtest=='Friedman Test' && calculationDone" >
+
+                                  <div class="card-body">
+                                    <h5 class="card-title text-center">Friedman Test</h5>
+                                    <div class="row ml-auto">
+                                    <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
+                                    </div>
+                                    <div class="row ml-auto">
+                                    <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
+                                    </div>
+                                    <div class="row ml-auto">
+                                    <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
+                                    </div>
+                                  </div>
+          <!--<table class="table text-center" ng-show="selectedtest=='Kruskal-Wallis H Test' && calculationDone" >
               <thead>
                   <tr style="background-color: #ff751a;">
                       <th class="text-left">Parameter</th>
@@ -360,7 +516,7 @@
                           <td>[[calculatedSummary.distribution_result]]</td>
                         </tr>
                       </tbody>
-                  </table>
+                  </table>-->
 
   </div>
 

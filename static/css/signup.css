@@ -1,12 +1,12 @@
 .register{
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-    margin-top: 3%;
+    background: -webkit-linear-gradient(left, #14131f, #444748);
+  /*  margin-top: 3%; */
     padding: 3%;
 }
 .register-left{
     text-align: center;
     color: #fff;
-    margin-top: 4%;
+  /*  margin-top: 4%; */
 }
 .register-left input{
     border: none;
@@ -16,7 +16,7 @@
     background: #f8f9fa;
     font-weight: bold;
     color: #383d41;
-    margin-top: 30%;
+    margin-top: 10%;
     margin-bottom: 3%;
     cursor: pointer;
 }
@@ -26,7 +26,7 @@
     border-bottom-left-radius: 10% 50%;
 }
 .register-left img{
-    margin-top: 15%;
+    margin-top: 60%;
     margin-bottom: 5%;
     width: 25%;
     -webkit-animation: mover 2s infinite  alternate;
@@ -89,14 +89,10 @@
 }
 .register-heading{
     text-align: center;
-    margin-top: 8%;
+    margin-top: 5%;
     margin-bottom: -15%;
     color: #495057;
-}body { padding: 5% }
-
-.content {
-  background: #efefef;
-  padding: 20px;
-  margin-top: 25px;
-  line-height: 1.8;
+}
+.page-header{
+  color: #212529;
 }

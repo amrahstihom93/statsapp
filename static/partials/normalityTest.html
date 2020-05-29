@@ -82,7 +82,6 @@
 	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
   </div> -->
   <div class="col-md-4">
-
     <div class="">
         <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
           <label class="category p-2 mx-auto text-light" >Names</label>
@@ -245,7 +244,39 @@
   </div>
   <div class="col-md-8">
 
-          <table class="table text-center" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" >
+    <div class="card" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone">
+
+      <div class="card-body">
+        <h5 class="card-title text-center">Shapiro-Wilk Test</h5>
+        <div class="row ml-auto">
+        <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
+        </div>
+        <div class="row ml-auto">
+        <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
+        </div>
+        <div class="row ml-auto">
+        <p class="card-text"><h6>Result = [[calculatedSummary.gaussian_result]]</h6></p>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="card" ng-show="selectedtest=='D’Agostino’s K^2 Test' && calculationDone">
+
+      <div class="card-body">
+        <h5 class="card-title text-center">D’Agostino’s K^2 Test</h5>
+        <div class="row ml-auto">
+        <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
+        </div>
+        <div class="row ml-auto">
+        <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
+        </div>
+        <div class="row ml-auto">
+        <p class="card-text"><h6>Result = [[calculatedSummary.gaussian_result]]</h6></p>
+        </div>
+      </div>
+
+          <!--<table class="table text-center" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" >
               <thead>
                   <tr style="background-color: #ff751a;">
                       <th class="text-left">Parameter</th>
@@ -291,7 +322,7 @@
                       <td>[[calculatedSummary.gaussian_result]]</td>
                     </tr>
                   </tbody>
-              </table>
+              </table>-->
   </div>
 
   <!-- <div id="histoDiv"></div> -->

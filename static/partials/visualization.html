@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
+      <tr ng-repeat="x in datasetArr">
         <td style="padding-left: 30px">[[x.dataset_name]]</td>
         <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
       </tr>
@@ -33,7 +33,7 @@
      </tr>
    </thead>
    <tbody>
-     <tr ng-repeat="x in datasetArr | limitTo : 7 : 1">
+     <tr ng-repeat="x in datasetArr">
        <td style="padding-left: 30px">[[x.dataset_name]]</td>
           <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
      </tr>
