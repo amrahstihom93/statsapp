@@ -317,11 +317,335 @@ def calculateHypothesis(request):
 			responseData['summary']=  describeDict
 
 			print(responseData)
+		elif selectedtest == 'Student’s t-test':
+			# Example of the Anderson-Darling Normality Test
+			selecteddatacol2 = request.POST['selecteddatacol2']
+			print("2nd Data = ", request.POST['selecteddatacol2'])
+			collection2 = db[request.POST['dataset_id2']]
+			print("2nd Dataset ID = ", request.POST['dataset_id2'])
+
+			datav2 = collection2.find( { } )
+			pd.set_option('display.max_columns', None)
+			data2 = pd.DataFrame(list(collection2.find({selecteddatacol2:{"$exists":True}})))
+			valc2=data2[selecteddatacol2]
+			valc2_list = valc2.tolist()
+			valc2_fltlist = [float(i) for i in valc2_list]
+			print("val converted data col 2==>>",valc2_fltlist)
+
+			# Example of the Student's t-test
+			from scipy.stats import ttest_ind
+			data1 = valc_fltlist
+			print(data1)
+			data2 = valc2_fltlist
+			stat, p = ttest_ind(data1, data2)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably the same distribution')
+				distribution_result = 'Probably Same Distribution'
+			else:
+				print('Probably different distributions')
+				distribution_result = 'Probably Different Distributions'
+
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"distribution_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['distribution_result'] = distribution_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
+		elif selectedtest == 'Paired Student’s t-test':
+			# Example of the Anderson-Darling Normality Test
+			selecteddatacol2 = request.POST['selecteddatacol2']
+			print("2nd Data = ", request.POST['selecteddatacol2'])
+			collection2 = db[request.POST['dataset_id2']]
+			print("2nd Dataset ID = ", request.POST['dataset_id2'])
+
+			datav2 = collection2.find( { } )
+			pd.set_option('display.max_columns', None)
+			data2 = pd.DataFrame(list(collection2.find({selecteddatacol2:{"$exists":True}})))
+			valc2=data2[selecteddatacol2]
+			valc2_list = valc2.tolist()
+			valc2_fltlist = [float(i) for i in valc2_list]
+			print("val converted data col 2==>>",valc2_fltlist)
+
+			# Example of the Paired Student's t-test
+			from scipy.stats import ttest_rel
+			data1 = valc_fltlist
+			print(data1)
+			data2 = valc2_fltlist
+			stat, p = ttest_rel(data1, data2)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably the same distribution')
+				distribution_result = 'Probably Same Distribution'
+			else:
+				print('Probably different distributions')
+				distribution_result = 'Probably Different Distributions'
+
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"distribution_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['distribution_result'] = distribution_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
+		elif selectedtest == 'Mann-Whitney U Test':
+			# Example of the Anderson-Darling Normality Test
+			selecteddatacol2 = request.POST['selecteddatacol2']
+			print("2nd Data = ", request.POST['selecteddatacol2'])
+			collection2 = db[request.POST['dataset_id2']]
+			print("2nd Dataset ID = ", request.POST['dataset_id2'])
+
+			datav2 = collection2.find( { } )
+			pd.set_option('display.max_columns', None)
+			data2 = pd.DataFrame(list(collection2.find({selecteddatacol2:{"$exists":True}})))
+			valc2=data2[selecteddatacol2]
+			valc2_list = valc2.tolist()
+			valc2_fltlist = [float(i) for i in valc2_list]
+			print("val converted data col 2==>>",valc2_fltlist)
+
+			# Example of the Mann-Whitney U Test
+			from scipy.stats import mannwhitneyu
+			data1 = valc_fltlist
+			print(data1)
+			data2 = valc2_fltlist
+			stat, p = mannwhitneyu(data1, data2)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably the same distribution')
+				distribution_result = 'Probably Same Distribution'
+			else:
+				print('Probably different distributions')
+				distribution_result = 'Probably Different Distributions'
+
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"distribution_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['distribution_result'] = distribution_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
+		elif selectedtest == 'Wilcoxon Signed-Rank Test':
+			# Example of the Anderson-Darling Normality Test
+			selecteddatacol2 = request.POST['selecteddatacol2']
+			print("2nd Data = ", request.POST['selecteddatacol2'])
+			collection2 = db[request.POST['dataset_id2']]
+			print("2nd Dataset ID = ", request.POST['dataset_id2'])
+
+			datav2 = collection2.find( { } )
+			pd.set_option('display.max_columns', None)
+			data2 = pd.DataFrame(list(collection2.find({selecteddatacol2:{"$exists":True}})))
+			valc2=data2[selecteddatacol2]
+			valc2_list = valc2.tolist()
+			valc2_fltlist = [float(i) for i in valc2_list]
+			print("val converted data col 2==>>",valc2_fltlist)
+
+			# Example of the Wilcoxon Signed-Rank Test
+			from scipy.stats import wilcoxon
+			data1 = valc_fltlist
+			print(data1)
+			data2 = valc2_fltlist
+			stat, p = wilcoxon(data1, data2)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably the same distribution')
+				distribution_result = 'Probably Same Distribution'
+			else:
+				print('Probably different distributions')
+				distribution_result = 'Probably Different Distributions'
+
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"distribution_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['distribution_result'] = distribution_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
+		elif selectedtest == 'Kruskal-Wallis H Test':
+			# Example of the Anderson-Darling Normality Test
+			selecteddatacol2 = request.POST['selecteddatacol2']
+			print("2nd Data = ", request.POST['selecteddatacol2'])
+			collection2 = db[request.POST['dataset_id2']]
+			print("2nd Dataset ID = ", request.POST['dataset_id2'])
+
+			datav2 = collection2.find( { } )
+			pd.set_option('display.max_columns', None)
+			data2 = pd.DataFrame(list(collection2.find({selecteddatacol2:{"$exists":True}})))
+			valc2=data2[selecteddatacol2]
+			valc2_list = valc2.tolist()
+			valc2_fltlist = [float(i) for i in valc2_list]
+			print("val converted data col 2==>>",valc2_fltlist)
+
+			# Example of the Kruskal-Wallis H Test
+			from scipy.stats import kruskal
+			data1 = valc_fltlist
+			print(data1)
+			data2 = valc2_fltlist
+			stat, p = kruskal(data1, data2)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably the same distribution')
+				distribution_result = 'Probably Same Distribution'
+			else:
+				print('Probably different distributions')
+				distribution_result = 'Probably Different Distributions'
+
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"distribution_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['distribution_result'] = distribution_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
+		elif selectedtest == 'Friedman Test':
+			# Example of the Anderson-Darling Normality Test
+			selecteddatacol2 = request.POST['selecteddatacol2']
+			print("2nd Data = ", request.POST['selecteddatacol2'])
+			collection2 = db[request.POST['dataset_id2']]
+			print("2nd Dataset ID = ", request.POST['dataset_id2'])
+
+			datav2 = collection2.find( { } )
+			pd.set_option('display.max_columns', None)
+			data2 = pd.DataFrame(list(collection2.find({selecteddatacol2:{"$exists":True}})))
+			valc2=data2[selecteddatacol2]
+			valc2_list = valc2.tolist()
+			valc2_fltlist = [float(i) for i in valc2_list]
+			print("val converted data col 2==>>",valc2_fltlist)
+
+			# Example of the Friedman Test
+			from scipy.stats import friedmanchisquare
+			data1 = valc_fltlist
+			print(data1)
+			data2 = valc2_fltlist
+			stat, p = friedmanchisquare(data1, data2)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably the same distribution')
+				distribution_result = 'Probably Same Distribution'
+			else:
+				print('Probably different distributions')
+				distribution_result = 'Probably Different Distributions'
+
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"distribution_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['distribution_result'] = distribution_result
+			responseData['summary']=  describeDict
+
+			print(responseData)
 		elif selectedtest == 'Augmented Dickey-Fuller Unit Root Test':
 			# Example of the D'Agostino's K^2 Normality Test
 			from statsmodels.tsa.stattools import adfuller
 			data = valc_fltlist
 			stat, p, lags, obs, crit, t = adfuller(data)
+			stat = round(stat,3)
+			p = round(p,3)
+			print('stat=%.3f, p=%.3f' % (stat, p))
+			if p > 0.05:
+				print('Probably not Stationary')
+				stationary_result = 'Probably not Stationary'
+			else:
+				print('Probably Stationary')
+				stationary_result = 'Probably Stationary'
+
+			responseData = {
+	           	'summary':result,
+				'selectedtest': selectedtest,
+	        }
+
+			describeDict = {
+				"stat" : "",
+				"p" : "",
+				"stationary_result" : "",
+			}
+
+			describeDict['stat'] = stat
+			describeDict['p'] = p
+			describeDict['stationary_result'] = stationary_result
+			responseData['summary']=  describeDict
+		elif selectedtest == 'Kwiatkowski-Phillips-Schmidt-Shin':
+			# Example of the Kwiatkowski-Phillips-Schmidt-Shin test
+			from statsmodels.tsa.stattools import kpss
+			data = valc_fltlist
+			stat, p, lags, crit = kpss(data)
 			stat = round(stat,3)
 			p = round(p,3)
 			print('stat=%.3f, p=%.3f' % (stat, p))
