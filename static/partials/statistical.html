@@ -17,7 +17,7 @@
     </ul>
 </div> -->
 <!--<div class="row no-gutters">-->
-<div class="col-md-6" style="padding-right: initial; padding-left: initial;">
+<!--<div class="col-md-6" style="padding-right: initial; padding-left: initial;">
   <table  id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
     <thead ng-hide="true" class="ng-hide">
       <tr>
@@ -40,7 +40,7 @@
           </select>
   </div>-->
 
-</div>
+<!--</div>
 <div class="col-md-6" style="padding-right: initial; padding-left: initial;">
   <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
     <thead ng-hide="true" class="ng-hide">
@@ -56,7 +56,51 @@
       </tr>
     </tbody>
   </table>
+</div>-->
+<div class="col-md-4">
+  <table id="datasetList" class="rwd-table">
+  <thead ng-hide="true" class="ng-hide">
+    <tr>
+      <th>Dataset</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in datasetArr">
+      <td style="padding-left: 30px" ng-click="chooseDataset(x)">[[x.dataset_name]]</td>
+    </tr>
+  </tbody>
+</table>
 </div>
+<div class="col-md-4">
+<table id="datasetList" class="rwd-table">
+<thead ng-hide="true" class="ng-hide">
+  <tr>
+    <th>Dataset</th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="x in datasetArr">
+    <td style="padding-left: 30px" ng-click="chooseDataset(x)">[[x.dataset_name]]</td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div class="col-md-4">
+<table id="datasetList" class="rwd-table">
+<thead ng-hide="true" class="ng-hide">
+  <tr>
+    <th>Dataset</th>
+    <th>Select Dataset</th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="x in datasetArr">
+    <td style="padding-left: 30px" ng-click="chooseDataset(x)">[[x.dataset_name]]</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <!--
 <div class = "container" ng-hide ="">
