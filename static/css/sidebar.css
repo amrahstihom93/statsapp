@@ -134,6 +134,7 @@
 .btn.btn-info:hover {
   background-color: #41bef7;
   border-color: #41bef7;
+  color:white;
 }
 
 .btn.btn-success {
@@ -294,14 +295,18 @@ a, a:hover, a:focus {
 }
 
 .navbar {
-    padding: 15px 10px;
+    padding: inherit;
     background: #fff;
     border: none;
     border-radius: 0;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     margin-bottom: 0px;
 }
 
+
+.navbar-translate{
+    box-sizing:inherit;
+}
 .navbar-btn {
     box-shadow: none;
     outline: none !important;

@@ -2,8 +2,8 @@
 {% load static %}
 
 
+
 <script type="text/javascript" src="{% static 'js/SignupPage.js' %}"></script>
-<link href="{% static 'css/signup.css'%}" rel="stylesheet">
 
 {% if form.non_field_errors %}
     <div class="alert alert-danger" role="alert">
@@ -12,15 +12,27 @@
         {% endfor %}
     </div>
 {% endif %}
+
 {% for field in form %}
     <div class="form-group">
         {% if 'Firm:' in field.label_tag %}
             {% for radio in form.firm %}
+            <div class="form-check form-check-radio col-md" style="display:flex">
+                <label class="form-check-label" for= {{radio.id_for_label}} >
+                    {{ radio.tag }}
+                    <span class="form-check-sign">{{ radio.choice_label }}</span>
+                </label>
+            </div>
+            {% endfor %}
 
-            <div class="form-check form-check-radio">
-                <label class="radio-check radio-inline form-check-label" for= {{radio.id_for_label}} >
-                 {{ radio.choice_label }}
-                        <span class="radio-check radio form-check-sign">{{ radio.tag }}</span>
+        {% elif 'Company:' in field.label_tag %}
+            <div id="company_radio" style="display:none">
+                {% for radio in form.company %}
+                <div class="form-check form-check-radio">
+                    <label class="form-check-label" for = {{radio.id_for_label}}  >
+                        {#                        {{ radio.id_for_label }}#}
+                        {{ radio.tag }}
+                        <span class="form-check-sign">{{ radio.choice_label }}</span>
                     </label>
                 </div>
                 {% endfor %}
@@ -36,6 +48,7 @@
 
                 {% endif %}
             </div>
+
         {% elif 'Company name:' in field.label_tag %}
             <div id="company_name" style="display:none">
                 <label  id="company_name_label" ></label>
@@ -81,15 +94,19 @@
                     {{ field.help_text|safe }}
                 </small>
             {% endif %}
+            </div>
+
 
         {% endif %}
+
+        
     {#    {% if 'Company:' in field.label_tag %}#}
     {#        <div id="IsCompany" style="display:none">#}
     {#            <label class="radio-inline">#}
-    {#                <input type="radio" id="exampleRadios1" onclick="CompanyCheck()" name="companytype" id="newcompany"  value="newcompany" />New Company#}
+    {#                <input type="radio" id="exampleRadios1" onclick="CompanyCheck()" name="companytype" id="newcompany"  value="newcompany" />    New Company#}
     {#            </label>#}
     {#            <label class="radio-inline">#}
-    {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="oldcompany" value="oldcompany" />Existing Company#}
+    {#                <input type="radio" onclick="CompanyCheck()" name="companytype" id="oldcompany" value="oldcompany" />    Existing Company#}
     {#            </label>#}
     {#            <br>#}
     {#        </div>#}
@@ -126,13 +143,6 @@
     <script>
         console.log(" hey from additional script",document.getElementById('newcompany').checked);
 
-        if (document.getElementsByName('firm').checked) {
-            document.getElementById('IsCompany').style.display = 'inline-block';
-            console.log(" hey from additional script inside 1");
-            if (document.getElementsByName('companytype').checked) {
-                document.getElementById('CompanyInput').style.display = 'inline-block';
-                console.log(" hey from additional script inside 2");
-            }
-        }
+        
     </script>
 {% endblock %}

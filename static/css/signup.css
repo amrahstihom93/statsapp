@@ -50,10 +50,10 @@
     margin-top: 10%;
 }
 .btnRegister{
-    float: right;
+    float: center;
     margin-top: 10%;
     border: none;
-    border-radius: 1.5rem;
+    border-radius: 0.3rem;
     padding: 2%;
     background: #0062cc;
     color: #fff;
@@ -95,4 +95,29 @@
 }
 .page-header{
   color: #212529;
+}
+
+
+.login-page .card-login {
+    border-radius: 0.25rem;
+    padding-bottom: 0.7rem;
+    max-width: 320px;
+    background-color: #f8f9fa;
+    color: black
+}
+
+.login-page .card-login.card-plain .form-control:focus {
+    border-color: #black !important;
+    background-color: transparent !important;
+    color: #black !important    ;
+}
+
+.form-group {
+    margin-left:0.5rem;
+    margin-right:0.5rem;
+}
+
+.lgn-btn-new{
+    margin-left:0.5rem;
+    margin-right:0.5rem;
 }

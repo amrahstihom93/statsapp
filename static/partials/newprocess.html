@@ -8,19 +8,19 @@
  </nav>-->
 	<!-- <h3 class="my-4">Parent Process : [[currentSelectedProcess]]</h3> -->
 	<!--<h4 class="my-4">Create New Process</h4>-->
-	<table class="table table-bordered table-responsive" style="border:1px solid #e9ecef; margin-top: 50px">
+	<table class="tablefill3" style="margin-top: 50px">
 	  <thead>
-		<tr>
-		  <th>Process Name</th>
-		  <th>Parent Process</th>
-		  <th>Create New Process</th>
+		<tr class="thnew">
+		  <th style="text-align:center;">Process Name</th>
+		  <th style="text-align:center;">Parent Process</th>
+		  <th style="text-align:center;width: 20%;">Create New Process</th>
 		</tr>
 	  </thead>
 	  <tbody>
 		<tr>
-				  <td><input type="text" ng-model="processName" class="form-control onePerLMargin" id="processname" placeholder="Enter Process Name"></td>
+				  <td><input type="text" ng-model="processName" class="form-control " id="processname" placeholder="Enter Process Name"></td>
 		  <td>
-					  <select required ng-model="parentProcessName" class="ml-5 custom-select ">
+					  <select required ng-model="parentProcessName" class="form-control " style="height:32px;">
 									  <option value="" disabled selected style="width:10%"></option>
 									  <option ng-repeat="x in processAr" value="[[x.process_id]]">[[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]</option>
 				  </select>
@@ -31,7 +31,7 @@
 									  <option ng-repeat="x in processAr" value="[[x.process_id]]">[[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]</option>
 				  </select>
 				</td>-->
-		  <td><button type="submit" ng-click="createProcess()" class="btn btn-primary onePerLMargin">Submit</button></td>
+		  <td><button type="submit" ng-click="createProcess()" class="btn btn-primary" style="margin-top:auto; width:100%;">Submit</button></td>
 		</tr>
 	  </tbody>
 	</table>
@@ -84,27 +84,51 @@
 --></div>
 
 <div class="container">
-	<div >
-		<nav class="breadcrumb my-4">
-			<span class="breadcrumb-item active">Process List</span>
-		</nav>
-		<div class="col-md-6">
-		<table id="" class="table table-bordered table-striped my-4 table-responsive">
-			<thead>
-				<tr ng-hide="true" class="ng-hide">
-					<th>Process</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="x in pArr">
-					<td class="ng-binding">[[x.process_name]]</td>
-					<td><a href="" class="btn btn-primary" ng-click="selProcess(x)">Select</a></td>
-				</tr>
-			</tbody>
-		</table>
+	<nav class="breadcrumb my-4">
+		<span class="breadcrumb-item active">Process List</span>
+	</nav>
+	<div class="row no-gutters">
+
+			<div class="col-md">
+				<table id="" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+					<thead>
+						<tr ng-hide="false" class="thnew ng-show">
+							<th style="text-align:center;">Process</th>
+							<th style="text-align:center;">Action</th>
+						</tr>
+					</thead>
+					<tbody class="pnew">
+						<tr ng-repeat="x in processAr" ng-if="$even">
+							<td class="ng-binding" style="width:70%">[[x.process_name]]</td>
+							<td style="display:flex;">
+								<a href="" style="margin-top:auto; width:100%" class="btn btn-primary" ng-click="selProcess(x)">Select</a>
+								<a href="" style="margin-top:auto; width:100%" class="btn btn-danger" ng-click="selProcess(x)">Delete</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md">
+				<table id="" class="tablefill3" style=" border-left:0.25px solid #c1c3d1; box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+					<thead>
+						<tr ng-hide="false" class="thnew ng-show">
+							<th style="text-align:center;">Process</th>
+							<th style="text-align:center;">Action</th>
+						</tr>
+					</thead>
+					<tbody class="pnew">
+						<tr ng-repeat="x in processAr" ng-if="$odd">
+							<td class="ng-binding" style="width:70%">[[x.process_name]]</td>
+							<td style="display:flex;">
+								<a href="" style="margin-top:auto; width:50%;" class="btn btn-primary" ng-click="selProcess(x)">Select</a>
+								<a href="" style="margin-top:auto; width:50%;" class="btn btn-danger" ng-click="delProcess(x)">Delete</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 </div>
-<div class="col-md-6">
+<!-- <div class="col-md-6">
 <table id="" class="table table-bordered table-striped my-4 table-responsive">
 	<thead>
 		<tr ng-hide="true" class="ng-hide">
@@ -113,13 +137,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="x in pArr">
+		<tr ng-repeat="x in processAr" ng-if="$odd">
 			<td class="ng-binding">[[x.process_name]]</td>
 			<td><a href="" class="btn btn-primary" ng-click="selProcess(x)">Select</a></td>
 		</tr>
 	</tbody>
 </table>
-</div>
+</div> -->
  <div class="" ng-show="bothProcessDataset">
 		<nav class="breadcrumb my-4">
 			<span class="breadcrumb-item active">Dataset List</span>

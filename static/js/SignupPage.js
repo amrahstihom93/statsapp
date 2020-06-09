@@ -1,6 +1,6 @@
 function FirmType() {
     if (document.getElementById('id_firm_0').checked) {
-        document.getElementById('company_radio').style.display = 'inline-block';
+        document.getElementById('company_radio').style.display = 'flex';
         document.getElementById("id_company_0").required = true;
         document.getElementById("id_company_1").required = true;
         document.getElementById("id_company_name").required = false;

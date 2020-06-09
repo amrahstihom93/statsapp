@@ -88,6 +88,12 @@
           }).when('/opptracker',{
               templateUrl: static_url + 'partials/opptrack.html',
               controller: 'opptracker'
+          }).when('/analyticsSubmenu',{
+              templateUrl: static_url + 'partials/analyticsSubmenu.html'
+
+          }).when('/hypotestingSubmenu',{
+              templateUrl: static_url + 'partials/hypotestingSubmenu.html'
+
           });
       }]);
 

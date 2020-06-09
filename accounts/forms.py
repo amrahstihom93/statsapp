@@ -39,6 +39,8 @@ class SignUpForm(UserCreationForm):
         company_name = self.cleaned_data.get('company_name')
         firm = self.cleaned_data.get('firm')
         company = self.cleaned_data.get('company')
+        print(company)
+        print(company_name)
         client = ClientList()
         print('from clean method' + company_name)
         print('from clean method' + company)
