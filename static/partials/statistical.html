@@ -123,7 +123,7 @@
  <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
     <!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
-	<li class="breadcrumb-item" aria-current="page">Change Selected Dataset</li>
+	<li class="breadcrumb-item" aria-current="page">Make Statistical Summary</li>
   </ol>
 </nav>
 <!--DropdownSelector summarypage-->
@@ -165,7 +165,7 @@
   <button type="submit" class="btn btn-info" ng-click="calculateStatistical()">Calculate</button>
   <button class="btn btn-primary" ng-click="paramterSave1()">Save</button>
   </div> -->
-  <div class="col-md-4">
+  <div class="col-md-4" style="margin-top:15px">
     <div class="">
         <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
           <label class="category p-2 mx-auto text-light" >Names</label>
@@ -176,7 +176,7 @@
            <label class="category">Dataset    Name</label>
          </div>
          <div class="col-sm table table-striped my-4 dropdown pull-right">
-           <button class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >[[selectedDataset]]
+           <button id="dataset" class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset
            </button>
            <ul class="dropdown-menu scrollable-menu">
              <li class="listline dropdown-item" ng-repeat="x in datasetArr"><br><a href="" class="" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
@@ -341,69 +341,6 @@
     <div class="col-md-4">
         </div>
     <div class="my-4 col-md-8">
-        <!-- <div id="statisticalSummary"  style="background-color: #D3D3D3;" ng-show="selectedmethod=='describe' && calculationDone">
-
-          <h3 ng-show="calculationDone && selectedmethod!='describe'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
-              [[selectedmethod]] : [[calculatedSummary]]
-          </h3>
-          <table class="table table-bordered text-center" ng-show="selectedmethod=='describe' && calculationDone">
-              <thead>
-                  <tr>
-                      <th>Parameter</th>
-                      <th class="text-center">Value</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td class="text-left">Count</td>
-                      <td>[[calculatedSummary.count]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">Mean</td>
-                      <td>[[calculatedSummary.mean]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">Standard Deviation</td>
-                      <td>[[calculatedSummary.std]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">Median</td>
-                      <td>[[calculatedSummary.median]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">Skewness</td>
-                      <td>[[calculatedSummary.skewness]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">Kurtosis</td>
-                      <td>[[calculatedSummary.kurtosis]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">Minimum</td>
-                      <td>[[calculatedSummary.min]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">25%</td>
-                      <td>[[calculatedSummary.25]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">50%</td>
-                      <td>[[calculatedSummary.50]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">75%</td>
-                      <td>[[calculatedSummary.75]]</td>
-                  </tr>
-                  <tr>
-                      <td class="text-left">Maximum</td>
-                      <td>[[calculatedSummary.max]]</td>
-                  </tr>
-              </tbody>
-          </table>
-
-
-
-        </div> -->
         <div class="row no-gutters">
         <div class="col-md">
          <div id="statisticalSummary"  style="background-color: #868e96;" ng-show="selectedmethod=='describe' && calculationDone">
@@ -467,48 +404,6 @@
                </table>
           </div>
         </div>
-                   <!-- <div class="col-md-6">
-                     <div id="statisticalSummary"  style="background-color: #868e96;" ng-show="selectedmethod=='describe' && calculationDone">
-                         <h3 ng-show="calculationDone && selectedmethod!='describe'" class="font-weight-bold text-center text-light" style="padding-bottom: 30px;">
-                             [[selectedmethod]] : [[calculatedSummary]]
-                         </h3>
-                         <table class="table-fill" ng-show="selectedmethod=='describe' && calculationDone">
-                            <thead>
-                                 <tr>
-                                     <th class="text-left">Parameter</th>
-                                     <th class="text-center" style="width:80px">Value</th>
-                                 </tr>
-                             </thead>
-                             <tbody>
-
-                   <tr class="table-hover">
-                       <td class="text-left">Minimum</td>
-                       <td>[[calculatedSummary.min]]</td>
-                   </tr>
-                   <tr>
-                       <td class="text-left">25%</td>
-                       <td>[[calculatedSummary.25]]</td>
-                   </tr>
-                   <tr>
-                       <td class="text-left">50%</td>
-                       <td>[[calculatedSummary.50]]</td>
-                   </tr>
-                   <tr>
-                       <td class="text-left">75%</td>
-                       <td>[[calculatedSummary.75]]</td>
-                   </tr>
-                   <tr>
-                       <td class="text-left">Maximum</td>
-                       <td>[[calculatedSummary.max]]</td>
-                   </tr>
-                   <tr>
-                       <td class="text-left"></td>
-                       <td style="height:68px"></td>
-                   </tr>
-               </tbody>
-           </table>
-           </div>
-           </div> -->
          </div>
     </div>
 

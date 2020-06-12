@@ -99,7 +99,7 @@
 					</thead>
 					<tbody class="pnew">
 						<tr ng-repeat="x in processAr" ng-if="$even">
-							<td class="ng-binding" style="width:70%">[[x.process_name]]</td>
+							<td class="ng-binding" style="width:70%">[[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]</td>
 							<td style="display:flex;">
 								<a href="" style="margin-top:auto; width:100%" class="btn btn-primary" ng-click="selProcess(x)">Select</a>
 								<a href="" style="margin-top:auto; width:100%" class="btn btn-danger" ng-click="selProcess(x)">Delete</a>
@@ -118,7 +118,7 @@
 					</thead>
 					<tbody class="pnew">
 						<tr ng-repeat="x in processAr" ng-if="$odd">
-							<td class="ng-binding" style="width:70%">[[x.process_name]]</td>
+							<td class="ng-binding" style="width:70%">[[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]</td>
 							<td style="display:flex;">
 								<a href="" style="margin-top:auto; width:50%;" class="btn btn-primary" ng-click="selProcess(x)">Select</a>
 								<a href="" style="margin-top:auto; width:50%;" class="btn btn-danger" ng-click="delProcess(x)">Delete</a>

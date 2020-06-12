@@ -243,8 +243,70 @@
              <!-- </div> -->
   </div>
   <div class="col-md-8">
+    <div class="row no-gutters">
+    <div class="col-md">
+     <div id="normalityResults"  style="background-color: #868e96;" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone">
+       <label class="category p-2 mx-auto text-light">Shapiro-Wilk Test</label>
+         <table class="tablefill2" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" style="height:auto;">
+             <thead>
+                 <tr class="thnew" >
+                     <th class=" text-left">Factor</th>
+                     <th class=" text-left">Value</th>
 
-    <div class="card" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone">
+                     <th class=" text-left">Factor</th>
+                     <th class=" text-left">Value</th>
+                 </tr>
+             </thead>
+             <tbody class="tdnew table-hover">
+                <tr >
+                    <td class="text-left">P</td>
+                    <td>[[calculatedSummary.p]]</td>
+
+                    <td class="text-left">Result</td>
+                    <td style="border-right: 0px;">[[calculatedSummary.gaussian_result]]</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Stat</td>
+                    <td>[[calculatedSummary.stat]]</td>
+
+                </tr>
+
+             </tbody>
+           </table>
+      </div>
+
+      <div id="normalityResults"  style="background-color: #868e96;" ng-show="selectedtest=='D’Agostino’s K^2 Test' && calculationDone">
+        <label class="category p-2 mx-auto text-light">D'Agostino's K^2 Test</label>
+          <table class="tablefill2" ng-show="selectedtest=='D’Agostino’s K^2 Test' && calculationDone" style="height:auto;">
+              <thead>
+                  <tr class="thnew" >
+                      <th class=" text-left">Factor</th>
+                      <th class=" text-left">Value</th>
+
+                      <th class=" text-left">Factor</th>
+                      <th class=" text-left">Value</th>
+                  </tr>
+              </thead>
+              <tbody class="tdnew table-hover">
+                 <tr >
+                     <td class="text-left">P</td>
+                     <td>[[calculatedSummary.p]]</td>
+
+                     <td class="text-left">Result</td>
+                     <td style="border-right: 0px;">[[calculatedSummary.gaussian_result]]</td>
+                 </tr>
+                 <tr>
+                     <td class="text-left">Stat</td>
+                     <td style="border-right: 0px;">[[calculatedSummary.stat]]</td>
+                 </tr>
+
+              </tbody>
+            </table>
+       </div>
+    </div>
+     </div>
+
+    <!-- <div class="card" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone">
 
       <div class="card-body">
         <h5 class="card-title text-center">Shapiro-Wilk Test</h5>
@@ -274,7 +336,7 @@
         <div class="row ml-auto">
         <p class="card-text"><h6>Result = [[calculatedSummary.gaussian_result]]</h6></p>
         </div>
-      </div>
+      </div> -->
 
           <!--<table class="table text-center" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" >
               <thead>

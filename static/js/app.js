@@ -94,6 +94,15 @@
           }).when('/hypotestingSubmenu',{
               templateUrl: static_url + 'partials/hypotestingSubmenu.html'
 
+          }).when('/machineLearning',{
+              templateUrl: static_url + 'partials/machineLearningSubmenu.html'
+
+          }).when('/statisticsSubmenu',{
+              templateUrl: static_url + 'partials/statisticsSubmenu.html'
+
+          }).when('/simulationSubmenu',{
+              templateUrl: static_url + 'partials/simulationSubmenu.html'
+
           });
       }]);
 
@@ -730,7 +739,7 @@
       let selDatasetId = '';
       let fieldDataToSave = '';
 
-      $scope.showGraph1 = false;
+      $scope.showGraph1 = true;
       //console.log('sdsdfgsdfgfdg');
       let url = '/getDataset/'
       $http.get(url)
@@ -765,6 +774,7 @@
               $scope.fieldsAr = data;
               console.log("fieldsAr", $scope.fieldsAr);
               $scope.showGraph1 = true;
+              document.getElementById("dataset").innerHTML = $scope.selectedDataset;
               // this callback will be called asynchronously
               // when the response is available
           }).error(function (data, status, headers, config) {
@@ -1429,9 +1439,9 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
-        }
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
   });
   module.controller("correlationtestCtrl",function($scope,$http){
     $scope.calculationDone = false;
@@ -2052,7 +2062,7 @@
       let selDatasetId = '';
       let fieldDataToSave = '';
 
-      $scope.showGraph1 = false;
+      $scope.showGraph1 = true;
       //console.log('sdsdfgsdfgfdg');
       let url = '/getDataset/'
       $http.get(url)
@@ -2079,6 +2089,7 @@
               $scope.fieldsAr = data;
               console.log("fieldsAr", $scope.fieldsAr);
               $scope.showGraph1 = true;
+              document.getElementById("dataset").innerHTML = $scope.selectedDataset;
               // this callback will be called asynchronously
               // when the response is available
           }).error(function (data, status, headers, config) {

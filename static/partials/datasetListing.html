@@ -8,7 +8,7 @@
 </nav>
 <div class="row no-gutters">
 <div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
+  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid #9ea7af">
     <thead>
       <tr ng-hide="true" class="ng-hide">
         <th>Dataset</th>
@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr" ng-if="$even">
+      <tr ng-repeat="x in datasetArr" ng-if="$even" style="color:black">
         <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
 		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
         <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
@@ -28,7 +28,7 @@
     </table>
 </div>
 <div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
+  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid #9ea7af">
     <thead>
       <tr ng-hide="true" class="ng-hide">
         <th>Dataset</th>
@@ -38,7 +38,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr" ng-if="$odd">
+      <tr ng-repeat="x in datasetArr" ng-if="$odd" style="color:black">
         <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
 		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
         <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
