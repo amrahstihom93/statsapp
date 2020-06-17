@@ -11050,6 +11050,9 @@
               //$scope.update = function
               $scope.createSuccess = true;
               console.log("this is repsonse status", status);
+              window.location.reload(true);
+
+
               //location.reload();
           }).error(function (data, status, headers, config) {
               console.log("error occured");
