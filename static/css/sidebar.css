@@ -600,3 +600,35 @@ select.rsz {
     margin-left: 20px;
     width: 220px;
 }
+
+
+
+
+
+
+.btnv {
+  background-color: #a1d083;
+  border-color: #a1d083;
+}
+
+.btne {
+    color: #fff;
+    background-color: #262727;
+    border-color: #262727;
+}
+.btn.btne:hover {
+    color: #fff;
+    background-color: #262727;
+    border-color: #262727;
+}
+
+.btnd {
+    color: #fff;
+    background-color: #e85555;
+    border-color: #e85555;
+}
+.btn.btnd:hover {
+    color: #fff;
+    background-color: #e87575;
+    border-color: #e87575;
+}

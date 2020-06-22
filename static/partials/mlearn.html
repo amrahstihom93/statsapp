@@ -1,12 +1,103 @@
 <div class = "container" ng-hide = "venom">
 
 	<div class="container" ng-hide="eminem">
+
+
 		<nav aria-label="breadcrumb" class="my-4">
 			<ol class="breadcrumb">
 				<!--<li class="breadcrumb-item active" aria-current="page"><a href="" ng-click="reload()">Visualization</a></li>-->
 				<li class="breadcrumb-item" aria-current="page">Create ML Model</li>
 			</ol>
 		</nav>
+
+
+			<div class="row">
+				<div class="col-md-4">
+			    <div class="">
+			        <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
+			          <label class="category p-2 mx-auto text-light" >Names</label>
+			        </div>
+			        <div id="viz_name" class=" ml-auto collapse">
+			       <div class="row ml-auto border">
+			         <div class="col-sm-4  table table-striped my-4 ">
+			           <label class="category">Dataset    Name</label>
+			         </div>
+			         <div class="col-sm table table-striped my-4 dropdown pull-right">
+			           <!-- <button name="dataset" id="dataset"  ng-model="selectedDataset"class="btn btn-primary dropdown-toggle block datsel " type="button" data-toggle="dropdown" >Select Dataset
+			           </button> -->
+								 <select id="dataset" name="dataset" ng-model="selectedDataset" class="btn btn-primary dropdown-toggle block datsel" type="button" data-toggle="dropdown" value="Select Dataset">
+
+			 						<option ng-repeat="x in mlearnArr">[[x.dataset_name]]</option>
+			 					</select>
+			           <!-- <ul class="dropdown-menu scrollable-menu">
+			             <li class="listline dropdown-item" ng-model="selectedDataset" ng-repeat="x in mlearnArr"><br><a href="" class="" >[[x.dataset_name]]</a></li>
+			           </ul> -->
+			         </div>
+			       </div>
+			       <div class="row ml-auto border border-top-0">
+			         <div class="col-sm-4 table table-striped my-4">
+			           <label class="category" for="visuaName">Name Model</label>
+			         </div>
+			         <div class="col-sm table table-striped my-4">
+			           <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Model Name">
+			         </div>
+			       </div>
+			       </div>
+			       </div>
+			       <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#viz_par">
+			         <label class="category p-2 mx-auto text-light">Parameters</label>
+			       </div>
+			       <div id="viz_par" class="row ml-auto collapse border border-top-0">
+
+			                 <div ng-hide="ctrlChart" class=" container w-100">
+			                  <div class="row ">
+			                    <div class="col-sm-4  table table-striped my-4 ">
+			                      <label class="category">Select Algo</label>
+			                    </div>
+			                    <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+			                      <select id="algo" name="algo" ng-model="selectedmodel" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="chooseAlgo()" class="custom-select btn-info">
+			                        <!-- <option>Select Algo</option> -->
+			                              <!-- <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option> -->
+																		<option ng-option value="Simple Linear Regression">Simple Linear Regression</option>
+												 						<option ng-option value="Multivar Linear Regression">Multivar Linear Regression</option>
+												 						<option ng-option value="Logistic Regression">Logistic Regression</option>
+												 						<option ng-option value="Support Vector Machine">Support Vector Machine</option>
+												 						<option ng-option value="K-Nearest Neighbour">K-Nearest Neighbour</option>
+												 						<option ng-option value="Decision Tree Algorithm">Decision Tree Algorithm</option>
+												 						<option ng-option value="Random Forest Algorithm">Random Forest Algorithm</option>
+			                      </select>
+			                    </div>
+			                  </div>
+			                </div>
+
+
+			               <div ng-hide="ctrlChart" class=" container w-100">
+			                <div class="row ">
+			                  <div class="col-sm-4  table table-striped my-4 ">
+			                    <label class="category">Select Independet Variable</label>
+			                  </div>
+			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+			                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+			                      <option>Select field</option>
+			                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+			                    </select>
+			                  </div>
+			                </div>
+			              </div>
+			                 <div class="container ml-auto text-center " style="padding-bottom:2%;">
+			                   <div class="row">
+			                       <div class="col-sm-6  table table-striped my-4 ">
+			                           <button type="submit" class="btn btn-info" ng-click="calculateHypothesis()">Calculate</button>
+			                       </div>
+			                       <div class="col-sm-6  table table-striped my-4 ">
+			                           <button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+			                       </div>
+			                   </div>
+			               </div>
+			             </div>
+
+			  </div>
+			</div>
 		<!--<div class="table table-bordered table-striped my-4 dropdown">
       		<button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
 

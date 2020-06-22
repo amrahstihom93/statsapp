@@ -940,9 +940,17 @@
               //Second function handles error
               console.log("Something went wrong");
           });
-          $scope.chooseDataset = function () {
+
+          $scope.chooseAlgo=function(){
+            var e2 = document.getElementById("algo");
+            value2 = e2.options[e2.selectedIndex].value;
+
+            console.log("inside Algochoose and selected", value2 );
+          }
+          $scope.chooseDataset = function (dataset) {
+              dset=dataset;
               selDatasetId = dset.dataset_id;
-              selAlgoId = value2;
+              // selAlgoId = value2;
               console.log("ALGOOOOO", selAlgoId);
       		     console.log("#####", selDatasetId);
               $scope.selectedDataset = dset.dataset_name;
@@ -1347,7 +1355,7 @@
   	});
 
   module.controller("normalitytestCtrl",function($scope,$http){
-    $scope.calculationDone = false;
+    $scope.calculationDone = true;
     $scope.testArr = ['Shapiro-Wilk Test','D’Agostino’s K^2 Test', 'Anderson-Darling Test'];
     $scope.selectedtest = '';
     $scope.selecteddatacol = '';
@@ -1421,6 +1429,13 @@
                else if($scope.selectedtest == 'Shapiro-Wilk Test'){
                        $scope.calculatedSummary =  dt.summary;
                        $scope.calculationDone = true;
+                       // let resultdiv = document.getElementById('shapiroResults');
+                       // console.log(resultdiv)
+                       // let block_to_insert;
+                       // block_to_insert = document.createElement( 'Label' );
+                       // block_to_insert.innerHTML = 'Shapiro-Wilk Test' ;
+                       //
+                       // resultdiv.appendChild(block_to_insert);
                        //    fieldDataForoGraph = data.fieldData;
                        //  fieldDataToSave = fieldDataForoGraph.toString();
                        console.log("In else calculateAnalytics",dt);

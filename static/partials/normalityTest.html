@@ -50,37 +50,7 @@
   </ol>
   </nav>
   <div class="row">
-  <!-- <div class="col-md-4">
-	<h3>Dataset Name : [[selectedDataset]]</h3>
-	<label class="my-4" for="visuaName">Analytical Name</label>
-	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="aName" placeholder="Enter Analytical Name">
 
-	<h4 class="my-4">Select fields from drop down:</h4>
-	<div class="col-md-12 my-4">
-	Select method :
-		<select id="method" name="method" ng-model="selectedmethod" ng-change="initCalculate()" class="custom-select btn-info">
-			<option selected>Select field</option>
-			<option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
-		</select>
-	</div>
-	<div class="col-md-12 my-4">
-	Select Group :
-		<select id="group" name="group_name" ng-model="selectedgroup" class="custom-select btn-info">
-			<option selected>Select group</option>
-			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-		</select>
-	</div>
-
-	<div class="col-md-12 my=4">
-	Select Data :
-		<select id="datacol" name="datacol_name" ng-model="selecteddatacol" class="custom-select btn-info">
-			<option selected>Select data</option>
-			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-		</select>
-	</div>
-	<button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
-	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
-  </div> -->
   <div class="col-md-4">
     <div class="">
         <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#viz_name">
@@ -127,19 +97,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- <div ng-hide="ctrlChart" class=" container w-100">
-                 <div class="row ">
-                   <div class="col-sm-4  table table-striped my-4 ">
-                     <label class="category">Select Group</label>
-                   </div>
-                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                     <select id="group" name="group_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedgroup"  class="custom-select btn-info">
-                       <option selected>Select field</option>
-                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-                     </select>
-                   </div>
-                 </div>
-               </div> -->
+
                <div ng-hide="ctrlChart" class=" container w-100">
                 <div class="row ">
                   <div class="col-sm-4  table table-striped my-4 ">
@@ -164,88 +122,13 @@
                    </div>
                </div>
              </div>
-             <!-- <div class="row ml-auto border border-top-0 bg-secondary "data-toggle="collapse" data-target="#layout">
-               <label class="category p-2 mx-auto text-light" >Layout</label>
-             </div> -->
-             <!-- <div id="layout" class=" row ml-auto collapse border border-top-0"> -->
-                 <!-- <div class="card-header pallete-head border border-top-0">
-                     <ul class="row nav nav-tabs pallete-tabs" role="tablist">
-                         <li class="col-sm-6 nav-item">
-                             <button class="nav-link active block" data-toggle="tab" data-target="#home">Color</button>
-                         </li>
-                         <li class="col-sm-6 nav-item">
-                             <button class="nav-link active block" data-toggle="tab" data-target="#menu1">Title</button>
-                         </li>
-                     </ul>
-                 </div> -->
-                 <!-- <div class="card-body">
-                     <div class="tab-content">
-                         <div id="home" class="format container tab-pane active">
-                             <div ng-hide="otherPallete" class="colorpallete" >
-                                 <div class="text-center">
-                                     <button id="c"style="height:50px; width:50px; border: 1px solid transparent;" class=" text-center" data-toggle="collapse" data-target="#acolor"></button>
 
-                                     <div id="acolor" class="picker collapse"
-                                      acp-color="#cddc39"
-                                      acp-show-rgb="yes"
-                                      acp-show-hsl="no"
-                                      acp-show-hex="yes"
-                                      acp-palette="PALETTE_MATERIAL_500">
-                                      </div>
-
-                                 </div>
-                                 <div class="text-center">
-                                     <button type="button" class="btn btn-primary" data-ng-click="bttest($event)">Submit</button>
-                                 </div>
-
-                             </div>
-                             <div ng-hide="pieChart" class="colorpallete">
-                                 <div class="row">
-
-                                 </div>
-                             </div>
-
-                         </div>
-                         <div id="menu1" class="container tab-pane ">
-                             <div class="form-group">
-                                 <div class="row">
-                                   <div class="col-sm-4 table table-striped my-4">
-                                     <label class="category" for="graphTitle">Graph Title</label>
-                                   </div>
-                                   <div class="col-sm table table-striped my-4">
-                                     <input type="text" class="form-control form-control-0" id="graphTitle" placeholder="Enter Graph Title" >
-                                   </div>
-                                 </div>
-                                 <div class="row">
-                                   <div class="col-sm-4 table table-striped my-4">
-                                     <label class="category" for="xaxisLabel">X Label</label>
-                                   </div>
-                                   <div class="col-sm table table-striped my-4">
-                                     <input type="text" class="form-control form-control-0" id="xaxisLabel" placeholder="Enter Title For X Axis" >
-                                   </div>
-                                 </div>
-                                 <div class="row">
-                                   <div class="col-sm-4 table table-striped my-4">
-                                     <label class="category" for="yaxisLabel">Y Label</label>
-                                   </div>
-                                   <div class="col-sm table table-striped my-4">
-                                     <input type="text" class="form-control form-control-0" id="yaxisLabel" placeholder="Enter Title For Y Axis" >
-                                   </div>
-                                 </div>
-                             </div>
-                             <div class="text-center">
-                                 <button type="button" class="btn btn-primary" data-ng-click="titleset($event)">Submit</button>
-
-                              </div>
-                          </div>
-                      </div>
-                 </div> -->
-             <!-- </div> -->
   </div>
   <div class="col-md-8">
     <div class="row no-gutters">
     <div class="col-md">
      <div id="normalityResults"  style="background-color: #868e96;" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone">
+       
        <label class="category p-2 mx-auto text-light">Shapiro-Wilk Test</label>
          <table class="tablefill2" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" style="height:auto;">
              <thead>
@@ -306,85 +189,7 @@
     </div>
      </div>
 
-    <!-- <div class="card" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone">
 
-      <div class="card-body">
-        <h5 class="card-title text-center">Shapiro-Wilk Test</h5>
-        <div class="row ml-auto">
-        <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
-        </div>
-        <div class="row ml-auto">
-        <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
-        </div>
-        <div class="row ml-auto">
-        <p class="card-text"><h6>Result = [[calculatedSummary.gaussian_result]]</h6></p>
-        </div>
-      </div>
-
-
-    </div>
-    <div class="card" ng-show="selectedtest=='D’Agostino’s K^2 Test' && calculationDone">
-
-      <div class="card-body">
-        <h5 class="card-title text-center">D’Agostino’s K^2 Test</h5>
-        <div class="row ml-auto">
-        <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
-        </div>
-        <div class="row ml-auto">
-        <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
-        </div>
-        <div class="row ml-auto">
-        <p class="card-text"><h6>Result = [[calculatedSummary.gaussian_result]]</h6></p>
-        </div>
-      </div> -->
-
-          <!--<table class="table text-center" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" >
-              <thead>
-                  <tr style="background-color: #ff751a;">
-                      <th class="text-left">Parameter</th>
-                      <th class="text-center" style="width:80px">Value</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td class="text-left">P</td>
-                      <td>[[calculatedSummary.p]]</td>
-                  </tr>
-
-                  <tr>
-                      <td class="text-left">Stat</td>
-                      <td>[[calculatedSummary.stat]]</td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">Result </td>
-                    <td>[[calculatedSummary.gaussian_result]]</td>
-                  </tr>
-                </tbody>
-            </table>
-
-            <table class="table text-center" ng-show="selectedtest=='D’Agostino’s K^2 Test' && calculationDone" >
-                <thead>
-                    <tr style="background-color: #ff751a;">
-                        <th class="text-left">Parameter</th>
-                        <th class="text-center" style="width:80px">Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-left">P</td>
-                        <td>[[calculatedSummary.p]]</td>
-                    </tr>
-
-                    <tr>
-                        <td class="text-left">Stat</td>
-                        <td>[[calculatedSummary.stat]]</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left">Result </td>
-                      <td>[[calculatedSummary.gaussian_result]]</td>
-                    </tr>
-                  </tbody>
-              </table>-->
   </div>
 
   <!-- <div id="histoDiv"></div> -->
