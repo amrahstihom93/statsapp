@@ -6,39 +6,45 @@
 	  <li class="breadcrumb-item" aria-current="page">Choose Dataset</li>-->
   <!--</ol>
 </nav>-->
-  <h4>Choose dataset to make visualization:</h4>
+<nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item" aria-current="page">Choose Dataset To Make Visualization</li>
+  </ol>
+</nav>
+  <div class="row no-gutters"style="margin-top:30px">
 <!--<div class="row no-gutters">-->
-  <div class="col-md-6" style="padding-right: initial; padding-left: initial;">
-  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
-    <thead ng-hide="true" class="ng-hide">
-      <tr>
-        <th>Dataset</th>
-        <th>Make Visualization</th>
+  <div class="col-md">
+  <table id="datasetList" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+    <thead ng-hide="false" class="ng-show">
+      <tr class="thnew">
+        <th style="text-align:center;">Dataset</th>
+        <th style="text-align:center;">Action</th>
       </tr>
     </thead>
-    <tbody>
-      <tr ng-repeat="x in datasetArr">
-        <td style="padding-left: 30px">[[x.dataset_name]]</td>
+    <tbody class="pnew">
+      <tr ng-repeat="x in datasetArr" ng-if="$even">
+        <td style="width:70%">[[x.dataset_name]]</td>
         <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
       </tr>
     </tbody>
   </table>
  </div>
- <div class="col-md-6" style="padding-right: initial; padding-left: initial;">
- <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
-   <thead ng-hide="true" class="ng-hide">
-     <tr>
-       <th>Dataset</th>
-       <th>Make Visualization</th>
+ <div class="col-md">
+ <table id="datasetList" class="tablefill3" style=" border-left:0.25px solid #c1c3d1; box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+   <thead ng-hide="false" class="ng-show">
+     <tr class="thnew">
+       <th style="text-align:center;">Dataset</th>
+       <th style="text-align:center;">Make Visualization</th>
      </tr>
    </thead>
-   <tbody>
-     <tr ng-repeat="x in datasetArr">
-       <td style="padding-left: 30px">[[x.dataset_name]]</td>
+   <tbody class="pnew">
+     <tr ng-repeat="x in datasetArr" ng-if="$odd">
+       <td style="width:70%">[[x.dataset_name]]</td>
           <td><a href="" class="btn btn-primary" ng-click="makeVisualization(x)">Make Visualization</a></td>
      </tr>
    </tbody>
  </table>
+</div>
 </div>
 </div>
 

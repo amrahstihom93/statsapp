@@ -944,9 +944,192 @@
           $scope.chooseAlgo=function(){
             var e2 = document.getElementById("algo");
             value2 = e2.options[e2.selectedIndex].value;
+            console.log("ALGOOOOO", value2);
+            console.log("#####", dset);
+            console.log("#####", dset.dataset_id);
 
             console.log("inside Algochoose and selected", value2 );
+
+
+            let selDatasetId = dset.dataset_id;
+
+            console.log("ALGOOOOO", value2);
+            console.log("#####", dset.dataset_id);
+            $scope.selectedDataset = dset.dataset_name;
+            console.log("selectedDataset", $scope.selectedDataset);
+
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dset.dataset_name);
+            console.log(dset.dataset_name);
+            console.log("data", data);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                var algor = document.getElementById("algo").value;
+                console.log(algor);
+                $scope.eminem = false;
+                if(algor == "Simple Linear Regression"){
+                    $('select[name="idvar"]').change(function(){
+                        var idvar = document.getElementById("idvar");
+                idvar = idvar.options[idvar.selectedIndex].value;
+                        var dvar = document.getElementById("dvar");
+                dvar = dvar.options[dvar.selectedIndex].value;
+                        var but = document.getElementById("slct-btn2");
+                        if(idvar == dvar){
+                            but.disabled = true;
+                        }
+                        else{
+                            but.disabled = false;
+                        }
+
+
+                    });
+                    $('select[name="dvar"]').change(function(){
+                        var idvar = document.getElementById("idvar");
+                        idvar = idvar.options[idvar.selectedIndex].value;
+                        var dvar = document.getElementById("dvar");
+
+                        var idvar = document.getElementById("idvar");
+                        dvar = dvar.options[dvar.selectedIndex].value;
+                        idvar = idvar.options[idvar.selectedIndex].value;
+
+                        console.log("DVAR_VAL", dvar);
+                        var but = document.getElementById("slct-btn2");
+                        if(dvar == idvar){
+                          console.log("HUHUHAHAHAHA you selected same elements");
+                          but.classList.toggle("disabled");
+                          but.disabled =true;
+                        }
+                        else{
+                          console.log("HUHUHAHAHAHA you selected diff elements");
+                          but.classList.remove("disabled");
+                          but.disabled =false;
+                        }
+
+                        /*
+                dvar = dvar.options[dvar.selectedIndex].value;
+                        var but = document.getElementById("slct-btn2");
+                        if(idvar == dvar){
+                            but.disabled = true;
+                        }
+                        else{
+                            but.disabled = false;
+                        }*/
+                        console.log("DVAR_VAL", dvar);
+                        console.log("IDVAR_VAL", idvar);
+
+                    });
+
+                }
+
+                else if(algor == "Multivar Linear Regression"){
+                    var cblist = document.getElementsByName('cblist3');
+                    console.log("cblist",cblist);
+                    $('select[name="dvar"]').change(function(){
+                        var dvar = document.getElementById("dvar");
+                        dvar = dvar.options[dvar.selectedIndex].value;
+
+                        console.log(dvar);
+                    });
+
+                    $scope.rows=[{
+                        'period':"Value"
+                    }];
+
+                    $scope.addRow = function () {
+                        var newRow = angular.copy($scope.rows);
+                        newRow.selectedPeriod = null;
+                        $scope.rows.push(newRow);
+                    };
+                    $scope.removeRow = function(){
+                        var newRow = angular.copy($scope.rows);
+                        newRow.selectedPeriod = null;
+                        $scope.rows.pop(newRow);
+                    }
+
+
+                    $scope.periods=[
+                        $scope.fieldsAr,
+                    ];
+                    $scope.showMeSelectedPeriods = function () {
+                        $scope.rowWiseData=[];
+                        var favourite=[];
+                        /*$scope.rows.forEach(function (selectedPeriod) {
+                            favourite.push($("option[name='idvar']").val());
+                            console.log(favourite);
+                        });*/
+                        var i=0;
+                        var indpvar = [];
+                        $('.mmm').each(function(){
+
+                            i++;
+                            var newID='menu'+i;
+                            console.log("<<<<<",newID);
+                            var u = $(this).attr('id',newID);
+                            console.log("UUUU",u);
+
+                            var favorite = document.getElementById(newID);
+                            console.log("favorite",favorite);
+                            var mot =favorite.options[favorite.selectedIndex].value;
+                            console.log("mot",mot);
+                            indpvar.push(mot);
+
+                            /*  $scope.rows.forEach(function (selectedPeriod) {
+                                console.log("LLLL",newID);
+                                var favorite = document.getElementById(newID);
+                                console.log("fav",favorite);
+                            });
+                            idselect= invar.options[invar.selectedIndex].value;
+                            console.log("IDVAR",idselect);*/
+                        });
+                        console.log(indpvar);
+
+
+
+
+
+                        $.each($("select[name='idvar']:selected "), function(){
+                            favourite.push($(this).val());
+                            console.log($(this).value());
+                        });
+                    };
+                    console.log("pppppeeerrriiiodsss",$scope.periods);
+
+
+                    $('#cblist').click(function(){
+                        console.log("changechange");
+                        var fav=[];
+                        $.each($("input[name='cblist']:checked"), function(){
+                            favorite.push($(this).val());
+                        });
+                        console.log("fav",favourite);
+                    });
+
+
+                    console.log("we are in multivar linear regression");
+                    var idd = document.getElementsByName("chk").value;
+                    console.log("idd",idd);
+                }
+
+
+
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+            if(value2=="Simple Linear Regression"){
+              $scope.depvardiv = true;
+            }
           }
+
           $scope.chooseDataset = function (dataset) {
               dset=dataset;
               selDatasetId = dset.dataset_id;
@@ -1369,6 +1552,8 @@
             //Second function handles error
             console.log("Something went wrong");
         });
+
+
         $scope.chooseDataset = function (dataset) {
             selDatasetId = dataset.dataset_id;
 
@@ -1427,6 +1612,15 @@
 
                }
                else if($scope.selectedtest == 'Shapiro-Wilk Test'){
+                      // $scope.newel = function(){
+                      //   console.log("inside new element creation");
+                      //   var bod = document.getElementById("newcreate");
+                      //   var tblehader = document.createElement("label");
+                      //   var cellText = document.createTextNode($scope.selectedtest);
+                      //   tblehader.appendChild(cellText)
+                      //   bod.appendChild(tblehader)
+                      //
+                      // }
                        $scope.calculatedSummary =  dt.summary;
                        $scope.calculationDone = true;
                        // let resultdiv = document.getElementById('shapiroResults');
@@ -11358,7 +11552,8 @@
               }).success(function (data, status, headers, config) {
                   console.log("this is repsonse data", status);
                   successSaved = true;
-                  $scope.datasetSaved = true;
+                  $scope.datasetSaved = false;
+                  $scope.datasetsSaved = true;
                   $scope.fileSelected = false;
                 //  $scope.fileSelected = false;
                   // this callback will be called asynchronously
@@ -11371,11 +11566,15 @@
           }
           else
               successSaved = true;
-
-          if (successSaved) {
-              $scope.datasetSaved = true;
+              $scope.datasetSaved = false;
+              console.log($scope.datasetSaved);
+              $scope.datasetsSaved = true;
               $scope.fileSelected = false;
-          }
+
+          // if (successSaved) {
+          //     $scope.datasetSaved = true;
+          //     $scope.fileSelected = false;
+          // }
       }
 
       $scope.submit = function () {

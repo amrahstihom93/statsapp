@@ -55,7 +55,7 @@
 			                      <label class="category">Select Algo</label>
 			                    </div>
 			                    <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-			                      <select id="algo" name="algo" ng-model="selectedmodel" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="chooseAlgo()" class="custom-select btn-info">
+			                      <select id="algo" name="algo" ng-model="selectedmodel" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-change="chooseAlgo()" class="custom-select btn-info">
 			                        <!-- <option>Select Algo</option> -->
 			                              <!-- <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option> -->
 																		<option ng-option value="Simple Linear Regression">Simple Linear Regression</option>
@@ -77,26 +77,136 @@
 			                    <label class="category">Select Independet Variable</label>
 			                  </div>
 			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-			                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+			                    <select id="idvar" name="idvar" ng-model="idvar"class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+			                      <option>Select field</option>
+			                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+			                    </select>
+			                  </div>
+			                </div>
+
+											<div class="row " ng-show="depvardiv">
+			                  <div class="col-sm-4  table table-striped my-4 ">
+			                    <label class="category">Select Dependent Variable</label>
+			                  </div>
+			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+			                    <select id="dvar" name="dvar" ng-model="dvar"class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
 			                      <option>Select field</option>
 			                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			                    </select>
 			                  </div>
 			                </div>
 			              </div>
-			                 <div class="container ml-auto text-center " style="padding-bottom:2%;">
-			                   <div class="row">
-			                       <div class="col-sm-6  table table-striped my-4 ">
-			                           <button type="submit" class="btn btn-info" ng-click="calculateHypothesis()">Calculate</button>
-			                       </div>
-			                       <div class="col-sm-6  table table-striped my-4 ">
-			                           <button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
-			                       </div>
-			                   </div>
-			               </div>
-			             </div>
 
+			             </div>
+									 <div class="row ml-auto border border-top-0 bg-secondary " data-toggle="collapse" data-target="#train_par">
+						         <label class="category p-2 mx-auto text-light">Training Parameters</label>
+						       </div>
+									 <div id="train_par" class="row ml-auto collapse border border-top-0">
+										 <div ng-hide="ctrlChart" class=" container w-100">
+											 <div class="row ">
+ 			                  <div class="col-sm-4  table table-striped my-4 ">
+ 			                    <label class="category">Select Training Set Size</label>
+ 			                  </div>
+ 			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right" ng-model="training_size"name="t_size">
+ 			                    <input type="number"class="form-control form-control-0" id ="training_size" min=50 max=100 value='0'>
+ 			                  </div>
+ 			                </div>
+											<div class="row ">
+											 <div class="col-sm-4  table table-striped my-4 ">
+												 <label class="category">Select Random State</label>
+											 </div>
+											 <div  class="col-sm  table table-striped my-4 dropdown pull-right" ng-model="random_state"name="random_state">
+												 <input type="number"class="form-control form-control-0" id ="random_state" min=0>
+											 </div>
+										 </div>
+										 <div class="row ">
+											<div class="col-sm-4  table table-striped my-4 ">
+												<label class="category">Select Fit Intercept</label>
+											</div>
+											<div  class="col-sm  table table-striped my-4 dropdown pull-right" ng-model="fit_intercept"name="fit_intercept">
+												<select name="fit_intercept"class="btn btn-primary dropdown-toggle block datsel" type="button"  id="fit_intercept" >
+			                    	<option value="true">True</option>
+			                    	<option value="false">False</option>
+			                	</select>
+											</div>
+										</div>
+										<div class="container ml-auto text-center " style="padding-bottom:2%;">
+											<div class="row">
+													<div class="col-sm-6  table table-striped my-4 ">
+															<button type="submit" class="btn btn-info" ng-click="selectparm()">Train</button>
+													</div>
+													<div class="col-sm-6  table table-striped my-4 ">
+															<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+													</div>
+											</div>
+									</div>
+									</div>
+
+									 </div>
 			  </div>
+
+				<div class="col-md-8">
+					<div class="card text-center" style=" width: auto;" ng-hide="avengers">
+						<label class="category p-2 mx-auto text-light" style="background-color: #868e96;"">Training Scatter Plot</label>
+		  				<img class="card-img-top" src="/static/test1.png" alt="/static/test1.png">
+		  				<div class="card-body">
+		    				<h5 class="card-title text-center">Regression Plot</h5>
+
+		  				</div>
+					</div>
+
+					<div class="row no-gutters">
+						<div class="col-md">
+							<div id="SLRresults"  style="background-color: #868e96;" ng-hide="avengers">
+
+				        <label class="category p-2 mx-auto text-light">Simple Linear Regression</label>
+				          <table class="tablefill2" ng-if="selectedmodel=='Simple Linear Regression' " style="height:auto;">
+				              <thead>
+				                  <tr class="thnew" >
+				                      <th class=" text-left">Factor</th>
+				                      <th class=" text-left">Value</th>
+
+				                      <th class=" text-left">Factor</th>
+				                      <th class=" text-left">Value</th>
+				                  </tr>
+				              </thead>
+				              <tbody class="tdnew table-hover">
+				                 <tr >
+				                     <td class="text-left">Accuracy</td>
+				                     <td>[[calculatedscore.result_score]]</td>
+
+				                     <td class="text-left">R-Squared</td>
+				                     <td style="border-right: 0px;">[[calculatedscore.rsquared]]</td>
+				                 </tr>
+				                 <tr>
+				                     <td class="text-left">Adjective R-Squared</td>
+				                     <td>[[calculatedscore.radjective]]</td>
+
+														 <td class="text-left">Std. Error of Estimate </td>
+				                     <td>[[calculatedscore.err_of_estimate]]</td>
+				                 </tr>
+												 <tr>
+				                     <td class="text-left">F-Value</td>
+				                     <td>[[calculatedscore.fvalue]]</td>
+
+														 <td class="text-left">P-Value </td>
+				                     <td>[[calculatedscore.pvalue]]</td>
+				                 </tr>
+												 <tr>
+				                     <td class="text-left">T-Value</td>
+				                     <td>[[calculatedscore.tvalue]]</td>
+
+														 <td></td>
+		                         <td style="border-right: 0px;"></td>
+				                 </tr>
+
+				              </tbody>
+				            </table>
+				       </div>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		<!--<div class="table table-bordered table-striped my-4 dropdown">
       		<button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
@@ -152,7 +262,7 @@
 						<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 					</select>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6" >
 					<h3>Select Dependent variable</h3>
 					<select id="dvar" name="dvar" ng-model:"dvar" class="custom-select btn-info">
 						<option>Select Dependent Variable</option>

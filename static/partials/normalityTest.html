@@ -90,7 +90,7 @@
                       <label class="category">Select test</label>
                     </div>
                     <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="initCalculate()" class="custom-select btn-info">
+                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="initCalculate()" ng-click="newel()" class="custom-select btn-info">
                         <option>Select field</option>
                                <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option>
                       </select>
@@ -99,12 +99,12 @@
                 </div>
 
                <div ng-hide="ctrlChart" class=" container w-100">
-                <div class="row ">
+                <div class="row">
                   <div class="col-sm-4  table table-striped my-4 ">
                     <label class="category">Select Data</label>
                   </div>
                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                       <option>Select field</option>
                       <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
                     </select>
