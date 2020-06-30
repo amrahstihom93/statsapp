@@ -71,6 +71,9 @@
           }).when('/mlearn', {
               templateUrl: static_url + 'partials/mlearn.html',
               controller: 'mlearnCtrl'
+          }).when('/regression', {
+              templateUrl: static_url + 'partials/regression.html',
+              controller: 'mlearnCtrl'
           }).when('/mdep', {
               templateUrl: static_url + 'partials/mdep.html',
               controller: 'mlearnCtrl'
