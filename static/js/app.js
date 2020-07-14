@@ -53,6 +53,9 @@
           }).when('/analyticalList', {
               templateUrl: static_url + 'partials/analyticalList.html',
               controller: 'analyticalListCtrl'
+          }).when('/hypoList', {
+              templateUrl: static_url + 'partials/hypoListing.html',
+              controller: 'hypotheticalListCtrl'
           }).when('/normalityTest', {
               templateUrl: static_url + 'partials/normalityTest.html',
               controller: 'normalitytestCtrl'
@@ -592,6 +595,38 @@
       });
   });
 
+  //hypotheticalListCtrl
+  module.controller("hypotheticalListCtrl", function($scope,$http){
+    console.log("inside List Hypo")
+    $scope.hypoListArr = [];
+    $scope.hypoName='';
+    let url ='/hypoList/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.hypoListArr = response.data;
+
+
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+    $scope.viewHypoResult = function(hypothetical){
+
+      $scope.selTest = hypothetical.hypothetical_method;
+
+      console.log("in view hypoResult",typeof(hypothetical));
+      console.log("selectedfield",hypothetical.hypothetical_method);
+      $scope.calSummary = JSON.parse(hypothetical.hypothetical_calculated_value);
+      console.log("selectedmethod",$scope.selTest);
+      console.log("json summary",$scope.calSummary);
+
+      let newSummary = {};
+
+    }
+  });
   //AnalyticalList controller
   module.controller("analyticalListCtrl",function($scope,$http){
       $scope.analyticalArr = [];
@@ -692,7 +727,7 @@
       }
 
       $scope.viewStatistical = function (statistical) {
-  		$scope.selMethod = statistical.statistical_method;
+  		    $scope.selMethod = statistical.statistical_method;
           console.log("in view",statistical);
           console.log("selectedfield",statistical.statistical_method);
           console.log("selectedmethod",$scope.selMethod);
@@ -1562,7 +1597,7 @@
 
     		    console.log("#####", selDatasetId);
             $scope.selectedDataset = dataset.dataset_name;
-            $scope.aName = '';
+            $scope.hName = '';
             let data = new FormData();
             let url = '/getGraphFields/';
             data.append("dName", dataset.dataset_name);
@@ -1615,26 +1650,9 @@
 
                }
                else if($scope.selectedtest == 'Shapiro-Wilk Test'){
-                      // $scope.newel = function(){
-                      //   console.log("inside new element creation");
-                      //   var bod = document.getElementById("newcreate");
-                      //   var tblehader = document.createElement("label");
-                      //   var cellText = document.createTextNode($scope.selectedtest);
-                      //   tblehader.appendChild(cellText)
-                      //   bod.appendChild(tblehader)
-                      //
-                      // }
+
                        $scope.calculatedSummary =  dt.summary;
                        $scope.calculationDone = true;
-                       // let resultdiv = document.getElementById('shapiroResults');
-                       // console.log(resultdiv)
-                       // let block_to_insert;
-                       // block_to_insert = document.createElement( 'Label' );
-                       // block_to_insert.innerHTML = 'Shapiro-Wilk Test' ;
-                       //
-                       // resultdiv.appendChild(block_to_insert);
-                       //    fieldDataForoGraph = data.fieldData;
-                       //  fieldDataToSave = fieldDataForoGraph.toString();
                        console.log("In else calculateAnalytics",dt);
           					   console.log("calculateHypothesis",$scope.calculatedSummary);
               }
@@ -1654,6 +1672,41 @@
         // $scope.initCalculate = function(){
         //     $scope.calculationDone = false;
         // }
+
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
+        }
   });
   module.controller("correlationtestCtrl",function($scope,$http){
     $scope.calculationDone = false;
@@ -1784,7 +1837,7 @@
         }
   });
   module.controller("stationarytestCtrl",function($scope,$http){
-    $scope.calculationDone = false;
+    $scope.calculationDone = true;
     $scope.testArr = ['Augmented Dickey-Fuller Unit Root Test','Kwiatkowski-Phillips-Schmidt-Shin'];
     $scope.selectedtest = '';
     $scope.selecteddatacol = '';
@@ -1869,8 +1922,42 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
         }
   });
   module.controller("parametricstatisticalCtrl",function($scope,$http){

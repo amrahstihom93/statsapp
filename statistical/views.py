@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from upload.models import Dataset
 from .models import statistical
 from .models import analytical
+from .models import hypothetical
 from django.contrib.auth.models import User
 import json, datetime
 import pandas as pd
@@ -71,6 +72,48 @@ def saveStatistics(request):
 	msg = 'error while saving statistical summary'
 	return HttpResponse(msg)
 
+#saveHypoyhesis
+def saveHypothesis(request):
+
+	client = MongoClient()
+
+	db = client.hypoDatadb
+	print(client.list_database_names())
+	print(db.list_collection_names())
+
+	collection_name = "hypoData"+datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+	col = db[collection_name]
+
+	print('I am in Save Function of Hypothesis testing')
+	vForm = hypothetical()
+	json_data = {}
+	data = {}
+	if request.method =='POST':
+		vForm.hypothetical_name = request.POST['hypothetical_name']
+		user_obj = User.objects.get(pk=request.user.id)
+		dataset_obj = Dataset.objects.get(dataset_id=request.POST['dataset_id'])
+		vForm.hypothetical_method = request.POST['hypothetical_method']
+		vForm.dataset_id = dataset_obj
+		vForm.hypothetical_id = 'hid' + request.POST['hypothetical_name'] + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+		vForm.user_id=user_obj
+		vForm.hypothetical_calculated_value = request.POST['hypothetical_calculated_value']
+		datdoc = json.loads(vForm.hypothetical_calculated_value)
+		print("summary", vForm.hypothetical_calculated_value)
+		print("summary datadoc",datdoc)
+		my_data_file = open('data.txt', 'a')
+		with open('data.txt', 'a') as f:
+			data = [vForm.hypothetical_method, vForm.hypothetical_calculated_value]
+			f.writelines("%s\n" % line for line in data)
+
+		colId=col.insert_one(datdoc)
+		print(colId.inserted_id)
+		vForm.test = colId.inserted_id
+		print(vForm.test)
+		vForm.save()
+		msg= 'saved successfully'
+		return HttpResponse(msg)
+	msg = 'error while saving hypothetical summary'
+	return HttpResponse(msg)
 #calculateHypothesis
 def calculateHypothesis(request):
 	print('into Calculate Hypothesis')
@@ -129,6 +172,9 @@ def calculateHypothesis(request):
 			describeDict['gaussian_result'] = gaussian_result
 			responseData['summary']=  describeDict
 
+
+
+
 			print(responseData)
 		elif selectedtest == 'D’Agostino’s K^2 Test':
 			# Example of the D'Agostino's K^2 Normality Test
@@ -161,6 +207,7 @@ def calculateHypothesis(request):
 			describeDict['gaussian_result'] = gaussian_result
 			responseData['summary']=  describeDict
 
+			print(responseData)
 		elif selectedtest == 'Anderson-Darling Test':
 			# Example of the Anderson-Darling Normality Test
 			from scipy.stats import anderson
@@ -1018,6 +1065,30 @@ def getAnalyticalList(request):
     return HttpResponse(msg)
 
 
+def hypoList(request):
+	msg="inside HypoLIST"
+	client = MongoClient()
+	print(client.list_database_names())
+	db = client.hypoDatadb
+	print("collections in your dataset",db.list_collection_names())
+	collection_names = db.list_collection_names()
+	print(type(collection_names))
+	print(*collection_names, sep='\n')
+	try:
+		listObj=[]
+		usr=str(request.user)
+		print('list0')
+		hypoList= hypothetical.objects.filter(user_id=request.user.id).values()
+		print("hypolist",hypoList)
+		if len(hypoList) > 0:
+			for i in range(len(hypoList)):
+				listObj.append(hypoList[i])
+				print("%%%%",listObj[i])
+		return JsonResponse(listObj,safe=False)
+	except:
+		msg = 'error while getting process list'
+		print(msg)
+	return HttpResponse(msg)
 
 def getStatisticalList(request):
     usr = str(request.user)

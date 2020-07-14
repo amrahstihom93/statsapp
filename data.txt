@@ -1,0 +1,8 @@
+D’Agostino’s K^2 Test
+{"stat":8.033,"p":0.018,"gaussian_result":"Probably not Gaussian"}
+D’Agostino’s K^2 Test
+{"stat":8.033,"p":0.018,"gaussian_result":"Probably not Gaussian"}
+Shapiro-Wilk Test
+{"stat":0.91,"p":0.015,"gaussian_result":"Probably not Gaussian"}
+Kwiatkowski-Phillips-Schmidt-Shin
+{"stat":0.555,"p":0.029,"stationary_result":"Probably Stationary"}

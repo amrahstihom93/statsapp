@@ -113,10 +113,10 @@
        </div>
        <div class="row ml-auto border border-top-0">
          <div class="col-sm-4 table table-striped my-4">
-           <label class="category" for="visuaName">Name Hypothesis</label>
+           <label class="category" for="visuName">Name Hypothesis</label>
          </div>
          <div class="col-sm table table-striped my-4">
-           <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Analytical Name">
+           <input type="text" ng-model="hName" class="form-control form-control-0" id="hName" placeholder="Enter Analytical Name">
          </div>
        </div>
        </div>
@@ -132,7 +132,7 @@
                       <label class="category">Select test</label>
                     </div>
                     <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="initCalculate()" class="custom-select btn-info">
+                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                         <option>Select field</option>
                                <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option>
                       </select>
@@ -158,7 +158,7 @@
                     <label class="category">Select 1st Data</label>
                   </div>
                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                       <option>Select field</option>
                       <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
                     </select>
@@ -169,7 +169,7 @@
                     <label class="category">Select 2nd Data</label>
                   </div>
                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                    <select id="datacol2" name="datacol_name2" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol2" class="custom-select btn-info">
+                    <select id="datacol2" name="datacol_name2" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol2" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                       <option>Select field</option>
                       <option ng-repeat="k in fieldsAr2" value="[[k]]">[[k]]</option>
                     </select>

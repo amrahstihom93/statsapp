@@ -74,7 +74,7 @@
            <label class="category" for="visuaName">Name Hypothesis</label>
          </div>
          <div class="col-sm table table-striped my-4">
-           <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Analytical Name">
+           <input type="text" ng-model="hName" class="form-control form-control-0" id="hName" placeholder="Enter Test Name">
          </div>
        </div>
        </div>
@@ -90,7 +90,7 @@
                       <label class="category">Select test</label>
                     </div>
                     <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="initCalculate()" ng-click="newel()" class="custom-select btn-info">
+                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                         <option>Select field</option>
                                <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option>
                       </select>
@@ -117,7 +117,7 @@
                            <button type="submit" class="btn btn-info" ng-click="calculateHypothesis()">Calculate</button>
                        </div>
                        <div class="col-sm-6  table table-striped my-4 ">
-                           <button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+                           <button class="btn btn-primary" ng-click="parameterSave3()">Save</button>
                        </div>
                    </div>
                </div>
@@ -128,7 +128,7 @@
     <div class="row no-gutters">
     <div class="col-md">
      <div id="normalityResults"  style="background-color: #868e96;" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone">
-       
+
        <label class="category p-2 mx-auto text-light">Shapiro-Wilk Test</label>
          <table class="tablefill2" ng-show="selectedtest=='Shapiro-Wilk Test' && calculationDone" style="height:auto;">
              <thead>
@@ -207,7 +207,7 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          [[sName]]Analytical is saved successfully.
+          [[sName]]Normality Test is saved successfully.
         </div>
 
         <!-- Modal footer -->

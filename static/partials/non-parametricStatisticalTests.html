@@ -132,7 +132,7 @@
               <label class="category">Select test</label>
             </div>
             <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-              <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="initCalculate()" class="custom-select btn-info">
+              <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                 <option>Select field</option>
                        <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option>
               </select>
@@ -145,7 +145,7 @@
              <label class="category">Select 1st Data</label>
            </div>
            <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-             <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+             <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()"class="custom-select btn-info">
                <option>Select field</option>
                <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
              </select>
@@ -156,7 +156,7 @@
              <label class="category">Select 2nd Data</label>
            </div>
            <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-             <select id="datacol2" name="datacol_name2" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol2" class="custom-select btn-info">
+             <select id="datacol2" name="datacol_name2" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol2"  ng-change="calculateHypothesis()" ng-click="calculateHypothesis()"class="custom-select btn-info">
                <option>Select field</option>
                <option ng-repeat="k in fieldsAr2" value="[[k]]">[[k]]</option>
              </select>
@@ -365,55 +365,132 @@
              <!-- </div> -->
 
   <div class="col-md-8">
+    <div class="col-md">
+      <div id="correlationResults"  style="background-color: #868e96;" ng-show="selectedtest=='Kruskal-Wallis H Test' && calculationDone">
 
-                            <div class="card" ng-show="selectedtest=='Kruskal-Wallis H Test' && calculationDone">
+        <label class="category p-2 mx-auto text-light">Kruskal-Wallis H Test</label>
+          <table class="tablefill2" ng-show="selectedtest=='Kruskal-Wallis H Test' && calculationDone" style="height:auto;">
+              <thead>
+                  <tr class="thnew" >
+                      <th class=" text-left">Factor</th>
+                      <th class=" text-left">Value</th>
 
-                              <div class="card-body">
-                                <h5 class="card-title text-center">Kruskal-Wallis H Test</h5>
-                                <div class="row ml-auto">
-                                <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
-                                </div>
-                                <div class="row ml-auto">
-                                <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
-                                </div>
-                                <div class="row ml-auto">
-                                <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
-                                </div>
-                              </div>
+                      <th class=" text-left">Factor</th>
+                      <th class=" text-left">Value</th>
+                  </tr>
+              </thead>
+              <tbody class="tdnew table-hover">
+                 <tr >
+                     <td class="text-left">P</td>
+                     <td>[[calculatedSummary.p]]</td>
 
+                     <td class="text-left">Result</td>
+                     <td style="border-right: 0px;">[[calculatedSummary.distribution_result]]</td>
+                 </tr>
+                 <tr>
+                     <td class="text-left">Stat</td>
+                     <td>[[calculatedSummary.stat]]</td>
 
-                            </div>
-                            <div class="card" ng-show="selectedtest=='Mann-Whitney U Test' && calculationDone">
+                 </tr>
 
-                              <div class="card-body">
-                                <h5 class="card-title text-center">Mann-Whitney U Test</h5>
-                                <div class="row ml-auto">
-                                <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
-                                </div>
-                                <div class="row ml-auto">
-                                <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
-                                </div>
-                                <div class="row ml-auto">
-                                <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
-                                </div>
-                              </div>
-                            </div>
-                              <div class="card" ng-show="selectedtest=='Wilcoxon Signed-Rank Test' && calculationDone" >
+              </tbody>
+            </table>
+       </div>
 
-                                <div class="card-body">
-                                  <h5 class="card-title text-center">Wilcoxon Signed-Rank Test</h5>
-                                  <div class="row ml-auto">
-                                  <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
-                                  </div>
-                                  <div class="row ml-auto">
-                                  <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
-                                  </div>
-                                  <div class="row ml-auto">
-                                  <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
-                                  </div>
-                                </div>
-                              </div>
-                                <div class="card" ng-show="selectedtest=='Friedman Test' && calculationDone" >
+       <div id="correlationResults"  style="background-color: #868e96;" ng-show="selectedtest=='Mann-Whitney U Test' && calculationDone">
+
+         <label class="category p-2 mx-auto text-light">Mann-Whitney U Test</label>
+           <table class="tablefill2" ng-show="selectedtest=='Mann-Whitney U Test' && calculationDone" style="height:auto;">
+               <thead>
+                   <tr class="thnew" >
+                       <th class=" text-left">Factor</th>
+                       <th class=" text-left">Value</th>
+
+                       <th class=" text-left">Factor</th>
+                       <th class=" text-left">Value</th>
+                   </tr>
+               </thead>
+               <tbody class="tdnew table-hover">
+                  <tr >
+                      <td class="text-left">P</td>
+                      <td>[[calculatedSummary.p]]</td>
+
+                      <td class="text-left">Result</td>
+                      <td style="border-right: 0px;">[[calculatedSummary.distribution_result]]</td>
+                  </tr>
+                  <tr>
+                      <td class="text-left">Stat</td>
+                      <td>[[calculatedSummary.stat]]</td>
+
+                  </tr>
+
+               </tbody>
+             </table>
+        </div>
+        <div id="correlationResults"  style="background-color: #868e96;" ng-show="selectedtest=='Wilcoxon Signed-Rank Test' && calculationDone">
+
+          <label class="category p-2 mx-auto text-light">Wilcoxon Signed-Rank Test</label>
+            <table class="tablefill2" ng-show="selectedtest=='Wilcoxon Signed-Rank Test' && calculationDone" style="height:auto;">
+                <thead>
+                    <tr class="thnew" >
+                        <th class=" text-left">Factor</th>
+                        <th class=" text-left">Value</th>
+
+                        <th class=" text-left">Factor</th>
+                        <th class=" text-left">Value</th>
+                    </tr>
+                </thead>
+                <tbody class="tdnew table-hover">
+                   <tr >
+                       <td class="text-left">P</td>
+                       <td>[[calculatedSummary.p]]</td>
+
+                       <td class="text-left">Result</td>
+                       <td style="border-right: 0px;">[[calculatedSummary.distribution_result]]</td>
+                   </tr>
+                   <tr>
+                       <td class="text-left">Stat</td>
+                       <td>[[calculatedSummary.stat]]</td>
+
+                   </tr>
+
+                </tbody>
+              </table>
+         </div>
+
+         <div id="correlationResults"  style="background-color: #868e96;" ng-show="selectedtest=='Friedman Test' && calculationDone">
+
+           <label class="category p-2 mx-auto text-light">Friedman Test</label>
+             <table class="tablefill2" ng-show="selectedtest=='Friedman Test' && calculationDone" style="height:auto;">
+                 <thead>
+                     <tr class="thnew" >
+                         <th class=" text-left">Factor</th>
+                         <th class=" text-left">Value</th>
+
+                         <th class=" text-left">Factor</th>
+                         <th class=" text-left">Value</th>
+                     </tr>
+                 </thead>
+                 <tbody class="tdnew table-hover">
+                    <tr >
+                        <td class="text-left">P</td>
+                        <td>[[calculatedSummary.p]]</td>
+
+                        <td class="text-left">Result</td>
+                        <td style="border-right: 0px;">[[calculatedSummary.distribution_result]]</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Stat</td>
+                        <td>[[calculatedSummary.stat]]</td>
+
+                    </tr>
+
+                 </tbody>
+               </table>
+          </div>
+    </div>
+
+                                <!-- <div class="card" ng-show="selectedtest=='Friedman Test' && calculationDone" >
 
                                   <div class="card-body">
                                     <h5 class="card-title text-center">Friedman Test</h5>
@@ -427,7 +504,7 @@
                                     <p class="card-text"><h6>Result = [[calculatedSummary.distribution_result]]</h6></p>
                                     </div>
                                   </div>
-                                </div>
+                                </div> -->
           <!--<table class="table text-center" ng-show="selectedtest=='Kruskal-Wallis H Test' && calculationDone" >
               <thead>
                   <tr style="background-color: #ff751a;">

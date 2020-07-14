@@ -50,37 +50,6 @@
   </ol>
   </nav>
   <div class="row">
-  <!-- <div class="col-md-4">
-	<h3>Dataset Name : [[selectedDataset]]</h3>
-	<label class="my-4" for="visuaName">Analytical Name</label>
-	<input type="text" ng-model="aName" class="form-control onePerLMargin" id="aName" placeholder="Enter Analytical Name">
-
-	<h4 class="my-4">Select fields from drop down:</h4>
-	<div class="col-md-12 my-4">
-	Select method :
-		<select id="method" name="method" ng-model="selectedmethod" ng-change="initCalculate()" class="custom-select btn-info">
-			<option selected>Select field</option>
-			<option ng-repeat="k in methodArr" value="[[k]]">[[k]]</option>
-		</select>
-	</div>
-	<div class="col-md-12 my-4">
-	Select Group :
-		<select id="group" name="group_name" ng-model="selectedgroup" class="custom-select btn-info">
-			<option selected>Select group</option>
-			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-		</select>
-	</div>
-
-	<div class="col-md-12 my=4">
-	Select Data :
-		<select id="datacol" name="datacol_name" ng-model="selecteddatacol" class="custom-select btn-info">
-			<option selected>Select data</option>
-			<option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-		</select>
-	</div>
-	<button type="submit" class="btn btn-info" ng-click="calculateAnalytical()">Calculate</button>
-	<button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
-  </div> -->
   <div class="col-md-4">
 
     <div class="">
@@ -105,7 +74,7 @@
            <label class="category" for="visuaName">Name Hypothesis</label>
          </div>
          <div class="col-sm table table-striped my-4">
-           <input type="text" ng-model="vName" class="form-control form-control-0" id="visuaName" placeholder="Enter Analytical Name">
+           <input type="text" ng-model="hName" class="form-control form-control-0" id="hName" placeholder="Enter Test Name">
          </div>
        </div>
        </div>
@@ -121,33 +90,21 @@
                       <label class="category">Select test</label>
                     </div>
                     <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="initCalculate()" class="custom-select btn-info">
+                      <select id="hypotest" name="hypotest" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedtest" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                         <option>Select field</option>
                                <option ng-repeat="k in testArr" value="[[k]]">[[k]]</option>
                       </select>
                     </div>
                   </div>
                 </div>
-                <!-- <div ng-hide="ctrlChart" class=" container w-100">
-                 <div class="row ">
-                   <div class="col-sm-4  table table-striped my-4 ">
-                     <label class="category">Select Group</label>
-                   </div>
-                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                     <select id="group" name="group_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selectedgroup"  class="custom-select btn-info">
-                       <option selected>Select field</option>
-                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
-                     </select>
-                   </div>
-                 </div>
-               </div> -->
+
                <div ng-hide="ctrlChart" class=" container w-100">
                 <div class="row ">
                   <div class="col-sm-4  table table-striped my-4 ">
                     <label class="category">Select Data</label>
                   </div>
                   <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+                    <select id="datacol" name="datacol_name" class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" ng-change="calculateHypothesis()" ng-click="calculateHypothesis()" class="custom-select btn-info">
                       <option>Select field</option>
                       <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
                     </select>
@@ -160,7 +117,7 @@
                            <button type="submit" class="btn btn-info" ng-click="calculateHypothesis()">Calculate</button>
                        </div>
                        <div class="col-sm-6  table table-striped my-4 ">
-                           <button class="btn btn-primary" ng-click="paramterSave2()">Save</button>
+                           <button class="btn btn-primary" ng-click="parameterSave3()">Save</button>
                        </div>
                    </div>
                </div>
@@ -244,40 +201,70 @@
              <!-- </div> -->
   </div>
   <div class="col-md-8">
-          <div class="card" ng-show="selectedtest=='Augmented Dickey-Fuller Unit Root Test' && calculationDone">
 
-            <div class="card-body">
-              <h5 class="card-title text-center">Augmented Dickey-Fuller Unit Root Test</h5>
-              <div class="row ml-auto">
-              <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
-              </div>
-              <div class="row ml-auto">
-              <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
-              </div>
-              <div class="row ml-auto">
-              <p class="card-text"><h6>Result = [[calculatedSummary.stationary_result]]</h6></p>
-              </div>
-            </div>
+    <div class="col-md">
+      <div id="stationryResults"  style="background-color: #868e96;" ng-show="selectedtest=='Augmented Dickey-Fuller Unit Root Test' && calculationDone">
 
+        <label class="category p-2 mx-auto text-light">Augmented Dickey-Fuller Unit Root Test</label>
+          <table class="tablefill2" ng-show="selectedtest=='Augmented Dickey-Fuller Unit Root Test" style="height:auto;">
+              <thead>
+                  <tr class="thnew" >
+                      <th class=" text-left">Factor</th>
+                      <th class=" text-left">Value</th>
 
-          </div>
-          <div class="card" ng-show="selectedtest=='Kwiatkowski-Phillips-Schmidt-Shin' && calculationDone">
+                      <th class=" text-left">Factor</th>
+                      <th class=" text-left">Value</th>
+                  </tr>
+              </thead>
+              <tbody class="tdnew table-hover">
+                 <tr >
+                     <td class="text-left">P</td>
+                     <td>[[calculatedSummary.p]]</td>
 
-            <div class="card-body">
-              <h5 class="card-title text-center">Kwiatkowski-Phillips-Schmidt-Shin</h5>
-              <div class="row ml-auto">
-              <p class="card-text"><h6>Stat = [[calculatedSummary.stat]]</h6></p>
-              </div>
-              <div class="row ml-auto">
-              <p class="card-text"><h6>P = [[calculatedSummary.p]]</h6></p>
-              </div>
-              <div class="row ml-auto">
-              <p class="card-text"><h6>Result = [[calculatedSummary.stationary_result]]</h6></p>
-              </div>
-            </div>
+                     <td class="text-left">Result</td>
+                     <td style="border-right: 0px;">[[calculatedSummary.stationary_result]]</td>
+                 </tr>
+                 <tr>
+                     <td class="text-left">Stat</td>
+                     <td>[[calculatedSummary.stat]]</td>
 
+                 </tr>
 
-          </div>
+              </tbody>
+            </table>
+       </div>
+
+       <div id="stationryResults"  style="background-color: #868e96;" ng-show="selectedtest=='Kwiatkowski-Phillips-Schmidt-Shin' && calculationDone">
+
+         <label class="category p-2 mx-auto text-light">Kwiatkowski-Phillips-Schmidt-Shin' && calculationDone</label>
+           <table class="tablefill2" ng-show="selectedtest=='Kwiatkowski-Phillips-Schmidt-Shin' && calculationDone" style="height:auto;">
+               <thead>
+                   <tr class="thnew" >
+                       <th class=" text-left">Factor</th>
+                       <th class=" text-left">Value</th>
+
+                       <th class=" text-left">Factor</th>
+                       <th class=" text-left">Value</th>
+                   </tr>
+               </thead>
+               <tbody class="tdnew table-hover">
+                  <tr >
+                      <td class="text-left">P</td>
+                      <td>[[calculatedSummary.p]]</td>
+
+                      <td class="text-left">Result</td>
+                      <td style="border-right: 0px;">[[calculatedSummary.stationary_result]]</td>
+                  </tr>
+                  <tr>
+                      <td class="text-left">Stat</td>
+                      <td>[[calculatedSummary.stat]]</td>
+
+                  </tr>
+
+               </tbody>
+             </table>
+        </div>
+    </div>
 
 
 
@@ -298,7 +285,7 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          [[sName]]Analytical is saved successfully.
+          [[sName]]Stationary Test is saved successfully.
         </div>
 
         <!-- Modal footer -->

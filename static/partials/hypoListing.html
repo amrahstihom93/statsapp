@@ -1,0 +1,114 @@
+<div class="container">
+<div ng-hide="">
+<nav aria-label="breadcrumb" class="my-4">
+  <ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page">Hypothetical Test List</li>
+  </ol>
+</nav>
+
+<div class="row no-gutters"style="margin-top:30px">
+
+    <div class="col-md">
+      <table id="" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+        <thead>
+          <tr ng-hide="false" class="thnew ng-show">
+            <th style="text-align:center;">Hypothetical Test</th>
+            <th style="text-align:center;">Action</th>
+          </tr>
+        </thead>
+        <tbody class="pnew">
+          <tr ng-repeat="x in hypoListArr" ng-if="$even" class="tdnew">
+            <td class="ng-binding" style="width:70%">[[x.hypothetical_name]]</td>
+            <td style="display:flex;">
+              <a href="" style="margin-top:auto; width:100%" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewHypoResult(x)">View</a>
+              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a>
+              <a href="" style="margin-top:auto; width:100%" class="btn btnd" ng-click="delDataset(x.dataset_name)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md">
+      <table id="" class="tablefill3" style=" border-left:0.25px solid #c1c3d1; box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+        <thead>
+          <tr ng-hide="false" class="thnew ng-show">
+            <th style="text-align:center;">Hypothetical Test</th>
+            <th style="text-align:center;">Action</th>
+          </tr>
+        </thead>
+        <tbody class="pnew">
+          <tr ng-repeat="x in hypoListArr" ng-if="$odd" class="tdnew">
+            <td class="ng-binding" style="width:70%">[[x.hypothetical_name]]</td>
+            <td style="display:flex;">
+              <a href="" style="margin-top:auto; width:100%;" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewHypoResult(x)">View</a>
+              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a>
+              <a href="" style="margin-top:auto; width:100%;" class="btn btnd"  ng-click="delDataset(x.dataset_name)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-center" id="viewModalLabel">Uploaded Data</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" id="viewModalBody">
+      <div class="col-md">
+        <div class="col-md">
+          <div id="statisticalSummary" width="auto" height="300" style="background-color: #D3D3D3;">
+            <h2 ng-model="selTest"class="text-primary text-center display-4" style="padding: 30px;">[[selTest]]:
+            </h2>
+            <!--  <h3 class="font-weight-bold text-center text-primary" style="padding-bottom: 30px;">
+                [[selMethod]] : [[calSummary]]
+              </h3> -->
+              <table class="tablefill2"  style="height:auto;">
+                  <thead>
+                      <tr class="thnew" >
+                          <th class=" text-left">Factor</th>
+                          <th class=" text-left">Value</th>
+
+                          <th class=" text-left">Factor</th>
+                          <th class=" text-left">Value</th>
+                      </tr>
+                  </thead>
+                  <tbody class="tdnew table-hover">
+                     <tr >
+                         <td class="text-left">P</td>
+                         <td>[[calSummary.p]]</td>
+
+                         <td class="text-left">Result</td>
+                         <td style="border-right: 0px;">[[calSummary.gaussian_result]]</td>
+                     </tr>
+                     <tr>
+                         <td class="text-left">Stat</td>
+                         <td style="border-right: 0px;">[[calSummary.stat]]</td>
+                     </tr>
+
+                  </tbody>
+                </table>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+</div>
