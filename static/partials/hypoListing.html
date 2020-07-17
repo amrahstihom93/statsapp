@@ -2,7 +2,7 @@
 <div ng-hide="">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
-	<li class="breadcrumb-item" aria-current="page">Hypothetical Test List</li>
+	<li class="breadcrumb-item" aria-current="page">Hypothesis Test List</li>
   </ol>
 </nav>
 
@@ -12,7 +12,7 @@
       <table id="" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
         <thead>
           <tr ng-hide="false" class="thnew ng-show">
-            <th style="text-align:center;">Hypothetical Test</th>
+            <th style="text-align:center;">Hypothesis Test</th>
             <th style="text-align:center;">Action</th>
           </tr>
         </thead>
@@ -32,7 +32,7 @@
       <table id="" class="tablefill3" style=" border-left:0.25px solid #c1c3d1; box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
         <thead>
           <tr ng-hide="false" class="thnew ng-show">
-            <th style="text-align:center;">Hypothetical Test</th>
+            <th style="text-align:center;">Hypothesis Test</th>
             <th style="text-align:center;">Action</th>
           </tr>
         </thead>
@@ -54,7 +54,6 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title text-center" id="viewModalLabel">Uploaded Data</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -84,7 +83,7 @@
                          <td>[[calSummary.p]]</td>
 
                          <td class="text-left">Result</td>
-                         <td style="border-right: 0px;">[[calSummary.gaussian_result]]</td>
+                         <td style="border-right: 0px;">[[calSummary.gaussian_result]][[calSummary.relationship_result]][[calSummary.stationary_result]]</td>
                      </tr>
                      <tr>
                          <td class="text-left">Stat</td>

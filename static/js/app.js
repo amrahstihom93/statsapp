@@ -620,8 +620,11 @@
       console.log("in view hypoResult",typeof(hypothetical));
       console.log("selectedfield",hypothetical.hypothetical_method);
       $scope.calSummary = JSON.parse(hypothetical.hypothetical_calculated_value);
+      $scope.calResult = JSON.parse(hypothetical.hypothetical_calculated_value);
+      
       console.log("selectedmethod",$scope.selTest);
       console.log("json summary",$scope.calSummary);
+      console.log("json summary",typeof($scope.calSummary));
 
       let newSummary = {};
 
@@ -1832,8 +1835,43 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
         }
   });
   module.controller("stationarytestCtrl",function($scope,$http){
@@ -2085,8 +2123,43 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
         }
   });
   module.controller("nonparametricstatisticalCtrl",function($scope,$http){
@@ -2222,8 +2295,42 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
         }
   });
   module.controller("hypotheticalCtrl",function($scope,$http){
