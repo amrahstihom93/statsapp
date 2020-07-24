@@ -621,7 +621,7 @@
       console.log("selectedfield",hypothetical.hypothetical_method);
       $scope.calSummary = JSON.parse(hypothetical.hypothetical_calculated_value);
       $scope.calResult = JSON.parse(hypothetical.hypothetical_calculated_value);
-      
+
       console.log("selectedmethod",$scope.selTest);
       console.log("json summary",$scope.calSummary);
       console.log("json summary",typeof($scope.calSummary));
@@ -953,20 +953,20 @@
               //First function handles success
               $scope.mlearnArr = response.data;
               var value1;
-  			console.log("SCOPE.DATSETARR", $scope.mlearnArr);
-  			$('select[name="dataset"]').change(function(){
-  				var e1 = document.getElementById("dataset");
-  				value1 = e1.options[e1.selectedIndex].value;
+  			      console.log("SCOPE.DATSETARR", $scope.mlearnArr);
+  			         $('select[name="dataset"]').change(function(){
+  				             var e1 = document.getElementById("dataset");
+  				                 value1 = e1.options[e1.selectedIndex].value;
 
-                  let x;
-                  let dashall = _.findIndex(response.data, function(o) { return o.dataset_name === value1; });
+                           let x;
+                           let dashall = _.findIndex(response.data, function(o) { return o.dataset_name === value1; });
 
-                  console.log("DATASETINDEX", dashall);
-                  dset = response.data[dashall];
+                           console.log("DATASETINDEX", dashall);
+                           dset = response.data[dashall];
 
 
-                  console.log("selected dataset",dset);
-  			});
+                           console.log("selected dataset",dset);
+  			                    });
               $('select[name="algo"]').change(function(){
                   var e2 = document.getElementById("algo");
   				value2 = e2.options[e2.selectedIndex].value;
@@ -1469,6 +1469,7 @@
                           console.log("insidecalcregression");
                           var t_size = document.getElementById("training_size").value;
                           console.log("DT====>",dset);
+                          console.log("wholedata",data)
                           $scope.calculatedscore =  data.summary;
                           console.log("calculatedscore",$scope.calculatedscore);
                           var training_size = t_size;

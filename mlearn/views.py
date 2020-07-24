@@ -20,6 +20,7 @@ import scipy.stats.stats as stats
 from scipy.stats import kurtosis
 from scipy import stats
 from sklearn import linear_model
+from json import JSONEncoder
 
 import statsmodels.api as sm
 import os
@@ -160,6 +161,29 @@ def calcsregression(request):
 		print("tvalue",tvalue)
 		print("fvalue",fvalue)
 
+		xtrain_pred=regressor.predict(x_train)
+		print(x_train)
+		print(xtrain_pred)
+		print(list(x_train))
+		print(type(xtrain_pred))
+		x_train_conv=list(xtrain_pred)
+		x_train2 = list(x_train)
+		print(x_train_conv)
+
+		class NumpyArrayEncoder(JSONEncoder):
+			def default(self, obj):
+				if isinstance(obj, np.ndarray):
+					return obj.tolist()
+				return JSONEncoder.default(self, obj)
+		# Serialization
+		numpyxtrain = {"xtrain_array": xtrain_pred}
+		numpyData = {"conv_pred_array": x_train2}
+		encodedNumpyData = json.dumps(numpyData, cls=NumpyArrayEncoder)  # use dump() to write array into file
+		encodedpredData = json.dumps(numpyxtrain, cls=NumpyArrayEncoder)  # use dump() to write array into file
+		print("Printing JSON serialized NumPy array")
+		print(encodedNumpyData)
+		print(encodedpredData)
+
 		responseData = {
            	'summary':result,
         }
@@ -173,6 +197,8 @@ def calcsregression(request):
 			"fvalue" : "",
 			"pvalue" : "",
 			"tvalue" : "",
+			"xtrain" : "",
+			"xtrain_pred" : "",
 		}
 
 		describeDict['result_score'] = result_score
@@ -182,6 +208,8 @@ def calcsregression(request):
 		describeDict['fvalue'] = fvalue
 		describeDict['pvalue'] = pvalue
 		describeDict['tvalue'] = tvalue
+		describeDict['xtrain'] = encodedNumpyData
+		describeDict['xtrain_pred'] = encodedpredData
 		responseData['summary']=  describeDict
 		plt.scatter(x_test, y_test, color = 'red')
 
