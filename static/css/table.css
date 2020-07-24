@@ -1,10 +1,9 @@
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:600,700';
-
 * {font-family: 'Open Sans', sans-serif;}
 
 .rwd-table {
   margin: auto;
-  min-width: 350px;
+  min-width: 750px;
   max-width: 100%;
   border-collapse: collapse;
 }
@@ -12,7 +11,7 @@
 .rwd-table tr:first-child {
   border-top: none;
   background: #040b1a;
-  color: black;
+  color: #fff;
 }
 
 .rwd-table tr {
@@ -56,7 +55,7 @@
 
 .rwd-table {
   color: #333;
-  border-radius: 0em;
+  border-radius: .4em;
   overflow: hidden;
 }
 
@@ -95,7 +94,7 @@
   }
   .rwd-table th,
   .rwd-table td {
-    padding: 0.5em !important;
+    padding: 1em !important;
   }
 }
 
@@ -151,21 +150,6 @@ h3:after {
   100%  { transform: translateX(0)}
 }
 
-
-
-
-
-
-.tdchoose{
-  background:#FFFFFF;
-  padding:0.5em !important;
-  text-align:left;
-  vertical-align:middle;
-  font-weight:300;
-  font-size:15px;
-  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #C1C3D1;
-}
 /*
     Don't look at this last part. It's unnecessary. I was just playing with pixel gradients... Don't judge.
 */
@@ -186,3 +170,123 @@ h3:after {
     background-image: linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
   }
 }*/
+
+
+@import "compass/css3";
+
+// Default options for table style
+$table-breakpoint: 480px;
+$table-background-color: #FFF;
+$table-text-color: #024457;
+$table-outer-border: 1px solid #167F92;
+$table-cell-border: 1px solid #D9E4E6;
+
+// Extra options for table style (parse these arguments when including your mixin)
+$table-border-radius: 10px;
+$table-highlight-color: #EAF3F3;
+$table-header-background-color: #167F92;
+$table-header-text-color: #FFF;
+$table-header-border: 1px solid #FFF;
+
+// The Responstable mixin
+
+@mixin responstable(
+  $breakpoint: $table-breakpoint,
+  $background-color: $table-background-color,
+  $text-color: $table-text-color,
+  $outer-border: $table-outer-border,
+  $cell-border: $table-cell-border,
+  $border-radius: none,
+  $highlight-color: none,
+  $header-background-color: $table-background-color,
+  $header-text-color: $table-text-color,
+  $header-border: $table-cell-border) {
+
+  .responstable {
+    margin: 1em 0;
+    width: 100%;
+    overflow: hidden;
+    background: $background-color;
+    color: $text-color;
+    border-radius: $border-radius;
+    border: $outer-border;
+
+    tr {
+      border: $cell-border;
+      &:nth-child(odd) { // highlight the odd rows with a color
+        background-color: $highlight-color;
+      }
+    }
+
+    th {
+      display: none; // hide all the table header for mobile
+      border: $header-border;
+      background-color: $header-background-color;
+      color: $header-text-color;
+      padding: 1em;
+      &:first-child { // show the first table header for mobile
+        display: table-cell;
+        text-align: center;
+      }
+      &:nth-child(2) { // show the second table header but replace the content with the data-th from the markup for mobile
+        display: table-cell;
+        span {display:none;}
+        &:after {content:attr(data-th);}
+      }
+      @media (min-width: $breakpoint) {
+        &:nth-child(2) { // hide the data-th and show the normal header for tablet and desktop
+          span {display: block;}
+          &:after {display: none;}
+        }
+      }
+    }
+
+    td {
+      display: block; // display the table data as one block for mobile
+      word-wrap: break-word;
+      max-width: 7em;
+      &:first-child {
+        display: table-cell; // display the first one as a table cell (radio button) for mobile
+        text-align: center;
+        border-right: $cell-border;
+      }
+      @media (min-width: $breakpoint) {
+        border: $cell-border;
+      }
+    }
+
+    th, td {
+      text-align: left;
+      margin: .5em 1em;
+      @media (min-width: $breakpoint) {
+        display: table-cell; // show the table as a normal table for tablet and desktop
+        padding: 1em;
+      }
+    }
+  }
+}
+
+// Include the mixin (with extra options as overrides)
+
+@include responstable(
+  $border-radius: $table-border-radius,
+  $highlight-color: $table-highlight-color,
+  $header-background-color: $table-header-background-color,
+  $header-text-color: $table-header-text-color,
+  $header-border: $table-header-border);
+
+// General styles
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: #024457;
+  background: #f2f2f2;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: #024457;
+  span {color: #167F92;}
+}
