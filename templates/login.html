@@ -30,7 +30,7 @@
 
 {% block content %}
 <div class="col-md-4 ml-auto mr-auto">
-        <div class="card card-login card-plain">
+        <div class="card card-login card-plain" style="background-color: #f8f9fa00; color: #f9f5f5">
           <form class="form" method="post" novalidate>
 
             <div class="card-header text-center">
@@ -59,21 +59,29 @@
             </div>-->
             {% include 'includes/form.html'%}
 
-            <div class="card-footer text-center">
-              <button type="submit" class="btn btn-info btn-round btn-lg btn-block">Login</button>
+            <div class="lgn-btn-new card-footer text-center ">
+              <button type="submit" class="btn btn-info btn-square btn-lg btn-block ">Login</button>
               <!--<a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block" type="submit">Get Started</a>-->
-              <div class="pull-left">
-                <h6>
-                  <a href="{% url 'signup' %}" class="link">Create Account</a>
-                </h6>
-              </div>
-              <div class="pull-right">
-                <h6>
-                  <a href="#pablo" class="link">Need Help?</a>
-                </h6>
+              <div class="row justify-content-center" >
+                  <a href="{% url 'signup' %}" class="nav-link">Create Account</a>
               </div>
           </form>
           </div>
         </div>
 
+{% endblock %}
+{% block additional_script %}
+    <script>
+        console.log(" hey from additional script");
+        let username= document.getElementById('id_username');
+        let password= document.getElementById('id_password');
+        username.style.borderColor ="grey";
+        password.style.borderColor ="grey";
+        username.style.color ="grey";
+        password.style.color ="grey";
+        username.style.backgroundColor ="transparent";
+        password.style.backgroundColor ="transparent";
+
+
+    </script>
 {% endblock %}
