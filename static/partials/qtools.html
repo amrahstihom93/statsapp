@@ -1,6 +1,36 @@
+<div class="container">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item" aria-current="page">Failure Mode & Effects Analysis</li>
+			</ol>
+		</nav>
+<div class="md-12">
+<table class="tablefill3" style="margin-top: 30px">
+        	  <thead>
+        		<tr class="thnew">
+        		  <th style="text-align:center;">Select Process</th>
+        		  <th style="text-align:center;">Name FMEA</th>
+        		  <th style="text-align:center;width: 20%;">Add New</th>
+        		</tr>
+        	  </thead>
+        	  <tbody>
+        		<tr>
+        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px; width: 350px">
+                      <option ng-repeat="x in processList track by $index" value="[[x.process_id]]">
+                          [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
+                      </option>
+                  </select> </td>
+                  <td>
+                      <input type="text" ng-model="fmeaName" class="form-control form-control-0" id="fmeaName" placeholder="Enter FMEA Name" style="width: 300px;height: 35px;">
+        		  </td>
+        		  <td><button type="button" id="add-new" class="btn btn-info add-new" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Add New</button>
+          </tr>
+        	  </tbody>
+        	</table>
+</div>
 
 <div id="fmea" class="table-wrapper rat">
-            <div class="table-title rat">
+            <!--<div class="table-title rat">
                 <div class="row">
                     <div class="col-sm-8"><h2>Failure Mode & Effects Analysis</h2></div>
                     <div class="col-sm-4">
@@ -11,7 +41,7 @@
                             <h5 class="col-sm-8">Select Process:</h5>
                             <select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select ">
                                 <!--	<option value="PIDroot00000000000000">root</option>-->
-                                <option ng-repeat="x in processList track by $index" value="[[x.process_id]]">
+                            <!--   <option ng-repeat="x in processList track by $index" value="[[x.process_id]]">
                                     [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                                 </option>
                             </select>
@@ -26,17 +56,18 @@
                         </div>
                     </div>
                 </div>
+            </div>-->
             </div>
-            <hr>
+
             <div class="qtfmea">
-            <table id="qtfmea"class="table table-bordered">
+            <table id="qtfmea"class="tablefill2">
                 <thead>
-                    <tr>
+                    <tr class="thnew">
                         <th>Process Function (Step)</th>
-						<th>Potential Failure Modes "Errors"</th>
-						<th>Potential Failure Effects "Deffects" "Ys"</th>
-						<th>SEV</th>
-						<th>Potential Causes of Failure "Inputs" "Xs"</th>
+                        <th>Potential Failure Modes "Errors"</th>
+                        <th>Potential Failure Effects "Deffects" "Ys"</th>
+                        <th>SEV</th>
+                        <th>Potential Causes of Failure "Inputs" "Xs"</th>
                         <th>OCC</th>
                         <th>Current Process Control</th>
                         <th>DET</th>
@@ -50,7 +81,7 @@
                         <th>New RPN</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="tdnew table-hover">
                     <tr>
                         <td></td>
                         <td></td>
@@ -61,26 +92,24 @@
                         <td></td>
                         <td></td>
                         <td></td>
-						            <td></td>
-						            <td></td>
+			            <td></td>
+			            <td></td>
                         <td></td>
-						            <td></td>
+			            <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+			                <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
-
-            </div>
+        </div>
             <div class="col-sm-4">
-              <button type="button" id="testFmea" class="btn btn-info " ng-click="testFmea()"> Save</button>
+              <button type="button"z` id="testFmea" class="btn btn-info " ng-click="testFmea()"> Save</button>
                 <!-- <button type="button" id="ListFmea" class="btn btn-info " ng-click="ListFmea()"> List</button> -->
             </div>
         </div>

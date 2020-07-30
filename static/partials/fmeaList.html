@@ -2,25 +2,23 @@
 <div ng-hide="">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
-	<li class="breadcrumb-item" aria-current="page">FMEA List</li>
+	<li class="breadcrumb-item" aria-current="page">Statistical List</li>
   </ol>
 </nav>
-
-  <table id="fmeaList" class="table table-bordered table-striped my-4">
+<div class="row no-gutters" style="margin-top:30px">
+<div class="col-md">
+  <table id="" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
     <thead>
-      <tr ng-hide="true">
-        <th>Sheet Name</th>
-		<!--<th>Created By</th>-->
-        <th>View</th>
-		<th>Edit</th>
-		<th>Delete</th>
-      </tr>
+        <tr ng-hide="false" class="thnew ng-show">
+          <th style="text-align:center;">Sheet Name</th>
+          <th style="text-align:center;">Action</th>
+        </tr>
     </thead>
-    <tbody>
-      <tr ng-repeat="x in fmeaListArr">
-        <td>[[x.fmea_name]]</td>
-		<!--<td>[[x.user_id]]</td>-->
-        <td><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewStatistical(x)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+    <tbody class="pnew">
+      <tr ng-repeat="x in fmeaListArr" ng-if="$even" class="tdnew">
+        <td class="ng-binding" style="width:70%">[[x.fmea_name]]</td>
+        <td style="display:flex;">
+            <a href="" style="margin-top:auto; width:100%" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewStatistical(x)">View</a>
 
 
 <!-- modal for view-->
@@ -82,16 +80,93 @@
 
 
 
-		<td><a href="" class="btn btn-info" data-toggle="modal" data-target="#editModal" ng-click="editStatistical(x)"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-		<td><a href="" class="btn btn-danger" ng-click="delStatistical(x.id)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+		<a href="" style="margin-top:auto; width:50%;" class="btn btn-default" data-toggle="modal" data-target="#editModal" ng-click="editStatistical(x)">Edit</a>
+		<a href="" style="margin-top:auto; width:100%" class="btn btnd" ng-click="delStatistical(x.id)">Delete</a>
+    </td>
       </tr>
     </tbody>
   </table>
-
 </div>
+<div class="col-md">
+    <table id="" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+      <thead>
+          <tr ng-hide="false" class="thnew ng-show">
+            <th style="text-align:center;">Sheet Name</th>
+            <th style="text-align:center;">Action</th>
+          </tr>
+      </thead>
+      <tbody class="pnew">
+        <tr ng-repeat="x in fmeaListArr" ng-if="$odd" class="tdnew">
+          <td class="ng-binding" style="width:70%">[[x.fmea_name]]</td>
+          <td style="display:flex;">
+          <a href="" style="margin-top:auto; width:100%" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewStatistical(x)">View</a>
+
+
+  <!-- modal for view-->
+
+  <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="viewModalLabel">Statistical Summary</h5>
 
 
 
+             <div class="btn-group">
+   <!--  <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+         Export
+      </button>
+      <div class="dropdown-menu">
+        <button class="dropdown-item" id="create_pdf">Export as PDF</button>
+        <button class="dropdown-item" ng-click="createIm()">Export as Image</button>
+      </div>
+    </div> -->
+  </div>
+        </div>
+        <div class="modal-body specific" id="viewModalBody">
+  	    <div class="col-md-8">
+    <div class="my-4">
+          <div id="statisticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
+            <h2 class="text-primary text-center display-4" style="padding: 30px;">Statistical Summary:
+            </h2>
+           <!--  <h3 class="font-weight-bold text-center text-primary" style="padding-bottom: 30px;">
+                [[selMethod]] : [[calSummary]]
+            </h3> -->
+            <ul>
+              <li>Count :[[calSummary.count]]</li>
+              <li>Mean :[[calSummary.mean]]</li>
+              <li>Standard Deviation :[[calSummary.std]]</li>
+              <li>Median : [[calSummary.median]]</li>
+              <li>Skewness : [[calSummary.skewness]]</li>
+              <li>Kurtosis :[[calSummary.kurtosis]]</li>
+              <li>Minimum :[[calSummary.min]]</li>
+              <li>25% :[[calSummary.25]]</li>
+              <li>50% :[[calSummary.50]]</li>
+              <li>75% :[[calSummary.75]]</li>
+              <li>Maximum :[[calSummary.max]]</li>
+            </ul>
+          </div>
+
+    </div>
+    </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
 
 
+
+    <a href="" style="margin-top:auto; width:50%;" class="btn btn-default" data-toggle="modal" data-target="#editModal" ng-click="editStatistical(x)">Edit</a>
+    <a href="" style="margin-top:auto; width:100%" class="btn btnd" ng-click="delStatistical(x.id)">Delete</a>
+    </td>
+    </tr>
+      </tbody>
+    </table>
+</div>
+</div>
 </div>
