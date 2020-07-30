@@ -1,6 +1,41 @@
-{% load staticfiles %}
+<div class="container">
+		<nav aria-label="breadcrumb" class="my-4">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item" aria-current="page">Opportunity Tracker</li>
+			</ol>
+		</nav>
+<div class="md-12">
+<table class="tablefill3" style="margin-top: 30px">
+        	  <thead>
+        		<tr class="thnew">
+        		  <th style="text-align:center;">Select Process</th>
+        		  <th style="text-align:center;">Save</th>
+        		  <th style="text-align:center;width: 20%;">Add New</th>
+        		</tr>
+        	  </thead>
+        	  <tbody>
+        		<tr>
+        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px;">
+                      <option ng-repeat="x in processList" value="[[x.process_id]]">
+                          [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
+                      </option>
+                  </select> </td>
+
+        		  <td>
+                      <button type="button" id="save" class="btn btn-info save" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Save</button>
+                  </td>
+                  <td>
+                      <button type="button" id="add-new" class="btn btn-info add-new" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Add New</button>
+                  </td>
+                  </tr>
+        	  </tbody>
+        	</table>
+</div>
+
+
+
 <div id="fmea" class="table-wrapper rat">
-            <div class="table-title rat">
+            <!--<div class="table-title rat">
                 <div class="row">
                     <div class="col-sm-8"><h2>Opportunity Tracker</h2></div>
                     <div class="col-sm-4">
@@ -12,14 +47,14 @@
                             <h5 class="col-sm-8">Select Process:</h5>
                             <select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select ">
                                 <!--	<option value="PIDroot00000000000000">root</option>-->
-                                <option ng-repeat="x in processList" value="[[x.process_id]]">
+                                <!--<option ng-repeat="x in processList" value="[[x.process_id]]">
                                     [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                                 </option>
                             </select>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <hr>
             <div class="qtfmea">
             <table class="table table-bordered" id="t1">
@@ -55,10 +90,10 @@
                         <td></td>
                         <td></td>
                         <td></td>
-						            <td></td>
-						            <td></td>
+			            <td></td>
+			            <td></td>
                         <td></td>
-						            <td></td>
+			            <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
