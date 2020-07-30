@@ -3,12 +3,54 @@
 <div ng-hide="(viewClicked||editClicked)">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
-	<li class="breadcrumb-item" aria-current="page">Dataset List</li>
+	<li class="breadcrumb-item" aria-current="page">Saved Dataset List</li>
   </ol>
 </nav>
-<div class="row no-gutters">
+<div class="row no-gutters"style="margin-top:30px">
+    <div class="col-md">
+      <table id="" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+        <thead>
+          <tr ng-hide="false" class="thnew ng-show">
+            <th style="text-align:center;">Name</th>
+            <th style="text-align:center;">Action</th>
+          </tr>
+        </thead>
+        <tbody class="pnew">
+          <tr ng-repeat="x in datasetArr" ng-if="$even" class="tdnew">
+            <td class="ng-binding" style="width:70%">[[x.dataset_name]]</td>
+            <td style="display:flex;">
+              <a href="" style="margin-top:auto; width:100%" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a>
+              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a>
+              <a href="" style="margin-top:auto; width:100%" class="btn btn-danger" ng-click="delDataset(x.dataset_name)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md">
+      <table id="" class="tablefill3" style=" border-left:0.25px solid #c1c3d1; box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
+        <thead>
+          <tr ng-hide="false" class="thnew ng-show">
+            <th style="text-align:center;">Name</th>
+            <th style="text-align:center;">Action</th>
+          </tr>
+        </thead>
+        <tbody class="pnew">
+          <tr ng-repeat="x in datasetArr" ng-if="$odd" class="tdnew">
+            <td class="ng-binding" style="width:70%">[[x.dataset_name]]</td>
+            <td style="display:flex;">
+              <a href="" style="margin-top:auto; width:100%;" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a>
+              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a>
+              <a href="" style="margin-top:auto; width:100%;" class="btn btn-danger"  ng-click="delDataset(x.dataset_name)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<!-- <div class="row no-gutters">
 <div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
+  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid #9ea7af">
     <thead>
       <tr ng-hide="true" class="ng-hide">
         <th>Dataset</th>
@@ -18,17 +60,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr">
+      <tr ng-repeat="x in datasetArr" ng-if="$even" style="color:black">
         <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
-		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-        <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-	    	<td class="text-center"><a href="" class="btn btn-danger" ng-click="delDataset(x.dataset_name)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+		    <td class="text-center"><a href="" class="btn  btnv" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a></td>
+        <td class="text-center"><a href="" class="btn btne"  ng-disabled="true">Edit</a></td>
+	    	<td class="text-center"><a href="" class="btn btnd" ng-click="delDataset(x.dataset_name)">Delete</a></td>
       </tr>
     </tbody>
     </table>
 </div>
 <div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid black">
+  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid #9ea7af">
     <thead>
       <tr ng-hide="true" class="ng-hide">
         <th>Dataset</th>
@@ -38,7 +80,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="x in datasetArr">
+      <tr ng-repeat="x in datasetArr" ng-if="$odd" style="color:black">
         <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
 		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
         <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
@@ -47,7 +89,7 @@
     </tbody>
     </table>
   </div>
-</div>
+</div> -->
 
   <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
