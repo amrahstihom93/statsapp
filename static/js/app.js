@@ -1349,6 +1349,7 @@
 
           }
           var indpvar = [];
+          let testxData;
           $scope.chooseVariables = function(){
 
               var algor = document.getElementById("algo").value;
@@ -1472,6 +1473,32 @@
                           console.log("wholedata",data)
                           $scope.calculatedscore =  data.summary;
                           console.log("calculatedscore",$scope.calculatedscore);
+
+                          xtraindat=$scope.calculatedscore.xtrain;
+                          xtraindat_pred = $scope.calculatedscore.xtrain_pred;
+                          console.log(xtraindat.slice(xtraindat.indexOf('['), xtraindat.lastIndexOf(']') + 1));
+                          xtraindat = xtraindat.slice(xtraindat.indexOf('['), xtraindat.lastIndexOf(']') + 1);
+                          xtraindat = xtraindat.replace(/[{()}]/g, '');
+                          xtraindat = xtraindat.replace(/[\[\]']/g,'');
+
+                          xtraindat_pred = xtraindat_pred.slice(xtraindat_pred.indexOf('['), xtraindat_pred.lastIndexOf(']') + 1);
+                          xtraindat_pred = xtraindat_pred.replace(/[{()}]/g, '');
+                          xtraindat_pred = xtraindat_pred.replace(/[\[\]']/g,'');
+
+                          let xtrainar = [];
+                          xtrainar = xtraindat;
+                          xtrainar = xtrainar.split(',').map(Number);
+
+                          xtrainar_pred = xtraindat_pred;
+                          xtrainar_pred = xtrainar_pred.split(',').map(Number);
+                          // xtraindat = xtraindat.replace(/"/g, '');
+                          console.log("xtraindata==>",xtraindat);
+                          console.log("formatted xtrain array==>",xtrainar);
+
+                          console.log("xtraindata==>",xtraindat_pred);
+                          console.log("formatted predicted xtrain array==>",xtrainar_pred);
+
+                          
                           var training_size = t_size;
                           $scope.avengers = false;
 
