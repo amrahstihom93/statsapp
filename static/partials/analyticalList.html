@@ -27,7 +27,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center" id="viewModalLabel">Analytical Summary</h5>
+        <!--<h5 class="modal-title text-center" id="viewModalLabel">Analytical Summary</h5>-->
 
 
 
@@ -43,22 +43,50 @@
   </div> -->
 			</div>
       </div>
-      <div class="modal-body specific" id="viewModalBody">
-	    <div class="col-md-8">
-			<div class="my-4">
+
+     <div class="modal-body specific" id="viewModalBody">
+	    <div class="col-md">
+			<div class="col-md">
 				<div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
-					<h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+					<h2 class="text-center display-4" style="padding: 30px; color: #192d42">Analytical Summary
 					</h2>
 					<!--  <h3 class="font-weight-bold text-center text-primary" style="padding-bottom: 30px;">
 						[[selMethod]] : [[calSummary]]
 					</h3> -->
-					<ul>
+					<!--<ul>
 						<li>F :[[calSummary.f]]</li>
 						<li>P :[[calSummary.p]]</li>
 						<li>ETA_square :[[calSummary.eta_square]]</li>
 						<li>Omega_square : [[calSummary.omega_square]]</li>
 
-					</ul>
+					</ul>-->
+                    <table class="tablefill2"  style="height:auto;">
+                        <thead>
+                            <tr class="thnew" >
+                                <th class=" text-left">Factor</th>
+                                <th class=" text-left">Value</th>
+
+                                <th class=" text-left">Factor</th>
+                                <th class=" text-left">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tdnew table-hover">
+                           <tr ng-if="$even">
+                               <td class="text-left">F</td>
+                               <td>[[calSummary.f]]</td>
+
+                               <td class="text-left">P</td>
+                               <td style="border-right: 0px;">[[calSummary.p]]</td>
+                           </tr>
+                           <tr>
+                               <td class="text-left">ETA_square</td>
+                               <td style="border-right: 0px;">[[calSummary.eta_square]]</td>
+
+                               <td class="text-left">Omega_square</td>
+                               <td style="border-right: 0px;">[[calSummary.omega_square]]</td>
+                           </tr>
+                       </tbody>
+                      </table>
 				</div>
 
 			</div>
@@ -103,7 +131,7 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title text-center" id="viewModalLabel">Analytical Summary</h5>
+     <!-- <h5 class="modal-title text-center" id="viewModalLabel">Analytical Summary</h5>-->
 
 
 
@@ -119,22 +147,50 @@
 </div> -->
     </div>
     </div>
+
     <div class="modal-body specific" id="viewModalBody">
-    <div class="col-md-8">
-    <div class="my-4">
+    <div class="col-md">
+    <div class="col-md">
       <div id="analyticalSummary" width="400" height="300" style="background-color: #D3D3D3;">
-        <h2 class="text-primary text-center display-4" style="padding: 30px;">Analytical Summary:
+        <h2 class="text-center display-4" style="padding: 30px; color: #192d42">Analytical Summary
         </h2>
         <!--  <h3 class="font-weight-bold text-center text-primary" style="padding-bottom: 30px;">
           [[selMethod]] : [[calSummary]]
         </h3> -->
-        <ul>
+        <!--<ul>
           <li>F :[[calSummary.f]]</li>
           <li>P :[[calSummary.p]]</li>
           <li>ETA_square :[[calSummary.eta_square]]</li>
           <li>Omega_square : [[calSummary.omega_square]]</li>
 
-        </ul>
+        </ul>-->
+        <table class="tablefill2"  style="height:auto;">
+            <thead>
+                <tr class="thnew" >
+                    <th class=" text-left">Factor</th>
+                    <th class=" text-left">Value</th>
+
+                    <th class=" text-left">Factor</th>
+                    <th class=" text-left">Value</th>
+                </tr>
+            </thead>
+            <tbody class="tdnew table-hover">
+               <tr ng-if="$even">
+                   <td class="text-left">F</td>
+                   <td>[[calSummary.f]]</td>
+
+                   <td class="text-left">P</td>
+                   <td style="border-right: 0px;">[[calSummary.p]]</td>
+               </tr>
+               <tr>
+                   <td class="text-left">ETA_square</td>
+                   <td style="border-right: 0px;">[[calSummary.eta_square]]</td>
+
+                   <td class="text-left">Omega_square</td>
+                   <td style="border-right: 0px;">[[calSummary.omega_square]]</td>
+               </tr>
+           </tbody>
+          </table>
       </div>
 
     </div>
