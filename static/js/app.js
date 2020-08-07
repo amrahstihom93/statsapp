@@ -8097,10 +8097,10 @@
           let rowWiseData = stringData.split("\n");
           let h = rowWiseData[0].split(",");
 
-          let table = "<table class='table table-bordered table-striped my-4'>";
+          let table = "<table class='tablefill3' style='box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);'>";
           table += "<tr>";
           for (let k = 0; k < h.length; k++) {
-              table += "<td class='head-color'>";
+              table += "<td style='background-color: #151d4d; color: #E8E9F0; text-align:center'>";
               table += h[k];
               table += "</td>";
           }
@@ -8111,14 +8111,14 @@
               let rowDt = rowWiseData[i].split(",");
               table += "<tr>";
               for (let q = 0; q < rowDt.length; q++) {
-                  table += "<td>";
+                  table += "<td style='text-align:center'>";
                   table += rowDt[q];
                   table += "</td>";
               }
               table += "</tr>";
           }
           table += "</table>";
-          let modalLabel = 'Dataset :' + dname;
+          let modalLabel = 'Dataset : ' + dname;
           $('#viewModalLabel').html(modalLabel);
           $('#viewModalBody').html(table);
       }
@@ -11566,6 +11566,25 @@
               });
           }
 
+          $scope.delProcess = function (processName) {
+              let url = '/delProcess/' + processName + '/';
+              $http.delete(url)
+                  .success(function (data, status, headers) {
+                      console.log("in delete process http", data);
+                      if (data === 'delete successful') {
+                          location.reload();
+                      }
+                      else {
+                          alert("Process is not deleted successfully");
+                      }
+
+                  })
+                  .error(function (data, status, header, config) {
+                      console.log("something went wrong");
+                  });
+
+          }
+          $scope.test ="This is working processList";
 
       }
   });
@@ -11704,7 +11723,7 @@
           var head = data[0].split(",");
           headerArr = data[0].split(",");
           columnCount = head.length;
-          var table = "<table class='table my-4'>";
+          var table = "<table class='tabfill3'>";
           console.log("column count", columnCount);
           console.log("sdafad", head);
 
@@ -11743,7 +11762,7 @@
           console.log("this is types array", dataTypeArray);
           //	dataTypeTable(dataTypeArray);
 
-          let table = "<table class='table my-4'>";
+          let table = "<table class='tabfill3'>";
 
           table += "<tr>";
           for (let k = 0; k < dataTypeArray.length; k++) {
@@ -12170,7 +12189,7 @@
           var head = data[0].split(",");
           headerArr = data[0].split(",");
           columnCount = head.length;
-          var table = "<table class='table my-4'>";
+          var table = "<table class='tabfill3'>";
           console.log("column count", columnCount);
           console.log("sdafad", head);
 
@@ -12209,7 +12228,7 @@
           console.log("this is types array", dataTypeArray);
           //	dataTypeTable(dataTypeArray);
 
-          let table = "<table class='table my-4'>";
+          let table = "<table class='tabfill3'>";
 
           table += "<tr>";
           for (let k = 0; k < dataTypeArray.length; k++) {
