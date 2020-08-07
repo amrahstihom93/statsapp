@@ -53,8 +53,29 @@
           }).when('/analyticalList', {
               templateUrl: static_url + 'partials/analyticalList.html',
               controller: 'analyticalListCtrl'
+          }).when('/hypoList', {
+              templateUrl: static_url + 'partials/hypoListing.html',
+              controller: 'hypotheticalListCtrl'
+          }).when('/normalityTest', {
+              templateUrl: static_url + 'partials/normalityTest.html',
+              controller: 'normalitytestCtrl'
+          }).when('/correlationTest', {
+              templateUrl: static_url + 'partials/correlationTest.html',
+              controller: 'correlationtestCtrl'
+          }).when('/stationaryTest', {
+              templateUrl: static_url + 'partials/stationaryTest.html',
+              controller: 'stationarytestCtrl'
+          }).when('/parametricstatisticalTest', {
+              templateUrl: static_url + 'partials/parametricStatisticalTests.html',
+              controller: 'parametricstatisticalCtrl'
+          }).when('/nonparametricstatisticalTest', {
+              templateUrl: static_url + 'partials/non-parametricStatisticalTests.html',
+              controller: 'nonparametricstatisticalCtrl'
           }).when('/mlearn', {
               templateUrl: static_url + 'partials/mlearn.html',
+              controller: 'mlearnCtrl'
+          }).when('/regression', {
+              templateUrl: static_url + 'partials/regression.html',
               controller: 'mlearnCtrl'
           }).when('/mdep', {
               templateUrl: static_url + 'partials/mdep.html',
@@ -73,6 +94,21 @@
           }).when('/opptracker',{
               templateUrl: static_url + 'partials/opptrack.html',
               controller: 'opptracker'
+          }).when('/analyticsSubmenu',{
+              templateUrl: static_url + 'partials/analyticsSubmenu.html'
+
+          }).when('/hypotestingSubmenu',{
+              templateUrl: static_url + 'partials/hypotestingSubmenu.html'
+
+          }).when('/machineLearning',{
+              templateUrl: static_url + 'partials/machineLearningSubmenu.html'
+
+          }).when('/statisticsSubmenu',{
+              templateUrl: static_url + 'partials/statisticsSubmenu.html'
+
+          }).when('/simulationSubmenu',{
+              templateUrl: static_url + 'partials/simulationSubmenu.html'
+
           });
       }]);
 
@@ -559,6 +595,38 @@
       });
   });
 
+  //hypotheticalListCtrl
+  module.controller("hypotheticalListCtrl", function($scope,$http){
+    console.log("inside List Hypo")
+    $scope.hypoListArr = [];
+    $scope.hypoName='';
+    let url ='/hypoList/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            console.log("get response", response);
+            $scope.hypoListArr = response.data;
+
+
+            //  $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+    $scope.viewHypoResult = function(hypothetical){
+
+      $scope.selTest = hypothetical.hypothetical_method;
+
+      console.log("in view hypoResult",typeof(hypothetical));
+      console.log("selectedfield",hypothetical.hypothetical_method);
+      $scope.calSummary = JSON.parse(hypothetical.hypothetical_calculated_value);
+      console.log("selectedmethod",$scope.selTest);
+      console.log("json summary",$scope.calSummary);
+
+      let newSummary = {};
+
+    }
+  });
   //AnalyticalList controller
   module.controller("analyticalListCtrl",function($scope,$http){
       $scope.analyticalArr = [];
@@ -659,7 +727,7 @@
       }
 
       $scope.viewStatistical = function (statistical) {
-  		$scope.selMethod = statistical.statistical_method;
+  		    $scope.selMethod = statistical.statistical_method;
           console.log("in view",statistical);
           console.log("selectedfield",statistical.statistical_method);
           console.log("selectedmethod",$scope.selMethod);
@@ -709,7 +777,7 @@
       let selDatasetId = '';
       let fieldDataToSave = '';
 
-      $scope.showGraph1 = false;
+      $scope.showGraph1 = true;
       //console.log('sdsdfgsdfgfdg');
       let url = '/getDataset/'
       $http.get(url)
@@ -744,6 +812,7 @@
               $scope.fieldsAr = data;
               console.log("fieldsAr", $scope.fieldsAr);
               $scope.showGraph1 = true;
+              document.getElementById("dataset").innerHTML = $scope.selectedDataset;
               // this callback will be called asynchronously
               // when the response is available
           }).error(function (data, status, headers, config) {
@@ -909,9 +978,200 @@
               //Second function handles error
               console.log("Something went wrong");
           });
-          $scope.chooseDataset = function () {
+
+          $scope.chooseAlgo=function(){
+            var e2 = document.getElementById("algo");
+            value2 = e2.options[e2.selectedIndex].value;
+            console.log("ALGOOOOO", value2);
+            console.log("#####", dset);
+            console.log("#####", dset.dataset_id);
+
+            console.log("inside Algochoose and selected", value2 );
+
+
+            let selDatasetId = dset.dataset_id;
+
+            console.log("ALGOOOOO", value2);
+            console.log("#####", dset.dataset_id);
+            $scope.selectedDataset = dset.dataset_name;
+            console.log("selectedDataset", $scope.selectedDataset);
+
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dset.dataset_name);
+            console.log(dset.dataset_name);
+            console.log("data", data);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                var algor = document.getElementById("algo").value;
+                console.log(algor);
+                $scope.eminem = false;
+                if(algor == "Simple Linear Regression"){
+                    $('select[name="idvar"]').change(function(){
+                        var idvar = document.getElementById("idvar");
+                idvar = idvar.options[idvar.selectedIndex].value;
+                        var dvar = document.getElementById("dvar");
+                dvar = dvar.options[dvar.selectedIndex].value;
+                        var but = document.getElementById("slct-btn2");
+                        if(idvar == dvar){
+                            but.disabled = true;
+                        }
+                        else{
+                            but.disabled = false;
+                        }
+
+
+                    });
+                    $('select[name="dvar"]').change(function(){
+                        var idvar = document.getElementById("idvar");
+                        idvar = idvar.options[idvar.selectedIndex].value;
+                        var dvar = document.getElementById("dvar");
+
+                        var idvar = document.getElementById("idvar");
+                        dvar = dvar.options[dvar.selectedIndex].value;
+                        idvar = idvar.options[idvar.selectedIndex].value;
+
+                        console.log("DVAR_VAL", dvar);
+                        var but = document.getElementById("slct-btn2");
+                        if(dvar == idvar){
+                          console.log("HUHUHAHAHAHA you selected same elements");
+                          but.classList.toggle("disabled");
+                          but.disabled =true;
+                        }
+                        else{
+                          console.log("HUHUHAHAHAHA you selected diff elements");
+                          but.classList.remove("disabled");
+                          but.disabled =false;
+                        }
+
+                        /*
+                dvar = dvar.options[dvar.selectedIndex].value;
+                        var but = document.getElementById("slct-btn2");
+                        if(idvar == dvar){
+                            but.disabled = true;
+                        }
+                        else{
+                            but.disabled = false;
+                        }*/
+                        console.log("DVAR_VAL", dvar);
+                        console.log("IDVAR_VAL", idvar);
+
+                    });
+
+                }
+
+                else if(algor == "Multivar Linear Regression"){
+                    var cblist = document.getElementsByName('cblist3');
+                    console.log("cblist",cblist);
+                    $('select[name="dvar"]').change(function(){
+                        var dvar = document.getElementById("dvar");
+                        dvar = dvar.options[dvar.selectedIndex].value;
+
+                        console.log(dvar);
+                    });
+
+                    $scope.rows=[{
+                        'period':"Value"
+                    }];
+
+                    $scope.addRow = function () {
+                        var newRow = angular.copy($scope.rows);
+                        newRow.selectedPeriod = null;
+                        $scope.rows.push(newRow);
+                    };
+                    $scope.removeRow = function(){
+                        var newRow = angular.copy($scope.rows);
+                        newRow.selectedPeriod = null;
+                        $scope.rows.pop(newRow);
+                    }
+
+
+                    $scope.periods=[
+                        $scope.fieldsAr,
+                    ];
+                    $scope.showMeSelectedPeriods = function () {
+                        $scope.rowWiseData=[];
+                        var favourite=[];
+                        /*$scope.rows.forEach(function (selectedPeriod) {
+                            favourite.push($("option[name='idvar']").val());
+                            console.log(favourite);
+                        });*/
+                        var i=0;
+                        var indpvar = [];
+                        $('.mmm').each(function(){
+
+                            i++;
+                            var newID='menu'+i;
+                            console.log("<<<<<",newID);
+                            var u = $(this).attr('id',newID);
+                            console.log("UUUU",u);
+
+                            var favorite = document.getElementById(newID);
+                            console.log("favorite",favorite);
+                            var mot =favorite.options[favorite.selectedIndex].value;
+                            console.log("mot",mot);
+                            indpvar.push(mot);
+
+                            /*  $scope.rows.forEach(function (selectedPeriod) {
+                                console.log("LLLL",newID);
+                                var favorite = document.getElementById(newID);
+                                console.log("fav",favorite);
+                            });
+                            idselect= invar.options[invar.selectedIndex].value;
+                            console.log("IDVAR",idselect);*/
+                        });
+                        console.log(indpvar);
+
+
+
+
+
+                        $.each($("select[name='idvar']:selected "), function(){
+                            favourite.push($(this).val());
+                            console.log($(this).value());
+                        });
+                    };
+                    console.log("pppppeeerrriiiodsss",$scope.periods);
+
+
+                    $('#cblist').click(function(){
+                        console.log("changechange");
+                        var fav=[];
+                        $.each($("input[name='cblist']:checked"), function(){
+                            favorite.push($(this).val());
+                        });
+                        console.log("fav",favourite);
+                    });
+
+
+                    console.log("we are in multivar linear regression");
+                    var idd = document.getElementsByName("chk").value;
+                    console.log("idd",idd);
+                }
+
+
+
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+            if(value2=="Simple Linear Regression"){
+              $scope.depvardiv = true;
+            }
+          }
+
+          $scope.chooseDataset = function (dataset) {
+              dset=dataset;
               selDatasetId = dset.dataset_id;
-              selAlgoId = value2;
+              // selAlgoId = value2;
               console.log("ALGOOOOO", selAlgoId);
       		     console.log("#####", selDatasetId);
               $scope.selectedDataset = dset.dataset_name;
@@ -1315,7 +1575,782 @@
 
   	});
 
+  module.controller("normalitytestCtrl",function($scope,$http){
+    $scope.calculationDone = true;
+    $scope.testArr = ['Shapiro-Wilk Test','D’Agostino’s K^2 Test', 'Anderson-Darling Test'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    $scope.showGraph1 = true;
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
 
+
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
+
+    		    console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.hName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                document.getElementById("1stdataset").innerHTML = $scope.selectedDataset;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(dt,status,headers,config){
+            console.log("response from calculaH",dt);
+              console.log("response from calculateHypothesis",dt);
+  			 console.log("response calculateHypothesis");
+
+
+               if($scope.selectedtest == 'D’Agostino’s K^2 Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In if calculateHypothesis",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+
+               }
+               else if($scope.selectedtest == 'Shapiro-Wilk Test'){
+
+                       $scope.calculatedSummary =  dt.summary;
+                       $scope.calculationDone = true;
+                       console.log("In else calculateAnalytics",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+              }
+              else if($scope.selectedtest == 'Anderson-Darling Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                      //    fieldDataForoGraph = data.fieldData;
+                      //  fieldDataToSave = fieldDataForoGraph.toString();
+                      console.log("In else calculateAnalytics",dt);
+         					    console.log("calculateHypothesis",$scope.calculatedSummary);
+             }
+
+  		}).error(function(dt,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
+        }
+  });
+  module.controller("correlationtestCtrl",function($scope,$http){
+    $scope.calculationDone = false;
+    $scope.selectedDataset2 = '';
+    $scope.testArr = ['Pearson’s Correlation Coefficient','Spearman’s Rank Correlation','Kendall’s Rank Correlation','Chi-Squared Test'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    $scope.showGraph1 = true;
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
+
+    		    console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                document.getElementById("1stdataset").innerHTML = $scope.selectedDataset;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+        $scope.chooseDataset2 = function (dataset) {
+            selDatasetId2 = dataset.dataset_id;
+
+    		    console.log("#####", selDatasetId2);
+            $scope.selectedDataset2 = dataset.dataset_name;
+            $scope.aName = '';
+            let data2 = new FormData();
+            let url = '/getGraphFields/';
+            data2.append("dName", dataset.dataset_name);
+            $http.post(url, data2, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data2, status, headers, config) {
+                $scope.fieldsAr2 = data2;
+                console.log("fieldsAr2", $scope.fieldsAr2);
+                $scope.showGraph1 = true;
+                document.getElementById("2nddataset").innerHTML = $scope.selectedDataset2;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data2, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+          dt.append("dataset_id2", selDatasetId2);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          dt.append("selecteddatacol2", $scope.selecteddatacol2);
+          console.log("$$$$$",$scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol2);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(dt,status,headers,config){
+            console.log("response from calculaH",dt);
+              console.log("response from calculateHypothesis",dt);
+  			 console.log("response calculateHypothesis");
+
+
+               if($scope.selectedtest == 'Pearson’s Correlation Coefficient'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In if Correlation Coefficient",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+
+               }
+               else if($scope.selectedtest == 'Spearman’s Rank Correlation'){
+                       $scope.calculatedSummary =  dt.summary;
+                       $scope.calculationDone = true;
+                       //    fieldDataForoGraph = data.fieldData;
+                       //  fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In else Spearman’s Rank Correlation",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+              }
+              else if($scope.selectedtest == 'Kendall’s Rank Correlation'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                      //    fieldDataForoGraph = data.fieldData;
+                      //  fieldDataToSave = fieldDataForoGraph.toString();
+                      console.log("In else Kendall’s Rank Correlation",dt);
+         					    console.log("calculateHypothesis",$scope.calculatedSummary);
+             }
+
+  		}).error(function(dt,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        $scope.initCalculate = function(){
+            $scope.calculationDone = false;
+        }
+  });
+  module.controller("stationarytestCtrl",function($scope,$http){
+    $scope.calculationDone = true;
+    $scope.testArr = ['Augmented Dickey-Fuller Unit Root Test','Kwiatkowski-Phillips-Schmidt-Shin'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    $scope.showGraph1 = true;
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
+
+            console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                document.getElementById("1stdataset").innerHTML = $scope.selectedDataset;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(dt,status,headers,config){
+            console.log("response from calculaH",dt);
+              console.log("response from calculateHypothesis",dt);
+         console.log("response calculateHypothesis");
+
+
+               if($scope.selectedtest == 'Augmented Dickey-Fuller Unit Root Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In if Augmented Dickey-Fuller Unit Root Test",dt);
+                       console.log("calculateHypothesis",$scope.calculatedSummary);
+
+               }
+               else if($scope.selectedtest == 'Kwiatkowski-Phillips-Schmidt-Shin'){
+                       $scope.calculatedSummary =  dt.summary;
+                       $scope.calculationDone = true;
+                       //    fieldDataForoGraph = data.fieldData;
+                       //  fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In else Kwiatkowski-Phillips-Schmidt-Shin",dt);
+                       console.log("calculateHypothesis",$scope.calculatedSummary);
+              }
+
+
+      }).error(function(dt,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
+        }
+  });
+  module.controller("parametricstatisticalCtrl",function($scope,$http){
+    $scope.calculationDone = false;
+    $scope.selectedDataset2 = '';
+    $scope.calculationDone = false;
+    $scope.testArr = ['Student’s t-test','Paired Student’s t-test','Analysis of Variance Test (ANOVA)'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    $scope.showGraph1 = true;
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
+
+    		    console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                document.getElementById("1stdataset").innerHTML = $scope.selectedDataset;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+        $scope.chooseDataset2 = function (dataset) {
+            selDatasetId2 = dataset.dataset_id;
+
+    		    console.log("#####", selDatasetId2);
+            $scope.selectedDataset2 = dataset.dataset_name;
+            $scope.aName = '';
+            let data2 = new FormData();
+            let url = '/getGraphFields/';
+            data2.append("dName", dataset.dataset_name);
+            $http.post(url, data2, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data2, status, headers, config) {
+                $scope.fieldsAr2 = data2;
+                console.log("fieldsAr2", $scope.fieldsAr2);
+                $scope.showGraph1 = true;
+                document.getElementById("2nddataset").innerHTML = $scope.selectedDataset2;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data2, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+          dt.append("dataset_id2", selDatasetId2);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          dt.append("selecteddatacol2", $scope.selecteddatacol2);
+          console.log("$$$$$",$scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol2);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(dt,status,headers,config){
+            console.log("response from calculaH",dt);
+              console.log("response from calculateHypothesis",dt);
+  			 console.log("response calculateHypothesis");
+
+
+               if($scope.selectedtest == 'Student’s t-test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In if Student’s t-test",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+
+               }
+               else if($scope.selectedtest == 'Paired Student’s t-test'){
+                       $scope.calculatedSummary =  dt.summary;
+                       $scope.calculationDone = true;
+                       //    fieldDataForoGraph = data.fieldData;
+                       //  fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In elseif Paired Student’s t-test",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+              }
+              else if($scope.selectedtest == 'Analysis of Variance Test (ANOVA)'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                      //    fieldDataForoGraph = data.fieldData;
+                      //  fieldDataToSave = fieldDataForoGraph.toString();
+                      console.log("In elseif Analysis of Variance Test (ANOVA)",dt);
+         					    console.log("calculateHypothesis",$scope.calculatedSummary);
+             }
+
+  		}).error(function(dt,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        $scope.initCalculate = function(){
+            $scope.calculationDone = false;
+        }
+  });
+  module.controller("nonparametricstatisticalCtrl",function($scope,$http){
+    $scope.calculationDone = false;
+    $scope.selectedDataset2 = '';
+    $scope.calculationDone = false;
+    $scope.testArr = ['Mann-Whitney U Test','Wilcoxon Signed-Rank Test','Kruskal-Wallis H Test','Friedman Test'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    $scope.showGraph1 = true;
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
+
+    		    console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                document.getElementById("1stdataset").innerHTML = $scope.selectedDataset;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+        $scope.chooseDataset2 = function (dataset) {
+            selDatasetId2 = dataset.dataset_id;
+
+    		    console.log("#####", selDatasetId2);
+            $scope.selectedDataset2 = dataset.dataset_name;
+            $scope.aName = '';
+            let data2 = new FormData();
+            let url = '/getGraphFields/';
+            data2.append("dName", dataset.dataset_name);
+            $http.post(url, data2, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data2, status, headers, config) {
+                $scope.fieldsAr2 = data2;
+                console.log("fieldsAr2", $scope.fieldsAr2);
+                $scope.showGraph1 = true;
+                document.getElementById("2nddataset").innerHTML = $scope.selectedDataset2;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data2, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+          dt.append("dataset_id2", selDatasetId2);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          dt.append("selecteddatacol2", $scope.selecteddatacol2);
+          console.log("$$$$$",$scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol2);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(dt,status,headers,config){
+            console.log("response from calculaH",dt);
+              console.log("response from calculateHypothesis",dt);
+  			 console.log("response calculateHypothesis");
+
+
+               if($scope.selectedtest == 'Mann-Whitney U Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In if Mann-Whitney U Test",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+
+               }
+               else if($scope.selectedtest == 'Wilcoxon Signed-Rank Test'){
+                       $scope.calculatedSummary =  dt.summary;
+                       $scope.calculationDone = true;
+                       //    fieldDataForoGraph = data.fieldData;
+                       //  fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In elseif Wilcoxon Signed-Rank Test",dt);
+          					   console.log("calculateHypothesis",$scope.calculatedSummary);
+              }
+              else if($scope.selectedtest == 'Kruskal-Wallis H Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                      //    fieldDataForoGraph = data.fieldData;
+                      //  fieldDataToSave = fieldDataForoGraph.toString();
+                      console.log("In elseif Kruskal-Wallis H Test",dt);
+         					    console.log("calculateHypothesis",$scope.calculatedSummary);
+             }
+             else if($scope.selectedtest == 'Friedman Test'){
+                     $scope.calculatedSummary =  dt.summary;
+                     $scope.calculationDone = true;
+                     //    fieldDataForoGraph = data.fieldData;
+                     //  fieldDataToSave = fieldDataForoGraph.toString();
+                     console.log("In elseif Friedman Test",dt);
+                     console.log("calculateHypothesis",$scope.calculatedSummary);
+            }
+
+  		}).error(function(dt,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        $scope.initCalculate = function(){
+            $scope.calculationDone = false;
+        }
+  });
+  module.controller("hypotheticalCtrl",function($scope,$http){
+    $scope.calculationDone = false;
+    $scope.selectedDataset2 = '';
+    $scope.testArr = ['Pearson’s Correlation Coefficient','Spearman’s Rank Correlation','Kendall’s Rank Correlation','Chi-Squared Test'];
+    $scope.selectedtest = '';
+    $scope.selecteddatacol = '';
+    $scope.showGraph1 = true;
+    let url = '/getDataset/'
+    $http.get(url)
+        .then(function (response) {
+            //First function handles success
+            $scope.datasetArr = response.data;
+        }, function (response) {
+            //Second function handles error
+            console.log("Something went wrong");
+        });
+        $scope.chooseDataset = function (dataset) {
+            selDatasetId = dataset.dataset_id;
+
+            console.log("#####", selDatasetId);
+            $scope.selectedDataset = dataset.dataset_name;
+            $scope.aName = '';
+            let data = new FormData();
+            let url = '/getGraphFields/';
+            data.append("dName", dataset.dataset_name);
+            $http.post(url, data, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data, status, headers, config) {
+                $scope.fieldsAr = data;
+                console.log("fieldsAr", $scope.fieldsAr);
+                $scope.showGraph1 = true;
+                document.getElementById("1stdataset").innerHTML = $scope.selectedDataset;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+        $scope.chooseDataset2 = function (dataset) {
+            selDatasetId2 = dataset.dataset_id;
+
+            console.log("#####", selDatasetId2);
+            $scope.selectedDataset2 = dataset.dataset_name;
+            $scope.aName = '';
+            let data2 = new FormData();
+            let url = '/getGraphFields/';
+            data2.append("dName", dataset.dataset_name);
+            $http.post(url, data2, {
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).success(function (data2, status, headers, config) {
+                $scope.fieldsAr2 = data2;
+                console.log("fieldsAr2", $scope.fieldsAr2);
+                $scope.showGraph1 = true;
+                document.getElementById("2nddataset").innerHTML = $scope.selectedDataset2;
+                // this callback will be called asynchronously
+                // when the response is available
+            }).error(function (data2, status, headers, config) {
+                console.log("somethingvName went wrong");
+
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        }
+
+        $scope.calculateHypothesis = function(){
+          console.log("selected test===>",$scope.selectedtest);
+          let url='/calculateHypothesis/';
+          let dt = new FormData();
+          dt.append("dataset_id", selDatasetId);
+      //    console.log('dataset_id',selDatasetId);
+          dt.append("selecteddatacol", $scope.selecteddatacol);
+          console.log("$$$$$",$scope.selecteddatacol);
+          dt.append("selectedtest",$scope.selectedtest);
+          $http.post(url,dt,{
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function(dt,status,headers,config){
+            console.log("response from calculaH",dt);
+              console.log("response from calculateHypothesis",dt);
+         console.log("response calculateHypothesis");
+
+
+               if($scope.selectedtest == 'D’Agostino’s K^2 Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                       // $scope.calculatedSummary =  data.summary;
+                       // $scope.calculationDone = true;
+                       // fieldDataForoGraph = data.fieldData;
+                       // fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In if calculateHypothesis",dt);
+                       console.log("calculateHypothesis",$scope.calculatedSummary);
+
+               }
+               else if($scope.selectedtest == 'Shapiro-Wilk Test'){
+                       $scope.calculatedSummary =  dt.summary;
+                       $scope.calculationDone = true;
+                       //    fieldDataForoGraph = data.fieldData;
+                       //  fieldDataToSave = fieldDataForoGraph.toString();
+                       console.log("In else calculateAnalytics",dt);
+                       console.log("calculateHypothesis",$scope.calculatedSummary);
+              }
+              else if($scope.selectedtest == 'Anderson-Darling Test'){
+                      $scope.calculatedSummary =  dt.summary;
+                      $scope.calculationDone = true;
+                      //    fieldDataForoGraph = data.fieldData;
+                      //  fieldDataToSave = fieldDataForoGraph.toString();
+                      console.log("In else calculateAnalytics",dt);
+                      console.log("calculateHypothesis",$scope.calculatedSummary);
+             }
+
+      }).error(function(dt,status,headers,config){
+              console.log("Something went wrong");
+          });
+        }
+        $scope.initCalculate = function(){
+            $scope.calculationDone = false;
+        }
+  });
   module.controller("analyticalCtrl", function($scope,$http) {
       $scope.test ="This is working analytical";
       $scope.calculationDone = false;
@@ -1326,7 +2361,7 @@
       let selDatasetId = '';
       let fieldDataToSave = '';
 
-      $scope.showGraph1 = false;
+      $scope.showGraph1 = true;
       //console.log('sdsdfgsdfgfdg');
       let url = '/getDataset/'
       $http.get(url)
@@ -1353,6 +2388,7 @@
               $scope.fieldsAr = data;
               console.log("fieldsAr", $scope.fieldsAr);
               $scope.showGraph1 = true;
+              document.getElementById("dataset").innerHTML = $scope.selectedDataset;
               // this callback will be called asynchronously
               // when the response is available
           }).error(function (data, status, headers, config) {
@@ -6880,10 +7916,10 @@
           let rowWiseData = stringData.split("\n");
           let h = rowWiseData[0].split(",");
 
-          let table = "<table class='table table-bordered table-striped my-4'>";
+          let table = "<table class='tablefill3' style='box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);'>";
           table += "<tr>";
           for (let k = 0; k < h.length; k++) {
-              table += "<td class='head-color'>";
+              table += "<td style='background-color: #151d4d; color: #E8E9F0; text-align:center'>";
               table += h[k];
               table += "</td>";
           }
@@ -6894,14 +7930,14 @@
               let rowDt = rowWiseData[i].split(",");
               table += "<tr>";
               for (let q = 0; q < rowDt.length; q++) {
-                  table += "<td>";
+                  table += "<td style='text-align:center'>";
                   table += rowDt[q];
                   table += "</td>";
               }
               table += "</tr>";
           }
           table += "</table>";
-          let modalLabel = 'Dataset :' + dname;
+          let modalLabel = 'Dataset : ' + dname;
           $('#viewModalLabel').html(modalLabel);
           $('#viewModalBody').html(table);
       }
@@ -10313,6 +11349,9 @@
               //$scope.update = function
               $scope.createSuccess = true;
               console.log("this is repsonse status", status);
+              window.location.reload(true);
+
+
               //location.reload();
           }).error(function (data, status, headers, config) {
               console.log("error occured");
@@ -10346,6 +11385,25 @@
               });
           }
 
+          $scope.delProcess = function (processName) {
+              let url = '/delProcess/' + processName + '/';
+              $http.delete(url)
+                  .success(function (data, status, headers) {
+                      console.log("in delete process http", data);
+                      if (data === 'delete successful') {
+                          location.reload();
+                      }
+                      else {
+                          alert("Process is not deleted successfully");
+                      }
+
+                  })
+                  .error(function (data, status, header, config) {
+                      console.log("something went wrong");
+                  });
+
+          }
+          $scope.test ="This is working processList";
 
       }
   });
@@ -10484,7 +11542,7 @@
           var head = data[0].split(",");
           headerArr = data[0].split(",");
           columnCount = head.length;
-          var table = "<table class='table my-4'>";
+          var table = "<table class='tabfill3'>";
           console.log("column count", columnCount);
           console.log("sdafad", head);
 
@@ -10523,7 +11581,7 @@
           console.log("this is types array", dataTypeArray);
           //	dataTypeTable(dataTypeArray);
 
-          let table = "<table class='table my-4'>";
+          let table = "<table class='tabfill3'>";
 
           table += "<tr>";
           for (let k = 0; k < dataTypeArray.length; k++) {
@@ -10603,7 +11661,8 @@
               }).success(function (data, status, headers, config) {
                   console.log("this is repsonse data", status);
                   successSaved = true;
-                  $scope.datasetSaved = true;
+                  $scope.datasetSaved = false;
+                  $scope.datasetsSaved = true;
                   $scope.fileSelected = false;
                 //  $scope.fileSelected = false;
                   // this callback will be called asynchronously
@@ -10616,11 +11675,15 @@
           }
           else
               successSaved = true;
-
-          if (successSaved) {
-              $scope.datasetSaved = true;
+              $scope.datasetSaved = false;
+              console.log($scope.datasetSaved);
+              $scope.datasetsSaved = true;
               $scope.fileSelected = false;
-          }
+
+          // if (successSaved) {
+          //     $scope.datasetSaved = true;
+          //     $scope.fileSelected = false;
+          // }
       }
 
       $scope.submit = function () {
@@ -10945,7 +12008,7 @@
           var head = data[0].split(",");
           headerArr = data[0].split(",");
           columnCount = head.length;
-          var table = "<table class='table my-4'>";
+          var table = "<table class='tabfill3'>";
           console.log("column count", columnCount);
           console.log("sdafad", head);
 
@@ -10984,7 +12047,7 @@
           console.log("this is types array", dataTypeArray);
           //	dataTypeTable(dataTypeArray);
 
-          let table = "<table class='table my-4'>";
+          let table = "<table class='tabfill3'>";
 
           table += "<tr>";
           for (let k = 0; k < dataTypeArray.length; k++) {
