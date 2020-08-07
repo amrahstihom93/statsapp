@@ -1208,6 +1208,7 @@
                           }
 
 
+
                       });
                       $('select[name="dvar"]').change(function(){
                           var idvar = document.getElementById("idvar");
@@ -1498,9 +1499,54 @@
                           console.log("xtraindata==>",xtraindat_pred);
                           console.log("formatted predicted xtrain array==>",xtrainar_pred);
 
-                          
                           var training_size = t_size;
                           $scope.avengers = false;
+                          let mlearnChart = document.getElementById("mlearnChart");
+                          var traceChart = {
+                            y: xtrainar_pred,
+                            x: xtrainar,
+                            marker:{
+                              color:'blue'
+                            },
+                            type: 'scatter',
+                            showline:true,
+                          };
+                          var datachart = [traceChart];
+                          var layout = {
+                            title: {
+                              text: 'Scatter Plot Of Model',
+                              font: {
+                                family: 'Courier New, monospace',
+                                size: 24
+                              },
+                              xref: 'paper',
+                              x: 0.5,
+                            },
+                            xaxis: {
+                                title: {
+                                    text: "X",
+                                    font: {
+                                        family: 'Courier New, monospace',
+                                        size: 18,
+                                        color: '#7f7f7f'
+                                    }
+                                },
+                            },
+                            yaxis: {
+                                title: {
+                                    text: 'Y',
+                                    font: {
+                                        family: 'Courier New, monospace',
+                                        size: 18,
+                                        color: '#7f7f7f'
+                                    }
+                                }
+                            },
+                              bargap: 0.005,
+                              bargroupgap: 0.02,
+                          }
+                          Plotly.newPlot(mlearnChart, datachart, layout);
+
 
                       }). error(function (data,status,headers,config) {
                           //Second function handles error
