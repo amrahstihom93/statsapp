@@ -184,6 +184,14 @@ def calcsregression(request):
 		print(encodedNumpyData)
 		print(encodedpredData)
 
+		numpyxtest = {"xtest_array" : x_test}
+		numpyytest = {"ytest_array" : y_test}
+		x_test_dat=json.dumps(numpyxtest, cls=NumpyArrayEncoder)
+		y_test_dat=json.dumps(numpyytest, cls=NumpyArrayEncoder)
+
+		print("Printing JSON SERIALIZED XTEST AND YTEST")
+		print(x_test_dat)
+		print(y_test_dat)
 		responseData = {
            	'summary':result,
         }
@@ -197,6 +205,8 @@ def calcsregression(request):
 			"fvalue" : "",
 			"pvalue" : "",
 			"tvalue" : "",
+			"xtest" : "",
+			"ytest" : "",
 			"xtrain" : "",
 			"xtrain_pred" : "",
 		}
@@ -210,15 +220,17 @@ def calcsregression(request):
 		describeDict['tvalue'] = tvalue
 		describeDict['xtrain'] = encodedNumpyData
 		describeDict['xtrain_pred'] = encodedpredData
+		describeDict['xtest'] = x_test_dat
+		describeDict['ytest'] = y_test_dat
 		responseData['summary']=  describeDict
-		plt.scatter(x_test, y_test, color = 'red')
-
-		plt.plot(x_train, regressor.predict(x_train), color = 'blue')
+		# plt.scatter(x_test, y_test, color = 'red')
+		#
+		# plt.plot(x_train, regressor.predict(x_train), color = 'blue')
 		plt.title("Salary vs Experience")
 		plt.xlabel(idvar)
 		plt.ylabel(dvar)
-
-		plt.savefig("static/test1.png")
+		# 
+		# plt.savefig("static/test1.png")
 		plt.clf()
 		print(x_train)
 		print("X_TEST--->>>")

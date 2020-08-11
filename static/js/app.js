@@ -1486,12 +1486,27 @@
                           xtraindat_pred = xtraindat_pred.replace(/[{()}]/g, '');
                           xtraindat_pred = xtraindat_pred.replace(/[\[\]']/g,'');
 
+                          xtest_dat = $scope.calculatedscore.xtest;
+                          xtest_dat = xtest_dat.slice(xtest_dat.indexOf('['), xtest_dat.lastIndexOf(']') + 1);
+                          xtest_dat = xtest_dat.replace(/[{()}]/g, '');
+                          xtest_dat = xtest_dat.replace(/[\[\]']/g,'');
+
+                          ytest_dat = $scope.calculatedscore.ytest;
+                          ytest_dat = ytest_dat.slice(ytest_dat.indexOf('['), ytest_dat.lastIndexOf(']') + 1);
+                          ytest_dat = ytest_dat.replace(/[{()}]/g, '');
+                          ytest_dat = ytest_dat.replace(/[\[\]']/g,'');
+
                           let xtrainar = [];
                           xtrainar = xtraindat;
                           xtrainar = xtrainar.split(',').map(Number);
 
                           xtrainar_pred = xtraindat_pred;
                           xtrainar_pred = xtrainar_pred.split(',').map(Number);
+
+                          xtestar = xtest_dat;
+                          xtestar = xtestar.split(',').map(Number);
+                          ytestar = ytest_dat;
+                          ytestar = ytestar.split(',').map(Number);
                           // xtraindat = xtraindat.replace(/"/g, '');
                           console.log("xtraindata==>",xtraindat);
                           console.log("formatted xtrain array==>",xtrainar);
@@ -1499,19 +1514,32 @@
                           console.log("xtraindata==>",xtraindat_pred);
                           console.log("formatted predicted xtrain array==>",xtrainar_pred);
 
+                          console.log("XtestAr==>",xtestar)
+                          console.log("YtestAr==>",ytestar)
                           var training_size = t_size;
                           $scope.avengers = false;
                           let mlearnChart = document.getElementById("mlearnChart");
-                          var traceChart = {
+
+                          var tracedat = {
+                            y: ytestar,
+                            x: xtestar,
+                            mode: 'markers',
+                            marker:{
+                              color: 'red'
+                            },
+                            type: 'scatter',
+                          };
+                          var traceline = {
                             y: xtrainar_pred,
                             x: xtrainar,
+                            mode: 'lines',
                             marker:{
                               color:'blue'
                             },
                             type: 'scatter',
                             showline:true,
                           };
-                          var datachart = [traceChart];
+                          var datachart = [traceline, tracedat];
                           var layout = {
                             title: {
                               text: 'Scatter Plot Of Model',
