@@ -1128,14 +1128,3 @@ def delStatistical(request, id):
 	except:
 	    res = 'delete unsuccessful'
 	return HttpResponse(res)
-
-def delAnalytical(request, id):
-	print('In Delete Method')
-	res = ''
-	try:
-	    analyticalToDelete = analytical.objects.get(pk=id)
-	    analyticalToDelete.delete()
-	    res = 'delete successful'
-	except:
-	    res = 'delete unsuccessful'
-	return HttpResponse(res)
