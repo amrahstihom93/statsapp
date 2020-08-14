@@ -14,12 +14,12 @@
         	  </thead>
         	  <tbody>
         		<tr>
-        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px;">
+        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px; width: 750px;">
                       <option ng-repeat="x in processList" value="[[x.process_id]]">
                           [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                       </option>
                   </select>
-								</td>
+				</td>
 
         		  <td>
                       <button type="button" id="save" class="btn btn-info save" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Save</button>
@@ -28,7 +28,7 @@
         	  </tbody>
         	</table>
 </div>
-<div id="fmea" class="table-wrapper rat">
+<!--<div id="fmea" class="table-wrapper rat">
             <!--<div class="table-title rat">
                 <div class="row">
                     <div class="col-sm-8"><h2>Opportunity Tracker</h2></div>
@@ -47,20 +47,20 @@
                             </select>
                         </div>
                     </div>
-                </div>-->
-            </div>
-            <!--<hr>-->
+                </div>
+            </div>-->
+            <hr>
 
             <div class="qtfmea">
             <table class="tablefill3" id="t1">
                 <thead>
                     <tr>
                         <th style="width:8rem;">Legend</th>
-												<th >Opportunity Name</th>
-												<th>Notes On Quantification</th>
-												<th>Opportunity Description</th>
-												<th>Nature Of Intervention</th>
-						            <th>Process Name</th>
+						<th >Opportunity Name</th>
+						<th>Notes On Quantification</th>
+						<th>Opportunity Description</th>
+						<th>Nature Of Intervention</th>
+			            <th>Process Name</th>
                         <th>Opportunity Category</th>
                         <th style="width:8rem;">Efforts</th>
                         <th style="width:8rem;">Impact</th>
@@ -85,24 +85,22 @@
                         <td></td>
                         <td></td>
                         <td></td>
-			            			<td></td>
-			            			<td></td>
+			            <td></td>
+			            <td></td>
                         <td></td>
-			            			<td></td>
+			            <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>
-														<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                             <a class="edit" title="table-wrapper ratEdit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
-									</tbody>
-            </table>  
-								<button type="button" id="add-new" class="btn btn-info add-new" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Add New</button>
-
+				</tbody>
+            </table>
             </div>
         </div>
-		</div>
+		<center><button type="button" id="add-new" class="btn btn-info add-new" style="position: fixed"><i class="fa fa-plus"></i> Add New</button></center>
