@@ -9,8 +9,8 @@
         	  <thead>
         		<tr class="thnew">
         		  <th style="text-align:center;">Select Process</th>
-        		  <th style="text-align:center;">Name FMEA</th>
-        		  <th style="text-align:center;width: 20%;">Add New</th>
+        		  <th style="text-align:center;">FMEA Name</th>
+							<th style="text-align:center;width: 20%;">Save</th>
         		</tr>
         	  </thead>
         	  <tbody>
@@ -23,7 +23,9 @@
                   <td>
                       <input type="text" ng-model="fmeaName" class="form-control form-control-0" id="fmeaName" placeholder="Enter FMEA Name" style="width: 300px;height: 35px;">
         		  </td>
-        		  <td><button type="button" id="add-new" class="btn btn-info add-new" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Add New</button>
+        		  <td>
+								<button type="button" id="testFmea" class="btn btn-info " ng-click="testFmea()" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"> Save</button></td>
+
           </tr>
         	  </tbody>
         	</table>
@@ -92,24 +94,25 @@
                         <td></td>
                         <td></td>
                         <td></td>
-			            <td></td>
-			            <td></td>
+			            			<td></td>
+			            			<td></td>
                         <td></td>
-			            <td></td>
+			            			<td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>
-			                <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+			                			<a class="add" title="Add" data-toggle="tooltip" style="display: inline"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" style="display: inline"><i class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+							<button type="button" id="add-new" class="btn btn-info add-new" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Add New</button>
         </div>
-            <div class="col-sm-4">
+            <!--<div class="col-sm-4">
               <button type="button"z` id="testFmea" class="btn btn-info " ng-click="testFmea()"> Save</button>
                 <!-- <button type="button" id="ListFmea" class="btn btn-info " ng-click="ListFmea()"> List</button> -->
-            </div>
+          <!--  </div>-->
         </div>

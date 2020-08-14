@@ -10,7 +10,6 @@
         		<tr class="thnew">
         		  <th style="text-align:center;">Select Process</th>
         		  <th style="text-align:center;">Save</th>
-        		  <th style="text-align:center;width: 20%;">Add New</th>
         		</tr>
         	  </thead>
         	  <tbody>
@@ -19,15 +18,13 @@
                       <option ng-repeat="x in processList" value="[[x.process_id]]">
                           [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                       </option>
-                  </select> </td>
+                  </select>
+								</td>
 
         		  <td>
                       <button type="button" id="save" class="btn btn-info save" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Save</button>
                   </td>
-                  <td>
-                      <button type="button" id="add-new" class="btn btn-info add-new" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Add New</button>
-                  </td>
-                  </tr>
+                </tr>
         	  </tbody>
         	</table>
 </div>
@@ -59,11 +56,11 @@
                 <thead>
                     <tr>
                         <th style="width:8rem;">Legend</th>
-						<th >Opportunity Name</th>
-						<th>Notes On Quantification</th>
-						<th>Opportunity Description</th>
-						<th>Nature Of Intervention</th>
-                        <th>Process Name</th>
+												<th >Opportunity Name</th>
+												<th>Notes On Quantification</th>
+												<th>Opportunity Description</th>
+												<th>Nature Of Intervention</th>
+						            <th>Process Name</th>
                         <th>Opportunity Category</th>
                         <th style="width:8rem;">Efforts</th>
                         <th style="width:8rem;">Impact</th>
@@ -88,23 +85,23 @@
                         <td></td>
                         <td></td>
                         <td></td>
-			            <td></td>
-			            <td></td>
+			            			<td></td>
+			            			<td></td>
                         <td></td>
-			            <td></td>
+			            			<td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+														<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="table-wrapper ratEdit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
-
-                </tbody>
-            </table>
+									</tbody>
+            </table>  
+								<button type="button" id="add-new" class="btn btn-info add-new" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Add New</button>
 
             </div>
         </div>
