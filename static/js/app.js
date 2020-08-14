@@ -344,14 +344,14 @@
       $(document).ready(function(){
           console.log("letsstart");
           //$('[data-toggle="tooltip"]').tooltip();
-          var actions = $("table td:last-child").html();
+          var actions = $(".qtfmea table td:last-child").html();
 
 
           // Append table with add row form on add new button click
           $(".add-new").click(function(){
               console.log("add-new clicked");
               $(this).attr("disabled", "disabled");
-              var index = $("table tbody tr:last-child").index();
+              var index = $(".qtfmea table tbody tr:last-child").index();
               var new_index= index+1;
               var row = '<tr>' +
               '<td><input type="text" class="form-control" name="process function (step)" id="process function (step)" required></td>' +
@@ -372,8 +372,8 @@
               '<td><input type="text" class="form-control calc_newRPN" name="new_rpn_'+(new_index)+'" id="new_rpn_'+(new_index)+'"></td>' +
   			      '<td>' + actions + '</td>' +
               '</tr>';
-              $("table").append(row);
-              $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+              $(".qtfmea table").append(row);
+              $(".qtfmea table tbody tr").eq(index + 1).find(".add, .edit").toggle();
               console.log("row ",index+1," added")
 
               setInputFilter(document.getElementById("sev_"+new_index), function(value) {
@@ -519,7 +519,7 @@
           $(".add-new").click(function(){
               console.log("add-new clicked");
               $(this).attr("disabled", "disabled");
-              var index = $("table tbody tr:last-child").index();
+              var index = $(".qtfmea table tbody tr:last-child").index();
 
               var row = '<tr>' +
               '<td><div class="table table-striped dropdown"><select id="legend" name="legend" class="btn btn-primary dropdown-toggle datsel fa" style="font-weight:900"type="button"><option value="technology" style="font-weight:900">&#xf26c</option><option value="people" style="font-weight:900">&#xf0c0</option><option value="process"style="font-weight:900">&#xf085</option></select></div></td>' +
@@ -541,8 +541,8 @@
               '<td><input type="number" class="form-control" name="priority score" id="priority score"></td>' +
   			      '<td>' + actions + '</td>' +
               '</tr>';
-              $("table").append(row);
-              $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+              $(".qtfmea table").append(row);
+              $(".qtfmea table tbody tr").eq(index + 1).find(".add, .edit").toggle();
 
 
           });
@@ -620,8 +620,11 @@
       console.log("in view hypoResult",typeof(hypothetical));
       console.log("selectedfield",hypothetical.hypothetical_method);
       $scope.calSummary = JSON.parse(hypothetical.hypothetical_calculated_value);
+      $scope.calResult = JSON.parse(hypothetical.hypothetical_calculated_value);
+
       console.log("selectedmethod",$scope.selTest);
       console.log("json summary",$scope.calSummary);
+      console.log("json summary",typeof($scope.calSummary));
 
       let newSummary = {};
 
@@ -950,20 +953,20 @@
               //First function handles success
               $scope.mlearnArr = response.data;
               var value1;
-  			console.log("SCOPE.DATSETARR", $scope.mlearnArr);
-  			$('select[name="dataset"]').change(function(){
-  				var e1 = document.getElementById("dataset");
-  				value1 = e1.options[e1.selectedIndex].value;
+  			      console.log("SCOPE.DATSETARR", $scope.mlearnArr);
+  			         $('select[name="dataset"]').change(function(){
+  				             var e1 = document.getElementById("dataset");
+  				                 value1 = e1.options[e1.selectedIndex].value;
 
-                  let x;
-                  let dashall = _.findIndex(response.data, function(o) { return o.dataset_name === value1; });
+                           let x;
+                           let dashall = _.findIndex(response.data, function(o) { return o.dataset_name === value1; });
 
-                  console.log("DATASETINDEX", dashall);
-                  dset = response.data[dashall];
+                           console.log("DATASETINDEX", dashall);
+                           dset = response.data[dashall];
 
 
-                  console.log("selected dataset",dset);
-  			});
+                           console.log("selected dataset",dset);
+  			                    });
               $('select[name="algo"]').change(function(){
                   var e2 = document.getElementById("algo");
   				value2 = e2.options[e2.selectedIndex].value;
@@ -1205,6 +1208,7 @@
                           }
 
 
+
                       });
                       $('select[name="dvar"]').change(function(){
                           var idvar = document.getElementById("idvar");
@@ -1346,6 +1350,7 @@
 
           }
           var indpvar = [];
+          let testxData;
           $scope.chooseVariables = function(){
 
               var algor = document.getElementById("algo").value;
@@ -1466,10 +1471,110 @@
                           console.log("insidecalcregression");
                           var t_size = document.getElementById("training_size").value;
                           console.log("DT====>",dset);
+                          console.log("wholedata",data)
                           $scope.calculatedscore =  data.summary;
                           console.log("calculatedscore",$scope.calculatedscore);
+
+                          xtraindat=$scope.calculatedscore.xtrain;
+                          xtraindat_pred = $scope.calculatedscore.xtrain_pred;
+                          console.log(xtraindat.slice(xtraindat.indexOf('['), xtraindat.lastIndexOf(']') + 1));
+                          xtraindat = xtraindat.slice(xtraindat.indexOf('['), xtraindat.lastIndexOf(']') + 1);
+                          xtraindat = xtraindat.replace(/[{()}]/g, '');
+                          xtraindat = xtraindat.replace(/[\[\]']/g,'');
+
+                          xtraindat_pred = xtraindat_pred.slice(xtraindat_pred.indexOf('['), xtraindat_pred.lastIndexOf(']') + 1);
+                          xtraindat_pred = xtraindat_pred.replace(/[{()}]/g, '');
+                          xtraindat_pred = xtraindat_pred.replace(/[\[\]']/g,'');
+
+                          xtest_dat = $scope.calculatedscore.xtest;
+                          xtest_dat = xtest_dat.slice(xtest_dat.indexOf('['), xtest_dat.lastIndexOf(']') + 1);
+                          xtest_dat = xtest_dat.replace(/[{()}]/g, '');
+                          xtest_dat = xtest_dat.replace(/[\[\]']/g,'');
+
+                          ytest_dat = $scope.calculatedscore.ytest;
+                          ytest_dat = ytest_dat.slice(ytest_dat.indexOf('['), ytest_dat.lastIndexOf(']') + 1);
+                          ytest_dat = ytest_dat.replace(/[{()}]/g, '');
+                          ytest_dat = ytest_dat.replace(/[\[\]']/g,'');
+
+                          let xtrainar = [];
+                          xtrainar = xtraindat;
+                          xtrainar = xtrainar.split(',').map(Number);
+
+                          xtrainar_pred = xtraindat_pred;
+                          xtrainar_pred = xtrainar_pred.split(',').map(Number);
+
+                          xtestar = xtest_dat;
+                          xtestar = xtestar.split(',').map(Number);
+                          ytestar = ytest_dat;
+                          ytestar = ytestar.split(',').map(Number);
+                          // xtraindat = xtraindat.replace(/"/g, '');
+                          console.log("xtraindata==>",xtraindat);
+                          console.log("formatted xtrain array==>",xtrainar);
+
+                          console.log("xtraindata==>",xtraindat_pred);
+                          console.log("formatted predicted xtrain array==>",xtrainar_pred);
+
+                          console.log("XtestAr==>",xtestar)
+                          console.log("YtestAr==>",ytestar)
                           var training_size = t_size;
                           $scope.avengers = false;
+                          let mlearnChart = document.getElementById("mlearnChart");
+
+                          var tracedat = {
+                            y: ytestar,
+                            x: xtestar,
+                            mode: 'markers',
+                            marker:{
+                              color: 'red'
+                            },
+                            type: 'scatter',
+                          };
+                          var traceline = {
+                            y: xtrainar_pred,
+                            x: xtrainar,
+                            mode: 'lines',
+                            marker:{
+                              color:'blue'
+                            },
+                            type: 'scatter',
+                            showline:true,
+                          };
+                          var datachart = [traceline, tracedat];
+                          var layout = {
+                            title: {
+                              text: 'Scatter Plot Of Model',
+                              font: {
+                                family: 'Courier New, monospace',
+                                size: 24
+                              },
+                              xref: 'paper',
+                              x: 0.5,
+                            },
+                            xaxis: {
+                                title: {
+                                    text: "X",
+                                    font: {
+                                        family: 'Courier New, monospace',
+                                        size: 18,
+                                        color: '#7f7f7f'
+                                    }
+                                },
+                            },
+                            yaxis: {
+                                title: {
+                                    text: 'Y',
+                                    font: {
+                                        family: 'Courier New, monospace',
+                                        size: 18,
+                                        color: '#7f7f7f'
+                                    }
+                                }
+                            },
+                              bargap: 0.005,
+                              bargroupgap: 0.02,
+                          }
+                          Plotly.newPlot(mlearnChart, datachart, layout);
+
 
                       }). error(function (data,status,headers,config) {
                           //Second function handles error
@@ -1832,8 +1937,43 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
         }
   });
   module.controller("stationarytestCtrl",function($scope,$http){
@@ -2085,8 +2225,43 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
         }
   });
   module.controller("nonparametricstatisticalCtrl",function($scope,$http){
@@ -2222,8 +2397,42 @@
               console.log("Something went wrong");
           });
         }
-        $scope.initCalculate = function(){
-            $scope.calculationDone = false;
+        // $scope.initCalculate = function(){
+        //     $scope.calculationDone = false;
+        // }
+        $scope.parameterSave3 = function(){
+          console.log ("inside hypo save function");
+          $scope.hName = document.getElementById("hName").value;
+          $scope.selectedtest = '';
+          $scope.selectedtest = document.getElementById("hypotest").value;
+
+          console.log("hyposavingsummary",$scope.calculatedSummary)
+          let url = '/saveHypothesis/';
+          let dt = new FormData();
+          dt.append("hypothetical_name", $scope.hName);
+          dt.append("dataset_id", selDatasetId);
+          dt.append("hypothetical_method", $scope.selectedtest);
+          dt.append("hypothetical_calculated_value",JSON.stringify($scope.calculatedSummary));
+          console.log(dt)
+
+          //sending data to models
+          $http.post(url, dt, {
+              headers: {'Content-Type': undefined},
+              transformRequest: angular.identity
+          }).success(function (data, status, headers, config) {
+              console.log("this is repsonse data", status);
+              console.log("data is ", data);
+              if (data == "saved successfully") {
+                  $('#successModal').modal();
+              }
+              // this callback will be called asynchronously
+              // when the response is available
+          }).error(function (data, status, headers, config) {
+              console.log("something went wrong");
+
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+          });
         }
   });
   module.controller("hypotheticalCtrl",function($scope,$http){
