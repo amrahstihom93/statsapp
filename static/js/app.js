@@ -74,6 +74,10 @@
           }).when('/mlearn', {
               templateUrl: static_url + 'partials/mlearn.html',
               controller: 'mlearnCtrl'
+          }).when('/mlist',{
+              templateUrl: static_url + 'partials/mlist.html',
+              controller: 'getmlearnList'
+
           }).when('/regression', {
               templateUrl: static_url + 'partials/regression.html',
               controller: 'mlearnCtrl'
@@ -131,6 +135,25 @@
               console.log("Something went wrong");
           });
   });
+
+  module.controller ("getmlearnList",function($scope, $http){
+        console.log("inside List mlearn")
+        $scope.mlearnListArr = [];
+        let url2 ='/mlist/'
+        $http.get(url2)
+            .then(function (response) {
+                //First function handles success
+                console.log("get response", response);
+                $scope.mlearnListArr = response.data;
+
+
+                //  $scope.datasetArr = response.data;
+            }, function (response) {
+                //Second function handles error
+                console.log("Something went wrong");
+            });
+
+    });
   module.controller("qTools",function($scope, $http){
 
     $scope.testFmea = function(){
@@ -1421,6 +1444,7 @@
               $scope.random_state='';
               $scope.fit_intercept='';
               $scope.calculatedscore=dset.summary;
+
               console.log($scope.training_size);
 
               if(algor == "Simple Linear Regression"){
@@ -1435,7 +1459,7 @@
                   selAlgoId = value2;
 
                   $scope.selectedDataset = dset.dataset_name;
-                  $scope.aName = '';
+                  $scope.mName = '';
                   let data = new FormData();
                   let url = '/getGraphFields/';
                   let dt = new FormData();
@@ -1443,7 +1467,7 @@
                   data.append("training_size",$scope.training_size);
                   data.append("random_state", $scope.random_state);
                   data.append("fit_intercept", $scope.fit_intercept);
-
+                  data.append("model_name", $scope.mName);
 
 
                   let training_size = document.getElementById("training_size").value;
@@ -1453,6 +1477,7 @@
                   let result_score = '';
                   let idvar = document.getElementById("idvar").value;
                   let dvar = document.getElementById("dvar").value;
+                  let model_name = document.getElementById("modelName").value;
                   console.log("datasetname----->", datasetname);
                   dt.append("dataset_id", selDatasetId);
                   dt.append("dataset",$scope.selectedDataset);
@@ -1460,6 +1485,8 @@
                   dt.append("training_size",JSON.stringify(training_size));
                   dt.append("random_state", JSON.stringify(random_state));
                   dt.append("fit_intercept", JSON.stringify(fit_intercept));
+                  dt.append("model_name", JSON.stringify(model_name));
+                  console.log("Model Name", model_name);
                   data.append("dName", dset.dataset_name);
                   dt.append("idvar",idvar);
                   dt.append("dvar",dvar);
@@ -1653,18 +1680,18 @@
 
           }
 
-      $scope.savemodel = function(){
+      $scope.saveMLmodel = function(){
           console.log("inside modelsave");
-          let url = '/savemodel/';
-          let filename = document.getElementById("filename").value;
+          let url = '/saveMLmodel/';
+          $scope.mName = document.getElementById("modelName").value;
           data = new FormData();
-          data.append("filename",filename);
+          data.append("model_name",$scope.mName);
           $http.post(url,data,{
               headers: {'Content-Type': undefined},
               transformRequest: angular.identity
           }).success(function (data,status,headers,config) {
                   //First function handles success
-                  console.log("tosavefilename",filename);
+                  console.log("tosavefilename",$scope.mName);
                   if (data == "saved successfully") {
                       $('#successModal').modal();
                   }

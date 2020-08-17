@@ -21,22 +21,19 @@ from scipy.stats import kurtosis
 from scipy import stats
 from sklearn import linear_model
 from json import JSONEncoder
-
+from .models import mlearn
 import statsmodels.api as sm
 import os
 # Create your views here.
 
+regressor = 1
+list_pickle = 1
 
-
-def mlearn(request):
-	print('Hiiiiii')
-	return render(request, 'mlearn.html')
-
+global describeDict
 def calcsregression(request):
 	print('We are in calcsregression')
 	responseData =''
 	result = ''
-
 	if request.method == 'POST':
 		training_size  = request.POST['training_size']
 		random_state = request.POST['random_state']
@@ -229,7 +226,7 @@ def calcsregression(request):
 		plt.title("Salary vs Experience")
 		plt.xlabel(idvar)
 		plt.ylabel(dvar)
-		# 
+		#
 		# plt.savefig("static/test1.png")
 		plt.clf()
 		print(x_train)
@@ -248,6 +245,64 @@ def calcsregression(request):
 
 
 	return JsonResponse(responseData,safe=False)
+
+
+def saveMLmodel(request):
+	print('I am in save model function')
+	list_pickle_path = 'static/model/linear_model.pkl'
+	list_pickle = open(list_pickle_path, 'wb')
+	pickle.dump(regressor, list_pickle)
+	list_pickle.close()
+
+
+	# load the model from disk
+	loaded_model = pickle.load(open(list_pickle_path, 'rb'))
+	pickled_model = pickle.dumps(loaded_model)
+	client =MongoClient()
+	db = client.mlearnDatadb
+	print(client.list_database_names())
+	print(db.list_collection_names())
+	collection_name = "mlearnData"+datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+	col = db[collection_name]
+	if request.method == 'POST':
+		vForm = mlearn()
+		json_data = {}
+		data = {}
+		model_name  = request.POST['model_name']
+		vForm.mlearn_name= request.POST['model_name']
+		user_obj = User.objects.get(pk=request.user.id)
+		vForm.user_id=user_obj
+		print("postgorm",vForm)
+
+		colId = col.insert_one({"model":pickled_model, "model_name" : model_name })
+		msg = 'saved successfully'
+		print(colId.inserted_id)
+		vForm.mlearn_id = colId.inserted_id
+		vForm.save()
+
+		return HttpResponse(msg)
+
+	msg = 'error while saving mlearn model'
+	return HttpResponse(msg)
+def savemodel(request):
+
+	json_data = {}
+	data = {}
+	if request.method == 'POST':
+		filename = request.POST['filename']
+		file = 'static/model/linear_model.pkl'
+		print(filename)
+		print(os.listdir('static/model'))
+		print(filename+'.pkl')
+		os.rename(file, 'static/model/'+filename+'.pkl')
+
+
+
+		msg = 'saved successfully'
+		return HttpResponse(msg)
+	msg = 'error while saving statistical summary'
+	return HttpResponse(msg)
+
 
 def multiregression(request):
 	print('we are in multiregression algo')
@@ -411,25 +466,37 @@ def multiregression(request):
 		random_state = request.POST['random_state']
 		fit_intercept = request.POST['fit_intercept']
 """
-def savemodel(request):
-	print('I am in save model function')
-	json_data = {}
-	data = {}
-	if request.method == 'POST':
-		filename = request.POST['filename']
-		file = 'static/model/linear_model.pkl'
-		print(filename)
-		print(os.listdir('static/model'))
-		print(filename+'.pkl')
-		os.rename(file, 'static/model/'+filename+'.pkl')
-
-		msg = 'saved successfully'
-		return HttpResponse(msg)
-	msg = 'error while saving statistical summary'
-	return HttpResponse(msg)
 
 def mlist(request):
-	if request.method =='POST':
-		filename = request.POST['FileName']
+	msg = "insideListmlearn"
+	client = MongoClient()
+	print(client.list_database_names())
+	collection_name = "mlearn"+datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+	db = client.mlearnDatadb
+	print("collections in your dataset",db.list_collection_names())
+	collection_names = db.list_collection_names()
+	print(type(collection_names))
+	print(*collection_names, sep='\n')
+	try:
+		listObj=[]
+		usr=str(request.user)
+		print('list0')
+		# list = Process.objects.filter(user_id=usr.id).values()\
+		mlearnList= mlearn.objects.filter(user_id=request.user.id).values()
+		# fmeaObj=fmea.objects.filter(fmea_name).values()
+		print("mlearnList",mlearnList)
+        # print("fmeaObj",fmeaObj)
+        # list = Process.objects.get(user_id=request.user.id).values()
+        # print('list',list)
+		if len(mlearnList) > 0:
+			for i in range(len(mlearnList)):
+				listObj.append(mlearnList[i])
+				print("%%%%",listObj[i])
+            # res = [ sub['fmea_name'] for sub in listObj]
+            # print(res)
+		return JsonResponse(listObj,safe=False)
+	except:
+		msg = 'error while getting process list'
+		print(msg)
 
 	return HttpResponse(msg)

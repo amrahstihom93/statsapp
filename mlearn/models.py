@@ -13,12 +13,12 @@ class Poll(Document):
     pub_date = DateTimeField(help_text='date published')
     choices = ListField(EmbeddedDocumentField(Choice))
 
-		
+
 class mlearn(models.Model):
 	mlearn_id = models.CharField(max_length = 250, null=False, blank=True)
 	mlearn_name = models.CharField(max_length = 250, null=False, blank=True)
 	mlearn_method = models.CharField(max_length = 250, null=False, blank=True)
-	mlearn_calculated_value = JSONField(default={})
+	# mlearn_calculated_value = JSONField(default={})
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 	dataset_id = models.ForeignKey(Dataset, on_delete=models.CASCADE, blank=True, null=True)
 	parameters = JSONField(default={})
