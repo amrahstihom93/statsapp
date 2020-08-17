@@ -367,36 +367,36 @@
       $(document).ready(function(){
           console.log("letsstart");
           //$('[data-toggle="tooltip"]').tooltip();
-          var actions = $("table td:last-child").html();
+          var actions = $(".qtfmea table td:last-child").html();
 
 
           // Append table with add row form on add new button click
           $(".add-new").click(function(){
               console.log("add-new clicked");
               $(this).attr("disabled", "disabled");
-              var index = $("table tbody tr:last-child").index();
+              var index = $(".qtfmea table tbody tr:last-child").index();
               var new_index= index+1;
               var row = '<tr>' +
-              '<td><input type="text" class="form-control" name="process function (step)" id="process function (step)" required></td>' +
-              '<td><input type="text" class="form-control" name="potential failure modes "errors"" id="potential failure modes "errors""></td>' +
-              '<td><input type="text" class="form-control" name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
-              '<td><input type="text" class="form-control"  id="sev_'+(new_index)+'" name="sev_'+(new_index)+'"></td>'+
-  			      '<td><input type="text" class="form-control" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
-              '<td><input type="text" class="form-control"  id="occ_'+(new_index)+'" name="occ_'+(new_index)+'"></td>' +
-              '<td><input type="text" class="form-control" name="current process control" id="current process control"></td>' +
-              '<td><input type="text" class="form-control"  id="det_'+(new_index)+'" name="det_'+(new_index)+'"></td>' +
-              '<td><input type="text" class="form-control calcRPN" name="rpn_'+(new_index)+'" id="rpn_'+(new_index)+'" ></td>' +
-              '<td><input type="text" class="form-control" name="recommended actions" id="recommended actions"></td>' +
-              '<td><input type="text" class="form-control" name="responsible person & target date" id="responsible person & target date"></td>' +
-              '<td><input type="text" class="form-control" name="take actions" id="take actions"></td>' +
-              '<td><input type="text" class="form-control"  id="new_sev_'+(new_index)+'" name="new_sev_'+(new_index)+'"></td>' +
-              '<td><input type="text" class="form-control"  id="new_occ_'+(new_index)+'" name="new_occ_'+(new_index)+'"></td>' +
-              '<td><input type="text" class="form-control"  id="new_det_'+(new_index)+'" name="new_det_'+(new_index)+'"></td>' +
-              '<td><input type="text" class="form-control calc_newRPN" name="new_rpn_'+(new_index)+'" id="new_rpn_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" name="process function (step)" id="process function (step)" required></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" name="potential failure modes "errors"" id="potential failure modes "errors""></td>' +
+              '<td><input type="text" class="form-control"style="width: 100px; " name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;"  id="sev_'+(new_index)+'" name="sev_'+(new_index)+'"></td>'+
+  			  '<td><input type="text" class="form-control" style="width: 100px;" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" id="occ_'+(new_index)+'" name="occ_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" name="current process control" id="current process control"></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" id="det_'+(new_index)+'" name="det_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control calcRPN" style="width: 100px;" name="rpn_'+(new_index)+'" id="rpn_'+(new_index)+'" ></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" name="recommended actions" id="recommended actions"></td>' +
+              '<td><input type="text" class="form-control"  style="width: 100px;" name="responsible person & target date" id="responsible person & target date"></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" name="take actions" id="take actions"></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;" id="new_sev_'+(new_index)+'" name="new_sev_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;"  id="new_occ_'+(new_index)+'" name="new_occ_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control" style="width: 100px;"  id="new_det_'+(new_index)+'" name="new_det_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control calc_newRPN" style="width: 100px;" name="new_rpn_'+(new_index)+'" id="new_rpn_'+(new_index)+'"></td>' +
   			      '<td>' + actions + '</td>' +
               '</tr>';
-              $("table").append(row);
-              $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+              $(".qtfmea table").append(row);
+              $(".qtfmea table tbody tr").eq(index + 1).find(".add, .edit").toggle();
               console.log("row ",index+1," added")
 
               setInputFilter(document.getElementById("sev_"+new_index), function(value) {
@@ -413,7 +413,13 @@
                 return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 10); });
               //$('[data-toggle="tooltip"]').tooltip();
           });
+          var input = document.querySelector('input'); // get the input element
+          input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+          resizeInput.call(input); // immediately call the function
 
+          function resizeInput() {
+            this.style.width = this.value.length + "ch";
+          }
           // $scope.calcRPN = function(){
           //     var occ=document.getElementById("occ").value;
           //     console.log("value of occ is ",occ)
@@ -533,7 +539,7 @@
           var actions = $("table td:last-child").html();
 
           $(".save").click(function(){
-              var y =document.getElementsByTagName("th");
+              var y =document.getElementsByTagName("qtfmea");
               for(var i = 0;i<y.length; i++){
                   console.log(y[i].innerHTML);
               }
@@ -542,30 +548,30 @@
           $(".add-new").click(function(){
               console.log("add-new clicked");
               $(this).attr("disabled", "disabled");
-              var index = $("table tbody tr:last-child").index();
+              var index = $(".qtfmea table tbody tr:last-child").index();
 
               var row = '<tr>' +
-              '<td><div class="table table-striped dropdown"><select id="legend" name="legend" class="btn btn-primary dropdown-toggle datsel fa" style="font-weight:900"type="button"><option value="technology" style="font-weight:900">&#xf26c</option><option value="people" style="font-weight:900">&#xf0c0</option><option value="process"style="font-weight:900">&#xf085</option></select></div></td>' +
-              '<td><input type="text" class="form-control" name="opportunity name" id="opportunity name"></td>' +
-              '<td><input type="text" class="form-control" name="quantification notes" id="quantification notes"></td>' +
-              '<td><input type="text" class="form-control" name="opportunity description" id="oppportunity description"></td>' +
-  			      '<td><div class="table table-striped dropdown"><select id="intervention nature" name="intervention nature" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="transformational">Transformational</option><option value="incremental">Incremental</option><option value="quick hits">Quick Hits</option></select></div></td>' +
-              '<td><input type="text" class="form-control" name="process name" id="process name"></td>'  +
-              '<td><div class="table table-striped dropdown"><select id="opportunity category" name="opportunity category" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="training">Training</option><option value="technology">Technology</option><option value="process">Process</option><option value="analytics">Analytics</option></select></div></td>' +
-              '<td><div class="table table-striped dropdown"><select id="efforts" name="efforts" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="high">High</option><option value="mid">Medium</option><option value="low">Low</option></select></div></td>' +
-              '<td><div class="table table-striped dropdown"><select id="impact" name="impact" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="high">High</option><option value="mid">Medium</option><option value="low">Low</option></select></div></td>' +
-              '<td><input type="text" class="form-control" name="created by" id="created by"></td>' +
-              '<td><input type="text" class="form-control" name="estimated annualized impact" id="estimated annualized impact"></td>' +
-              '<td><div class="table table-striped dropdown"><select id="type of impact" name="type of impact" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="revenue">Revenue</option><option value="cost">Cost</option><option value="risk">Risk</option><option value="float">Float</option></select></div></td>' +
-              '<td><div class="table table-striped dropdown"><select id="approved for charter creation" name="approved for charter creation" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="yes">YES</option><option value="no">NO</option></select></div></td>' +
-              '<td><div class="table table-striped dropdown"><select id="effort score" name="effort score" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
-              '<td><div class="table table-striped dropdown"><select id="impact score" name="impact score" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
-              '<td><div class="table table-striped dropdown"><select id="nature score" name="nature score" class="btn btn-primary dropdown-toggle datsel" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
-              '<td><input type="number" class="form-control" name="priority score" id="priority score"></td>' +
+              '<td><div class="table table-striped dropdown"><select id="legend" name="legend" class="btn btn-primary dropdown-toggle datsel fa" style="font-weight:900; width: 100px; height: 35px;"type="button"><option value="technology" style="font-weight:900">&#xf26c</option><option value="people" style="font-weight:900">&#xf0c0</option><option value="process"style="font-weight:900">&#xf085</option></select></div></td>' +
+              '<td><input style="width: 100px;"  type="text" class="form-control" name="opportunity name" id="opportunity name"></td>' +
+              '<td><input style="width: 100px;"  type="text" class="form-control" name="quantification notes" id="quantification notes"></td>' +
+              '<td><input style="width: 100px;"  type="text" class="form-control" name="opportunity description" id="oppportunity description"></td>' +
+  			  '<td><div class="table table-striped dropdown"><select id="intervention nature" name="intervention nature" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;" type="button"><option value="transformational">Transformational</option><option value="incremental">Incremental</option><option value="quick hits">Quick Hits</option></select></div></td>' +
+              '<td><input style="width: 100px;"  type="text" class="form-control" name="process name" id="process name"></td>'  +
+              '<td><div class="table table-striped dropdown"><select id="opportunity category" name="opportunity category" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;" type="button"><option value="training">Training</option><option value="technology">Technology</option><option value="process">Process</option><option value="analytics">Analytics</option></select></div></td>' +
+              '<td><div class="table table-striped dropdown"><select id="efforts" name="efforts" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;" type="button"><option value="high">High</option><option value="mid">Medium</option><option value="low">Low</option></select></div></td>' +
+              '<td><div class="table table-striped dropdown"><select id="impact" name="impact" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;" type="button"><option value="high">High</option><option value="mid">Medium</option><option value="low">Low</option></select></div></td>' +
+              '<td><input style="width: 100px;" type="text" class="form-control" name="created by" id="created by"></td>' +
+              '<td><input style="width: 100px;"  type="text" class="form-control" name="estimated annualized impact" id="estimated annualized impact"></td>' +
+              '<td><div class="table table-striped dropdown"><select id="type of impact" name="type of impact" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;"  type="button"><option value="revenue">Revenue</option><option value="cost">Cost</option><option value="risk">Risk</option><option value="float">Float</option></select></div></td>' +
+              '<td><div class="table table-striped dropdown"><select id="approved for charter creation" name="approved for charter creation" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;" type="button"><option value="yes">YES</option><option value="no">NO</option></select></div></td>' +
+              '<td><div class="table table-striped dropdown"><select id="effort score" name="effort score" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
+              '<td><div class="table table-striped dropdown"><select id="impact score" name="impact score" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px;" type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
+              '<td><div class="table table-striped dropdown"><select id="nature score" name="nature score" class="btn btn-primary dropdown-toggle datsel" style="width: 100px; height: 35px; " type="button"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div></td>' +
+              '<td><input style="width: 100px;"  type="number" class="form-control" name="priority score"  id="priority score"></td>' +
   			      '<td>' + actions + '</td>' +
               '</tr>';
-              $("table").append(row);
-              $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+              $(".qtfmea table").append(row);
+              $(".qtfmea table tbody tr").eq(index + 1).find(".add, .edit").toggle();
 
 
           });
