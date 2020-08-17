@@ -279,6 +279,12 @@ def saveMLmodel(request):
 		print(colId.inserted_id)
 		vForm.mlearn_id = colId.inserted_id
 		vForm.save()
+		filename = request.POST['model_name']
+		file = 'static/model/linear_model.pkl'
+		print(filename)
+		print(os.listdir('static/model'))
+		print(filename+'.pkl')
+		os.rename(file, 'static/model/'+filename+'.pkl')
 
 		return HttpResponse(msg)
 
