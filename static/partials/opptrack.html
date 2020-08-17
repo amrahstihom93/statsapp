@@ -7,22 +7,25 @@
 <div class="md-12">
 <table class="tablefill3" style="margin-top: 30px">
         	  <thead>
-        		<tr class="thnew">
+        		<tr class="thnew" style="background-color: #001c47">
         		  <th style="text-align:center;">Select Process</th>
+				  <th style="text-align:center;">Opportunity Name</th>
         		  <th style="text-align:center;">Save</th>
         		</tr>
         	  </thead>
         	  <tbody>
         		<tr>
-        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px; width: 750px;">
+        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px; width: 350px;">
                       <option ng-repeat="x in processList" value="[[x.process_id]]">
                           [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                       </option>
                   </select>
 				</td>
-
+				<td>
+					<input type="text" ng-model="fmeaName" class="form-control form-control-0" id="fmeaName" placeholder="Enter Opportunity Name" style="width: 300px;height: 35px;">
+				</td>
         		  <td>
-                      <button type="button" id="save" class="btn btn-info save" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Save</button>
+                      <button type="button" id="save" class="btn btn-info save" ng-click="save()" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"><i class="fa fa-plus"></i> Save</button>
                   </td>
                 </tr>
         	  </tbody>
