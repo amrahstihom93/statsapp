@@ -15,13 +15,13 @@
         	  </thead>
         	  <tbody>
         		<tr>
-        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px; width: 350px">
+        	      <td><select required ng-model="selectedProcess" id="selectbox" class="ml-4 custom-select" style="height: 35px; width: 400px">
                       <option ng-repeat="x in processList track by $index" value="[[x.process_id]]">
                           [[x.parent_p_id.slice(3,-14)]]/[[x.process_name]]
                       </option>
                   </select> </td>
                   <td>
-                      <input type="text" ng-model="fmeaName" class="form-control form-control-0" id="fmeaName" placeholder="Enter FMEA Name" style="width: 350px; height: 35px;">
+                      <input type="text" ng-model="fmeaName" class="form-control form-control-0" id="fmeaName" placeholder="Enter FMEA Name" style="height: 35px; width: 400px">
         		  </td>
         		  <td>
 					  <button type="button" id="testFmea" class="btn btn-info " ng-click="testFmea()" style="width: 150px;height: 35px;margin-top: 10px;margin-bottom: 10px;"> Save</button></td>
