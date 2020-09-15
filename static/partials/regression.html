@@ -72,8 +72,20 @@
 
 
 			               <div ng-hide="ctrlChart" class=" container w-100">
-			                <div class="row ">
-			                  <div class="col-sm-4  table table-striped my-4 ">
+											 <div class="row ">
+ 			                  <div class="col-sm-4  table table-striped my-4 ">
+ 			                    <label class="category">Select Dependent Variable</label>
+ 			                  </div>
+ 			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
+ 			                    <select id="dvar" name="dvar" ng-model="dvar"class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+ 			                      <option>Select field</option>
+ 			                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
+ 			                    </select>
+ 			                  </div>
+ 			                </div>
+
+			                <div class="row "ng-if="selectedmodel=='Simple Linear Regression' ">
+			                  <div class="col-sm-4  table table-striped my-4 "  >
 			                    <label class="category">Select Independet Variable</label>
 			                  </div>
 			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
@@ -84,17 +96,20 @@
 			                  </div>
 			                </div>
 
-											<div class="row " ng-show="depvardiv">
-			                  <div class="col-sm-4  table table-striped my-4 ">
-			                    <label class="category">Select Dependent Variable</label>
+											<div class="row "ng-if="selectedmodel=='Multivar Linear Regression' ">
+												<div class="col-sm-4  table table-striped my-4 " >
+			                    <label class="category">Select Independet Variables</label>
 			                  </div>
 			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right">
-			                    <select id="dvar" name="dvar" ng-model="dvar"class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
+			                    <select id="idvar" name="idvar" ng-model="idvar"class="btn btn-primary dropdown-toggle block datsel" type="button" ng-model="selecteddatacol" class="custom-select btn-info">
 			                      <option>Select field</option>
 			                      <option ng-repeat="k in fieldsAr" value="[[k]]">[[k]]</option>
 			                    </select>
+													<a ng-data-link="#" id="addScnt">Add Another Input Box</a>
 			                  </div>
 			                </div>
+
+
 			              </div>
 
 			             </div>
@@ -108,7 +123,7 @@
  			                    <label class="category">Select Training Set Size</label>
  			                  </div>
  			                  <div  class="col-sm  table table-striped my-4 dropdown pull-right" ng-model="training_size"name="t_size">
- 			                    <input type="number"class="form-control form-control-0" id ="training_size" min=50 max=100 value='0'>
+ 			                    <input type="number"class="form-control form-control-0" id ="training_size" min=80 max=100 value='0'>
  			                  </div>
  			                </div>
 											<div class="row ">
@@ -158,10 +173,10 @@
 
 					<div class="row no-gutters">
 						<div class="col-md">
-							<div id="SLRresults"  style="background-color: #868e96;" ng-hide="avengers">
+							<div id="SLRresults"  ng-if="selectedmodel=='Simple Linear Regression' "style="background-color: #868e96;" ng-hide="avengers">
 
 				        <label class="category p-2 mx-auto text-light">Simple Linear Regression</label>
-				          <table class="tablefill2" ng-if="selectedmodel=='Simple Linear Regression' " style="height:auto;">
+				          <table class="tablefill2"  style="height:auto;">
 				              <thead>
 				                  <tr class="thnew" >
 				                      <th class=" text-left">Factor</th>
@@ -204,47 +219,57 @@
 				              </tbody>
 				            </table>
 				       </div>
+							 <div id="SLRresults"  ng-if="selectedmodel=='Multivar Linear Regression' "style="background-color: #868e96;" ng-hide="avengers">
+
+ 				        <label class="category p-2 mx-auto text-light">Multivar Linear Regression</label>
+ 				          <table class="tablefill2"  style="height:auto;">
+ 				              <thead>
+ 				                  <tr class="thnew" >
+ 				                      <th class=" text-left">Factor</th>
+ 				                      <th class=" text-left">Value</th>
+
+ 				                      <th class=" text-left">Factor</th>
+ 				                      <th class=" text-left">Value</th>
+ 				                  </tr>
+ 				              </thead>
+ 				              <tbody class="tdnew table-hover">
+ 				                 <tr >
+ 				                     <td class="text-left">Accuracy</td>
+ 				                     <td>[[calculatedscore.result_score]]</td>
+
+ 				                     <td class="text-left">R-Squared</td>
+ 				                     <td style="border-right: 0px;">[[calculatedscore.rsquared]]</td>
+ 				                 </tr>
+ 				                 <tr>
+ 				                     <td class="text-left">Adjective R-Squared</td>
+ 				                     <td>[[calculatedscore.radjective]]</td>
+
+ 														 <td class="text-left">Std. Error of Estimate </td>
+ 				                     <td>[[calculatedscore.err_of_estimate]]</td>
+ 				                 </tr>
+ 												 <tr>
+ 				                     <td class="text-left">F-Value</td>
+ 				                     <td>[[calculatedscore.fvalue]]</td>
+
+ 														 <td class="text-left">P-Value </td>
+ 				                     <td>[[calculatedscore.pvalue]]</td>
+ 				                 </tr>
+ 												 <tr>
+ 				                     <td class="text-left">T-Value</td>
+ 				                     <td>[[calculatedscore.tvalue]]</td>
+
+ 														 <td></td>
+ 		                         <td style="border-right: 0px;"></td>
+ 				                 </tr>
+
+ 				              </tbody>
+ 				            </table>
+ 				       </div>
 						</div>
 					</div>
 
 				</div>
 			</div>
-		<!--<div class="table table-bordered table-striped my-4 dropdown">
-      		<button class="btn btn-primary dropdown-toggle block" type="button" data-toggle="dropdown">Select Dataset
-
-      		</button>
-      		<ul class="dropdown-menu scrollable-menu">
-          		<li ng-repeat="x in mlearnArr"><br><a href="" class="btn btn-primary block" ng-click="chooseDataset(x)">[[x.dataset_name]]</a></li>
-      		</ul>
-  		</div>-->
-		<!-- <div class="container text-center">
-			<h1 class="text-center">Create a Model</h1>
-			<div class="row">
-				<div class="col-md-6">
-					<h3>Select Database</h3>
-					<select id="dataset" name="dataset" ng-model="selectedDataset" class="custom-select btn-info">
-						<option ng-repeat="x in mlearnArr">[[x.dataset_name]]</option>
-					</select>
-					<br>
-				</div>
-				<div class="col-md-6 ">
-					<h3>Select Algorithm</h3>
-					<select id="algo" name="algo" ng-model="selectedmodel" class="custom-select btn-info ">
-						<option>Select Algo</option>
-						<option ng-option value="Simple Linear Regression">Simple Linear Regression</option>
-						<option ng-option value="Multivar Linear Regression">Multivar Linear Regression</option>
-						<option ng-option value="Logistic Regression">Logistic Regression</option>
-						<option ng-option value="Support Vector Machine">Support Vector Machine</option>
-						<option ng-option value="K-Nearest Neighbour">K-Nearest Neighbour</option>
-						<option ng-option value="Decision Tree Algorithm">Decision Tree Algorithm</option>
-						<option ng-option value="Random Forest Algorithm">Random Forest Algorithm</option>
-					</select>
-				</div>
-			</div>
-			<div class="d-flex justify-content-center row">
-				<a href=""><button type="button" class="btn btn-primary" id = "slct-btn" ng-click="chooseDataset()">Proceed</button></a>
-			</div>
-		</div> -->
 	</div>
 	<!-- Model for Simple Linear Regression-->
 	<div class="container" ng-if="selectedmodel =='Simple Linear Regression'" ng-show="eminem" >
@@ -372,7 +397,7 @@
         	<div class="row">
             	<div class="col-md-4" ng-model="training_size"name="t_size" >
                 	<h3>Select Training Set Size</h3>
-                	<input type="number" id ="training_size" min=50 max=100 value='0'>
+                	<input type="number" id ="training_size" min=80 max=100 value='0'>
             	</div>
             	<div class="col-md-4"name="random_state"ng-model="random_state" >
                 	<h3>Random State</h3>

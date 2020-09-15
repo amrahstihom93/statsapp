@@ -134,6 +134,8 @@
               //Second function handles error
               console.log("Something went wrong");
           });
+
+
   });
 
   module.controller ("getmlearnList",function($scope, $http){
@@ -152,6 +154,22 @@
                 //Second function handles error
                 console.log("Something went wrong");
             });
+
+            $scope.viewMLmodal = function(ml){
+              console.log("mlmlmlm",ml)
+              let url3 ='/mldat/'
+              let dt = new FormData();
+              $scope.mongoMLname = ml.mlearn_name;
+              $scope.mongoModelname = ml.mlearn_id;
+              $scope.parameters = ml.parameters;
+              console.log("mongomodelname", $scope.mongoModelname)
+              console.log("mlearn_name", $scope.mongoMLname)
+              console.log("mongomlparameters",$scope.parameters)
+              console.log("mongomlparameters",typeof($scope.parameters))
+              $scope.calSummary = JSON.parse($scope.parameters)
+
+              console.log("json clacsummary", $scope.calSummary)
+            }
 
     });
   module.controller("qTools",function($scope, $http){
@@ -380,12 +398,12 @@
               '<td><input type="text" class="form-control" style="width: 100px;" name="process function (step)" id="process function (step)" required></td>' +
               '<td><input type="text" class="form-control" style="width: 100px;" name="potential failure modes "errors"" id="potential failure modes "errors""></td>' +
               '<td><input type="text" class="form-control"style="width: 100px; " name="potential failure effects "defects" "ys"" id="potential failure effects "defects" "ys""></td>' +
-              '<td><input type="text" class="form-control" style="width: 100px;"  id="sev_'+(new_index)+'" name="sev_'+(new_index)+'"></td>'+
+              '<td><input type="text" class="form-control" style="width: 25px;"  id="sev_'+(new_index)+'" name="sev_'+(new_index)+'"></td>'+
   			  '<td><input type="text" class="form-control" style="width: 100px;" name="potential causes of failure "inputs" "xs"" id="potential causes of failure "inputs" "xs""></td>' +
-              '<td><input type="text" class="form-control" style="width: 100px;" id="occ_'+(new_index)+'" name="occ_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control" style="width: 25px;" id="occ_'+(new_index)+'" name="occ_'+(new_index)+'"></td>' +
               '<td><input type="text" class="form-control" style="width: 100px;" name="current process control" id="current process control"></td>' +
-              '<td><input type="text" class="form-control" style="width: 100px;" id="det_'+(new_index)+'" name="det_'+(new_index)+'"></td>' +
-              '<td><input type="text" class="form-control calcRPN" style="width: 100px;" name="rpn_'+(new_index)+'" id="rpn_'+(new_index)+'" ></td>' +
+              '<td><input type="text" class="form-control" style="width: 25px;" id="det_'+(new_index)+'" name="det_'+(new_index)+'"></td>' +
+              '<td><input type="text" class="form-control calcRPN" style="width: 25px;" name="rpn_'+(new_index)+'" id="rpn_'+(new_index)+'" ></td>' +
               '<td><input type="text" class="form-control" style="width: 100px;" name="recommended actions" id="recommended actions"></td>' +
               '<td><input type="text" class="form-control"  style="width: 100px;" name="responsible person & target date" id="responsible person & target date"></td>' +
               '<td><input type="text" class="form-control" style="width: 100px;" name="take actions" id="take actions"></td>' +
@@ -417,9 +435,9 @@
           input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
           resizeInput.call(input); // immediately call the function
 
-          function resizeInput() {
-            this.style.width = this.value.length + "ch";
-          }
+          // function resizeInput() {
+          //   this.style.width = this.value.length + "ch";
+          // }
           // $scope.calcRPN = function(){
           //     var occ=document.getElementById("occ").value;
           //     console.log("value of occ is ",occ)
@@ -6497,6 +6515,49 @@
               Plotly.newPlot(chartView, data, layout);
 
         }
+        else if(gType == "bar"){
+          var trace = {
+            y:ydata,
+            x:xdata,
+            type:'bar',
+            fill: 'tonexty',
+            fillcolor: color,
+            mode: 'none',
+          };
+          var data = [trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+          }
+          Plotly.newPlot(chartView , data, layout);
+        }
         else if(gType == "radar"){
             var trace = {
                 r: ydata,
@@ -6769,7 +6830,7 @@
             var data =[trace];
             var layout = {
               title: {
-                text: grptitle,
+                text: graphtitle,
                 font: {
                   family: 'Courier New, monospace',
                   size: 24
@@ -7988,14 +8049,183 @@
 
       $scope.editVisualization = function (chart) {
           console.log("in edit", chart);
-          xdata = chart.parameters.labels;
-          ydata = chart.parameters.defaultData;
-          xLabel = chart.parameters.xLabel;
-          yLabel = chart.parameters.yLabel;
-          gType = chart.type;
+          xLabel =     chart.parameters.xLabel;
+          yLabel =     chart.parameters.yLabel;
+          xdata =      chart.parameters.labels;
+          ydata =      chart.parameters.defaultData;
+          graphtitle = chart.parameters.graphtitle;
+          color =  chart.parameters.color;
+          xtitle = chart.parameters.xAxisTitle;
+          ytitle = chart.parameters.yAxisTitle;
+          gType =  chart.type;
+          g_type = chart.parameters.controlChartType;
+          subGpVal=chart.parameters.subValue;
           currChartid = chart.id;
           divId = document.getElementById("chartEdit");
-          viewChart(xdata, ydata, xLabel, yLabel, divId.id);
+          if(gType == "area"){
+              var trace = {
+                  y: ydata,
+                  x: xdata,
+                  type:'scatter',
+                  fill: 'tonexty',
+                  fillcolor: color,
+                  mode: 'none',
+              };
+              var data =[trace];
+              var layout = {
+                title: {
+                  text: graphtitle,
+                  font: {
+                    family: 'Courier New, monospace',
+                    size: 24
+                  },
+                  xref: 'paper',
+                  x: 0.5,
+                },
+                xaxis: {
+                    title: {
+                        text: xtitle,
+                        font: {
+                            family: 'Courier New, monospace',
+                            size: 18,
+                            color: '#7f7f7f'
+                        }
+                    },
+                },
+                yaxis: {
+                    title: {
+                        text: ytitle,
+                        font: {
+                            family: 'Courier New, monospace',
+                            size: 18,
+                            color: '#7f7f7f'
+                        }
+                    }
+                },
+                  bargap: 0.005,
+                  bargroupgap: 0.02,
+                  margin:{t:0},
+              }
+
+              Plotly.newPlot(divId, data, layout);
+
+        }
+        else if(gType == "bar"){
+          var trace = {
+            y:ydata,
+            x:xdata,
+            type:'bar',
+            fill: 'tonexty',
+            fillcolor: color,
+            mode: 'none',
+          };
+          var data = [trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+          }
+          Plotly.newPlot(divId , data, layout);
+        }
+        else if(gType == "radar"){
+            var trace = {
+                r: ydata,
+                theta: xdata,
+                marker:{
+                   color: color
+                },
+                type:'scatterpolar',
+                fill: 'none',
+            };
+            var data =[trace];
+            var layout = {
+              title: {
+                text: graphtitle,
+                font: {
+                  family: 'Courier New, monospace',
+                  size: 24
+                },
+                xref: 'paper',
+                x: 0.5,
+              },
+
+                margin:{t:0},
+            }
+            Plotly.newPlot(divId, data, layout);
+
+      }
+        else if(gType == "boxplot"){
+          var trace = {
+            y: ydata,
+            x: xdata,
+            marker:{
+               color: color
+            },
+            type: 'box',
+            showline: true,
+          };
+          var data = [trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+          }
+        Plotly.newPlot(divId , data, layout);
+      }
+
+          // viewChart(xdata, ydata, xLabel, yLabel, divId.id);
           let durl = '/giveDatasetName/';
           let dform = new FormData();
           dform.append("dataset_id", chart.dataset_id_id);

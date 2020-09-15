@@ -29,9 +29,11 @@ import os
 regressor = 1
 list_pickle = 1
 
-global describeDict
+
 def calcsregression(request):
 	print('We are in calcsregression')
+	global describeDict
+	global responseData
 	responseData =''
 	result = ''
 	if request.method == 'POST':
@@ -189,6 +191,8 @@ def calcsregression(request):
 		print("Printing JSON SERIALIZED XTEST AND YTEST")
 		print(x_test_dat)
 		print(y_test_dat)
+
+
 		responseData = {
            	'summary':result,
         }
@@ -248,6 +252,7 @@ def calcsregression(request):
 
 
 def saveMLmodel(request):
+	print(describeDict)
 	print('I am in save model function')
 	list_pickle_path = 'static/model/linear_model.pkl'
 	list_pickle = open(list_pickle_path, 'wb')
@@ -267,17 +272,28 @@ def saveMLmodel(request):
 	if request.method == 'POST':
 		vForm = mlearn()
 		json_data = {}
+
 		data = {}
+		data['result_score'] = describeDict.get('result_score')
+		data['rsquared'] = describeDict.get('rsquared')
+		data['radjective'] = describeDict.get('radjective')
+		data['err_of_estimate'] = describeDict.get('err_of_estimate')
+		data['fvalue'] = describeDict.get('fvalue')
+		data['pvalue'] = describeDict.get('pvalue')
+		data['tvalue'] = describeDict.get('tvalue')
+		datad =  json.dumps(data, indent = 4)
+		print(datad)
 		model_name  = request.POST['model_name']
 		vForm.mlearn_name= request.POST['model_name']
 		user_obj = User.objects.get(pk=request.user.id)
 		vForm.user_id=user_obj
 		print("postgorm",vForm)
 
-		colId = col.insert_one({"model":pickled_model, "model_name" : model_name })
+		colId = col.insert_one({"model":pickled_model, "model_name" : model_name, 'calculated_values' : datad })
 		msg = 'saved successfully'
 		print(colId.inserted_id)
-		vForm.mlearn_id = colId.inserted_id
+		vForm.mlearn_id = collection_name
+		vForm.parameters = datad
 		vForm.save()
 		filename = request.POST['model_name']
 		file = 'static/model/linear_model.pkl'
@@ -472,6 +488,15 @@ def multiregression(request):
 		random_state = request.POST['random_state']
 		fit_intercept = request.POST['fit_intercept']
 """
+def mldat(request):
+	msg = "inside mldat"
+	client = MongoClient()
+	print(client.list_database_names())
+	db = client.mlearnDatadb
+	collection_names = db.list_collection_names()
+	print(collection_names)
+
+	return HttpResponse(msg)
 
 def mlist(request):
 	msg = "insideListmlearn"

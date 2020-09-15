@@ -92,6 +92,7 @@ urlpatterns = [
 
     url(r'^mdep/$', ml_views.mlearn, name="mdep"),
     url(r'^mlist/$', ml_views.mlist, name="mlist"),
+    url(r'^mldat/$', ml_views.mldat, name="mldat"),
 
     url(r'^processmap/$', processmap_views.processmap, name="processmap"),
     url(r'^open/$', processmap_views.processmapopen, name="processmap"),

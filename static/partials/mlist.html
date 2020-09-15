@@ -1,11 +1,13 @@
 <div class="container">
-<div ng-hide="(viewClicked||editClicked)">
+<div ng-hide="">
 <nav aria-label="breadcrumb" class="my-4">
   <ol class="breadcrumb">
-	<li class="breadcrumb-item" aria-current="page">Saved Models List</li>
+	<li class="breadcrumb-item" aria-current="page">Saved ML Modal List</li>
   </ol>
 </nav>
+
 <div class="row no-gutters"style="margin-top:30px">
+
     <div class="col-md">
       <table id="" class="tablefill3" style=" box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);">
         <thead>
@@ -18,9 +20,9 @@
           <tr ng-repeat="x in mlearnListArr" ng-if="$even" class="tdnew">
             <td class="ng-binding" style="width:70%">[[x.mlearn_name]]</td>
             <td style="display:flex;">
-              <!-- <a href="" style="margin-top:auto; width:100%" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a>
-              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a> -->
-              <a href="" style="margin-top:auto; width:100%" class="btn btn-danger disabled" ng-click="delModel(x.mlearn_name)">Delete</a>
+              <a href="" style="margin-top:auto; width:100%" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewMLmodal(x)">View</a>
+              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a>
+              <a href="" style="margin-top:auto; width:100%" class="btn btnd" ng-click="delDataset(x.dataset_name)">Delete</a>
             </td>
           </tr>
         </tbody>
@@ -38,77 +40,80 @@
           <tr ng-repeat="x in mlearnListArr" ng-if="$odd" class="tdnew">
             <td class="ng-binding" style="width:70%">[[x.mlearn_name]]</td>
             <td style="display:flex;">
-              <!-- <a href="" style="margin-top:auto; width:100%;" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a>
-              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a> -->
-              <a href="" style="margin-top:auto; width:100%;" class="btn btn-danger disabled"  ng-click="delModel(x.mlearn_name)">Delete</a>
+              <a href="" style="margin-top:auto; width:100%;" class="btn btn-primary" data-toggle="modal" data-target="#viewModal" ng-click="viewMLmodal(x)">View</a>
+              <a href="" style="margin-top:auto; width:50%;" class="btn btn-default"  ng-disabled="true">Edit</a>
+              <a href="" style="margin-top:auto; width:100%;" class="btn btnd"  ng-click="delDataset(x.dataset_name)">Delete</a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 </div>
-<!-- <div class="row no-gutters">
-<div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid #9ea7af">
-    <thead>
-      <tr ng-hide="true" class="ng-hide">
-        <th>Dataset</th>
-	      <th>View</th>
-        <th>Edit</th>
-	    	<th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="x in datasetArr" ng-if="$even" style="color:black">
-        <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
-		    <td class="text-center"><a href="" class="btn  btnv" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)">View</a></td>
-        <td class="text-center"><a href="" class="btn btne"  ng-disabled="true">Edit</a></td>
-	    	<td class="text-center"><a href="" class="btn btnd" ng-click="delDataset(x.dataset_name)">Delete</a></td>
-      </tr>
-    </tbody>
-    </table>
-</div>
-<div class="col-md-6">
-  <table id="datasetList" class="table table-striped my-4" style="border: 1px solid #9ea7af">
-    <thead>
-      <tr ng-hide="true" class="ng-hide">
-        <th>Dataset</th>
-	      <th>View</th>
-        <th>Edit</th>
-	    	<th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="x in datasetArr" ng-if="$odd" style="color:black">
-        <td class="ng-binding" style="width:50%; padding-left: 30px">[[x.dataset_name]]</td>
-		    <td class="text-center"><a href="" class="btn btn-success" data-toggle="modal" data-target="#viewModal" ng-click="viewDataset(x.dataset_name,x.data)"><span class="noline glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-        <td class="text-center"><a href="" class="btn btn-info"  ng-disabled="true"><span class="noline glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-	    	<td class="text-center"><a href="" class="btn btn-danger" ng-click="delDataset(x.dataset_name)"><span class="noline glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-      </tr>
-    </tbody>
-    </table>
-  </div>
-</div> -->
 
-  <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title text-center" id="viewModalLabel">Uploaded Data</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="viewModalBody">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-center" id="viewModalLabel">Uploaded Data</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" id="viewModalBody">
+      <div class="col-md">
+        <div class="col-md">
+          <div id="statisticalSummary" width="auto" height="300" style="background-color: #D3D3D3;">
+
+            <h4 ng-model="mongoMLname"class="text-primary text-center display-4" style="padding: 30px;">[[mongoMLname]]
+            </h4>
+            <!--  <h3 class="font-weight-bold text-center text-primary" style="padding-bottom: 30px;">
+                [[selMethod]] : [[calSummary]]
+              </h3> -->
+              <table class="tablefill2"  style="height:auto;">
+                  <thead>
+                      <tr class="thnew" >
+                          <th class=" text-left">Factor</th>
+                          <th class=" text-left">Value</th>
+
+                          <th class=" text-left">Factor</th>
+                          <th class=" text-left">Value</th>
+                      </tr>
+                  </thead>
+                  <tbody class="tdnew table-hover">
+                     <tr >
+                         <td class="text-left">Result Score</td>
+                         <td>[[calSummary.result_score]]</td>
+
+                         <td class="text-left">Rsquared</td>
+                         <td style="border-right: 0px;">[[calSummary.rsquared]]</td>
+                     </tr>
+                     <tr>
+                         <td class="text-left">Radjective</td>
+                         <td >[[calSummary.radjective]]</td>
+
+                         <td class="text-left">Error of Estimate</td>
+                         <td style="border-right: 0px;">[[calSummary.err_of_estimate]]</td>
+                     </tr>
+
+
+                  </tbody>
+                </table>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     </div>
   </div>
 </div>
+</div>
 
-  <div id="datasetView">
-  </div>
- </div>
- </div>
+</div>
+
+
+
+
+
+</div>
