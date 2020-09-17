@@ -8224,6 +8224,223 @@
           }
         Plotly.newPlot(divId , data, layout);
       }
+        else if(gType == "scatter"){
+          var trace = {
+            y: ydata,
+            x: xdata,
+            marker:{
+               color: color
+            },
+            type: 'scatter',
+            mode: 'markers',
+          };
+          var data = [trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+            margin:{t:30},
+          }
+        Plotly.newPlot(divId , data, layout);
+      }
+        else if(gType == "horizontalBar"){
+          var trace = {
+            y: ydata,
+            x: xdata,
+            marker:{
+               color: color
+            },
+            type: 'bar',
+            orientation: 'h',
+            showline: true,
+          };
+          var data = [trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+            margin:{t:30},
+          }
+        Plotly.newPlot(divId , data, layout);
+      }
+        else if(gType == "histogram"){
+        var trace = {
+          y: ydata,
+          x: xdata,
+          marker:{
+             color: color
+          },
+          type: 'histogram',
+          showline: true,
+        };
+
+
+        var data = [trace];
+        var layout = {
+          title: {
+            text: graphtitle,
+            font: {
+              family: 'Courier New, monospace',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.5,
+          },
+          xaxis: {
+              title: {
+                  text: xtitle,
+                  font: {
+                      family: 'Courier New, monospace',
+                      size: 18,
+                      color: '#7f7f7f'
+                  }
+              },
+          },
+          yaxis: {
+              title: {
+                  text: ytitle,
+                  font: {
+                      family: 'Courier New, monospace',
+                      size: 18,
+                      color: '#7f7f7f'
+                  }
+              }
+          },
+            bargap: 0.005,
+            bargroupgap: 0.02,
+        }
+
+           Plotly.newPlot(divId , data, layout);
+      }
+        else if(gType == "line"){
+          var trace = {
+            y: ydata,
+            x: xdata,
+            marker:{
+               color: color
+            },
+            type: 'scatter',
+            showline: true,
+          };
+
+
+          var data = [trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            xaxis: {
+                title: {
+                    text: xtitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: ytitle,
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 18,
+                        color: '#7f7f7f'
+                    }
+                }
+            },
+              bargap: 0.005,
+              bargroupgap: 0.02,
+          }
+
+             Plotly.newPlot(divId , data, layout);
+
+      }
+        else if(gType == "pie"){
+
+          var trace = {
+              values: ydata,
+              labels: xdata,
+              type: 'pie',
+              showline: true,
+          };
+          var data =[trace];
+          var layout = {
+            title: {
+              text: graphtitle,
+              font: {
+                family: 'Courier New, monospace',
+                size: 24
+              },
+              xref: 'paper',
+              x: 0.5,
+            },
+            margin:{
+                t: 40
+            },
+            displaylogo:false
+          };
+          Plotly.newPlot(divId, data, layout);
+
+      }
 
           // viewChart(xdata, ydata, xLabel, yLabel, divId.id);
           let durl = '/giveDatasetName/';

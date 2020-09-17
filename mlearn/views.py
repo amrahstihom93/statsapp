@@ -301,7 +301,7 @@ def saveMLmodel(request):
 		print(os.listdir('static/model'))
 		print(filename+'.pkl')
 		os.rename(file, 'static/model/'+filename+'.pkl')
-
+		msg = 'saved successfully'
 		return HttpResponse(msg)
 
 	msg = 'error while saving mlearn model'
