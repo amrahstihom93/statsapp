@@ -15,7 +15,7 @@ import json, datetime
 def chart(request):
     return render(request, 'chart.html')
 
-
+# Create and brings the chart data for front end rendering
 def makechart(request, graph_type, dataset_name):
     client = MongoClient()
     db = client.datasetDatadb
@@ -29,6 +29,7 @@ def makechart(request, graph_type, dataset_name):
     })
 
 
+# Getting saved file chart data from secondary dataset
 def get_data(request, graph_type, dataset_name):
     #	labels = ["India", "Sri lanka", "Austria", "England", "Greenland"]
     #	default_items = [23,2,3,12,2]
@@ -60,6 +61,7 @@ def get_data(request, graph_type, dataset_name):
     return JsonResponse(data)
 
 
+# Formatting Chart data for visualization
 @csrf_exempt
 def visualization_data(request, dataset_name):
     print("in visualization_data backend")

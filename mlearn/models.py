@@ -13,7 +13,7 @@ class Poll(Document):
     pub_date = DateTimeField(help_text='date published')
     choices = ListField(EmbeddedDocumentField(Choice))
 
-
+# data to be sent in postgres
 class mlearn(models.Model):
 	mlearn_id = models.CharField(max_length = 250, null=False, blank=True)
 	mlearn_name = models.CharField(max_length = 250, null=False, blank=True)

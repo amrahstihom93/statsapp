@@ -1,6 +1,8 @@
 from django.db import models
 from accounts.models import ClientList, Profile
 from django.contrib.auth.models import User
+
+# setting up modal to save process module 
 class Process(models.Model):
 	process_id = models.CharField(primary_key=True, max_length=250, unique=True)
 	process_name = models.CharField(max_length = 250, null=False, blank=True)

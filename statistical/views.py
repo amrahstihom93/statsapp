@@ -21,7 +21,6 @@ from scipy import stats
 
 # Create your views here.
 
-
 def saveAnalytics(request):
 	print('I am in save function')
 	vForm = analytical()

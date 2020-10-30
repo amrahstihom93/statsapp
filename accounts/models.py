@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from phonenumber_field.modelfields import PhoneNumberField
 
-
+#client database models for postgres
 class ClientList(models.Model):
     company_name = models.CharField(max_length=100, unique=True)
     client_id = models.CharField(max_length=100, unique=True, primary_key=True)

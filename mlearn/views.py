@@ -29,7 +29,7 @@ import os
 regressor = 1
 list_pickle = 1
 
-
+#regression model calculation
 def calcsregression(request):
 	print('We are in calcsregression')
 	global describeDict
@@ -250,7 +250,7 @@ def calcsregression(request):
 
 	return JsonResponse(responseData,safe=False)
 
-
+# formatting and saving modal values in database
 def saveMLmodel(request):
 	print(describeDict)
 	print('I am in save model function')
@@ -325,7 +325,7 @@ def savemodel(request):
 	msg = 'error while saving statistical summary'
 	return HttpResponse(msg)
 
-
+# multiple regression modal (inclomplete still formatting needs to be done)
 def multiregression(request):
 	print('we are in multiregression algo')
 	responseData =''

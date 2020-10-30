@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import JSONField
 from upload.models import Dataset
-	
+
+# database model class for visualziation module
 class visualization(models.Model):
 	visualization_id = models.CharField(max_length = 250, null=False, blank=True)
 	visualization_name = models.CharField(max_length = 250, null=False, blank=True)

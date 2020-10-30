@@ -24,7 +24,7 @@ SECRET_KEY = '8q%xx+w0s=8#7pe8e1^%*!+ruo1%5y=1uilczq-jgb01c8t31m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# ONLY for HOST and SMTP
 ALLOWED_HOSTS = ['192.168.0.6','statsv1-cloned-m0h17sh4rm4.c9users.io', '127.0.0.1']
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -48,10 +48,10 @@ INSTALLED_APPS = [
 	'upload',
 	'process',
 	'phonenumber_field',
-    'charts',
-    'statistical',
+    	'charts',
+    	'statistical',
 	'mlearn',
-    'qtools',
+    	'qtools',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +87,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'statsproject.wsgi.application'
 
 
-# Database
+# Database first settings are from primary database and secondary one is mongoDB atm
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
