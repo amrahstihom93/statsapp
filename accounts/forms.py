@@ -42,8 +42,8 @@ class SignUpForm(UserCreationForm):
         print(company)
         print(company_name)
         client = ClientList()
-        print('from clean method' + company_name)
-        print('from clean method' + company)
+        # print('from clean method' + company_name)
+        # print('from clean method' + company)
         # if 0 == 0:
         #     raise ValidationError("test error")
         if firm == 'company':
