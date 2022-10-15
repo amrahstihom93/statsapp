@@ -25,7 +25,7 @@ SECRET_KEY = '8q%xx+w0s=8#7pe8e1^%*!+ruo1%5y=1uilczq-jgb01c8t31m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # ONLY for HOST and SMTP
-ALLOWED_HOSTS = ['192.168.0.6','statsv1-cloned-m0h17sh4rm4.c9users.io', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.6','statsv1-cloned-m0h17sh4rm4.c9users.io', '127.0.0.1', 'localhost']
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sigmaway12'
@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'statsproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'statictics3',
+        'NAME': 'statistics3',
 		'USER' : 'postgres',
 		'PASSWORD':'password',
 		'HOST': 'localhost',
@@ -158,3 +158,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

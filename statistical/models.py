@@ -1,16 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import JSONField
 from upload.models import Dataset
+from django.db.models import JSONField
 
 class statistical(models.Model):
 	statistical_id = models.CharField(max_length = 250, null=False, blank=True)
 	statistical_name = models.CharField(max_length = 250, null=False, blank=True)
 	statistical_method = models.CharField(max_length = 250, null=False, blank=True)
-	statistical_calculated_value = JSONField(default={})
+	statistical_calculated_value = JSONField(default=dict)
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 	dataset_id = models.ForeignKey(Dataset, on_delete=models.CASCADE, blank=True, null=True)
-	parameters = JSONField(default={})
+	parameters = JSONField(default=dict)
 	test = models.CharField(max_length = 250, null=False, blank=True)
 
 
@@ -18,18 +18,18 @@ class analytical(models.Model):
 	analytical_id = models.CharField(max_length = 250, null=False, blank=True)
 	analytical_name = models.CharField(max_length = 250, null=False, blank=True)
 	analytical_method = models.CharField(max_length = 250, null=False, blank=True)
-	analytical_calculated_value = JSONField(default={})
+	analytical_calculated_value = JSONField(default=dict)
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 	dataset_id = models.ForeignKey(Dataset, on_delete=models.CASCADE, blank=True, null=True)
-	parameters = JSONField(default={})
+	parameters = JSONField(default=dict)
 	test = models.CharField(max_length = 250, null=False, blank=True)
 
 class hypothetical(models.Model):
 	hypothetical_id = models.CharField(max_length = 250, null=False, blank=True)
 	hypothetical_name = models.CharField(max_length = 250, null=False, blank=True)
 	hypothetical_method = models.CharField(max_length = 250, null=False, blank=True)
-	hypothetical_calculated_value = JSONField(default={})
+	hypothetical_calculated_value = JSONField(default=dict)
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 	dataset_id = models.ForeignKey(Dataset, on_delete=models.CASCADE, blank=True, null=True)
-	parameters = JSONField(default={})
+	parameters = JSONField(default=dict)
 	test = models.CharField(max_length = 250, null=False, blank=True)
