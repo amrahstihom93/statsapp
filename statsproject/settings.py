@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'statsproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'statistics3',
+        'NAME': 'statistics2',
 		'USER' : 'postgres',
 		'PASSWORD':'password',
 		'HOST': 'localhost',
