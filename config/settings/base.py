@@ -12,7 +12,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # ──────────────────────────────────────────────
 # SECURITY
 # ──────────────────────────────────────────────
-SECRET_KEY = config('SECRET_KEY', default='change-me-in-production-use-env-file')
+# Prefer an explicit SECRET_KEY; fall back to the Replit-managed SESSION_SECRET
+# secret so no plaintext key needs to live in config files or shared env vars.
+SECRET_KEY = config('SECRET_KEY', default=config('SESSION_SECRET', default='change-me-in-production-use-env-file'))
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
 
@@ -217,4 +219,12 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
     'http://127.0.0.1:5174',
 ]
+
+# Trust the Replit dev/preview domain(s) so form POSTs (login, admin, etc.)
+# pass CSRF checks when the app is accessed through the Replit webview proxy.
+_replit_domains = config('REPLIT_DOMAINS', default='', cast=Csv())
+for _domain in _replit_domains:
+    if _domain:
+        CSRF_TRUSTED_ORIGINS.append(f'https://{_domain}')
+CSRF_TRUSTED_ORIGINS.append('https://*.replit.dev')
 
