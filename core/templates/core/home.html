@@ -1,0 +1,845 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{% block title %}Sigma Statistics{% endblock %}</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Peralta" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+	  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<!--<link rel="stylesheet" href="{% static 'css/demo.css' %}">-->
+	  <link rel="stylesheet" href="{% static 'css/component.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nowui/now-ui-kit.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/nowui/demo.css' %}">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link href="{% static 'css/nowui/fa-all.css' %}" rel="stylesheet">
+
+	<script src="{% static 'angular/angular1.2.5.js' %}"></script>
+	<script src="{% static 'angular/angular-route1.2.5.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+    {% block stylesheet %}{% endblock %}
+  </head>
+  <body ng-app="statsApp" class=" login-page sidebar-collapse">
+    {% block body %}
+
+		<div >
+      {% if user.is_authenticated %}
+      <style>
+        /* Modern Dashboard Navbar (Overrides local) */
+        .dash-nav {
+          background: rgba(10, 10, 10, 0.85);
+          backdrop-filter: blur(15px);
+          -webkit-backdrop-filter: blur(15px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 15px 30px;
+          position: fixed;
+          top: 0;
+          width: 100%;
+          z-index: 1030;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .dash-brand {
+          font-family: 'Archivo Black', sans-serif;
+          font-weight: 400;
+          font-size: 1.5rem;
+          color: #fff;
+          text-decoration: none;
+          letter-spacing: -0.5px;
+        }
+        
+        .dash-brand:hover {
+          color: var(--accent, #ccff00);
+          text-decoration: none;
+        }
+
+        .dash-nav-right {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .user-dropdown-btn {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #fff;
+          padding: 8px 20px;
+          border-radius: 30px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+
+        .user-dropdown-btn:hover {
+          border-color: var(--accent, #ccff00);
+          background: rgba(204, 255, 0, 0.1);
+        }
+
+        .custom-dropdown-menu {
+          background: #0f0f0f;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+          padding: 10px;
+          min-width: 200px;
+          margin-top: 15px;
+        }
+
+        .custom-dropdown-menu .dropdown-item {
+          color: #a1a1aa;
+          padding: 10px 15px;
+          border-radius: 8px;
+          transition: all 0.2s;
+        }
+
+        .custom-dropdown-menu .dropdown-item:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: #fff;
+        }
+      </style>
+
+      <nav class="dash-nav">
+        <div class="dash-brand">
+          <a href="{% url 'home' %}">SIGMA.</a>
+        </div>
+        <div class="dash-nav-right">
+          <a href="{% url 'home' %}" class="user-dropdown-btn" style="text-decoration: none;" title="Go to Dashboard">
+            <i class="fas fa-home"></i>
+            <span style="font-weight: 600; margin-left: 5px;">Dashboard</span>
+          </a>
+          <button onclick="toggleTheme()" class="user-dropdown-btn" style="padding: 8px 12px;" title="Toggle Theme">
+            <i id="theme-toggle-icon" class="fas fa-sun"></i>
+          </button>
+          <script>
+              // Set initial icon
+              if (document.documentElement.getAttribute('data-theme') === 'light') {
+                  document.getElementById('theme-toggle-icon').className = 'fas fa-moon';
+              }
+          </script>
+          <div class="dropdown">
+            <button class="user-dropdown-btn" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle"></i>
+              {{ user.username }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right custom-dropdown-menu" aria-labelledby="userDropdown">
+              <span class="dropdown-item-text" style="color: #fff; font-weight: 600; padding: 10px 15px; display: block;">Workspace Settings</span>
+              <div class="dropdown-divider" style="border-top-color: rgba(255,255,255,0.1)"></div>
+              <a class="dropdown-item" href="#">My Account</a>
+              <a class="dropdown-item" href="#">Change Password</a>
+              <div class="dropdown-divider" style="border-top-color: rgba(255,255,255,0.1)"></div>
+              <a class="dropdown-item" href="{% url 'logout' %}" style="color: #ff4d4d;">
+                <i class="fas fa-sign-out-alt mr-2"></i> Terminate Session
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      {% endif %}
+      <!-- End Navbar -->
+
+		<!--<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">Sigma Statistics</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainMenu">
+		  	<ul class="navbar-nav"
+				<li class="nav-item active">
+					<a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">About Us</a>
+				</li>
+			</ul>
+            {% if user.is_authenticated %}
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ user.username }}
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                    <a class="dropdown-item" href="#">My account</a>
+                    <a class="dropdown-item" href="#">Change password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                  </div>
+                </li>
+              </ul>
+            {% else %}
+              <form class="form-inline ml-auto">
+                <a href="{% url 'login' %}" class="btn btn-dark">Log in</a>
+                <a href="{% url 'signup' %}" class="btn btn-warning ml-2">Sign up</a>
+              </form>
+            {% endif %}
+          </div>
+        </div>
+      </nav>-->
+
+<!--
+      <div class="container">
+        <ol class="breadcrumb my-4">
+          {% block breadcrumb %}
+          {% endblock %}
+        </ol>
+        {% block content %}
+
+        {% endblock %}
+      </div>-->
+	  {% if user.is_authenticated %}
+<style>
+    /* Global Dark Mode specifically for Dashboard home */
+    body {
+        background-color: #050505 !important;
+        color: #f4f4f5 !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    /* Dashboard Layout */
+    .dashboard-container {
+        padding: 100px 5vw 50px 5vw;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .dashboard-header {
+        margin-bottom: 50px;
+    }
+
+    .dashboard-header h1 {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 400;
+        letter-spacing: -1px;
+        margin: 0;
+        color: #fff;
+    }
+
+    .dashboard-header p {
+        color: var(--text-muted, #a1a1aa);
+        font-size: 1.2rem;
+        margin-top: 10px;
+    }
+
+    /* CSS Grid for Cards */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    /* Glassmorphism Cards */
+    .dash-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 250px;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dash-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, rgba(204,255,0,0.1) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+
+    .dash-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(204, 255, 0, 0.3);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .dash-card:hover::before {
+        opacity: 1;
+    }
+
+    .dash-card-icon {
+        font-size: 2.5rem;
+        color: var(--accent, #ccff00);
+        margin-bottom: 20px;
+    }
+
+    .dash-card-title {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    .dash-card-desc {
+        color: #a1a1aa;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Command Center.</h1>
+        <p>Access your statistical workspaces and tools.</p>
+    </div>
+    
+    <div class="dashboard-grid">
+        <!-- Process -->
+        <a href="{% url 'datasetlist' %}#/createProcess" class="dash-card hover-target">
+            <div>
+                <div class="dash-card-icon"><i class="fas fa-industry"></i></div>
+                <div class="dash-card-title">Process</div>
+                <div class="dash-card-desc">Craft a customized approach to process improvement. Optimize speed and impact.</div>
+            </div>
+        </a>
+
+        <!-- Dashboard -->
+        <a href="{% url 'datasetlist' %}#/dashboard" class="dash-card hover-target">
+            <div>
+                <div class="dash-card-icon"><i class="fas fa-chart-bar"></i></div>
+                <div class="dash-card-title">Dashboard</div>
+                <div class="dash-card-desc">Monitor key metrics and track real-time analytics across your datasets.</div>
+            </div>
+        </a>
+
+        <!-- Dataset -->
+        <a href="{% url 'datasetlist' %}#/createDataset" class="dash-card hover-target">
+            <div>
+                <div class="dash-card-icon"><i class="fas fa-database"></i></div>
+                <div class="dash-card-title">Dataset</div>
+                <div class="dash-card-desc">Upload, clean, and manage your raw data for statistical analysis.</div>
+            </div>
+        </a>
+
+        <!-- Visualization -->
+        <a href="{% url 'datasetlist' %}#/createVisual" class="dash-card hover-target">
+            <div>
+                <div class="dash-card-icon"><i class="fas fa-layer-group"></i></div>
+                <div class="dash-card-title">Visualization</div>
+                <div class="dash-card-desc">Create powerful, dynamic visual narratives from your datasets.</div>
+            </div>
+        </a>
+
+        <!-- Analytics -->
+        <a href="{% url 'datasetlist' %}#/analyticsSubmenu" class="dash-card hover-target">
+            <div>
+                <div class="dash-card-icon"><i class="fas fa-brain"></i></div>
+                <div class="dash-card-title">Analytics</div>
+                <div class="dash-card-desc">Deploy descriptive statistics, hypothesis testing, and deep analytics.</div>
+            </div>
+        </a>
+
+        <!-- Process Map -->
+        <a href="{% url 'processmap' %}" class="dash-card hover-target">
+            <div>
+                <div class="dash-card-icon"><i class="fas fa-project-diagram"></i></div>
+                <div class="dash-card-title">Process Map</div>
+                <div class="dash-card-desc">Visually map out complex workflows and architectural logic.</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+
+	  {% else %}
+			<!-- Awwwards Style Artistic Landing Page -->
+			<style>
+				@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Archivo+Black&display=swap');
+
+				:root {
+					--bg-color: #050505;
+					--text-main: #f4f4f5;
+					--text-muted: #a1a1aa;
+					--accent: #ccff00; /* Neon Lime */
+					--accent-hover: #b3e600;
+				}
+
+				html, body {
+					margin: 0;
+					padding: 0;
+					background-color: var(--bg-color);
+					color: var(--text-main);
+					font-family: 'Inter', sans-serif;
+					overflow-x: hidden;
+					cursor: none; /* Custom Cursor */
+				}
+
+				h1, h2, h3, h4 {
+					font-family: 'Archivo Black', sans-serif;
+					margin: 0;
+					font-weight: 400;
+				}
+
+				a {
+					text-decoration: none;
+					color: inherit;
+					cursor: none;
+				}
+
+				/* Custom Cursor */
+				.cursor-dot, .cursor-outline {
+					position: fixed;
+					top: 0; left: 0;
+					transform: translate(-50%, -50%);
+					border-radius: 50%;
+					z-index: 9999;
+					pointer-events: none;
+				}
+				.cursor-dot {
+					width: 8px;
+					height: 8px;
+					background-color: var(--accent);
+				}
+				.cursor-outline {
+					width: 40px;
+					height: 40px;
+					border: 1px solid rgba(204, 255, 0, 0.5);
+					transition: width 0.2s, height 0.2s, background-color 0.2s;
+				}
+				/* When hovering over clickable elements via JS class */
+				.cursor-hover .cursor-outline {
+					width: 60px;
+					height: 60px;
+					background-color: rgba(204, 255, 0, 0.1);
+					border-color: transparent;
+				}
+
+				/* Navbar override for landing page */
+				.landing-nav {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 30px 5vw;
+					position: absolute;
+					width: 100%;
+					top: 0;
+					box-sizing: border-box;
+					z-index: 100;
+					mix-blend-mode: difference;
+				}
+				.landing-logo {
+					font-family: 'Archivo Black', sans-serif;
+					font-size: 1.5rem;
+					font-weight: 400;
+					letter-spacing: -0.5px;
+				}
+				.landing-links {
+					display: flex;
+					gap: 40px;
+					align-items: center;
+				}
+				.landing-links a {
+					font-size: 0.9rem;
+					font-weight: 500;
+					text-transform: uppercase;
+					letter-spacing: 1px;
+					transition: color 0.3s;
+				}
+				.landing-links a:hover {
+					color: var(--accent);
+				}
+				.btn-accent {
+					background-color: var(--accent);
+					color: #000;
+					padding: 12px 28px;
+					border-radius: 50px;
+					font-weight: 600;
+					transition: transform 0.3s, background-color 0.3s;
+					display: inline-block;
+				}
+				.btn-accent:hover {
+					background-color: var(--accent-hover);
+					transform: scale(1.05);
+					color: #000;
+				}
+
+				/* Abstract Background Elements */
+				.bg-mesh {
+					position: absolute;
+					width: 100vw;
+					height: 100vh;
+					top: 0; left: 0;
+					overflow: hidden;
+					z-index: -1;
+				}
+				.mesh-blob {
+					position: absolute;
+					border-radius: 50%;
+					filter: blur(80px);
+					opacity: 0.6;
+					animation: float 20s infinite ease-in-out;
+				}
+				.blob-1 {
+					width: 600px; height: 600px;
+					background: radial-gradient(circle, rgba(204,255,0,0.15) 0%, rgba(0,0,0,0) 70%);
+					top: -100px; left: -100px;
+				}
+				.blob-2 {
+					width: 800px; height: 800px;
+					background: radial-gradient(circle, rgba(50,50,255,0.1) 0%, rgba(0,0,0,0) 70%);
+					bottom: -200px; right: -200px;
+					animation-delay: -5s;
+				}
+
+				@keyframes float {
+					0%, 100% { transform: translate(0, 0) scale(1); }
+					33% { transform: translate(30px, -50px) scale(1.1); }
+					66% { transform: translate(-20px, 20px) scale(0.9); }
+				}
+
+				/* Hero Section */
+				.hero-container {
+					height: 100vh;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					padding: 0 5vw;
+					position: relative;
+				}
+				.hero-title-wrapper {
+					overflow: hidden;
+				}
+				.hero-title {
+					font-size: clamp(4rem, 12vw, 12rem);
+					line-height: 0.9;
+					letter-spacing: -0.04em;
+					text-transform: uppercase;
+					color: transparent;
+					-webkit-text-stroke: 1px rgba(255,255,255,0.8);
+					background: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop') no-repeat center;
+					background-size: cover;
+					-webkit-background-clip: text;
+					background-clip: text;
+					animation: bgReveal 10s ease infinite alternate;
+				}
+				.hero-title span {
+					display: block;
+					color: var(--text-main);
+					-webkit-text-stroke: 0;
+					background: none;
+				}
+				@keyframes bgReveal {
+					0% { background-position: 0% 50%; }
+					100% { background-position: 100% 50%; }
+				}
+
+				.hero-subtitle {
+					font-size: clamp(1rem, 2vw, 1.2rem);
+					max-width: 500px;
+					margin-top: 40px;
+					line-height: 1.6;
+					color: var(--text-muted);
+					border-left: 2px solid var(--accent);
+					padding-left: 20px;
+				}
+
+				/* Infinite Marquee */
+				.marquee-wrapper {
+					width: 100%;
+					overflow: hidden;
+					background: var(--accent);
+					color: #000;
+					padding: 15px 0;
+					transform: rotate(-2deg) translateY(-20px);
+					position: relative;
+					z-index: 10;
+					width: 105%;
+					left: -2%;
+				}
+				.marquee-content {
+					display: flex;
+					width: fit-content;
+					animation: marquee 20s linear infinite;
+				}
+				.marquee-item {
+					font-family: 'Archivo Black', sans-serif;
+					font-size: 1.5rem;
+					font-weight: 400;
+					text-transform: uppercase;
+					padding: 0 2vw;
+					white-space: nowrap;
+				}
+				@keyframes marquee {
+					0% { transform: translateX(0); }
+					100% { transform: translateX(-50%); }
+				}
+
+				/* Asymmetric Features Grid */
+				.editorial-section {
+					padding: 150px 5vw;
+				}
+				.section-header {
+					font-size: clamp(2rem, 5vw, 4rem);
+					margin-bottom: 80px;
+					line-height: 1;
+					text-transform: uppercase;
+				}
+				.feature-row {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					padding: 60px 0;
+					border-top: 1px solid rgba(255,255,255,0.1);
+					gap: 40px;
+					position: relative;
+					transition: background-color 0.4s;
+				}
+				.feature-row:hover {
+					background-color: rgba(255,255,255,0.02);
+				}
+				.feature-row:last-child {
+					border-bottom: 1px solid rgba(255,255,255,0.1);
+				}
+				.feature-num {
+					font-family: 'Archivo Black', sans-serif;
+					font-size: 3rem;
+					font-weight: 400;
+					color: var(--accent);
+					flex: 0 0 100px;
+				}
+				.feature-content {
+					flex: 1;
+				}
+				.feature-title {
+					font-size: 2.5rem;
+					margin-bottom: 15px;
+					letter-spacing: -1px;
+				}
+				.feature-desc {
+					color: var(--text-muted);
+					font-size: 1.1rem;
+					line-height: 1.5;
+					max-width: 400px;
+				}
+				.feature-img-wrapper {
+					flex: 0 0 35%;
+					height: 250px;
+					overflow: hidden;
+					border-radius: 20px;
+					opacity: 0;
+					transform: translateX(50px) scale(0.9);
+					transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+				}
+				.feature-row:hover .feature-img-wrapper {
+					opacity: 1;
+					transform: translateX(0) scale(1);
+				}
+				.feature-img-wrapper img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					filter: grayscale(100%);
+					transition: filter 0.5s;
+				}
+				.feature-row:hover .feature-img-wrapper img {
+					filter: grayscale(0%);
+				}
+
+				/* Huge CTA Footer */
+				.footer-cta {
+					height: 80vh;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					text-align: center;
+					flex-direction: column;
+					position: relative;
+				}
+				.huge-text {
+					font-family: 'Archivo Black', sans-serif;
+					font-size: clamp(3rem, 10vw, 10rem);
+					font-weight: 400;
+					line-height: 0.8;
+					text-transform: uppercase;
+					cursor: pointer;
+					transition: color 0.3s, -webkit-text-stroke 0.3s;
+				}
+				.huge-text:hover {
+					color: transparent;
+					-webkit-text-stroke: 2px var(--accent);
+				}
+				.footer-bottom {
+					position: absolute;
+					bottom: 30px;
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					padding: 0 5vw;
+					box-sizing: border-box;
+					font-size: 0.8rem;
+					color: var(--text-muted);
+					text-transform: uppercase;
+					letter-spacing: 1px;
+				}
+
+				@media (max-width: 768px) {
+					.feature-row { flex-direction: column; align-items: flex-start; }
+					.feature-img-wrapper { display: none; }
+					.landing-links { display: none; }
+				}
+			</style>
+
+			<!-- Custom Cursor -->
+			<div class="cursor-dot"></div>
+			<div class="cursor-outline"></div>
+
+			<!-- Nav -->
+			<nav class="landing-nav">
+				<div class="landing-logo">SIGMA.</div>
+				<div class="landing-links">
+					<a href="#" class="hover-target">Platform</a>
+					<a href="#" class="hover-target">Solutions</a>
+					<a href="{% url 'login' %}" class="hover-target">Sign In</a>
+					<a href="{% url 'signup' %}" class="btn-accent hover-target">Start Free</a>
+				</div>
+			</nav>
+
+			<!-- Mesh BG -->
+			<div class="bg-mesh">
+				<div class="mesh-blob blob-1"></div>
+				<div class="mesh-blob blob-2"></div>
+			</div>
+
+			<!-- Hero -->
+			<section class="hero-container">
+				<div class="hero-title-wrapper">
+					<h1 class="hero-title">Statistical<br><span>Intelligence</span></h1>
+				</div>
+				<p class="hero-subtitle">We redefine how data is processed, visualized, and modeled. A brutalist approach to elegant analytics.</p>
+			</section>
+
+			<!-- Marquee -->
+			<div class="marquee-wrapper">
+				<div class="marquee-content">
+					<div class="marquee-item">Data Processing • </div>
+					<div class="marquee-item">Advanced Visualization • </div>
+					<div class="marquee-item">Machine Learning • </div>
+					<div class="marquee-item">Predictive Analytics • </div>
+					<div class="marquee-item">Data Processing • </div>
+					<div class="marquee-item">Advanced Visualization • </div>
+					<div class="marquee-item">Machine Learning • </div>
+					<div class="marquee-item">Predictive Analytics • </div>
+				</div>
+			</div>
+
+			<!-- Features -->
+			<section class="editorial-section">
+				<h2 class="section-header">Core<br>Capabilities.</h2>
+				
+				<div class="feature-row hover-target">
+					<div class="feature-num">01</div>
+					<div class="feature-content">
+						<h3 class="feature-title">Data Alchemy</h3>
+						<p class="feature-desc">Transform chaotic raw data into structured gold. Automated cleaning, merging, and transformations.</p>
+					</div>
+					<div class="feature-img-wrapper">
+						<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data Process">
+					</div>
+				</div>
+
+				<div class="feature-row hover-target">
+					<div class="feature-num">02</div>
+					<div class="feature-content">
+						<h3 class="feature-title">Visual Narratives</h3>
+						<p class="feature-desc">Beyond charts. Interactive, dynamic storytelling tools that make your analytics visceral and undeniable.</p>
+					</div>
+					<div class="feature-img-wrapper">
+						<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" style="filter: hue-rotate(90deg);" alt="Visualization">
+					</div>
+				</div>
+
+				<div class="feature-row hover-target">
+					<div class="feature-num">03</div>
+					<div class="feature-content">
+						<h3 class="feature-title">Predictive Core</h3>
+						<p class="feature-desc">Deploy sophisticated ML models directly in-browser. Zero infrastructure, infinite scaling.</p>
+					</div>
+					<div class="feature-img-wrapper">
+						<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Machine Learning">
+					</div>
+				</div>
+			</section>
+
+			<!-- Footer CTA -->
+			<section class="footer-cta">
+				<a href="{% url 'signup' %}" class="hover-target">
+					<div class="huge-text">Initiate<br>Sequence</div>
+				</a>
+				<div class="footer-bottom">
+					<div>© 2026 Sigma Statistics</div>
+					<div>Design Driven</div>
+				</div>
+			</section>
+
+			<!-- Custom Cursor Script -->
+			<script>
+				document.addEventListener('DOMContentLoaded', () => {
+					const cursorDot = document.querySelector('.cursor-dot');
+					const cursorOutline = document.querySelector('.cursor-outline');
+					
+					window.addEventListener('mousemove', (e) => {
+						const posX = e.clientX;
+						const posY = e.clientY;
+						
+						cursorDot.style.left = `${posX}px`;
+						cursorDot.style.top = `${posY}px`;
+						
+						// Slight delay for outline
+						cursorOutline.animate({
+							left: `${posX}px`,
+							top: `${posY}px`
+						}, { duration: 500, fill: "forwards" });
+					});
+
+					const hoverTargets = document.querySelectorAll('.hover-target');
+					hoverTargets.forEach(target => {
+						target.addEventListener('mouseenter', () => {
+							document.body.classList.add('cursor-hover');
+						});
+						target.addEventListener('mouseleave', () => {
+							document.body.classList.remove('cursor-hover');
+						});
+					});
+				});
+			</script>
+		{% endif %}
+		</div>
+
+
+
+    {% endblock body %}
+
+	<script>
+		var static_url = '{{STATIC_URL}}'
+	</script>
+
+    <script src="{% static 'js/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/popper/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/EasePack.min.js' %}"></script>
+    <script src="{% static 'js/TweenLite.min.js' %}"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="{% static 'js/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/demo-1.js' %}"></script>
+    <script src="{% static 'js/rAF.js' %}"></script>
+    <script src="{% static 'js/nowui/now-ui-kit.js' %}"></script>
+  </body>
+</html>

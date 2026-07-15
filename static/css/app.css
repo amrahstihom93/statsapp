@@ -73,6 +73,11 @@
 .full-cntnt{
 	width: 100%;
 	padding: 2%;
+    transition: all 0.3s;
+}
+
+.sidebar-collapsed {
+    width: 100%;
 }
 
 

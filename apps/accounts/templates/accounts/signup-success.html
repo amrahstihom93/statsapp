@@ -1,0 +1,19 @@
+{% extends "core/base_accounts.html" %}
+
+{% block title %}Account Created - SIGMA{% endblock %}
+
+{% block content %}
+<div class="auth-form" style="text-align: center;">
+	<h3 style="font-family: 'Archivo Black', sans-serif; color: var(--accent); margin-bottom: 20px; font-weight: 400; letter-spacing: 1px;">Initialization Complete</h3>
+	
+	<p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;">
+		{{ success_msg|default:"Your statistical profile has been generated successfully." }}
+	</p>
+	
+	{% if success_msg %}
+		<a href="{% url 'login' %}" class="btn-accent hover-target" style="display: block; text-decoration: none;">Proceed to Dashboard</a>
+	{% else %}
+		<a href="{% url 'login' %}" class="btn-accent hover-target" style="display: block; text-decoration: none;">Proceed to Dashboard</a>
+	{% endif %}
+</div>
+{% endblock %}
