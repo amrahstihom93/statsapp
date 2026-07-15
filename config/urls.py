@@ -2,22 +2,10 @@
 URL Configuration for statsproject.
 Django 4.2 compatible — uses path() and re_path() from django.urls.
 """
-from django.urls import path, re_path, include
+from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
-
-# Import views from the new app locations
-from core import views as core_views
-from apps.accounts import views as accounts_views
-from apps.datasets import views as dataset_upload_views
-from apps.processes import views as process_views
-from apps.analytics import views as analytics_views
-from apps.analytics.charts_src import views as chart_views
-from apps.machinelearning import views as ml_views
-from apps.processmap import views as processmap_views
-from apps.qualitytools import views as qualitytools_views
 
 urlpatterns = [
     # ── Core ────────────────────────────────────────────────────────────────
@@ -104,8 +92,41 @@ urlpatterns = [
 
     # ── Admin ────────────────────────────────────────────────────────────────
     path('admin/', admin.site.urls),
+
+    # ── API v1 JSON REST endpoints (React connection) ─────────────────────────
+    path('api/v1/auth/csrf/', accounts_api.csrf_token_view, name='api-csrf'),
+    path('api/v1/auth/me/', accounts_api.me, name='api-me'),
+    path('api/v1/auth/login/', accounts_api.login_view, name='api-login'),
+    path('api/v1/auth/logout/', accounts_api.logout_view, name='api-logout'),
+    path('api/v1/auth/complete-tour/', accounts_api.complete_tour_view, name='api-complete-tour'),
+    
+    path('api/v1/clients/', accounts_api.clients_view, name='api-clients'),
+    path('api/v1/users/', accounts_api.users_view, name='api-users'),
+    path('api/v1/users/<int:user_id>/assign-client/', accounts_api.assign_client_view, name='api-assign-client'),
+    
+    path('api/v1/datasets/', datasets_api.datasets_list_view, name='api-datasets-list'),
+    path('api/v1/datasets/upload/', datasets_api.dataset_upload_view, name='api-dataset-upload'),
+    path('api/v1/datasets/<str:dataset_id>/preview/', datasets_api.dataset_preview_view, name='api-dataset-preview'),
+    path('api/v1/datasets/<str:dataset_id>/', datasets_api.dataset_delete_view, name='api-dataset-delete'),
+
+    path('api/v1/processes/', processes_api.processes_view, name='api-processes'),
+    
+    path('', include('core.urls')),
+    path('', include('apps.accounts.urls')),
+    path('', include('apps.datasets.urls')),
+    path('', include('apps.analytics.urls')),
+    path('', include('apps.processes.urls')),
+    path('', include('apps.machinelearning.urls')),
+    path('', include('apps.processmap.urls')),
+    path('', include('apps.qualitytools.urls')),
+    path('api/v1/auth/', include('apps.accounts.api_urls')),
+    path('api/v1/datasets/', include('apps.datasets.api_urls')),
+    path('api/v1/processes/', include('apps.processes.api_urls')),
+    path('api/v1/analytics/', include('apps.analytics.api_urls')),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

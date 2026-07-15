@@ -36,25 +36,28 @@ EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'statsapp',
-	'widget_tweaks',
-	'accounts',
-	'upload',
-	'process',
-	'phonenumber_field',
-    	'charts',
-    	'statistical',
-	'mlearn',
-    	'qtools',
+    'django.contrib.sites',
+    'rest_framework',
+    'widget_tweaks',
+    'phonenumber_field',
+    'apps.accounts',
+    'apps.datasets',
+    'apps.processes',
+    'apps.analytics',
+    'apps.machinelearning',
+    'apps.processmap',
+    'apps.qualitytools',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +67,30 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'statsproject.urls'
+# ── CORS / CSRF for React frontend ──────────────────────────────────────────
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https?://localhost:\d+$",
+    r"^https?://127\.0\.0\.1:\d+$",
+]
+CORS_ALLOW_CREDENTIALS = True
+
+# Permissive cookies for local cross-origin development
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False   # Must be readable by JavaScript
+CSRF_USE_SESSIONS = False      # Ensure standard cookie-based CSRF is used
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:5174',
+]
+
+ROOT_URLCONF = 'config.urls'
+SITE_ID = 1
 
 TEMPLATES = [
     {
