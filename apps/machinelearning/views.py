@@ -25,7 +25,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 from json import JSONEncoder
 import statsmodels.api as sm
-from .models import mlearn
+from .models import mlearn as MLModel
 
 logger = logging.getLogger(__name__)
 
@@ -172,7 +172,7 @@ def saveMLmodel(request):
         os.rename(model_path, final_path)
 
         # Save to database
-        v = mlearn()
+        v = MLModel()
         v.mlearn_name = model_name
         v.user_id = User.objects.get(pk=request.user.id)
         v.mlearn_id = f'ml_{model_name}_{datetime.datetime.now().strftime("%Y%m%d%H%M%S")}'
@@ -252,7 +252,7 @@ def multiregression(request):
 def mlist(request):
     """List all saved ML models for the current user."""
     try:
-        ml_list = mlearn.objects.filter(user_id=request.user.id).values()
+        ml_list = MLModel.objects.filter(user_id=request.user.id).values()
         return JsonResponse(list(ml_list), safe=False)
     except Exception as e:
         logger.error(f"mlist error: {e}")
@@ -262,7 +262,7 @@ def mlist(request):
 def mldat(request):
     """Debug endpoint — list available ML models."""
     try:
-        count = mlearn.objects.filter(user_id=request.user.id).count()
+        count = MLModel.objects.filter(user_id=request.user.id).count()
         return HttpResponse(f"You have {count} saved ML models.")
     except Exception as e:
         return HttpResponse(f"Error: {e}", status=500)
