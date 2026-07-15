@@ -35,8 +35,9 @@
 
 
         <!-- <script src="{% static 'js/jscolor.js' %}" ></script> -->
-	<script src="{% static 'angular/angular1.2.5.js' %}"></script>
-	<script src="{% static 'angular/angular-route1.2.5.js' %}"></script>
+	<script src="{% static 'js/vendor/angular/angular1.2.5.js' %}"></script>
+	<script src="{% static 'js/vendor/angular/angular-route1.2.5.js' %}"></script>
+    <script>var static_url = '{{ STATIC_URL }}';</script>
     <script src="{% static 'js/app.js' %}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
@@ -332,9 +333,9 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src ="https://code.jquery.com/jquery-3.3.1.js"></script>
-      <script src="{% static 'js/jquery/jquery-3.2.1.min.js' %}"></script>
+      <script src="{% static 'js/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
       <script src="{% static 'js/popper/popper.min.js' %}"></script>
-      <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/vendor/bootstrap/bootstrap.min.js' %}"></script>
     	<script src="{% static 'js/papaparse.min.js' %}"></script>
       <script src="{% static 'js/sidebar.js' %}"></script>
     	<script src="{% static 'js/shim.js' %}"></script>

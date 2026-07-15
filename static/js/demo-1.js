@@ -13,9 +13,17 @@
         target = {x: width/2, y: height/2};
 
         largeHeader = document.getElementById('large-header');
-        largeHeader.style.height = height+'px';
-
         canvas = document.getElementById('demo-canvas');
+
+        // This decorative animation only applies to pages using the old
+        // demo markup (#large-header / #demo-canvas). Bail out quietly on
+        // any page that doesn't have it instead of throwing.
+        if (!largeHeader || !canvas) {
+            animateHeader = false;
+            return;
+        }
+
+        largeHeader.style.height = height+'px';
         canvas.width = width;
         canvas.height = height;
         ctx = canvas.getContext('2d');
@@ -92,11 +100,13 @@
     }
 
     function scrollCheck() {
+        if (!largeHeader || !canvas) return;
         if(document.body.scrollTop > height) animateHeader = false;
         else animateHeader = true;
     }
 
     function resize() {
+        if (!largeHeader || !canvas) return;
         width = window.innerWidth;
         height = window.innerHeight;
         largeHeader.style.height = height+'px';
