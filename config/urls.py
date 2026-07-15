@@ -2,26 +2,10 @@
 URL Configuration for statsproject.
 Django 4.2 compatible — uses path() and re_path() from django.urls.
 """
-from django.urls import path, re_path, include
+from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
-
-# Import views from the new app locations
-from core import views as core_views
-from apps.accounts import views as accounts_views
-from apps.accounts import api_views as accounts_api
-from apps.datasets import views as dataset_upload_views
-from apps.datasets import api_views as datasets_api
-from apps.processes import views as process_views
-from apps.processes import api_views as processes_api
-from apps.analytics import views as analytics_views
-from apps.analytics import api_views as analytics_api
-from apps.analytics.charts_src import views as chart_views
-from apps.machinelearning import views as ml_views
-from apps.processmap import views as processmap_views
-from apps.qualitytools import views as qualitytools_views
 
 urlpatterns = [
     # ── Core ────────────────────────────────────────────────────────────────
@@ -127,10 +111,19 @@ urlpatterns = [
 
     path('api/v1/processes/', processes_api.processes_view, name='api-processes'),
     
-    path('api/v1/analytics/stats/', analytics_api.stats_list_view, name='api-stats-list'),
-    path('api/v1/analytics/analytical/', analytics_api.analytics_list_view, name='api-analytics-list'),
-    path('api/v1/analytics/models/', analytics_api.ml_models_view, name='api-ml-models'),
-    path('api/v1/analytics/summary/', analytics_api.dashboard_summary_view, name='api-dashboard-summary'),
+    path('', include('core.urls')),
+    path('', include('apps.accounts.urls')),
+    path('', include('apps.datasets.urls')),
+    path('', include('apps.analytics.urls')),
+    path('', include('apps.processes.urls')),
+    path('', include('apps.machinelearning.urls')),
+    path('', include('apps.processmap.urls')),
+    path('', include('apps.qualitytools.urls')),
+    path('api/v1/auth/', include('apps.accounts.api_urls')),
+    path('api/v1/datasets/', include('apps.datasets.api_urls')),
+    path('api/v1/processes/', include('apps.processes.api_urls')),
+    path('api/v1/analytics/', include('apps.analytics.api_urls')),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
