@@ -1,0 +1,25 @@
+site_name: Sigma Statistics Docs
+theme:
+  name: material
+  palette:
+    scheme: slate
+nav:
+  - Home: index.md
+  - Business:
+    - Product Vision: business/PRODUCT_VISION.md
+    - KPIs: business/KPI_METRICS.md
+    - User Journeys: business/USER_JOURNEYS.md
+  - Developers:
+    - Getting Started: developers/GETTING_STARTED.md
+    - Architecture: developers/ARCHITECTURE.md
+    - API Reference: developers/API_REFERENCE.md
+    - Frontend Guidelines: developers/FRONTEND_GUIDELINES.md
+  - Maintainers:
+    - Deployment: maintainers/DEPLOYMENT.md
+    - Database Migrations: maintainers/DATABASE_MIGRATIONS.md
+    - Troubleshooting: maintainers/TROUBLESHOOTING.md
+  - Legacy Docs:
+    - Business Usage: BUSINESS_USAGE.md
+    - Dashboard Tutorial: DASHBOARD_TUTORIAL.md
+    - Developer Guide: DEVELOPER_GUIDE.md
+    - Technical Architecture: TECHNICAL_ARCHITECTURE.md
