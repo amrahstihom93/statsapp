@@ -11,9 +11,13 @@ from django.contrib.auth import views as auth_views
 # Import views from the new app locations
 from core import views as core_views
 from apps.accounts import views as accounts_views
+from apps.accounts import api_views as accounts_api
 from apps.datasets import views as dataset_upload_views
+from apps.datasets import api_views as datasets_api
 from apps.processes import views as process_views
+from apps.processes import api_views as processes_api
 from apps.analytics import views as analytics_views
+from apps.analytics import api_views as analytics_api
 from apps.analytics.charts_src import views as chart_views
 from apps.machinelearning import views as ml_views
 from apps.processmap import views as processmap_views
@@ -104,8 +108,32 @@ urlpatterns = [
 
     # ── Admin ────────────────────────────────────────────────────────────────
     path('admin/', admin.site.urls),
+
+    # ── API v1 JSON REST endpoints (React connection) ─────────────────────────
+    path('api/v1/auth/csrf/', accounts_api.csrf_token_view, name='api-csrf'),
+    path('api/v1/auth/me/', accounts_api.me, name='api-me'),
+    path('api/v1/auth/login/', accounts_api.login_view, name='api-login'),
+    path('api/v1/auth/logout/', accounts_api.logout_view, name='api-logout'),
+    path('api/v1/auth/complete-tour/', accounts_api.complete_tour_view, name='api-complete-tour'),
+    
+    path('api/v1/clients/', accounts_api.clients_view, name='api-clients'),
+    path('api/v1/users/', accounts_api.users_view, name='api-users'),
+    path('api/v1/users/<int:user_id>/assign-client/', accounts_api.assign_client_view, name='api-assign-client'),
+    
+    path('api/v1/datasets/', datasets_api.datasets_list_view, name='api-datasets-list'),
+    path('api/v1/datasets/upload/', datasets_api.dataset_upload_view, name='api-dataset-upload'),
+    path('api/v1/datasets/<str:dataset_id>/preview/', datasets_api.dataset_preview_view, name='api-dataset-preview'),
+    path('api/v1/datasets/<str:dataset_id>/', datasets_api.dataset_delete_view, name='api-dataset-delete'),
+
+    path('api/v1/processes/', processes_api.processes_view, name='api-processes'),
+    
+    path('api/v1/analytics/stats/', analytics_api.stats_list_view, name='api-stats-list'),
+    path('api/v1/analytics/analytical/', analytics_api.analytics_list_view, name='api-analytics-list'),
+    path('api/v1/analytics/models/', analytics_api.ml_models_view, name='api-ml-models'),
+    path('api/v1/analytics/summary/', analytics_api.dashboard_summary_view, name='api-dashboard-summary'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
