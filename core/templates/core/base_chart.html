@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,8 +8,8 @@
 
     <title>Visualization</title>
 
-    {% include 'base/css.html' %}
-    {% include 'base/bootstrap_defaults.html' %}
+    {% include 'core/base/css.html' %}
+    {% include 'core/base/bootstrap_defaults.html' %}
   </head>
   <body>
     <div class='container'>
@@ -17,7 +17,7 @@
     {% block content %}
     {% endblock content %}
     </div>
-    {% include 'base/js.html' %}
+    {% include 'core/base/js.html' %}
     <script>
     $(document).ready(function(){
       {% block jquery %}{% endblock %}

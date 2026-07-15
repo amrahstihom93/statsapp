@@ -6,10 +6,20 @@ from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from apps.processmap import views as processmap_views
 
 urlpatterns = [
     # ── Admin ────────────────────────────────────────────────────────────────
     path('admin/', admin.site.urls),
+
+    # ── Process Map is linked as a real page nav (see
+    # apps/datasets/templates/datasets/datasetSubmenu: href="processmap"), so
+    # it needs an explicit prefixed path — its own urls.py registers '' for
+    # this view, expecting to be included at a prefix. Quality Tools, by
+    # contrast, is only ever opened via an in-page Angular hash route
+    # (#qualityTools) inside the dataset workspace, which loads a static
+    # partial — no real Django page exists for it, so no route is added here.
+    path('processmap/', processmap_views.processmap, name='processmap'),
 
     # ── App routes (each app owns its own urls.py, included below) ──────────
     path('', include('core.urls')),
